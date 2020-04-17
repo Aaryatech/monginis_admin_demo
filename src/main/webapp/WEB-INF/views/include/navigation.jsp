@@ -113,6 +113,9 @@
                <li ><a href="${pageContext.request.contextPath}/showDashboard"> <i
 						class="fa fa-dashboard"></i> <span>Dashboard2</span>
 				</a></li>
+				<li ><a href="${pageContext.request.contextPath}/getSalesDashboardData"> <i
+						class="fa fa-dashboard"></i> <span>Sales Dashboard</span>
+				</a></li>
 				<c:forEach items="${sessionScope.newModuleList}" var="allModuleList"
 									varStatus="count">
 

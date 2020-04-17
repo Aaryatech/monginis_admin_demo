@@ -13,11 +13,11 @@ public class Constants {
 	public static final String RAW_MAT_IMG_URL = "http://97.74.228.55:8080/uploads/RAWMAT/";
 	public static final String GATE_ENTRY_IMG_URL = "http://97.74.228.55:8080/uploads/GATEENTRY/";
 	public static final String GVN_IMAGE_URL = "http://97.74.228.55:8080/uploads/GVN/";
-	public static String FACTORYNAME = "Siddharth Foods";
-	public static String FACTORYADDRESS = "C-2, A/8, Plot No. 183/1, Phase - 1 ,GIDC Naroda, Ahmedabad - 382330";
+	public static String FACTORYNAME = "Monginis";
+	public static String FACTORYADDRESS = "";
 	public static final String FACTORYGSTIN = "-";
-	public static final String CITY = "Ahmedabad";
-	public static final String STATE = "GUJARAT";
+	public static final String CITY = "";
+	public static final String STATE = "";
 	public static final String CODE = "SF";
 
 	public static int mainAct = 0;
