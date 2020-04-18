@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
@@ -13,7 +14,7 @@
 }
 </style>
 
-<body onload="radioSelection(${radio});drawGraph()">
+<body onload="radioSelection(${radio});drawGraph();drawChart()">
 	<jsp:include page="/WEB-INF/views/include/logout.jsp"></jsp:include>
 	<!-- BEGIN Container -->
 
@@ -137,20 +138,29 @@
 
 					<div class="col-md-2">
 
+						<fmt:formatNumber var="sale" minFractionDigits="2"
+							maxFractionDigits="2" type="number" value="${totalAmt.totalSale}" />
+
 						<label class="control-label">Total Sale</label> <br> <label
-							class="control-label">${totalAmt.totalSale}</label>
+							class="control-label">${sale}</label>
 
 					</div>
 					<div class="col-md-2">
+
+						<fmt:formatNumber var="crn" minFractionDigits="2"
+							maxFractionDigits="2" type="number" value="${totalAmt.totalCrn}" />
 
 						<label class="control-label">Credit Note Sale</label> <br> <label
-							class="control-label">${totalAmt.totalCrn}</label>
+							class="control-label">${crn}</label>
 
 					</div>
 					<div class="col-md-2">
 
+						<fmt:formatNumber var="net" minFractionDigits="2"
+							maxFractionDigits="2" type="number" value="${totalAmt.netTotal}" />
+
 						<label class="control-label">Net Sale</label> <br> <label
-							class="control-label">${totalAmt.netTotal}</label>
+							class="control-label">${net}</label>
 
 					</div>
 
@@ -168,7 +178,7 @@
 
 					</div>
 
-					<div class="col-md-5">
+					<div class="col-md-3">
 
 						<div class="row">
 							<div class="col-md-12">
@@ -201,6 +211,32 @@
 
 					</div>
 
+					<div class="col-md-2">
+
+						<div class="row">
+							<div class="col-md-12 table-responsive">
+								<div
+									style="overflow: scroll; height: 100%; width: 100%; overflow: auto">
+
+									<table class="table table-bordered table-striped fill-head "
+										style="width: 100%" id="table_grid1">
+										<thead style="background-color: #f3b5db;">
+											<tr>
+												<th style="text-align: center;">Sub Category</th>
+												<th style="text-align: center;">Amount</th>
+
+											</tr>
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
 				</div>
 			</div>
 
@@ -215,14 +251,15 @@
 							style="width: 100%" id="table_grid">
 							<thead style="background-color: #f3b5db;">
 								<tr>
-									<th>Sr.No.</th>
-									<th>Item Name</th>
-									<th>Sale Qty</th>
-									<th>Sale Amt</th>
-									<th>CRN Qty</th>
-									<th>CRN Amt</th>
-									<th>Net Qty</th>
-									<th>Net Amt</th>
+									<th style="text-align: center;">Sr.No.</th>
+									<th style="text-align: center;">Item Name</th>
+									<th style="text-align: center;">Sale Qty</th>
+									<th style="text-align: center;">Sale Amt</th>
+									<th style="text-align: center;">CRN Qty</th>
+									<th style="text-align: center;">CRN Amt</th>
+									<th style="text-align: center;">Net Qty</th>
+									<th style="text-align: center;">Net Amt</th>
+									<th style="text-align: center;">Contribution</th>
 
 								</tr>
 							</thead>
@@ -328,10 +365,12 @@
 
 			//alert("hi - ");
 
-			google.charts.load('current', {
-				'packages' : [ 'corechart', 'line' ]
+			 google.charts.load('current', {
+				'packages' : [ 'corechart', 'bar' ]
 			});
-			google.charts.setOnLoadCallback(drawStuffCat);
+			google.charts.setOnLoadCallback(drawStuffCat); 
+			
+			
 
 			google.charts.load("current", {
 				packages : [ "corechart" ]
@@ -400,7 +439,10 @@
 
 				var materialOptions = {
 					width : 600,
-					height : 200,
+					height : 400,
+					//isStacked: 'percent',
+					bar: { groupWidth: '45%' },
+					isStacked:true,
 					chart : {
 						title : ' ',
 						subtitle : ' '
@@ -422,7 +464,7 @@
 					}
 				};
 
-				var materialChart = new google.visualization.LineChart(chartDiv);
+				var materialChart = new google.visualization.ColumnChart(chartDiv);
 
 				function selectQtyHandler() {
 					// alert("hii");
@@ -442,7 +484,7 @@
 						'select', selectQtyHandler);
 
 				function drawMaterialChart() {
-					materialChart.draw(dataTable, google.charts.Line
+					materialChart.draw(dataTable, google.charts.Bar
 							.convertOptions(materialOptions));
 				}
 
@@ -503,6 +545,8 @@
 			}, function(chartsdata) {
 				//alert("---" + JSON.stringify(chartsdata));
 
+				$('#table_grid1 td').remove();
+					
 				var len = chartsdata.length;
 				datag = datag + '[';
 				$.each(chartsdata, function(key, chartsdata) {
@@ -546,6 +590,24 @@
 					}
 
 					dataSale.push(temp);
+					
+					
+					//SET TABLE
+
+					var tr = $('<tr></tr>');
+
+					tr.append($('<td></td>').html(chartsdata.subCatName));
+
+					if (type == 1) {
+						tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(sale))));
+					}else if (type == 2) {
+						tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(crn))));
+					}else if (type == 3) {
+						tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(net))));
+					}
+					
+
+					$('#table_grid1 tbody').append(tr);
 
 				});
 
@@ -616,6 +678,8 @@
 				ajax : 'true'
 			}, function(chartsdata) {
 				//alert("---" + JSON.stringify(chartsdata));
+				
+				$('#table_grid1 td').remove();
 
 				var len = chartsdata.length;
 				datag = datag + '[';
@@ -660,6 +724,23 @@
 					}
 
 					dataSale.push(temp);
+					
+					//SET TABLE
+					
+					var tr = $('<tr></tr>');
+
+					tr.append($('<td></td>').html(chartsdata.subCatName));
+
+					if (type == 1) {
+						tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(sale))));
+					}else if (type == 2) {
+						tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(crn))));
+					}else if (type == 3) {
+						tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(net))));
+					}
+					
+
+					$('#table_grid1 tbody').append(tr);
 
 				});
 
@@ -748,6 +829,20 @@
 			}, function(data) {
 
 				$('#table_grid td').remove();
+				
+				var saleTotal=0;
+				var saleQtyTotal=0;
+				var crnTotal=0;
+				var crnQtyTotal=0;
+				var netTotal=0;
+				var netQtyTotal=0;
+				
+				var tot=0;
+				var contriTot=0;
+				
+				$.each(data, function(key, item) {
+					tot=tot+parseFloat(item.net);
+				});
 
 				$.each(data, function(key, item) {
 
@@ -759,21 +854,59 @@
 
 					tr.append($('<td></td>').html(item.itemName));
 
-					tr.append($('<td></td>').html(item.saleQty));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.saleQty))));
 
-					tr.append($('<td></td>').html(item.sale));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.sale))));
 
-					tr.append($('<td></td>').html(item.crnQty));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.crnQty))));
 
-					tr.append($('<td></td>').html(item.crn));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.crn))));
 
-					tr.append($('<td></td>').html(item.netQty));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.netQty))));
 
-					tr.append($('<td></td>').html(item.net));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.net))));
+					
+					var contri=0;
+					if(tot>0){
+						contri=(parseFloat(item.net)*100)/tot;	
+					}
+					
+					contriTot=contriTot+contri;
+					
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseFloat(contri).toFixed(2))));
 
 					$('#table_grid tbody').append(tr);
+					
+					saleTotal=saleTotal+item.sale;
+					saleQtyTotal=saleQtyTotal+item.saleQty;
+					crnTotal=crnTotal+item.crn;
+					crnQtyTotal=crnQtyTotal+item.crnQty;
+					netTotal=netTotal+item.net;
+					netQtyTotal=netQtyTotal+item.netQty;
 
 				})
+				
+				var tr = $('<tr></tr>');
+
+				tr.append($('<td style="font-weight: bold;" colspan=2></td>').html("TOTAL"));
+
+				//tr.append($('<td style="font-weight: bold;"></td>').html(" "));
+
+				tr.append($('<td style="font-weight: bold; text-align:right;"></td>').html(addCommas(parseInt(saleQtyTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(saleTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(crnQtyTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(crnTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(netQtyTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(netTotal))));
+				
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseFloat(contriTot).toFixed(2))));
+
+				$('#table_grid tbody').append(tr);
 
 			});
 		}
@@ -797,6 +930,20 @@
 			}, function(data) {
 
 				$('#table_grid td').remove();
+				
+				var saleTotal=0;
+				var saleQtyTotal=0;
+				var crnTotal=0;
+				var crnQtyTotal=0;
+				var netTotal=0;
+				var netQtyTotal=0;
+				
+				var tot=0;
+				var contriTot=0;
+				
+				$.each(data, function(key, item) {
+					tot=tot+parseFloat(item.net);
+				});
 
 				$.each(data, function(key, item) {
 
@@ -808,22 +955,60 @@
 
 					tr.append($('<td></td>').html(item.itemName));
 
-					tr.append($('<td></td>').html(item.saleQty));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.saleQty))));
 
-					tr.append($('<td></td>').html(item.sale));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.sale))));
 
-					tr.append($('<td></td>').html(item.crnQty));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.crnQty))));
 
-					tr.append($('<td></td>').html(item.crn));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.crn))));
 
-					tr.append($('<td></td>').html(item.netQty));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.netQty))));
 
-					tr.append($('<td></td>').html(item.net));
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseInt(item.net))));
+					
+					var contri=0;
+					if(tot>0){
+						contri=(parseFloat(item.net)*100)/tot;	
+					}
+					
+					contriTot=contriTot+contri;
+					
+					tr.append($('<td style="text-align:right;"></td>').html(addCommas(parseFloat(contri).toFixed(2))));
 
 					$('#table_grid tbody').append(tr);
+					
+					saleTotal=saleTotal+item.sale;
+					saleQtyTotal=saleQtyTotal+item.saleQty;
+					crnTotal=crnTotal+item.crn;
+					crnQtyTotal=crnQtyTotal+item.crnQty;
+					netTotal=netTotal+item.net;
+					netQtyTotal=netQtyTotal+item.netQty;
 
 				})
 
+				var tr = $('<tr></tr>');
+
+				tr.append($('<td style="font-weight: bold;" colspan=2></td>').html("TOTAL"));
+
+				//tr.append($('<td style="font-weight: bold;"></td>').html(" "));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(saleQtyTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(saleTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(crnQtyTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(crnTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(netQtyTotal))));
+
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseInt(netTotal))));
+				
+				tr.append($('<td style="font-weight: bold;  text-align:right;"></td>').html(addCommas(parseFloat(contriTot).toFixed(2))));
+
+				$('#table_grid tbody').append(tr);
+				
 			});
 		}
 	</script>
@@ -1091,6 +1276,26 @@
 		}
 	</script>
 
+
+
+	<script type="text/javascript">
+
+	function addCommas(x){
+
+		x=String(x).toString();
+		 var afterPoint = '';
+		 if(x.indexOf('.') > 0)
+		    afterPoint = x.substring(x.indexOf('.'),x.length);
+		 x = Math.floor(x);
+		 x=x.toString();
+		 var lastThree = x.substring(x.length-3);
+		 var otherNumbers = x.substring(0,x.length-3);
+		 if(otherNumbers != '')
+		     lastThree = ',' + lastThree;
+		 return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		} 
+
+	</script>
 
 
 	<!-- CHARTS -->
