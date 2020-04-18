@@ -167,7 +167,56 @@
 
 				</div>
 			</div>
+			
+			<br>
 
+			<div class="row">
+				<div class="col-md-3">
+
+					<label class="radio-inline"> <input type="radio"
+						name="rdSale" id="rdFrSale" value="1"
+						${radioFrRoute==1 ? 'checked' : ''} checked="checked"
+						onchange="radioSaleSelection(this.value)" /> Franchisee Wise Sale
+					</label>
+
+				</div>
+
+				<div class="col-md-3">
+					<label class="radio-inline"> <input type="radio"
+						name="rdSale" id="rdRouteSale" value="2"
+						${radioFrRoute==2 ? 'checked' : ''}
+						onchange="radioSaleSelection(this.value)" /> Route Wise Sale
+					</label>
+
+				</div>
+
+				<div class="col-md-6"></div>
+
+			</div>
+
+			<div class="row" id="frDiv">
+				<div class="col-md-12">
+
+					<div id="frBarChart1"></div>
+
+				</div>
+			</div>
+
+			<div class="row" id="routeDiv" style="display: none;">
+				<div class="col-md-6">
+
+					<div id="routeBarChart"></div>
+
+				</div>
+
+				<div class="col-md-6">
+
+					<div id="frBarChart2"></div>
+
+				</div>
+
+			</div>
+<br><br>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -271,54 +320,7 @@
 				</div>
 			</div>
 
-			<br>
-
-			<div class="row">
-				<div class="col-md-3">
-
-					<label class="radio-inline"> <input type="radio"
-						name="rdSale" id="rdFrSale" value="1"
-						${radioFrRoute==1 ? 'checked' : ''} checked="checked"
-						onchange="radioSaleSelection(this.value)" /> Franchisee Wise Sale
-					</label>
-
-				</div>
-
-				<div class="col-md-3">
-					<label class="radio-inline"> <input type="radio"
-						name="rdSale" id="rdRouteSale" value="2"
-						${radioFrRoute==2 ? 'checked' : ''}
-						onchange="radioSaleSelection(this.value)" /> Route Wise Sale
-					</label>
-
-				</div>
-
-				<div class="col-md-6"></div>
-
-			</div>
-
-			<div class="row" id="frDiv">
-				<div class="col-md-12">
-
-					<div id="frBarChart1"></div>
-
-				</div>
-			</div>
-
-			<div class="row" id="routeDiv" style="display: none;">
-				<div class="col-md-6">
-
-					<div id="routeBarChart"></div>
-
-				</div>
-
-				<div class="col-md-6">
-
-					<div id="frBarChart2"></div>
-
-				</div>
-
-			</div>
+			
 
 
 			<footer>
@@ -409,7 +411,7 @@
 			var dataTable = new google.visualization.DataTable();
 
 			dataTable.addColumn('string', 'Category'); // Implicit domain column.
-			dataTable.addColumn('number', 'Sale'); // Implicit data column. 
+			//dataTable.addColumn('number', 'Sale'); // Implicit data column. 
 			dataTable.addColumn('number', 'Credit Note');
 			dataTable.addColumn('number', 'Net');
 
@@ -429,7 +431,7 @@
 				$.each(chartsBardata, function(key, chartsBardata) {
 
 					dataTable.addRows([ [ chartsBardata.catName,
-							parseInt(chartsBardata.sale),
+							//parseInt(chartsBardata.sale),
 							parseInt(chartsBardata.crn),
 							parseInt(chartsBardata.net) ] ]);
 
