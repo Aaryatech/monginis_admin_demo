@@ -1,6 +1,5 @@
 package com.ats.adminpanel.model.production.mixing.temp;
 
-
 //same bean used for Bom and mixing
 
 public class GetSFPlanDetailForMixing {
@@ -29,8 +28,9 @@ public class GetSFPlanDetailForMixing {
 	
 	//private float mulFactor; // Not in new Query by sumit Sir 30 Jan 2018
 	//private int sfId;
-	
-	
+	//Sac 20-04-2020
+	private float singleCut;
+	private float doubleCut;
 
 	public int getItemDetailId() {
 		return itemDetailId;
@@ -112,11 +112,32 @@ public class GetSFPlanDetailForMixing {
 		this.total = total;
 	}
 
+	
+	
+	
+	public float getSingleCut() {
+		return singleCut;
+	}
+
+	public void setSingleCut(float singleCut) {
+		this.singleCut = singleCut;
+	}
+
+	public float getDoubleCut() {
+		return doubleCut;
+	}
+
+	public void setDoubleCut(float doubleCut) {
+		this.doubleCut = doubleCut;
+	}
+
 	@Override
 	public String toString() {
 		return "GetSFPlanDetailForMixing [itemDetailId=" + itemDetailId + ", itemId=" + itemId + ", rmType=" + rmType
 				+ ", rmId=" + rmId + ", uom=" + uom + ", rmQty=" + rmQty + ", noPiecesPerItem=" + noPiecesPerItem
-				+ ", rmName=" + rmName + ", planQty=" + planQty + ", total=" + total + "]";
+				+ ", rmName=" + rmName + ", planQty=" + planQty + ", total=" + total + ", singleCut=" + singleCut
+				+ ", doubleCut=" + doubleCut + "]";
 	}
 
+	
 }

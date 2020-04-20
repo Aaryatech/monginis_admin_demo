@@ -71,8 +71,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Controller
 @Scope("session")
-
-public class BomController {
+@RequestMapping("no")
+public class BomControllerOld {
 
 	GetSFPlanDetailForMixingList getSFPlanDetailForBomList;
 
@@ -86,8 +86,8 @@ public class BomController {
 	int globalHeaderId;
 	int globalIsPlan;
 
-	@RequestMapping(value = "/showBom/{prodHeaderId}/{isMix}/{date}/{isPlan}/{catId}/{fromDept}/{toDept}", method = RequestMethod.GET)
-	public ModelAndView showBom2(@PathVariable int prodHeaderId, @PathVariable int isMix, @PathVariable String date,@PathVariable String fromDept,@PathVariable String toDept,
+	@RequestMapping(value = "/showBom/{prodHeaderId}/{isMix}/{date}/{isPlan}/{catId}", method = RequestMethod.GET)
+	public ModelAndView showBom2(@PathVariable int prodHeaderId, @PathVariable int isMix, @PathVariable String date,
 			@PathVariable int isPlan, @PathVariable int catId, HttpServletRequest request, HttpServletResponse response)
 			throws ParseException {
 
@@ -105,13 +105,7 @@ public class BomController {
 			RestTemplate restTemplate = new RestTemplate();
 			if (isMix == 1) {
 				System.out.println("It is Production BOM ");
-				 map.add("settingKeyList", toDept);
-		            FrItemStockConfigureList settingList = restTemplate.postForObject(Constants.url + "getDeptSettingValue", map,
-				    FrItemStockConfigureList.class);
-		           
-		            map = new LinkedMultiValueMap<String, Object>();
-					map.add("headerId", prodHeaderId);
-					map.add("deptId", settingList.getFrItemStockConfigure().get(0).getSettingValue());
+				map.add("headerId", prodHeaderId);
 
 				getSFPlanDetailForBomList = restTemplate.postForObject(Constants.url + "getSfPlanDetailForBom", map,
 						GetSFPlanDetailForMixingList.class);
@@ -152,8 +146,7 @@ public class BomController {
 			}
 
 			mav.addObject("isMix", isMix);
-			mav.addObject("fromDept", fromDept);
-			mav.addObject("toDept", toDept);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -175,9 +168,10 @@ public class BomController {
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		int userId = userResponse.getUser().getId();
-		 String fromDept =request.getParameter("fromDept");
-		 String toDept = request.getParameter("toDept");
-		map.add("settingKeyList", toDept);
+
+		String settingKey = new String();
+		settingKey = "BMS";
+		map.add("settingKeyList", settingKey);
 		FrItemStockConfigureList settingList = restTemplate.postForObject(Constants.url + "getDeptSettingValue", map,
 				FrItemStockConfigureList.class);
 
@@ -234,7 +228,9 @@ public class BomController {
 			if (isMixing == 1) {
 
 				map = new LinkedMultiValueMap<String, Object>();
-				map.add("settingKeyList", fromDept);
+				String settingKey1 = new String();
+				settingKey1 = "PROD";
+				map.add("settingKeyList", settingKey1);
 				FrItemStockConfigureList settingList1 = restTemplate
 						.postForObject(Constants.url + "getDeptSettingValue", map, FrItemStockConfigureList.class);
 				int fromDeptId = settingList1.getFrItemStockConfigure().get(0).getSettingValue();
@@ -244,6 +240,8 @@ public class BomController {
 				billOfMaterialHeader.setFromDeptId(fromDeptId);
 				billOfMaterialHeader.setFromDeptName(fromDeptName);
 				billOfMaterialHeader.setIsPlan(globalIsPlan);
+
+				billOfMaterialHeader.setIsPlan(0);
 
 				for (int i = 0; i < sfPlanDetailForBom.size(); i++) {
 
@@ -260,9 +258,6 @@ public class BomController {
 					bomDetail.setRmReqQty(Float.parseFloat(editQty));
 					bomDetail.setRmName(sfPlanDetailForBom.get(i).getRmName());
 
-					bomDetail.setExVarchar1(sfPlanDetailForBom.get(i).getSingleCut()+"");
-					bomDetail.setExVarchar2(sfPlanDetailForBom.get(i).getDoubleCut()+"");
-					
 					bomDetail.setRejectedQty(0);
 					bomDetail.setAutoRmReqQty(sfPlanDetailForBom.get(i).getTotal());
 
@@ -283,8 +278,6 @@ public class BomController {
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("productionId", prodId);
 					map.add("flag", 1);
-					map.add("deptId", toDeptId);
-					
 					int updateisBom = restTemplate.postForObject(Constants.url + "updateisMixingandBom", map,
 							Integer.class);
 					System.out.println("updateIsBom " + updateisBom);
@@ -308,6 +301,7 @@ public class BomController {
 				billOfMaterialHeader.setFromDeptName(fromDeptName);
 				billOfMaterialHeader.setIsProduction(0);
 
+				billOfMaterialHeader.setIsPlan(0);
 
 				for (int i = 0; i < sFMixingForBom.size(); i++) {
 
@@ -369,8 +363,8 @@ public class BomController {
 	FrItemStockConfigureList PROD = new FrItemStockConfigureList();
 	FrItemStockConfigureList MIX = new FrItemStockConfigureList();
 
-	@RequestMapping(value = "/getBomList/{fromDept}/{toDept}", method = RequestMethod.GET)
-	public ModelAndView getBomList(@PathVariable("fromDept")String fromDept,@PathVariable("toDept")String toDept,HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/getBomList", method = RequestMethod.GET)
+	public ModelAndView getBomList(HttpServletRequest request, HttpServletResponse response) {
 		Constants.mainAct = 8;
 		Constants.subAct = 44;
 
@@ -381,29 +375,33 @@ public class BomController {
 		try {
 			GetBillOfMaterialList getBillOfMaterialList = rest.getForObject(Constants.url + "/getallBOMHeaderList",
 					GetBillOfMaterialList.class);
+
 			Date date = new Date();
 			SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 			System.out.println("date" + df.format(date));
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("settingKeyList", fromDept);
-			 PROD = rest.postForObject(Constants.url + "getDeptSettingValue", map,
-					FrItemStockConfigureList.class);
-			
+			String key = new String();
+			key = "PROD";
+			map.add("settingKeyList", key);
+			PROD = rest.postForObject(Constants.url + "getDeptSettingValue", map, FrItemStockConfigureList.class);
+
 			map = new LinkedMultiValueMap<String, Object>();
-			map.add("settingKeyList", toDept);
-			 MIX = rest.postForObject(Constants.url + "getDeptSettingValue", map,
-					FrItemStockConfigureList.class);
-			 
+			String key1 = new String();
+			key1 = "MIX";
+			map.add("settingKeyList", key1);
+			MIX = rest.postForObject(Constants.url + "getDeptSettingValue", map, FrItemStockConfigureList.class);
+
 			System.out.println("getbomList" + getBillOfMaterialList.getBillOfMaterialHeader().toString());
-			for(int i=0;i<getBillOfMaterialList.getBillOfMaterialHeader().size();i++)
-			{
-				 
-				if(getBillOfMaterialList.getBillOfMaterialHeader().get(i).getStatus()==0 || df.format(date).equals(df.format(getBillOfMaterialList.getBillOfMaterialHeader().get(i).getReqDate())))
-				{
-					//getBillOfMaterialList.getBillOfMaterialHeader().get(i).getFromDeptId()==PROD.getFrItemStockConfigure().get(0).getSettingValue() ||
-					if( getBillOfMaterialList.getBillOfMaterialHeader().get(i).getToDeptId()==MIX.getFrItemStockConfigure().get(0).getSettingValue()) 
-						getbomList.add(getBillOfMaterialList.getBillOfMaterialHeader().get(i)); 
+			for (int i = 0; i < getBillOfMaterialList.getBillOfMaterialHeader().size(); i++) {
+
+				if (getBillOfMaterialList.getBillOfMaterialHeader().get(i).getStatus() == 0 || df.format(date)
+						.equals(df.format(getBillOfMaterialList.getBillOfMaterialHeader().get(i).getReqDate()))) {
+					if (getBillOfMaterialList.getBillOfMaterialHeader().get(i).getFromDeptId() == PROD
+							.getFrItemStockConfigure().get(0).getSettingValue()
+							|| getBillOfMaterialList.getBillOfMaterialHeader().get(i).getFromDeptId() == MIX
+									.getFrItemStockConfigure().get(0).getSettingValue())
+						getbomList.add(getBillOfMaterialList.getBillOfMaterialHeader().get(i));
 				}
 			}
 			System.out.println("bomHeaderList" + getBillOfMaterialList.getBillOfMaterialHeader().toString());
@@ -473,185 +471,123 @@ public class BomController {
 	@RequestMapping(value = "/showProdBOMPdf", method = RequestMethod.GET)
 	public void showProdByOrderPdf(HttpServletRequest request, HttpServletResponse response)
 			throws FileNotFoundException {
-		  BufferedOutputStream outStream = null;
+		BufferedOutputStream outStream = null;
 		System.out.println("Inside show Prod BOM Pdf ");
-		Document doc=new Document();
-			
-		
+		Document doc = new Document();
+
 		List<BillOfMaterialDetailed> bomDetails = bomwithdetaild;
-		
+
 		bomDetails = bomwithdetaild;
 		Document document = new Document(PageSize.A4);
-		//  ByteArrayOutputStream out = new ByteArrayOutputStream();
-		 
+		// ByteArrayOutputStream out = new ByteArrayOutputStream();
+
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
 
 		System.out.println("time in Gen Bill PDF ==" + dateFormat.format(cal.getTime()));
-		String timeStamp=dateFormat.format(cal.getTime());
-		String FILE_PATH=Constants.REPORT_SAVE;
-		File file=new File(FILE_PATH);
-		
+		String timeStamp = dateFormat.format(cal.getTime());
+		String FILE_PATH = Constants.REPORT_SAVE;
+		File file = new File(FILE_PATH);
+
 		PdfWriter writer = null;
-		
-		
-		 FileOutputStream out=new FileOutputStream(FILE_PATH);
-		   try {
-			    writer=PdfWriter.getInstance(document,out);
+
+		FileOutputStream out = new FileOutputStream(FILE_PATH);
+		try {
+			writer = PdfWriter.getInstance(document, out);
 		} catch (DocumentException e) {
-			
+
 			e.printStackTrace();
 		}
-		
-		 PdfPTable table = new PdfPTable(6);
-		 try {
-		 System.out.println("Inside PDF Table try");
-		 table.setWidthPercentage(100);
-	     table.setWidths(new float[]{0.5f, 2.7f, 1.4f, 1.4f,1.0f, 1.0f});
-	     Font headFont = new Font(FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
-	     Font headFont1 = new Font(FontFamily.HELVETICA, 11, Font.BOLD, BaseColor.BLACK);
-	     Font f=new Font(FontFamily.TIMES_ROMAN,12.0f,Font.UNDERLINE,BaseColor.BLUE);
-	     
-	     PdfPCell hcell;
-	     hcell = new PdfPCell(new Phrase("Sr.No.", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     table.addCell(hcell);
 
-	     hcell = new PdfPCell(new Phrase("Item Name", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     table.addCell(hcell);
-	  /*  
-	     hcell = new PdfPCell(new Phrase("Order Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     table.addCell(hcell);
-	     */
-	     hcell = new PdfPCell(new Phrase("Auto Req Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     table.addCell(hcell);
-	     
-	     hcell = new PdfPCell(new Phrase("Req Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     table.addCell(hcell);
-	     
-			/*
-			 * hcell = new PdfPCell(new Phrase("Single Cut", headFont1));
-			 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(hcell);
-			 * 
-			 * 
-			 * hcell = new PdfPCell(new Phrase("Double Cut", headFont1));
-			 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(hcell);
-			 */
-	     
-	     hcell = new PdfPCell(new Phrase("Total Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     table.addCell(hcell);
-	     
-	     hcell = new PdfPCell(new Phrase("Issue Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     table.addCell(hcell);
-	 
-	     int index=0;
-	     for (BillOfMaterialDetailed bomDetail : bomDetails) {
-	       index++;
-	         PdfPCell cell;
+		PdfPTable table = new PdfPTable(3);
+		try {
+			System.out.println("Inside PDF Table try");
+			table.setWidthPercentage(100);
+			table.setWidths(new float[] { 0.5f, 1.4f, 0.5f });
+			Font headFont = new Font(FontFamily.HELVETICA, 8, Font.ITALIC, BaseColor.BLACK);
+			Font headFont1 = new Font(FontFamily.HELVETICA, 8, Font.BOLD, BaseColor.BLACK);
+			Font f = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLUE);
 
-	        cell = new PdfPCell(new Phrase(String.valueOf(index),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setFixedHeight(30f);
-	         table.addCell(cell);
+			PdfPCell hcell;
+			hcell = new PdfPCell(new Phrase("Sr.No.", headFont1));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
 
-	        
-	         cell = new PdfPCell(new Phrase(bomDetail.getRmName(),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	         cell.setPaddingRight(2);
-	         cell.setFixedHeight(30f);
-	         table.addCell(cell);
-	         
-	         cell = new PdfPCell(new Phrase(String.valueOf(bomDetail.getAutoRmReqQty()),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(2);
-	         cell.setFixedHeight(30f);
-	         table.addCell(cell);
-	         
-	         
-	         cell = new PdfPCell(new Phrase(String.valueOf(bomDetail.getRmReqQty()),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(2);
-	         cell.setFixedHeight(30f);
-	         table.addCell(cell);
-	         
-				/*
-				 * cell = new PdfPCell(new
-				 * Phrase(String.valueOf(bomDetail.getExVarchar1()),headFont));
-				 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				 * cell.setHorizontalAlignment(Element.ALIGN_CENTER); cell.setPaddingRight(2);
-				 * cell.setFixedHeight(30f); table.addCell(cell);
-				 * 
-				 * cell = new PdfPCell(new
-				 * Phrase(String.valueOf(bomDetail.getExVarchar2()),headFont));
-				 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				 * cell.setHorizontalAlignment(Element.ALIGN_CENTER); cell.setPaddingRight(2);
-				 * cell.setFixedHeight(30f); table.addCell(cell);
-				 */
-	         
-	         cell = new PdfPCell(new Phrase(Float.parseFloat(bomDetail.getExVarchar1())+Float.parseFloat(bomDetail.getExVarchar2())+"",headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(2);
-	         cell.setFixedHeight(30f);
-	         table.addCell(cell);
-	         
-	         cell = new PdfPCell();//new
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(2);
-	         cell.setFixedHeight(30f);
-	         table.addCell(cell);
-	        	         
-	     }
+			hcell = new PdfPCell(new Phrase("Item Name", headFont1));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
 
-	     document.open();
-	     Paragraph company = new Paragraph(Constants.FACTORYNAME+"\n" + 
-					"Factory Add:"+Constants.FACTORYADDRESS, f);	     company.setAlignment(Element.ALIGN_CENTER);
-	     document.add(company);
+			hcell = new PdfPCell(new Phrase("Order Quantity", headFont1));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(hcell);
 
-	     Paragraph heading = new Paragraph("Report-Request to BMS");
-	     heading.setAlignment(Element.ALIGN_CENTER);
-	     document.add(heading);
-	     DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
+			int index = 0;
+			for (BillOfMaterialDetailed bomDetail : bomDetails) {
+				index++;
+				PdfPCell cell;
+
+				cell = new PdfPCell(new Phrase(String.valueOf(index), headFont));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase(bomDetail.getRmName(), headFont));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+				cell.setPaddingRight(2);
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase(String.valueOf(bomDetail.getRmIssueQty()), headFont));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				cell.setPaddingRight(2);
+				table.addCell(cell);
+
+				// FooterTable footerEvent = new FooterTable(table);
+				// writer.setPageEvent(footerEvent);
+			}
+
+			document.open();
+			Paragraph company = new Paragraph(
+					Constants.FACTORYNAME+"\n" + Constants.FACTORYADDRESS,
+					f);
+			company.setAlignment(Element.ALIGN_CENTER);
+			document.add(company);
+
+			Paragraph heading = new Paragraph("Report-Request to BMS");
+			heading.setAlignment(Element.ALIGN_CENTER);
+			document.add(heading);
+			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 			String reportDate = DF.format(new Date());
-			
-			document.add(new Paragraph(""+ reportDate));
+
+			document.add(new Paragraph("" + reportDate));
 			document.add(new Paragraph("\n"));
-	     document.add(new Paragraph(" "));
-	     document.add(table);
-	 	 int totalPages=writer.getPageNumber();
-	 	/*com.ats.adminpanel.model.itextpdf.Header event; // = new com.ats.adminpanel.model.itextpdf.Header();
-	 	for(int i=1;i<totalPages;i++) {
-	 	 event = new com.ats.adminpanel.model.itextpdf.Header();
-	 	event.setHeader(new Phrase(String.format("page %s", i)));
-	 	
-	 	writer.setPageEvent(event);
-	 	}
-	 	
-	 	
-	 	 FooterTable footerEvent = new FooterTable(table);
-	 	 */
-	 	 
-	 //	 document.add(new Paragraph(""+document.setPageCount(document.getPageNumber()));
-	     
-	 	 System.out.println("Page no "+totalPages);
-	     
-	    // document.addHeader("Page" ,String.valueOf(totalPages));
-	    // writer.setPageEvent((PdfPageEvent) new Phrase());
-	    
-	     document.close();
-	     
-	     if (file != null) {
+			document.add(new Paragraph(" "));
+			document.add(table);
+			int totalPages = writer.getPageNumber();
+			/*
+			 * com.ats.adminpanel.model.itextpdf.Header event; // = new
+			 * com.ats.adminpanel.model.itextpdf.Header(); for(int i=1;i<totalPages;i++) {
+			 * event = new com.ats.adminpanel.model.itextpdf.Header(); event.setHeader(new
+			 * Phrase(String.format("page %s", i)));
+			 * 
+			 * writer.setPageEvent(event); }
+			 * 
+			 * 
+			 * FooterTable footerEvent = new FooterTable(table);
+			 */
+
+			// document.add(new
+			// Paragraph(""+document.setPageCount(document.getPageNumber()));
+
+			System.out.println("Page no " + totalPages);
+
+			// document.addHeader("Page" ,String.valueOf(totalPages));
+			// writer.setPageEvent((PdfPageEvent) new Phrase());
+
+			document.close();
+
+			if (file != null) {
 
 				String mimeType = URLConnection.guessContentTypeFromName(file.getName());
 
@@ -679,22 +615,19 @@ public class BomController {
 					e.printStackTrace();
 				}
 			}
-	      
-	     
-	 } catch (DocumentException ex) {
-	 
-		 System.out.println("Pdf Generation Error: Prod From Orders"+ex.getMessage());
-		 
-		 ex.printStackTrace();
-	   
-	 }
+
+		} catch (DocumentException ex) {
+
+			System.out.println("Pdf Generation Error: Prod From Orders" + ex.getMessage());
+
+			ex.printStackTrace();
+
+		}
 
 		ModelAndView model = new ModelAndView("production/pdf/productionPdf");
-		//model.addObject("prodFromOrderReport",updateStockDetailList);
+		// model.addObject("prodFromOrderReport",updateStockDetailList);
 
-	
 	}
-	
 
 	@RequestMapping(value = "/approvedBom", method = RequestMethod.POST)
 	public String approvedBom(HttpServletRequest request, HttpServletResponse response) {
@@ -705,8 +638,7 @@ public class BomController {
 
 		HttpSession session = request.getSession();
 		UserResponse userResponse = (UserResponse) session.getAttribute("UserDetail");
-		String fromDept=request.getParameter("fromDept");
-		String toDept=request.getParameter("toDept");
+
 		int userId = userResponse.getUser().getId();
 
 		for (int i = 0; i < billOfMaterialHeader.getBillOfMaterialDetailed().size(); i++) {
@@ -738,9 +670,9 @@ public class BomController {
 		Info info = rest.postForObject(Constants.url + "saveBom", billOfMaterialHeader, Info.class);
 		System.out.println(info);
 
-		return "redirect:/getBomList/"+fromDept+"/"+toDept;
+		return "redirect:/getBomList";
 	}
-	
+
 	@RequestMapping(value = "/rejectiontoBms", method = RequestMethod.GET)
 	public ModelAndView rejectiontoBms(HttpServletRequest request, HttpServletResponse response) {
 		/*
@@ -755,8 +687,6 @@ public class BomController {
 
 		return model;
 	}
-	
-	
 
 	@RequestMapping(value = "/updateRejectedQty", method = RequestMethod.POST)
 	public String updateRejectedQty(HttpServletRequest request, HttpServletResponse response) {
@@ -856,7 +786,7 @@ public class BomController {
 			map.add("status", "0,1,2,3,4");
 
 			System.out.println("map" + map);
-//Changed At Api End on 20-04-2020
+
 			GetBillOfMaterialList getBillOfMaterialList = rest.postForObject(Constants.url + "/getBOMHeaderBmsAndStore",
 					map, GetBillOfMaterialList.class);
 
@@ -914,24 +844,21 @@ public class BomController {
 			try {
 
 				map = new LinkedMultiValueMap<String, Object>();
-			
-				map.add("settingKeyList", "PROD");
+				String fromdep = new String();
+				fromdep = "PROD";
+				map.add("settingKeyList", fromdep);
 				fromsettingvalue = rest.postForObject(Constants.url + "getDeptSettingValue", map,
 						FrItemStockConfigureList.class);
 				map = new LinkedMultiValueMap<String, Object>();
-			
-				map.add("settingKeyList",  "MIX");
+				String todep = new String();
+				todep = "BMS";
+				map.add("settingKeyList", todep);
 				tosettingvalue = rest.postForObject(Constants.url + "getDeptSettingValue", map,
 						FrItemStockConfigureList.class);
-				map = new LinkedMultiValueMap<String, Object>();
-				map.add("settingKeyList",  "STORE");
-				FrItemStockConfigureList tosettingvalue1 = rest.postForObject(Constants.url + "getDeptSettingValue", map,
-						FrItemStockConfigureList.class);
-
 
 				map = new LinkedMultiValueMap<String, Object>();
 				map.add("fromDept", fromsettingvalue.getFrItemStockConfigure().get(0).getSettingValue());
-				map.add("toDept", tosettingvalue.getFrItemStockConfigure().get(0).getSettingValue()+","+tosettingvalue1.getFrItemStockConfigure().get(0).getSettingValue());
+				map.add("toDept", tosettingvalue.getFrItemStockConfigure().get(0).getSettingValue());
 				map.add("status", "0,1,2,3,4");
 
 				System.out.println("map" + map);

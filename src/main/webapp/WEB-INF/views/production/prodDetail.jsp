@@ -189,6 +189,10 @@
 
 												<input type="button" value="PDF" class="btn btn-primary"
 													onclick="genPdf()" />
+													
+													<input type="button" value="Prod Line" class="btn btn-primary"
+													onclick="genProdLinePdf()" />
+													
 										<!-- 	</div> -->
 										</div>
 										<div class="clearfix"></div>
@@ -231,49 +235,23 @@
 
 												<table id="table1" class="table table-advance" border="1">
 													<thead>
-														<tr class="bgpink">
-															<th class="col-md-2">Item Name</th>
-															<!-- <th class="col-md-1">Current Stock</th> -->
-														<!-- 	<th class="col-md-2">Opening Qty</th> -->
+													<tr class="bgpink">
+															<th class="col-md-3">Item Name</th>
+															<th class="col-md-2">Current Stock</th>
+															<th class="col-md-2">Opening Qty</th>
 															<th class="col-md-1">Plan Qty</th>
-												
-											<c:if test="${planHeader.isPlanned!=0}">
-															<th class="col-md-2">Production1 Qty</th>
-											</c:if>
-											 <c:if test="${planHeader.isPlanned==2}">
-											 <th class="col-md-2">Total</th>
-											 </c:if>
-											<c:if test="${planHeader.isPlanned!=1}">
-															<th class="col-md-2">Actual Order Qty</th>
-											</c:if>				
-                                           
-											<c:if test="${planHeader.isPlanned==2}">
-											<th class="col-md-2">Production2 Qty</th>
-											</c:if>
+															<th class="col-md-1">Order Qty</th>
+
 															<th class="col-md-2">Actual Prod</th>
-															 <th class="col-md-1">Rej Qty</th>
-															<!--<th class="col-md-2">Total Qty</th> -->
+															<th class="col-md-1">Rej Qty</th>
+															<th class="col-md-2">Total Qty</th>
 															<!-- not in use -->
 
 														</tr>
+													
 													</thead>
-													<!-- 	<div class="table-responsive" style="border: 0">
-									<table width="100%" class="table table-advance" id="table1">
-										<thead>
-											<tr>
-												<th width="170" >Item Name</th>
-												<th width="120" align="left">Current Stock</th>
-												<th width="120" align="left">Opening Qty</th>
-												<th width="120" align="left">Plan Qty</th>
-												<th width="120" align="left">Order Qty</th>
-
-												<th width="150" align="left">Actual Prod</th>
-												<th width="120" style="width: 18px">Rej Qty</th>
-												<th width="150" align="left">Total Qty</th> not in use
-
-											</tr>
-										</thead> -->
-													<tbody>
+												
+												<tbody>
 														<c:forEach items="${planDetail}" var="planDetail"
 															varStatus="count">
 															<input type="hidden" name="item${count.index}"
@@ -283,19 +261,19 @@
 																<td class="col-md-3"><c:out
 																		value="${planDetail.itemName}" /></td>
 
-																<!-- <td class="col-md-2"> --><input align="left" type="hidden"
+																<td class="col-md-2"><input align="left" type="text"
 																	value="${planDetail.curOpeQty}" placeholder="Stock Qty"
 																	class="form-control"
 																	name="stk_qty${planDetail.productionDetailId}"
 																	id="stk_qty${planDetail.productionDetailId}"
-																	data-rule-required="true" style="width: 65px" /><!-- </td> -->
-															<%-- 	<td class="col-md-2">--%><input align="left" type="hidden"
+																	data-rule-required="true" style="width: 65px" /></td>
+																<td class="col-md-2"><input align="left" type="text"
 																	value="${planDetail.openingQty}"
 																	placeholder="Opening Qty" class="form-control"
 																	name="op_total${planDetail.productionDetailId}"
 																	id="op_total${planDetail.productionDetailId}"
-																	data-rule-required="true" style="width: 65px" />	<%-- </td>
- --%>
+																	data-rule-required="true" style="width: 65px" /></td>
+
 																<c:choose>
 
 																	<c:when test="${planHeader.productionStatus==1}">
@@ -317,29 +295,9 @@
 																			disabled /></td>
 																	</c:otherwise>
 																</c:choose>
-											 
-											<c:if test="${planHeader.isPlanned!=0}">
-											<td class="col-md-1"><input align="left" type="text"
-											   name="prod1_qty${planDetail.productionDetailId}"
-												id="prod1_qty${planDetail.productionDetailId}"
-												placeholder="Production1 Qty" class="form-control"
-												value="${planDetail.planQty}"
-												data-rule-required="true" style="width: 65px" /></td>
-												</c:if>
-												 <c:if test="${planHeader.isPlanned==2}">
-						<td class="col-md-1" ><input align="left" type="text"
-										name="total${planDetail.productionDetailId}"
-										id="total${planDetail.productionDetailId}"
-										placeholder="Total" class="form-control"
-										value="${planDetail.curOpeQty+planDetail.planQty}"
-										data-rule-required="true" style="width: 65px"
-										disabled /></td>
-						</c:if>
-											
-				 
-											<c:if test="${planHeader.isPlanned!=1}">	<c:choose>
+																<c:choose>
 																	<c:when test="${planHeader.productionStatus==2}">
-																		<td class="col-md-1"><input align="left" type="text"
+																		<td class="col-md-1" "><input align="left" type="text"
 																			name="order_qty${planDetail.productionDetailId}"
 																			id="order_qty${planDetail.productionDetailId}"
 																			placeholder="Order Qty" class="form-control"
@@ -356,18 +314,6 @@
 																			disabled /></td>
 																	</c:otherwise>
 																</c:choose>
-					</c:if>
-					  <c:if test="${planHeader.isPlanned==2}">
-						<td class="col-md-1" ><input align="left" type="text"
-										name="prod2_qty${planDetail.productionDetailId}"
-										id="prod2_qty${planDetail.productionDetailId}"
-										placeholder="Production2 Qty" class="form-control"
-										value="${planDetail.orderQty-(planDetail.planQty+planDetail.curOpeQty)}"
-										data-rule-required="true" style="width: 65px"
-										disabled /></td>
-						</c:if>
-					
-					
 																<c:choose>
 																	<c:when test="${planHeader.productionStatus==3}">
 
@@ -396,41 +342,6 @@
 																					ondrop="return false;" onpaste="return false;"
 																					onkeyup="changeQty(${planDetail.productionDetailId})" /></td>
 																			</c:when>
-																			<c:when test="${planHeader.isPlanned==2}">
-																			<c:choose>
-																			<c:when test="${(planDetail.orderQty-(planDetail.planQty+planDetail.curOpeQty))>0}">
-																			<fmt:formatNumber var="act"   type="number" value="${planDetail.planQty+(planDetail.orderQty-(planDetail.planQty+planDetail.curOpeQty))}" minFractionDigits="0" maxFractionDigits="0"/>
-																			
-																				<td class="col-md-2" ><input align="left"
-																					type="text"
-																					name="act_prod_qty${planDetail.productionDetailId}"
-																					id="act_prod_qty${planDetail.productionDetailId}"
-																					placeholder="Actual Prod" class="form-control"
-																					value="${act}"
-																					data-rule-required="true" style="width: 65px"
-																					onkeypress="return IsNumeric(event);"
-																					ondrop="return false;" onpaste="return false;"
-																					onkeyup="changeQty(${planDetail.productionDetailId})" /></td>
-																					
-																					</c:when>
-																					<c:otherwise>
-																					
-																					<td class="col-md-2" ><input align="left"
-																					type="text"
-																					name="act_prod_qty${planDetail.productionDetailId}"
-																					id="act_prod_qty${planDetail.productionDetailId}"
-																					placeholder="Actual Prod" class="form-control"
-																					value="${planDetail.planQty}"
-																					data-rule-required="true" style="width: 65px"
-																					onkeypress="return IsNumeric(event);"
-																					ondrop="return false;" onpaste="return false;"
-																					onkeyup="changeQty(${planDetail.productionDetailId})" />
-																					</td>
-																					
-																					</c:otherwise>
-																			</c:choose>
-																			</c:when>
-																			
 																		</c:choose>
 																	</c:when>
 
@@ -446,7 +357,7 @@
 																	</c:otherwise>
 																</c:choose>
 
-														 		<c:choose>
+																<c:choose>
 																	<c:when test="${planHeader.productionStatus==3}">
 																		<td class="col-md-2"><input align="left" type="text"
 																			name="rej_qty${planDetail.productionDetailId}"
@@ -466,9 +377,9 @@
 																			disabled
 																			onkeyup="changeQty(${planDetail.productionDetailId})" /></td>
 																	</c:otherwise>
-																</c:choose> 
+																</c:choose>
 
-															<%-- 	<c:choose>
+																<c:choose>
 																	<c:when test="${planHeader.isPlanned==0}">
 																		<td class="col-md-2"><input align="left" type="text"
 																			name="total_qty${planDetail.productionDetailId}"
@@ -487,7 +398,7 @@
 																			data-rule-required="true" style="width: 65px"
 																			disabled /></td>
 																	</c:when>
-																</c:choose> --%>
+																</c:choose>
 
 
 
@@ -517,58 +428,44 @@
 
 												<div
 													class="col-sm-1 col-sm-offset-1 col-lg-9 col-lg-offset-1">
-													<%-- <c:choose>
-														<c:when test="${planHeader.isBom==0}">
+													
+													<c:choose>
+														<c:when test="${planHeader.isStoreBom==0 && planHeader.productionStatus!=5}">
 															<a
-																href="${pageContext.request.contextPath}/showBom/${planHeader.productionHeaderId}/1/${planHeader.productionDate}/${planHeader.isPlanned}/${planHeader.catId}">
+																href="${pageContext.request.contextPath}/showBom/${planHeader.productionHeaderId}/1/${planHeader.productionDate}/${planHeader.isPlanned}/${planHeader.catId}/PROD/STORE">
 																<button type="button" class="btn btn-primary">
-																	<i class="fa fa-check"></i> Req.To BOM
+																	<i class="fa fa-check"></i> Req. BOM For Store
+																</button>
+															</a>
+														 </c:when>
+														 <c:otherwise>
+														 	<button type="button" class="btn btn-primary"
+																disabled="disabled">
+																<i class="fa fa-check"></i> Req. BOM For Store
+															</button>
+														</c:otherwise>
+														</c:choose>
+														<c:choose>
+														<c:when test="${planHeader.isMixing==0 && planHeader.productionStatus!=5}">
+															<a
+																href="${pageContext.request.contextPath}/showBom/${planHeader.productionHeaderId}/1/${planHeader.productionDate}/${planHeader.isPlanned}/${planHeader.catId}/PROD/MIX">
+																<button type="button" class="btn btn-primary">
+																	<i class="fa fa-check"></i> Req. BOM For Mixing
 																</button>
 															</a>
 														</c:when>
-
-														<c:when test="${planHeader.isBom==1}">
+													
+														 <c:otherwise>
 															<button type="button" class="btn btn-primary"
 																disabled="disabled">
-																<i class="fa fa-check"></i> Req. BOM
+																<i class="fa fa-check"></i> Req. BOM For Mixing
 															</button>
-														</c:when>
-														<c:otherwise>
-														</c:otherwise>
+															 </c:otherwise>
+													
+													
+														
 													</c:choose>
-													&nbsp;&nbsp; --%>
-												<%-- 	<c:choose>
-
-														<c:when
-															test="${planHeader.isMixing==0 && planHeader.productionStatus==1 or planHeader.productionStatus==2 or planHeader.productionStatus==3}">
-															<a href="${pageContext.request.contextPath}/addMixing">
-																<button type="button" class="btn btn-primary">
-																	<i class="fa fa-check"></i> Req. Mixing
-																</button>
-															</a>
-
-														</c:when>
-
-
-														<c:when
-															test="${planHeader.productionStatus==4 or planHeader.productionStatus==5}">
-															<button type="button" class="btn btn-primary"
-																disabled="disabled">
-																<i class="fa fa-check"></i> Req. Mixing
-															</button>
-
-														</c:when>
-														<c:when test="${planHeader.isMixing==1}">
-															<button type="button" class="btn btn-primary"
-																disabled="disabled">
-																<i class="fa fa-check"></i> Req. Mixing
-															</button>
-
-														</c:when>
-														<c:otherwise>
-
-														</c:otherwise>
-													</c:choose> --%>
+													
 													<input type="hidden" name="productionStatus"
 														id="productionStatus"
 														value="${planHeader.productionStatus}" /> &nbsp;&nbsp;
@@ -609,14 +506,15 @@
 																<i class="fa fa-check"></i>Complete Production
 															</button>
 														</c:when>
-														<c:when test="${planHeader.productionStatus==3}">
-															<button type="button" class="btn btn-primary"
+														<c:otherwise>
+														<button type="button" class="btn btn-primary"
 																id="complete_prod">
 																<i class="fa fa-check"></i>Complete Production
 															</button>
-														</c:when>
+														
+														</c:otherwise>
 													</c:choose>
-												<%-- 	<c:choose>
+													<c:choose>
 
 														<c:when test="${planHeader.isBom==1}">
 															<button type="button" class="btn btn-primary"
@@ -625,15 +523,15 @@
 															</button>
 														</c:when>
 
-													</c:choose> --%>
-													<%-- <c:choose>
+													</c:choose>
+													<c:choose>
 														<c:when test="${planHeader.isMixing==1}">
 															<a
 																href="${pageContext.request.contextPath}/manualMixing/${planHeader.productionHeaderId}/${planHeader.productionDate}/${planHeader.timeSlot}"><input
 																type="button" class="btn btn-primary"
 																id="man_bom_button" value="Spot Mixing"> </a>
 														</c:when>
-													</c:choose> --%>
+													</c:choose>
 													 <input type="button" id="expExcel" class="btn btn-primary" value="EXPORT TO Excel" onclick="exportToExcel();" >
 												</div>
 
@@ -748,6 +646,10 @@
 
 function genPdf(){
 	window.open('${pageContext.request.contextPath}/showProdByOrderPdf/');
+}
+
+function genProdLinePdf(){
+	window.open('${pageContext.request.contextPath}/showProdLinePdf/');
 }
 
 </script>
