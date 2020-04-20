@@ -598,7 +598,7 @@
 				html += '</option>';
 				$('#rm_material_name').html(html);
 				$("#rm_material_name").trigger("chosen:updated");
-			 document.getElementById("rm_material_name").selectedIndex = "0"; 
+	 		 document.getElementById("rm_material_name").selectedIndex = "0"; 
 			 document.getElementById("seq_no").value="";
 			}// end of validation if
 			}//end of else
