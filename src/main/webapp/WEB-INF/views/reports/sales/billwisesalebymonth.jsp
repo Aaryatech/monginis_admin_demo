@@ -150,8 +150,7 @@
 					</div>
 
 					<div class="col-md-6" style="text-align: right;">
-						<button class="btn btn-info" onclick="searchReport()">Search
-							Billwise Report</button>
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 
 						<!-- <button class="btn search_btn" onclick="showChart()">Graph</button> -->
 
@@ -187,20 +186,20 @@
 						style="width: 100%" id="table_grid">
 						<thead style="background-color: #f3b5db;">
 							<tr>
-								<th>Sr.No.</th>
-								<th>Month</th>
-								<th>Taxable Value</th>
-								<th>Tax Value</th>
-								<th>Grand Total</th>
-								<th>GRN Taxable Value</th>
-								<th>GRN Tax Value</th>
-								<th>GRN Grand Total</th>
-								<th>GVN Taxable Value</th>
-								<th>GVN Tax Value</th>
-								<th>GVN Grand Total</th>
-								<th>NET Taxable Total</th>
-								<th>NET Tax Total</th>
-								<th>NET Grand Total</th>
+								<th style="text-align: center;">Sr.No.</th>
+								<th style="text-align: center;">Month</th>
+								<th style="text-align: center;">Taxable Value</th>
+								<th style="text-align: center;">Tax Value</th>
+								<th style="text-align: center;">Grand Total</th>
+								<th style="text-align: center;">GRN Taxable Value</th>
+								<th style="text-align: center;">GRN Tax Value</th>
+								<th style="text-align: center;">GRN Grand Total</th>
+								<th style="text-align: center;">GVN Taxable Value</th>
+								<th style="text-align: center;">GVN Tax Value</th>
+								<th style="text-align: center;">GVN Grand Total</th>
+								<th style="text-align: center;">NET Taxable Total</th>
+								<th style="text-align: center;">NET Tax Total</th>
+								<th style="text-align: center;">NET Grand Total</th>
 								<!-- <th>Total</th> -->
 							</tr>
 						</thead>
@@ -234,19 +233,19 @@
 							style="width: 100%" id="table_grid1">
 							<thead style="background-color: #f3b5db;">
 								<tr>
-									<th>Sr.No.</th>
-									<th>Month</th>
-									<th>Taxable Value</th>
-									<th>Tax Value</th>
+									<th style="text-align: center;">Sr.No.</th>
+									<th style="text-align: center;">Month</th>
+									<th style="text-align: center;">Taxable Value</th>
+									<th style="text-align: center;">Tax Value</th>
 
-									<th>GRN Taxable Value</th>
-									<th>GRN Tax Value</th>
+									<th style="text-align: center;">GRN Taxable Value</th>
+									<th style="text-align: center;">GRN Tax Value</th>
 
-									<th>GVN Taxable Value</th>
-									<th>GVN Tax Value</th>
+									<th style="text-align: center;">GVN Taxable Value</th>
+									<th style="text-align: center;">GVN Tax Value</th>
 
-									<th>NET Taxable Total</th>
-									<th>NET Tax Total</th>
+									<th style="text-align: center;">NET Taxable Total</th>
+									<th style="text-align: center;">NET Tax Total</th>
 
 									<!-- <th>Total</th> -->
 								</tr>
@@ -429,7 +428,7 @@
 																				key + 1));
 														tr
 																.append($(
-																		'<td></td>')
+																		'<td style="text-align: center;"></td>')
 																		.html(
 																				report.month));
 														tr

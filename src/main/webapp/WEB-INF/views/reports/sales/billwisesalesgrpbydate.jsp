@@ -57,7 +57,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>View Billwise Sale Grp By Date
+					<i class="fa fa-bars"></i>Date-wise Report
 				</h3>
 
 			</div>
@@ -109,10 +109,24 @@
 							</select>
 
 						</div>
+						<label class="col-sm-3 col-lg-2 control-label">Select</label>
+						<div class="col-sm-6 col-lg-4 controls">
+							<select data-placeholder="Select Route"
+							class="form-control chosen" name="selectStatus" id="selectStatus">
+							<option value="-1">All</option>
+							<option value="1">Taxable</option>
+							<option value="2">Grand Total</option>
+						</select>
 
-						<label class="col-sm-3 col-lg-2 control-label"><b>OR</b>&nbsp;Select
+					</div>
+					</div>
+				</div>
+
+				<br>
+				<div class="row">
+					<label class="col-sm-3 col-lg-2 control-label"><b>OR</b>&nbsp;Select
 							Franchisee</label>
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-md-8">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
@@ -129,29 +143,10 @@
 							</select>
 
 						</div>
-					</div>
-				</div>
+						<br>
 
-				<br>
-				<div class="row">
-
-					<label class="col-sm-3 col-lg-2 control-label">Select</label>
-					<div class="col-sm-6 col-lg-4 controls">
-						<select data-placeholder="Select Route"
-							class="form-control chosen" name="selectStatus" id="selectStatus">
-							<option value="-1">All</option>
-							<option value="1">Taxable</option>
-							<option value="2">Grnad Total</option>
-
-
-
-						</select>
-
-					</div>
-
-					<div class="col-md-6" style="text-align: right;">
-						<button class="btn btn-info" onclick="searchReport()">Search
-							Billwise Report</button>
+					<div class="col-md-2" style="text-align: right;">
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 
 						<!-- <button class="btn search_btn" onclick="showChart()">Graph</button> -->
 
@@ -183,7 +178,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-list-alt"></i>Bill Report
+					<i class="fa fa-list-alt"></i>Date-wise Report
 				</h3>
 
 			</div>
@@ -196,20 +191,20 @@
 							style="width: 100%" id="table_grid">
 							<thead style="background-color: #f3b5db;">
 								<tr>
-									<th>Sr.No.</th>
-									<th>Date</th>
-									<th>Taxable Value</th>
-									<th>Tax Value</th>
-									<th>Grand Total</th>
-									<th>GRN Taxable Value</th>
-									<th>GRN Tax Value</th>
-									<th>GRN Grand Total</th>
-									<th>GVN Taxable Value</th>
-									<th>GVN Tax Value</th>
-									<th>GVN Grand Total</th>
-									<th>NET Taxable Total</th>
-									<th>NET Tax Total</th>
-									<th>NET Grand Total</th>
+									<th style="text-align: center;">Sr.No.</th>
+									<th style="text-align: center;">Date</th>
+									<!-- <th style="text-align: center;">Taxable Value</th>
+									<th style="text-align: center;">Tax Value</th> -->
+									<th style="text-align: center;">Grand Total</th>
+									<!-- <th style="text-align: center;">GRN Taxable Value</th>
+									<th style="text-align: center;">GRN Tax Value</th> -->
+									<th style="text-align: center;">GRN Grand Total</th>
+									<!-- <th style="text-align: center;">GVN Taxable Value</th>
+									<th style="text-align: center;">GVN Tax Value</th> -->
+									<th style="text-align: center;">GVN Grand Total</th>
+									<th style="text-align: center;">NET Taxable Total</th>
+									<th style="text-align: center;">NET Tax Total</th>
+									<th style="text-align: center;">NET Grand Total</th>
 									<!-- <th>Total</th> -->
 								</tr>
 							</thead>
@@ -243,19 +238,19 @@
 								style="width: 100%" id="table_grid1">
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										<th>Date</th>
-										<th>Taxable Value</th>
-										<th>Tax Value</th>
+										<th style="text-align: center;">Sr.No.</th>
+										<th style="text-align: center;">Date</th>
+										<!-- <th style="text-align: center;">Taxable Value</th>
+										<th style="text-align: center;">Tax Value</th> -->
 
-										<th>GRN Taxable Value</th>
-										<th>GRN Tax Value</th>
+										<!-- <th style="text-align: center;">GRN Taxable Value</th>
+										<th style="text-align: center;">GRN Tax Value</th>
 
-										<th>GVN Taxable Value</th>
-										<th>GVN Tax Value</th>
-
-										<th>NET Taxable Total</th>
-										<th>NET Tax Total</th>
+										<th style="text-align: center;">GVN Taxable Value</th>
+										<th style="text-align: center;">GVN Tax Value</th>
+ -->
+										<th style="text-align: center;">NET Taxable Total</th>
+										<th style="text-align: center;">NET Tax Total</th>
 
 										<!-- <th>Total</th> -->
 									</tr>
@@ -439,10 +434,10 @@
 																					key + 1));
 															tr
 																	.append($(
-																			'<td></td>')
+																			'<td style="text-align: center;"></td>')
 																			.html(
 																					report.billDate));
-															tr
+															/* tr
 																	.append($(
 																			'<td style="text-align:right;"></td>')
 																			.html(
@@ -454,7 +449,7 @@
 																			'<td style="text-align:right;"></td>')
 																			.html(
 																					report.totalTax
-																							.toFixed(2)));
+																							.toFixed(2))); */
 
 															tr
 																	.append($(
@@ -463,7 +458,7 @@
 																					report.grandTotal
 																							.toFixed(2)));
 
-															tr
+														/* 	tr
 																	.append($(
 																			'<td style="text-align:right;"></td>')
 																			.html(
@@ -475,7 +470,7 @@
 																			'<td style="text-align:right;"></td>')
 																			.html(
 																					report.grnTotalTax
-																							.toFixed(2)));
+																							.toFixed(2))); */
 
 															tr
 																	.append($(
@@ -484,7 +479,7 @@
 																					report.grnGrandTotal
 																							.toFixed(2)));
 
-															tr
+														/* 	tr
 																	.append($(
 																			'<td style="text-align:right;"></td>')
 																			.html(
@@ -496,7 +491,7 @@
 																			'<td style="text-align:right;"></td>')
 																			.html(
 																					report.gvnTotalTax
-																							.toFixed(2)));
+																							.toFixed(2))); */
 
 															tr
 																	.append($(
@@ -538,7 +533,7 @@
 												.append($(
 														'<td style="font-weight:bold;"></td>')
 														.html("Total"));
-										tr
+										/* tr
 												.append($(
 														'<td style="text-align:right;"></td>')
 														.html(
@@ -549,7 +544,7 @@
 														'<td style="text-align:right;"></td>')
 														.html(
 																totalTax
-																		.toFixed(2)));
+																		.toFixed(2))); */
 										tr
 												.append($(
 														'<td style="text-align:right;"></td>')
@@ -557,7 +552,7 @@
 																totalGrandTotal
 																		.toFixed(2)));
 
-										tr
+										/* tr
 												.append($(
 														'<td style="text-align:right;"></td>')
 														.html(
@@ -569,7 +564,7 @@
 														'<td style="text-align:right;"></td>')
 														.html(
 																totalGrnTax
-																		.toFixed(2)));
+																		.toFixed(2))); */
 										tr
 												.append($(
 														'<td style="text-align:right;"></td>')
@@ -577,7 +572,7 @@
 																totalGrnGrandTotal
 																		.toFixed(2)));
 
-										tr
+										/* tr
 												.append($(
 														'<td style="text-align:right;"></td>')
 														.html(
@@ -589,7 +584,7 @@
 														'<td style="text-align:right;"></td>')
 														.html(
 																totalGvnTax
-																		.toFixed(2)));
+																		.toFixed(2))); */
 
 										tr
 												.append($(
@@ -694,7 +689,7 @@
 																			'<td></td>')
 																			.html(
 																					report.billDate));
-															tr
+															/* tr
 																	.append($(
 																			'<td style="text-align:right;"></td>')
 																			.html(
@@ -706,9 +701,9 @@
 																			'<td style="text-align:right;"></td>')
 																			.html(
 																					report.totalTax
-																							.toFixed(2)));
+																							.toFixed(2))); */
 
-															tr
+															/* tr
 																	.append($(
 																			'<td style="text-align:right;"></td>')
 																			.html(
@@ -734,7 +729,7 @@
 																			'<td style="text-align:right;"></td>')
 																			.html(
 																					report.gvnTotalTax
-																							.toFixed(2)));
+																							.toFixed(2))); */
 
 															tr
 																	.append($(
@@ -763,7 +758,7 @@
 												.append($(
 														'<td style="font-weight:bold;"></td>')
 														.html("Total"));
-										tr
+										/* tr
 												.append($(
 														'<td style="text-align:right;"></td>')
 														.html(
@@ -774,9 +769,9 @@
 														'<td style="text-align:right;"></td>')
 														.html(
 																totalTax
-																		.toFixed(2)));
+																		.toFixed(2))); */
 
-										tr
+										/* tr
 												.append($(
 														'<td style="text-align:right;"></td>')
 														.html(
@@ -788,9 +783,9 @@
 														'<td style="text-align:right;"></td>')
 														.html(
 																totalGrnTax
-																		.toFixed(2)));
+																		.toFixed(2))); */
 
-										tr
+										/* tr
 												.append($(
 														'<td style="text-align:right;"></td>')
 														.html(
@@ -802,7 +797,7 @@
 														'<td style="text-align:right;"></td>')
 														.html(
 																totalGvnTax
-																		.toFixed(2)));
+																		.toFixed(2))); */
 
 										tr
 												.append($(
