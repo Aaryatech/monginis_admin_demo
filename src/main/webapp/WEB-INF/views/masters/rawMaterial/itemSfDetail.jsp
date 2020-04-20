@@ -148,7 +148,7 @@
 
 				</div>
 
-								<div class="form-group">
+								<!-- <div class="form-group">
 
 									<label class="col-sm-3 col-lg-2 control-label">SF
 										Weight </label>
@@ -163,6 +163,25 @@
 											placeholder="Qty" />
 									</div>
 
+								</div> -->
+								
+								<div class="form-group">
+
+									<label class="col-sm-3 col-lg-2 control-label">Weight</label>
+									<div class="col-sm-6 col-lg-2 controls">
+										<input type="text" name="sf_item_weight" id="sf_item_weight"
+											class="form-control" placeholder="SF Weight " />
+									</div>
+									<label class="col-sm-3 col-lg-1 control-label">Qty</label>
+									<div class="col-sm-6 col-lg-2 controls">
+										<input type="text" name="qty" id="qty" class="form-control"
+											placeholder="Qty" />
+									</div>
+                                    <label class="col-sm-3 col-lg-1 control-label">Sq.No</label>
+									<div class="col-sm-6 col-lg-2 controls">
+										<input type="text" name="seq_no" id="seq_no" class="form-control"
+											placeholder="Sequence No." />
+									</div>
 								</div>
 
 								<div class="row">
@@ -215,11 +234,12 @@
 														<tr class="bgpink">
 											
 												<th width="140" style="width: 30px" align="left">Sr No</th>
-										<th width="138" align="left">Material Name</th>
-										<th width="120" align="left">Material Type</th>
-										<th width="120" align="left">Qty</th>
-										<th width="120" align="left">Weight</th>
-										<th width="120" align="left">Action</th>
+													<th width="138" align="left">Material Name</th>
+													<th width="120" align="left">Material Type</th>
+													<th width="120" align="left">Qty</th>
+													<th width="120" align="left">Weight</th>
+													<th width="120" align="left">UOM</th>
+													<th width="120" align="left">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -230,69 +250,111 @@
 										<table id="table1" class="table table-advance" >
 											<thead>
 												<tr class="bgpink">
-										<th width="140" style="width: 30px" align="left">No</th>
-										<th width="138" align="left">Material Name</th>
-										<th width="120" align="left">Material Type</th>
-										<th width="120" align="left">Qty</th>
-										<th width="130" align="left">Weight</th>
-										<th width="120" align="left">Action</th>
+									<th width="140" style="width: 30px" align="left">Sr No</th>
+													<th width="138" align="left">Material Name</th>
+													<th width="120" align="left">Material Type</th>
+													<th width="120" align="left">Qty</th>
+													<th width="120" align="left">Weight</th>
+													<th width="120" align="left">UOM</th>
+													<th width="120" align="left">Action</th>
 												</tr>
 												</thead>
 								<tbody>
 
 									<c:forEach items="${sfDetailList}" var="sfDetailList"
-										varStatus="count">
-
-										<c:choose>
-
-											<c:when test="${sfDetailList.delStatus == '0'}">
-												<tr>
-
-													<td><c:out value="${count.index+1}" /></td>
-
-													<td align="left"><c:out value="${sfDetailList.rmName}" /></td>
+													varStatus="count">
 
 													<c:choose>
-														<c:when test="${sfDetailList.rmType == 1}">
-															<td align="left"><c:out value="RM" /></td>
-														</c:when>
 
-														<c:when test="${sfDetailList.rmType == 2}">
-															<td align="left"><c:out value="SF" /></td>
+														<c:when test="${sfDetailList.delStatus == '0'}">
+														
+								                       
+															<tr>
+
+																<td><c:out value="${count.index+1}" /></td>
+
+																<td align="left"><c:out
+																		value="${sfDetailList.rmName}" /></td>
+
+																<c:choose>
+																	<c:when test="${sfDetailList.rmType == 1}">
+																		<td align="left"><c:out value="RM" /></td>
+																		<c:set var="rm" value="${rm+sfDetailList.rmWeight}" />
+																		 <c:set var="total" value="${total+sfDetailList.rmWeight}" />
+																	</c:when>
+
+																	<c:when test="${sfDetailList.rmType == 2}">
+																		<td align="left"><c:out value="SF" /></td>
+																		<c:set var="sf" value="${sf+sfDetailList.rmWeight}" />
+																		 <c:set var="total" value="${total+sfDetailList.rmWeight}" />
+																	</c:when>
+																</c:choose>
+																<td align="left"><c:out
+																		value="${sfDetailList.rmQty}" /></td>
+
+																<td align="left"><c:out
+																		value="${sfDetailList.rmWeight}" /></td>
+																<td align="left"><c:forEach items="${rmUomList}"
+																		var="rmUomList" varStatus="cnt">																<c:choose>
+																			<c:when
+																				test="${sfDetailList.rmUnit==rmUomList.uomId}">
+											                         	${rmUomList.uom}
+											                           </c:when>
+																		</c:choose>
+																	</c:forEach></td>
+																<td><a href='#' class='action_btn'
+																	onclick="deleteSfDetail(${count.index})"><i
+																		class='fa fa-trash-o fa-lg'></i></a> &nbsp;&nbsp;<a
+																	href='#' class='action_btn'
+																	onclick="editSfDetail(${count.index})"><i
+																		class='fa fa-edit  fa-lg'></i></a></td>
+															</tr>
 														</c:when>
 													</c:choose>
-													<td align="left"><c:out value="${sfDetailList.rmQty}" /></td>
 
-													<td align="left"><c:out
-															value="${sfDetailList.rmWeight}" /></td>
-
-													<td><a href='#' class='action_btn'
-														onclick="deleteSfDetail(${count.index})"><i
-															class='fa fa-trash-o fa-lg'></i></a> &nbsp;&nbsp;<a href='#'
-														class='action_btn' onclick="editSfDetail(${count.index})"><i
-															class='fa fa-edit  fa-lg'></i></a></td>
-												</tr>
-											</c:when>
-										</c:choose>
-
-										<%-- <a
+													<%-- <a
 														href="${pageContext.request.contextPath}/delete/${sfDetailList.rmId}"
 														class="action_btn"> <abbr title="Delete"><i
 																class="fa fa-list"></i></abbr></a> --%>
 
-									</c:forEach>
+												</c:forEach>
 
 								</tbody>
 							</table>
 						</div>
 						</div>
-<div class="row">
+						
+						<div class="row">
+									<div class="col-md-9">
+
+									<label class="col-sm-3 col-lg-2 control-label">RM Weight</label>
+									<div class="col-sm-6 col-lg-2 controls">
+										<input type="text" name="rmWt" id="rmWt"
+											class="form-control" placeholder="RM Weight " value="${rm}" />
+									</div>
+									<label class="col-sm-3 col-lg-1 control-label">SF</label>
+									<div class="col-sm-6 col-lg-2 controls">
+										<input type="text" name="sfWt" id="sfWt" class="form-control"
+											placeholder="SF Weight" value="${sf}"/>
+									</div>
+                                    <label class="col-sm-3 col-lg-2 control-label">Total Weight</label>
+									<div class="col-sm-6 col-lg-2 controls">
+										<input type="text" name="totalWt" id="totalWt" class="form-control"
+											placeholder="Total Weight" value="${total}" />
+									</div>
+								</div>
+									<div class="col-md-2" >
+										<input type="submit" class="btn btn-info" value="Submit" />
+									</div>
+								</div>
+								
+<!-- <div class="row">
 									<div class="col-md-12" style="text-align: center;">
 
 						<input type="submit"  class="btn btn-info"
 							value="Submit Items" />
 							</div>
-							</div>
+							</div> -->
 						<!-- <input type="button" class="btn btn-info" value="Submit Items"
 											onclick="insertItemDetail()">
  -->
@@ -384,52 +446,49 @@
 
 
 	<script type="text/javascript">
-	
 	var editFlag=false;
 	var key1=0;
-	
 		function submitItem() {
-			
-			
+						
 			if(editFlag==true){
-				
-				 var materialType = $('#material_type').val();
+				var materialType = $('#material_type').val();
 				var materialName=$("#rm_material_name option:selected").html();
 				var materialNameId= $('#rm_material_name').val(); 
-				
+				var seqNo=$('#seq_no').val();
 				var sfWeight = document.getElementById("sf_item_weight").value;
 				var qty = document.getElementById("qty").value;
-				
-				 var validation=validate();
+				var validation=validate();
 					if(validation){
-				
 				$.getJSON('${itemForEdit}', {
-					 mat_type : materialType,
+					mat_type : materialType,
 					mat_name_id : materialNameId,
 					mat_name : materialName,
 					sf_weight : sfWeight,
 					qty : qty,
+					seqNo:seqNo,
 					key : key1,
-					 
 					ajax : 'true',
 
 				},function(data) {
 					
 					var len = data.length;
 					$('#table1 td').remove();
-					
+					var rm=0;var sf=0;var total=0;
 					$.each(data,function(key, sfDetail) {
-					
+						if(sfDetail.delStatus == 0){
 					var tr = $('<tr></tr>');
 					var rmTypeName;
 					if(sfDetail.rmType == 1){
 						rmTypeName="RM";
+						rm=rm+sfDetail.rmWeight;
+						total=total+sfDetail.rmWeight;
 					}else if(sfDetail.rmType == 2){
 						rmTypeName="SF";
+						sf=sf+sfDetail.rmWeight;
+						total=total+sfDetail.rmWeight;
 					}
 
-					if(sfDetail.delStatus == 0){
-						
+					
 				  	tr.append($('<td></td>').html(key+1));
 
 				  	tr.append($('<td></td>').html(sfDetail.rmName));
@@ -439,37 +498,37 @@
 				  	tr.append($('<td></td>').html(sfDetail.rmQty));
 
 				  	tr.append($('<td></td>').html(sfDetail.rmWeight));
+				  	
+				  	tr.append($('<td></td>').html(sfDetail.uom));
 				  
-				  //	tr.append($('<td></td>').html("<input type=button id=delete onClick=deleteSfDetail("+key+"); Value=Delete> <input type=button id=edit onClick=editSfDetail("+key+"); Value=Edit> "));
-				 	tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=deleteSfDetail("+key+")><i class='fa fa-trash-o fa-lg'></i></a><a href='#' class='action_btn' onclick=editSfDetail("+key+")><i class='fa fa-edit  fa-lg'></i></a>"));
-
+				 	tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=deleteSfDetail("+key+")><i class='fa fa-trash-o fa-lg'></i></a>&nbsp;&nbsp;<a href='#' class='action_btn' onclick=editSfDetail("+key+")><i class='fa fa-edit  fa-lg'></i></a>"));
 					}
 					$('#table1 tbody').append(tr);
-
 					})
-
+					document.getElementById("rmWt").value=rm;
+					document.getElementById("sfWt").value=sf;
+					document.getElementById("totalWt").value=total;
 					});
 
 				document.getElementById("sf_item_weight").value="";
 				document.getElementById("qty").value="";
-				
 				$("#item_name_div").hide();
 				$("#item_name").hide();
 				$("#itemNameLabel").hide();
 				document.getElementById("material_type").options.selectedIndex = "0";
-
-				 
 				 var html = '<option value="0" selected >Select Raw Material</option>';
 					html += '</option>';
 					$('#rm_material_name').html(html);
 					$("#rm_material_name").trigger("chosen:updated");
 				 document.getElementById("rm_material_name").selectedIndex = "0"; 
+				 document.getElementById("seq_no").value="";
 					}//end of validation
 			}// end of if
 			else{
 			var materialType = $('#material_type').val();
 			var materialName=$("#rm_material_name option:selected").html();
 			var materialNameId= $('#rm_material_name').val();
+			var seqNo= $('#seq_no').val();
 			var sfWeight = document.getElementById("sf_item_weight").value;
 			var qty = document.getElementById("qty").value;
 		
@@ -478,14 +537,13 @@
 			 
 			var key=-1;
 			var editKey=-1;
-			
 			$.getJSON('${getItemDetail}', {
 				mat_type : materialType,
 				mat_name_id : materialNameId,
 				mat_name : materialName,
 				sf_weight : sfWeight,
 				qty : qty,
-				
+				seqNo:seqNo,
 				key:key,
 				editKey:editKey,
 				ajax : 'true',
@@ -494,17 +552,21 @@
 				
 				var len = data.length;
 				$('#table1 td').remove();
+				var rm=0;var sf=0;var total=0;
 				$.each(data,function(key, sfDetail) {
 				var tr = $('<tr></tr>');
 				var rmTypeName;
-				if(sfDetail.rmType == 1){
-					rmTypeName="RM";
-				}else if(sfDetail.rmType == 2){
-					rmTypeName="SF";
-				}
-
+				
 				if(sfDetail.delStatus == 0){
-					
+					if(sfDetail.rmType == 1){
+						rmTypeName="RM";
+						rm=rm+sfDetail.rmWeight;
+						
+					}else if(sfDetail.rmType == 2){
+						rmTypeName="SF";
+						sf=sf+sfDetail.rmWeight;
+					}
+					total=total+sfDetail.rmWeight;
 			  	tr.append($('<td></td>').html(key+1));
 
 			  	tr.append($('<td></td>').html(sfDetail.rmName));
@@ -514,15 +576,15 @@
 			  	tr.append($('<td></td>').html(sfDetail.rmQty));
 
 			  	tr.append($('<td></td>').html(sfDetail.rmWeight));
-			  
-			  //	tr.append($('<td></td>').html("<input type=button id=delete onClick=deleteSfDetail("+key+"); Value=Delete> <input type=button id=edit onClick=editSfDetail("+key+"); Value=Edit> "));
-tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=deleteSfDetail("+key+")><i class='fa fa-trash-o fa-lg'></i></a>        <a href='#' class='action_btn' onclick=editSfDetail("+key+")><i class='fa fa-edit  fa-lg'></i></a>"));			 	//tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=editItemDetail("+key+")> <abbr title='edit'> <i class='fa fa-edit  fa-lg' ></i></abbr> </a> <a href='#' class='action_btn' onclick=deleteItemDetail("+key+")><abbr title='Delete'><i class='fa fa-trash-o  fa-lg'></i></abbr></a>"));
-
+			  	tr.append($('<td></td>').html(sfDetail.uom));
+				tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=deleteSfDetail("+key+")><i class='fa fa-trash-o fa-lg'></i></a>   &nbsp;&nbsp;     <a href='#' class='action_btn' onclick=editSfDetail("+key+")><i class='fa fa-edit  fa-lg'></i></a>"));			 	//tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=editItemDetail("+key+")> <abbr title='edit'> <i class='fa fa-edit  fa-lg' ></i></abbr> </a> <a href='#' class='action_btn' onclick=deleteItemDetail("+key+")><abbr title='Delete'><i class='fa fa-trash-o  fa-lg'></i></abbr></a>"));
 				}
 				$('#table1 tbody').append(tr);
 
 				})
-
+				document.getElementById("rmWt").value=rm;
+				document.getElementById("sfWt").value=sf;
+				document.getElementById("totalWt").value=total;
 				});
 			
 			document.getElementById("sf_item_weight").value="";
@@ -537,6 +599,7 @@ tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=deleteSfDe
 				$('#rm_material_name').html(html);
 				$("#rm_material_name").trigger("chosen:updated");
 			 document.getElementById("rm_material_name").selectedIndex = "0"; 
+			 document.getElementById("seq_no").value="";
 			}// end of validation if
 			}//end of else
 				editFlag=false;
@@ -552,7 +615,6 @@ function deleteSfDetail(key){
 		key=-2;
 	}
 	$.getJSON('${getItemDetail}', {
-		
 		key:key,
 		editKey : editKey,
 		ajax : 'true',
@@ -562,17 +624,21 @@ function deleteSfDetail(key){
 		var len = data.length;
 
 		$('#table1 td').remove();
-
+		var rm=0;var sf=0;var total=0;
 		$.each(data,function(key, sfDetail) {
-
+			if(sfDetail.delStatus == 0){
 		var tr = $('<tr></tr>');
 		var rmTypeName;
 		if(sfDetail.rmType == 1){
 			rmTypeName="RM";
+			rm=rm+sfDetail.rmWeight;
+			total=total+sfDetail.rmWeight;
 		}else if(sfDetail.rmType == 2){
 			rmTypeName="SF";
+			sf=sf+sfDetail.rmWeight;
+			total=total+sfDetail.rmWeight;
 		}
-		if(sfDetail.delStatus == 0){
+		
 	  	tr.append($('<td></td>').html(key+1));
 
 	  	tr.append($('<td></td>').html(sfDetail.rmName));
@@ -582,15 +648,17 @@ function deleteSfDetail(key){
 	  	tr.append($('<td></td>').html(sfDetail.rmQty));
 
 	  	tr.append($('<td></td>').html(sfDetail.rmWeight));
+	  	
+	  	tr.append($('<td></td>').html(sfDetail.uom));
 	  
 	 // tr.append($('<td></td>').html("<input type=button class= btn btn-primary  id=delete onClick=deleteSfDetail("+key+"); Value=Delete> <input type=button id=edit onClick=editSfDetail("+key+"); Value=Edit> "));
-	  	tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=deleteSfDetail("+key+")><i class='fa fa-trash-o fa-lg'></i></a>        <a href='#' class='action_btn' onclick=editSfDetail("+key+")><i class='fa fa-edit  fa-lg'></i></a>"));
+	  	tr.append($('<td></td>').html("<a href='#' class='action_btn' onclick=deleteSfDetail("+key+")><i class='fa fa-trash-o fa-lg'></i></a>  &nbsp;&nbsp;      <a href='#' class='action_btn' onclick=editSfDetail("+key+")><i class='fa fa-edit  fa-lg'></i></a>"));
 			}
-	  	
-		$('#table1 tbody').append(tr);
-
+	  	$('#table1 tbody').append(tr);
 		})
-
+		document.getElementById("rmWt").value=rm;
+		document.getElementById("sfWt").value=sf;
+		document.getElementById("totalWt").value=total;
 		});
 	}//end of if isDel
 	else{
@@ -603,24 +671,16 @@ function editSfDetail(token){
 	editFlag=true;
 	
 	$.getJSON('${getSingleItem}', {
-		
-		 
 		ajax : 'true',
-
 	}, function(data) {
 		var len = data.length;
-
+alert(JSON.stringify(data))
 		 $.each(data,function(key, sfDetail) {
 			editKey=key; 
 
 		if(key==token)
 			{
-		//if(sfDetail.rmType == 1){
-		//	rmTypeName="RM";
-		//}else if(sfDetail.rmType == 2){
-		//	rmTypeName="SF";
-	//}
-		//var m_type= sfDetail.rmType;
+		
 		if(sfDetail.rmType==2)
 			{
 			 document.getElementById("rm_group").options.selectedIndex =0;
@@ -638,30 +698,24 @@ function editSfDetail(token){
 					document.getElementById("item_name").value=sfDetail.rmName;
 					document.getElementById("rm_group").disabled = true;
 					 document.getElementById("rm_cat").disabled = true;
+					 document.getElementById("seq_no").value=sfDetail.seqNo;
 					appendItem(sfDetail.rmId);
 				
 				 key1=key;
 			}
-	  	 
 		 })  
-
 		});
-	
-	
 }
 function appendItem(rmId){
 	
 	var rmType = document.getElementById("material_type").value;
 	$('#loader').show();
-
-
 	$.getJSON('${getRawMaterial}', {
 		material_type : rmType,
 					
 					ajax : 'true',
 				},  function(data) {
 					$('#loader').hide();
-
 					var html = '<option value="0" selected >Select Raw Material</option>';
 					
 					var len = data.length;
@@ -677,42 +731,28 @@ function appendItem(rmId){
 					html += '</option>';
 					$('#rm_material_name').html(html);
 	    			$("#rm_material_name").trigger("chosen:updated");
-
 				});
-	
 }
 
 </script>
-	<script type="text/javascript">
-
+<script type="text/javascript">
 function insertItemDetail(){
-	
-	
 	$.getJSON('${insertSfItemDetail}',
 			{
 				ajax : 'true',
+            });
 }
-);
-	
-
-}
-
-
 </script>
-
-	<script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function() { 
 	$('#material_type').change(
-			function() {
-				
-
+	function() {
     if($(this).val()==2)
     	{
     	$('#loader').show();
-	$.getJSON('${getRawMaterial}', {
-		material_type : $(this).val(),
-					
-					ajax : 'true',
+	    $.getJSON('${getRawMaterial}', {
+		      material_type : $(this).val(),
+			  ajax : 'true',
 				},  function(data) {
 					$('#loader').hide();
                     
@@ -741,14 +781,10 @@ $(document).ready(function() {
     			$("#rm_material_name").trigger("chosen:updated");
     		 document.getElementById("rm_material_name").selectedIndex = "0"; 
     	}
-  
-			});
-			
-
+    });
 });
 </script>
-
-	<script type="text/javascript">
+<script type="text/javascript">
 function validate(){
 	var isValid=true;
 	var materialType = $('#material_type').val();
@@ -771,7 +807,6 @@ function validate(){
 		isValid= false;
 	}
 	return isValid;
-	
 }
 function clearData(){
 	document.getElementById("sf_item_weight").value="";
@@ -787,7 +822,7 @@ function clearData(){
 	 document.getElementById("rm_cat").selectedIndex = "0";  
 }
 </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 $(document).ready(function() { 
 	$('#rm_group').change(
 			function() {
@@ -830,9 +865,8 @@ $(document).ready(function() {
 				});
 			});
 });
-
 </script>
-<script>
+	<script>
 function myFunction() {
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");

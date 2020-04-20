@@ -22,6 +22,29 @@ private int sfDid;
 	 
 	private int rmType;
 	
+	private int seqNo;
+	
+	
+	private String uom;//for admin end
+	
+	
+	
+	public String getUom() {
+		return uom;
+	}
+
+	public void setUom(String uom) {
+		this.uom = uom;
+	}
+
+	public int getSeqNo() {
+		return seqNo;
+	}
+
+	public void setSeqNo(int seqNo) {
+		this.seqNo = seqNo;
+	}
+
 	public int getRmType() {
 		return rmType;
 	}
@@ -97,7 +120,9 @@ private int sfDid;
 	@Override
 	public String toString() {
 		return "ItemSfDetail [sfDid=" + sfDid + ", sfId=" + sfId + ", rmId=" + rmId + ", rmName=" + rmName + ", rmQty="
-				+ rmQty + ", rmUnit=" + rmUnit + ", rmWeight=" + rmWeight + ", delStatus=" + delStatus + "]";
+				+ rmQty + ", rmUnit=" + rmUnit + ", rmWeight=" + rmWeight + ", delStatus=" + delStatus + ", rmType="
+				+ rmType + ", seqNo=" + seqNo + ", uom=" + uom + "]";
 	}
+
 	
 }
