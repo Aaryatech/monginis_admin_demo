@@ -11,7 +11,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Sales Report Billwise PDF</title>
+<title>Item-wise Sale Report PDF</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -50,7 +50,7 @@ th {
 <h3 align="center">${FACTORYNAME}</h3>
 <p align="center">${FACTORYADDRESS}</p>
 
-<div align="center"> <h5> Sales Report (Item Wise)  &nbsp;&nbsp;&nbsp;&nbsp; From &nbsp; ${fromDate}  &nbsp;To &nbsp; ${toDate}</h5></div>
+<div align="center"> <h5> Item-wise Sale Report  &nbsp;&nbsp;&nbsp;&nbsp; From &nbsp; ${fromDate}  &nbsp;To &nbsp; ${toDate}</h5></div>
 
 	<table  align="center" border="1" cellspacing="0" cellpadding="1" 
 		id="table_grid" class="table table-bordered">
@@ -78,9 +78,9 @@ th {
 			<c:forEach items="${report}" var="report" varStatus="count">
 				<tr>
 					<td><c:out value="${count.index+1}" /></td>
-					<td width="200" ><c:out value="${report.itemName}" /></td>
-					<td  width="100"><c:out value="${report.itemHsncd}" /></td>
-					<td  width="100" align="right"><fmt:formatNumber type="number"
+					<td><c:out value="${report.itemName}" /></td>
+					<td><c:out value="${report.itemHsncd}" /></td>
+					<td align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${report.itemTax1 + report.itemTax2}"/></td>
 
 
@@ -93,15 +93,15 @@ th {
 					<c:set var="igstSum" value="${report.igstRsSum + igstSum}" />
 
 
-					<td  width="100" align="right"><fmt:formatNumber type="number"
+					<td align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${report.billQtySum}"/></td>
-					<td  width="100" align="right"><fmt:formatNumber type="number"
+					<td align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${report.taxableAmtSum}"/></td>
-					<td  width="100" align="right"><fmt:formatNumber type="number"
+					<td  align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${report.cgstRsSum}"/></td>
-					<td  width="100" align="right"><fmt:formatNumber type="number"
+					<td align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${report.sgstRsSum}"/></td>
-					<td  width="100" align="right"><fmt:formatNumber type="number"
+					<td align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${report.igstRsSum}"/></td>
 
 					<c:set var="totalGst"
@@ -117,18 +117,18 @@ th {
 			<tr>
 
 				<td colspan='4'><b>Total</b></td>
-				<td  width="100" align="right"><b><fmt:formatNumber type="number"
+				<td align="right"><b><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${qtySum}" /></b></td>
-				<td  width="100" align="right"><b><fmt:formatNumber type="number"
+				<td align="right"><b><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${taxAmtSum}" /></b></td>
-				<td  width="100" align="right"><b><fmt:formatNumber type="number"
+				<td align="right"><b><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${cgstSum}" /></b></td>
-				<td  width="100" align="right"><b><fmt:formatNumber type="number"
+				<td align="right"><b><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${sgstSum}" /></b></td>
 							<td  align="right"><b><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"  value="${igstSum}" /></b></td>
 							
-				<td  width="100" align="right"><b><fmt:formatNumber type="number"
+				<td align="right"><b><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2" value="${GrandTotalGst}" /></b></td>
 				<!--  <td><b>Total</b></td> -->
 			</tr>

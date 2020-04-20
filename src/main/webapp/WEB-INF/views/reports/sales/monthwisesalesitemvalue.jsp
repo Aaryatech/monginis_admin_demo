@@ -51,7 +51,7 @@
 			<div class="box">
 				<div class="box-title">
 					<h3>
-						<i class="fa fa-bars"></i>Monthly Sales Return Value Item Wise
+						<i class="fa fa-bars"></i>Monthly Item Wise
 						Report
 					</h3>
 				</div>
@@ -67,8 +67,7 @@
 								</select>
 							</div>
 
-							<label class="col-sm-3 col-lg-2 control-label">Select
-								Category</label>
+							<label class="col-sm-3 col-lg-2 control-label">Category</label>
 							<div class="col-sm-3 col-lg-2">
 
 								<select data-placeholder="Select Category"
@@ -135,12 +134,12 @@
 			</div>
 
 			<div class="box">
-				<div class="box-title">
+				<!-- <div class="box-title">
 					<h3>
 						<i class="fa fa-list-alt"></i>Monthly Sales Return Value Item Wise
 						Report
 					</h3>
-				</div>
+				</div> -->
 				<div class=" box-content">
 					<div class="row">
 						<div class="col-md-12 table-responsive"
@@ -321,7 +320,7 @@
 						<div class="form-group" id="range">
 							<div class="col-sm-3  controls">
 								<input type="button" id="expExcel" class="btn btn-primary"
-									value="EXPORT TO Excel" onclick="exportToExcel();">
+									value="Export To Excel" onclick="exportToExcel();">
 							</div>
 						</div>
 					</div>
