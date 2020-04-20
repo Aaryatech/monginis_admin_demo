@@ -84,12 +84,12 @@
 			</div>
 
 			<div class="box">
-				<div class="box-title">
+				<!-- <div class="box-title">
 					<h3>
 						<i class="fa fa-list-alt"></i>Monthly Sales Return Value Wise
 						Report
 					</h3>
-				</div>
+				</div> -->
 				<div class=" box-content">
 					<div class="row">
 						<div class="col-md-12 table-responsive"

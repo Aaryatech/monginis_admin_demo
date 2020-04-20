@@ -130,9 +130,8 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12" style="text-align: center;">
-						<button class="btn btn-info" onclick="searchReport()">Search
-							Billwise Report</button>
-						<button class="btn search_btn" onclick="showChart()">Graph</button>
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
+						<button class="btn btn-primary" onclick="showChart()">Graph</button>
 
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button>
@@ -157,12 +156,12 @@
 
 
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>Royalty Report (R6)
 				</h3>
 
-			</div>
+			</div> -->
 
 			<form id="submitBillForm"
 				action="${pageContext.request.contextPath}/submitNewBill"
@@ -174,15 +173,15 @@
 								style="width: 100%" id="table_grid">
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										<th>Fr Name</th>
-										<th>City</th>
-										<th>Sale Value</th>
-										<th>GRN Value</th>
-										<th>%</th>
-										<th>GVN Value</th>
-										<th>Net Value</th>
-										<th>Royalty Amt</th>
+										<th style="text-align: center;">Sr.No.</th>
+										<th style="text-align: center;">Fr Name</th>
+										<th style="text-align: center;">City</th>
+										<th style="text-align: center;">Sale Value</th>
+										<th style="text-align: center;">GRN Value</th>
+										<th style="text-align: center;">%</th>
+										<th style="text-align: center;">GVN Value</th>
+										<th style="text-align: center;">Net Value</th>
+										<th style="text-align: center;">Royalty Amt</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -194,7 +193,7 @@
 
 							<div class="col-sm-3  controls">
 								<input type="button" id="expExcel" class="btn btn-primary"
-									value="EXPORT TO Excel" onclick="exportToExcel();"
+									value="Export To Excel" onclick="exportToExcel();"
 									disabled="disabled">
 							</div>
 						</div>
@@ -258,11 +257,7 @@
 
 				}
 
-				var royPer = $
-				{
-					royPer
-				}
-				;
+				var royPer = ${royPer};
 				//alert(royPer);
 
 				$.each(data, function(key, report) {
@@ -444,11 +439,7 @@
 
 								}
 								var i = 0;
-								var royPer = $
-								{
-									royPer
-								}
-								;
+								var royPer = ${royPer};
 								//alert(royPer);
 								google.charts.load('current', {
 									'packages' : [ 'corechart', 'bar' ]

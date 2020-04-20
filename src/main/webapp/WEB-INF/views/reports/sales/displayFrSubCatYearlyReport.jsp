@@ -33,8 +33,9 @@
 		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Franchisee SubCategory-wise Yearly
-					Report
+					<!-- <i class="fa fa-file-o"></i>Franchisee SubCategory-wise Yearly
+					Report -->
+					<i class="fa fa-bars"></i> Yearly Franchisee wise Category wise Report
 				</h1>
 				<h4></h4>
 			</div>
@@ -42,14 +43,14 @@
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
-		<div id="breadcrumbs">
+		<%-- <div id="breadcrumbs">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i> <a
 					href="${pageContext.request.contextPath}/home">Home</a> <span
 					class="divider"><i class="fa fa-angle-right"></i></span></li>
 				<li class="active">Bill Report</li>
 			</ul>
-		</div>
+		</div> --%>
 		<!-- END Breadcrumb -->
 
 
@@ -155,7 +156,7 @@
 
 
 
-		<input type="button" id="expExcel" name="expExcel"
+		<input type="button" id="expExcel" name="expExcel" class="btn btn-primary"
 			onclick="exportToExcel();" value="Export to Excel">
 
 

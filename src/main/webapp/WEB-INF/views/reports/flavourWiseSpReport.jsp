@@ -89,7 +89,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12" style="text-align: center;">
-						<button class="btn btn-info" onclick="searchReport()">Search</button>
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 						<!-- 	<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button> -->
 
@@ -113,13 +113,13 @@
 
 
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>Special Cake Flavour-wise Report
 				</h3>
 
-			</div>
-			<input type="button"
+			</div> -->
+			<input type="button" class="btn btn-primary"
 				onclick="tableToExcel('table_grid', 'name', 'FlavorWiseSpReport.xls')"
 				value="Export to Excel">
 

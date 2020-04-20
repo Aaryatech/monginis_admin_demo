@@ -916,7 +916,7 @@ public class YearlyReportController {
 			HttpSession session = request.getSession();
 			session.setAttribute("exportExcelListNew", exportToExcelList);
 			session.setAttribute("excelNameNew", "FrWiseSubCatWiseItemSaleYearlyReport");
-			session.setAttribute("reportNameNew", "Franchisee Wise Sub Cat Wise Item Wise Monthly Report");
+			session.setAttribute("reportNameNew", "Yearly Franchisee Wise Sub Category wise Item wise Report");
 			session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
 			session.setAttribute("mergeUpto1", "$A$1:$J$1");
 			session.setAttribute("mergeUpto2", "$A$2:$J$2");

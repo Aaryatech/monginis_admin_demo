@@ -51,18 +51,18 @@ th {
 <body onload="myFunction()">
 <h3 align="center">${FACTORYNAME}</h3>
 <p align="center">${FACTORYADDRESS}</p>
-<div align="center"> <h5> Sales Report (Sales Royalty Franchisee Wise) &nbsp;&nbsp;&nbsp;&nbsp; From &nbsp; ${fromDate}  &nbsp;To &nbsp; ${toDate}</h5></div>
+<div align="center"> <h5>Franchasee-wise Royalty Report&nbsp;&nbsp;&nbsp;&nbsp; From &nbsp; ${fromDate}  &nbsp;To &nbsp; ${toDate}</h5></div>
 	<table  align="center" border="1" cellspacing="0" cellpadding="1" 
 		id="table_grid" class="table table-bordered">
 	
 		<thead>
 			<tr class="bgpink">
 				<th height="25">Sr.No.</th>
-				<th>Fr Name</th>
+				<th>Franchisee Name</th>
 				<th>City</th>
 				<th>Sale Value</th>
-				<th>Grn Value</th>
-				<th>Gvn Value</th>
+				<th>GRN Value</th>
+				<th>GVN Value</th>
 				<th>%</th>
 				<th>Net Value</th>
 				<th>Amount</th>
@@ -84,22 +84,22 @@ th {
 			<c:forEach items="${report}" var="report" varStatus="count">
 				<tr>
 					<td><c:out value="${count.index+1}" /></td>
-					<td width="200"><c:out value="${report.frName}" /></td>
-					<td width="100"><c:out value="${report.frCity}" /></td>
-					<td  width="100" align="right"><fmt:formatNumber type="number"
+					<td><c:out value="${report.frName}" /></td>
+					<td><c:out value="${report.frCity}" /></td>
+					<td align="right"><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${report.tBillTaxableAmt}" /></td>
 								
 								
 														<c:set var="granBillTaxableValue" value="${granBillTaxableValue+report.tBillTaxableAmt}" />
 								
 					
-					<td  width="100" align="right">
+					<td align="right">
 					<fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${report.tGrnTaxableAmt}" /></td>
-					<td  width="100" align="right">
+					<td align="right">
 					<fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${report.tGvnTaxableAmt}" /></td>
-					<td  width="100" align="right"><c:out value="${royPer}" /></td>
+					<td align="right"><c:out value="${royPer}" /></td>
 					
 					<c:set var="netValue" value="${report.tBillTaxableAmt -(report.tGrnTaxableAmt + report.tGvnTaxableAmt)}" />
 					
@@ -110,7 +110,7 @@ th {
 					
 										<c:set var="grandGvnValue" value="${grandGvnValue + report.tGvnTaxableAmt}" />
 				
-					<td  width="100" align="right">
+					<td align="right">
 					<fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${netValue}" /></td>
 								
@@ -121,7 +121,7 @@ th {
 							<c:set var="FinalNetValue"
 						value="${FinalNetValue + netValue}" />
 						
-					<td  width="100" align="right"><fmt:formatNumber type="number"
+					<td align="right"><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${rAmt}" /></td>
 								
 																<c:set var="rAmtSum" value="${rAmtSum+rAmt}" />
@@ -131,27 +131,27 @@ th {
 			</c:forEach>
 				<tr>
 					<td colspan='3'><b>Total</b></td>
-					<td  width="100" align="right"><b><fmt:formatNumber type="number"
+					<td align="right"><b><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${granBillTaxableValue}" /></b></td>
-					<td  width="100" align="right"><b><fmt:formatNumber type="number"
+					<td align="right"><b><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${grandGrnValue}" /></b></td>
-					<td  width="100" align="right"><b><fmt:formatNumber type="number"
+					<td align="right"><b><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${grandGvnValue}" /></b></td>
 								<td></td>
 				 <%--  <td  width="100" align="right"><b><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${taxPer}" /></b></td> --%>
-					<td  width="100" align="right"><b><fmt:formatNumber type="number"
+					<td  align="right"><b><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${FinalNetValue}" /></b></td>
 								
 								
-								<td  width="100" align="right"><b><fmt:formatNumber type="number"
+								<td align="right"><b><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${rAmtSum}" /></b></td>
 								
 								
 								
 								
 								
-					<td></td>
+					
 					
 				</tr>
 		</tbody>

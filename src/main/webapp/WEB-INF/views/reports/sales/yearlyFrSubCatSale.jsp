@@ -32,24 +32,24 @@
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
 		<div class="page-title">
-			<div>
+			<!-- <div>
 				<h1>
-					<i class="fa fa-file-o"></i>Franchisee SubCategory-wise Yearly Report
+					<i class="fa fa-file-o"></i>Yearly Franchisee wise Category wise Report
 				</h1>
 				<h4></h4>
-			</div>
+			</div> -->
 		</div>
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
-		<div id="breadcrumbs">
+		<%-- <div id="breadcrumbs">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i> <a
 					href="${pageContext.request.contextPath}/home">Home</a> <span
 					class="divider"><i class="fa fa-angle-right"></i></span></li>
 				<li class="active">Bill Report</li>
 			</ul>
-		</div>
+		</div> --%>
 		<!-- END Breadcrumb -->
 
 <form id="submitBillForm"
@@ -59,7 +59,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i> Franchisee SubCategory-wise Yearly Report
+					<i class="fa fa-bars"></i> Yearly Franchisee wise Category wise Report
 				</h3>
 
 			</div>
@@ -124,27 +124,6 @@
 				<br>
 				<div class="row">
 					<div class="form-group">
-
-						<label class="col-sm-3 col-lg-2 control-label"> Select
-							Franchise</label>
-						<div class="col-sm-6 col-lg-4">
-
-							<select data-placeholder="Choose Franchisee"
-								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr"
-								onchange="setAllFrSelected(this.value)">
-
-								<option value="-1"><c:out value="All" /></option>
-
-								<c:forEach items="${unSelectedFrList}" var="fr"
-									varStatus="count">
-									<option value="${fr.frId}"><c:out value="${fr.frName}" /></option>
-								</c:forEach>
-							</select>
-
-						</div>
-						
-						
 						
 						<label class="col-sm-3 col-lg-2 control-label"> Report Type</label>
 						<div class="col-sm-6 col-lg-4 controls date_select">
@@ -162,11 +141,37 @@
 					</div>
 					</div>
 					
+					<br>
+				<div class="row">
+					<div class="form-group">
+
+						<label class="col-sm-3 col-lg-2 control-label"> Select
+							Franchise</label>
+						<div class="col-md-10">
+
+							<select data-placeholder="Choose Franchisee"
+								class="form-control chosen" multiple="multiple" tabindex="6"
+								id="selectFr" name="selectFr"
+								onchange="setAllFrSelected(this.value)">
+
+								<option value="-1"><c:out value="All" /></option>
+
+								<c:forEach items="${unSelectedFrList}" var="fr"
+									varStatus="count">
+									<option value="${fr.frId}"><c:out value="${fr.frName}" /></option>
+								</c:forEach>
+							</select>
+
+						</div>
+						
+					</div>
+					</div>
+					
 					<div class="row">
 					<div class="form-group">
-					<div class="col-md-12" style="text-align: center;">
+					<div class="col-md-12" style="text-align: center; margin-top: 5%;">
 					<input type="submit" id="submit" class="btn btn-primary"
-								value="Search Report">
+								value="Search">
 								
 								
 						
@@ -196,7 +201,8 @@
 		<div class="box">
 			<div class="box-title" style="display:none;">
 				<h3>
-					<i class="fa fa-list-alt"></i>Franchisee SubCategory-wise Yearly Report
+					<!-- <i class="fa fa-list-alt"></i>Franchisee SubCategory-wise Yearly Report -->
+					<i class="fa fa-bars"></i> Yearly Franchisee wise Category wise Report
 				</h3>
 
 			</div>
@@ -233,7 +239,7 @@
 
 						<div class="col-sm-3  controls">
 							<input type="button" id="expExcel" class="btn btn-primary"
-								value="EXPORT TO Excel" onclick="exportToExcel();"
+								value="Export To Excel" onclick="exportToExcel();"
 								disabled="disabled">
 						</div>
 					</div>

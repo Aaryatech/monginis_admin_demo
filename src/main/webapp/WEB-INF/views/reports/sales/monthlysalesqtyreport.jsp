@@ -106,13 +106,13 @@
 
 
 			<div class="box">
-				<div class="box-title">
+				<!-- <div class="box-title">
 					<h3>
 						<i class="fa fa-list-alt"></i>Monthly Sales Return Quantity Wise
 						Report
 					</h3>
 
-				</div>
+				</div> -->
 
 
 				<div class=" box-content">

@@ -11,7 +11,7 @@
 	<c:url var="getBillList" value="/getFrSubCatItemYearlyReport"></c:url>
 
 	<c:url var="getFrListofAllFr" value="/getAllFrListForReport"></c:url>
-
+	<c:url var="getAllCatByAjax" value="/getAllCatByAjax"></c:url>
 
 	<!-- BEGIN Sidebar -->
 	<div id="sidebar" class="navbar-collapse collapse">
@@ -30,26 +30,26 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<div class="page-title">
+		<!-- <div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Franchisee Wise SubCategory Wise Item
-					Wise Monthly Report
+					<i class="fa fa-file-o"></i> Yearly Franchisee Wise SubCategory wise Item
+					wise Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div>
+		</div> -->
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
-		<div id="breadcrumbs">
+		<%-- <div id="breadcrumbs">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i> <a
 					href="${pageContext.request.contextPath}/home">Home</a> <span
 					class="divider"><i class="fa fa-angle-right"></i></span></li>
 				<li class="active">Report</li>
 			</ul>
-		</div>
+		</div> --%>
 		<!-- END Breadcrumb -->
 
 		<form id="submitBillForm"
@@ -59,8 +59,8 @@
 			<div class="box">
 				<div class="box-title">
 					<h3>
-						<i class="fa fa-bars"></i> Franchisee Wise SubCategory Wise Item
-						Wise Monthly Report
+						<i class="fa fa-bars"></i>  Yearly Franchisee Wise Sub Category wise Item
+					wise Report
 					</h3>
 
 				</div>
@@ -97,31 +97,11 @@
 					<div class="row">
 
 						<label class="col-sm-3 col-lg-2 control-label"> Select
-							Franchise</label>
-						<div class="col-sm-6 col-lg-4">
-
-							<select data-placeholder="Choose Franchisee"
-								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr"
-								onchange="setAllFrSelected(this.value)">
-
-								<option value="-1"><c:out value="All" /></option>
-
-								<c:forEach items="${unSelectedFrList}" var="fr"
-									varStatus="count">
-									<option value="${fr.frId}"><c:out value="${fr.frName}" /></option>
-								</c:forEach>
-							</select>
-
-						</div>
-
-
-						<label class="col-sm-3 col-lg-2 control-label"> Select
 							Category</label>
 						<div class="col-md-4" style="text-align: left;">
 							<select data-placeholder="Select Group"
 								class="form-control chosen" name="item_grp1" tabindex="-1"
-								onchange="getSubCategoriesByCatId()" id="item_grp1"
+								onchange="getSubCategoriesByCatId(this.value)" id="item_grp1"
 								data-rule-required="true" multiple="multiple">
 								<option value="-1">Select All</option>
 
@@ -133,14 +113,6 @@
 
 							</select>
 						</div>
-
-
-
-					</div>
-					<br>
-					<div class="row">
-						<div class="form-group">
-
 
 
 							<label class="col-sm-3 col-lg-2 control-label"> Report
@@ -157,12 +129,35 @@
 								</select>
 							</div>
 
-							<div class="col-md-6" style="text-align: center;">
+					</div>
+					<br>
+					<div class="row">
+
+						<label class="col-sm-3 col-lg-2 control-label"> Select
+							Franchise</label>
+						<div class="col-md-10">
+
+							<select data-placeholder="Choose Franchisee"
+								class="form-control chosen" multiple="multiple" tabindex="6"
+								id="selectFr" name="selectFr"
+								onchange="setAllFrSelected(this.value)">
+
+								<option value="-1"><c:out value="All" /></option>
+
+								<c:forEach items="${unSelectedFrList}" var="fr"
+									varStatus="count">
+									<option value="${fr.frId}"><c:out value="${fr.frName}" /></option>
+								</c:forEach>
+							</select>
+
+						</div>
+
+					</div><br>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-md-12" style="text-align: center;">
 								<input type="button" id="submit" class="btn btn-primary"
-									value="Search Report" onclick="searchReport()">
-
-
-
+									value="Search" onclick="searchReport()">
 							</div>
 
 						</div>
@@ -232,6 +227,30 @@
 				exportToExcel();
 
 			});
+		}
+		
+		function getSubCategoriesByCatId(catId) {
+			if (catId == -1) {
+				$.getJSON('${getAllCatByAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					$('#item_grp1').find('option').remove().end()
+
+					$("#item_grp1").append(
+							$("<option ></option>").attr("value", -1).text(
+									"Select All"));
+
+					for (var i = 0; i < len; i++) {
+
+						$("#item_grp1").append(
+								$("<option selected></option>").attr("value",
+										data[i].catId).text(data[i].catName));
+					}
+
+					$("#item_grp1").trigger("chosen:updated");
+				});
+			}
 		}
 	</script>
 

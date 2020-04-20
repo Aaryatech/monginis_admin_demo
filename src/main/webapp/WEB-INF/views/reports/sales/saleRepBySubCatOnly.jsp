@@ -32,32 +32,32 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<div class="page-title">
+		<!-- <div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i> Sub Category-wise Report
+					<i class="fa fa-file-o"></i> Sub Category Summary Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div>
+		</div> -->
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
-		<div id="breadcrumbs">
+		<%-- <div id="breadcrumbs">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i> <a
 					href="${pageContext.request.contextPath}/home">Home</a> <span
 					class="divider"><i class="fa fa-angle-right"></i></span></li>
 				<li class="active">Bill Report</li>
 			</ul>
-		</div>
+		</div> --%>
 		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Sub Category-wise Report
+					<i class="fa fa-bars"></i> Sub Category Summary Report
 				</h3>
 
 			</div>
@@ -84,8 +84,7 @@
 				<div class="row">
 
 					<div class="col-md-6" style="text-align: center;">
-						<button class="btn btn-info" onclick="searchReport()">Search
-							Report</button>
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button>
 					</div>
@@ -106,11 +105,11 @@
 			</div>
 		</div>
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>Sub Category-wise Report
 				</h3>
-			</div>
+			</div> -->
 			<div class=" box-content">
 				<div class="row">
 					<div class="col-md-12 table-responsive">
@@ -118,17 +117,17 @@
 							style="width: 100%" id="table_grid">
 							<thead style="background-color: #f3b5db;">
 								<tr>
-									<th>Sr.No.</th>
-									<th>Sub Category Name</th>
-									<th>Sold Qty</th>
-									<th>Sold Amt</th>
-									<th>Var Qty</th>
-									<th>Var Amt</th>
-									<th>Ret Qty</th>
-									<th>Ret Amt</th>
-									<th>Net Qty</th>
-									<th>Net Amt</th>
-									<th>Ret Amt %</th>
+									<th style="text-align: center">Sr.No.</th>
+									<th style="text-align: center">Sub Category Name</th>
+									<th style="text-align: center">Sold Qty</th>
+									<th style="text-align: center">Sold Amt</th>
+									<th style="text-align: center">Var Qty</th>
+									<th style="text-align: center">Var Amt</th>
+									<th style="text-align: center">Ret Qty</th>
+									<th style="text-align: center">Ret Amt</th>
+									<th style="text-align: center">Net Qty</th>
+									<th style="text-align: center">Net Amt</th>
+									<th style="text-align: center">Ret Amt %</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -142,7 +141,7 @@
 
 						<div class="col-sm-3  controls">
 							<input type="button" id="expExcel" class="btn btn-primary"
-								value="EXPORT TO Excel" onclick="exportToExcel();"
+								value="Export To Excel" onclick="exportToExcel();"
 								disabled="disabled">
 						</div>
 					</div>
