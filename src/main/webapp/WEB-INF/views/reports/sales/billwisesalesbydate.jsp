@@ -46,7 +46,7 @@
 				<li><i class="fa fa-home"></i> <a
 					href="${pageContext.request.contextPath}/home">Home</a> <span
 					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Bill Report</li>
+				<li class="active">Bill-wise Report</li>
 			</ul>
 		</div>
 		<!-- END Breadcrumb -->
@@ -55,7 +55,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>View Billwise Sale
+					<i class="fa fa-bars"></i>Bill-wise Report
 				</h3>
 
 			</div>
@@ -147,8 +147,7 @@
 						</select>
 					</div>
 					<div class="col-md-6" style="text-align: center;">
-						<button class="btn btn-info" onclick="searchReport()">Search
-							Billwise Report</button>
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button>
 					</div>
@@ -173,7 +172,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-list-alt"></i>Bill Report
+					<i class="fa fa-list-alt"></i>Bill-wise Report
 				</h3>
 
 			</div>
@@ -188,18 +187,18 @@
 								style="width: 100%" id="table_grid">
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										<th>Bill No</th>
-										<th>Date</th>
-										<th>Party Name</th>
-										<th>City</th>
-										<th>GSTIN</th>
-										<th>Basic Value</th>
-										<th>CGST</th>
-										<th>SGST</th>
-										<th>IGST</th>
-										<th>Round Off</th>
-										<th>Total</th>
+										<th style="text-align: center;">Sr.No.</th>
+										<th style="text-align: center;">Bill No</th>
+										<th style="text-align: center;">Date</th>
+										<th style="text-align: center;">Party Name</th>
+										<th style="text-align: center;">City</th>
+										<th style="text-align: center;">GSTIN</th>
+										<th style="text-align: center;">Basic Value</th>
+										<th style="text-align: center;">CGST</th>
+										<th style="text-align: center;">SGST</th>
+										<th style="text-align: center;">IGST</th>
+										<th style="text-align: center;">Round Off</th>
+										<th style="text-align: center;">Total</th>
 
 									</tr>
 								</thead>
@@ -214,7 +213,7 @@
 
 							<div class="col-sm-3  controls">
 								<input type="button" id="expExcel" class="btn btn-primary"
-									value="EXPORT TO Excel" onclick="exportToExcel();"
+									value="Export To Excel" onclick="exportToExcel();"
 									disabled="disabled">
 							</div>
 						</div>
@@ -319,7 +318,7 @@
 
 					tr.append($('<td></td>').html(report.invoiceNo));
 
-					tr.append($('<td></td>').html(report.billDate));
+					tr.append($('<td style="text-align: center;"></td>').html(report.billDate));
 
 					tr.append($('<td></td>').html(report.frName));
 
