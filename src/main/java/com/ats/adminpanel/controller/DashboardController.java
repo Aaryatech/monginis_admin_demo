@@ -1,13 +1,10 @@
 package com.ats.adminpanel.controller;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,339 +26,605 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.adminpanel.commons.Constants;
 import com.ats.adminpanel.commons.DateConvertor;
+import com.ats.adminpanel.model.dashboard.AdminDashYearlyReport;
 import com.ats.adminpanel.model.dashboard.CredNoteReport;
 import com.ats.adminpanel.model.dashboard.DashboardData;
-import com.ats.adminpanel.model.dashboard.MonthlyDashboardData;
 import com.ats.adminpanel.model.dashboard.PurBillBackEndReport;
-import com.ats.adminpanel.model.ggreports.GrnGvnReportByGrnType;
-import com.ats.adminpanel.model.salescompare.SalesComparison;
-
 
 @Controller
 @Scope("session")
 public class DashboardController {
 
 	RestTemplate rest = new RestTemplate();
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+	
+	List<AdminDashYearlyReport> dashYearlyData=new ArrayList<>();
 
 	@RequestMapping(value = "/showDashboard", method = RequestMethod.GET)
 	public ModelAndView showDashboard(HttpServletRequest request, HttpServletResponse response) {
 
 		ModelAndView model = new ModelAndView("dashboard");
 		
-		 LinkedHashMap<String,String> hm = new LinkedHashMap<String, String>();
-        
-         hm.put("4", "Apr");
-         hm.put("5", "May");
-         hm.put("6", "Jun");
-         hm.put("7", "Jul");
-         hm.put("8", "Aug");
-         hm.put("9", "Sep");
-         hm.put("10", "Oct");
-         hm.put("11", "Nov");
-         hm.put("12", "Dec");
-         hm.put("1", "Jan");
-         hm.put("2", "Feb");
-         hm.put("3", "Mar");
-         model.addObject("months", hm);
-         
-         
-	List<MonthlyDashboardData> monthDataList=new ArrayList<>();
+		String search = request.getParameter("search");
+		String graph = request.getParameter("graph");
+		System.err.println("BUTTON - "+search+"          GR - "+graph);
+		
+		if(search==null && graph==null) {
+			model.addObject("showGraph", 0);
+		}else if(search==null) {
+			model.addObject("showGraph", 1);
+		}else if(graph==null) {
+			model.addObject("showGraph", 0);
+		}
+		
+
 		try {
-			// --------Getting Current Month And Year --------
+
+			CredNoteReport daygrn = null;
+			CredNoteReport daygvn = null;
+			CredNoteReport monthgrn = null;
+			CredNoteReport monthgvn = null;
+			CredNoteReport yeargrn = null;
+			CredNoteReport yeargvn = null;
+			PurBillBackEndReport daysales = null;
+			PurBillBackEndReport monthsale = null;
+			PurBillBackEndReport yearSale = null;
+
+			String date = request.getParameter("date");
+
+			SimpleDateFormat sdff = new SimpleDateFormat("dd-MM-yyyy");
+
+			if (date == null) {
+				date = sdff.format(Calendar.getInstance().getTime());
+
+			}
+			model.addObject("dispDate", date);
+
+			String ymdDate = DateConvertor.convertToYMD(date);
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", ymdDate);
+			map.add("toDate", ymdDate);
+
+			try {
+				daysales = rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
+				if (daysales != null) {
+					model.addObject("daySale", daysales.getGrandTotal());
+				} else {
+					model.addObject("daySale", "0");
+				}
+
+			} catch (Exception e3) {
+				e3.printStackTrace();
+				model.addObject("daySale", "0");
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", ymdDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 1);
+			try {
+				daygrn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				if (daygrn != null) {
+					model.addObject("dayGrn", daygrn.getCrnGrandTotal());
+				} else {
+					model.addObject("dayGrn", "0");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addObject("dayGrn", "0");
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", ymdDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 0);
+			try {
+				daygvn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				if (daygvn != null) {
+					model.addObject("dayGvn", daygvn.getCrnGrandTotal());
+				} else {
+					model.addObject("dayGvn", "0");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addObject("dayGvn", "0");
+			}
+
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			Date d = sdf.parse(date);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(d);
+			int month = cal.get(Calendar.MONTH) + 1;
+			int year = cal.get(Calendar.YEAR);
+			String startDate = year + "-" + month + "-01";
+			System.err.println(startDate);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", startDate);
+			map.add("toDate", ymdDate);
+
+			try {
+				monthsale = rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
+				if (monthsale != null) {
+					model.addObject("monthSale", monthsale.getGrandTotal());
+				} else {
+					model.addObject("monthSale", "0");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addObject("monthSale", "0");
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", startDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 1);
+			try {
+				monthgrn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				if (monthgrn != null) {
+					model.addObject("monthGrn", monthgrn.getCrnGrandTotal());
+				} else {
+					model.addObject("monthGrn", "0");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addObject("monthGrn", "0");
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", startDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 0);
+			try {
+				monthgvn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				if (monthgvn != null) {
+					model.addObject("monthGvn", monthgvn.getCrnGrandTotal());
+				} else {
+					model.addObject("monthGvn", "0");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addObject("monthGvn", "0");
+			}
+
 			java.util.Date utildate = new Date();
 			Calendar calender = Calendar.getInstance();
 			calender.setTime(utildate);
-			int currentMonth = calender.get(Calendar.MONTH)+1;
-			int year=calender.get(Calendar.YEAR);
-			//------------------------------------------------
-			int startYear=year-1;
-			int endYear=year;
-			if(currentMonth>3)
-			{
-				startYear=year;
-				endYear=(year+1);
+			int currentMonth = calender.get(Calendar.MONTH) + 1;
+			int prevYear = year - 1;
+			String yearStartDate = prevYear + "-04-01";
+			if (currentMonth > 3) {
+				yearStartDate = year + "-04-01";
 			}
-			for(int i=1;i<=12;i++) {
-				System.err.println("||----------------------"+i+"-------------------||");
-				MonthlyDashboardData monthData=new MonthlyDashboardData();
-				 String fromDate="";
-				 String toDate="";
-				if(i<=3)
-				{
-			        fromDate="01-"+i+"-"+endYear;
-			        try{
-			        java.util.Date dt= formatter.parse(fromDate);
-			        Calendar calendar = Calendar.getInstance();  
-			        calendar.setTime(dt);  
 
-			        calendar.add(Calendar.MONTH, 1);  
-			        calendar.set(Calendar.DAY_OF_MONTH, 1);  
-			        calendar.add(Calendar.DATE, -1);  
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", yearStartDate);
+			map.add("toDate", ymdDate);
 
-			        java.util.Date lastDay = calendar.getTime();  
-
-			        toDate = formatter.format(lastDay);
-			        } catch (ParseException e) {
-			            e.printStackTrace();
-			        }
+			try {
+				yearSale = rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
+				if (yearSale != null) {
+					model.addObject("yearSale", yearSale.getGrandTotal());
+				} else {
+					model.addObject("yearSale", "0");
 				}
-				else
-				{
-					 fromDate="01-"+i+"-"+startYear;
-					 try{
-					        java.util.Date dt= formatter.parse(fromDate);
-					        Calendar calendar = Calendar.getInstance();  
-					        calendar.setTime(dt);  
-
-					        calendar.add(Calendar.MONTH, 1);  
-					        calendar.set(Calendar.DAY_OF_MONTH, 1);  
-					        calendar.add(Calendar.DATE, -1);  
-
-					        java.util.Date lastDay = calendar.getTime();  
-
-					        toDate = formatter.format(lastDay);
-					        } catch (ParseException e) {
-					            e.printStackTrace();
-					        }
-				}
-				System.err.println("fromDate:"+fromDate+"toDate:"+toDate);
-		
-				 MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			     map.add("frIdList", 0);
-		         map.add("fromDate", DateConvertor.convertToYMD(fromDate));
-			     map.add("toDate", DateConvertor.convertToYMD(toDate));
-			
-			
-				ParameterizedTypeReference<List<GrnGvnReportByGrnType>> typeRef = new ParameterizedTypeReference<List<GrnGvnReportByGrnType>>() {
-				};
-				ResponseEntity<List<GrnGvnReportByGrnType>> responseEntity = rest.exchange(
-						Constants.url + "getGrnGvnReportByGrnType", HttpMethod.POST, new HttpEntity<>(map), typeRef);
-				
-				List<GrnGvnReportByGrnType> grnGvnByTypeList = responseEntity.getBody();
-				System.err.println("grn"+grnGvnByTypeList.toString());
-				
-				float grnAmt1 = 0;float grnAmt2 = 0;float grnAmt3 = 0;float grnTotalAmt = 0;float gvnAmt=0;long netSalesAmt=0;
-				long salesAmt=0;
-				map = new LinkedMultiValueMap<String, Object>();
-				map.add("monthNumber", i);
-				if(i<=3)
-				{
-				map.add("year", endYear);
-				}
-				else
-				{
-				map.add("year", startYear);
-				}
-				SalesComparison	reportList = rest.postForObject(Constants.url + "getSalesReportComparion", map,
-						SalesComparison.class);
-				System.err.println("report"+reportList.toString());
-				for(int k=0;k<reportList.getBillTotalList().size();k++)
-				{
-					salesAmt=salesAmt+(Math.round(reportList.getBillTotalList().get(k).getBillTotal()));
-				}
-				monthData.setSalesAmt(salesAmt);
-				
-				for(int j=0;j<grnGvnByTypeList.size();j++)
-				{
-					grnAmt1=grnAmt1+(roundUp(grnGvnByTypeList.get(j).getAprAmtGrn1()));
-					grnAmt2=grnAmt2+(roundUp(grnGvnByTypeList.get(j).getAprAmtGrn2()));
-					grnAmt3=grnAmt3+(roundUp(grnGvnByTypeList.get(j).getAprAmtGrn3()));
-					gvnAmt=gvnAmt+(roundUp(grnGvnByTypeList.get(j).getAprAmtGvn()));
-				}
-				grnTotalAmt=grnTotalAmt+(grnAmt1+grnAmt2+grnAmt3);
-
-				netSalesAmt=salesAmt-(Math.round(grnTotalAmt+gvnAmt));
-				
-				monthData.setGrnAmt1(grnAmt1);
-				monthData.setGrnAmt2(grnAmt2);
-				monthData.setGrnAmt3(grnAmt3);
-				monthData.setGrnTotalAmt(grnTotalAmt);
-				monthData.setGvnAmt(gvnAmt);
-				monthData.setMonth(i);
-				monthData.setNetSaleAmt(netSalesAmt);
-				if(i<=3)
-				{
-					monthData.setYear(endYear);
-				}
-				else
-				{
-					monthData.setYear(startYear);
-				}
-				monthDataList.add(monthData);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				model.addObject("yearSale", "0");
 			}
-			System.err.println(monthDataList.toString());	
-          model.addObject("monthDataList", monthDataList);
-          
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", yearStartDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 1);
+			try {
+				yeargrn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				if (yeargrn != null) {
+					model.addObject("yearGrn", yeargrn.getCrnGrandTotal());
+				} else {
+					model.addObject("yearGrn", "0");
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				model.addObject("yearGrn", "0");
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", yearStartDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 0);
+			try {
+
+				yeargvn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				if (yeargvn != null) {
+					model.addObject("yearGvn", yeargvn.getCrnGrandTotal());
+				} else {
+					model.addObject("yearGvn", "0");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addObject("yearGvn", "0");
+			}
+
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
+
+		String year = request.getParameter("year");
+
+		String fromDate = "", toDate = "";
+
+		if (year == null) {
+
+			Calendar cal = Calendar.getInstance();
+			int yr = cal.getWeekYear();
+
+			fromDate = (yr - 1) + "-04-01";
+			toDate = yr + "-03-31";
+
+		} else {
+
+			String[] parts = year.split("-");
+			String part1 = parts[0];
+			String part2 = parts[1];
+
+			fromDate = part1 + "-04-01";
+			toDate = part2 + "-03-31";
+		}
+
+		System.err.println("From Date - " + fromDate + "          To Date - " + toDate);
+
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		map.add("fromDate", fromDate);
+		map.add("toDate", toDate);
+
+		ParameterizedTypeReference<List<AdminDashYearlyReport>> typeRef = new ParameterizedTypeReference<List<AdminDashYearlyReport>>() {
+		};
+		ResponseEntity<List<AdminDashYearlyReport>> responseEntity = rest.exchange(Constants.url + "getAdminDashData",
+				HttpMethod.POST, new HttpEntity<>(map), typeRef);
+
+		dashYearlyData.clear();
+		dashYearlyData = responseEntity.getBody();
+		System.err.println("DASH DATA - " + dashYearlyData);
+
+		model.addObject("data", dashYearlyData);
+
 		return model;
 	}
+	
+	@RequestMapping(value = "/getDashYearlyDataForGraph", method = RequestMethod.GET)
+	public @ResponseBody List<AdminDashYearlyReport> getDashYearlyDataForGraph(HttpServletRequest request, HttpServletResponse response) {
+		
+		return dashYearlyData;
+		
+	}
+	
+
+//	@RequestMapping(value = "/showDashboard", method = RequestMethod.GET)
+//	public ModelAndView showDashboard(HttpServletRequest request, HttpServletResponse response) {
+//
+//		ModelAndView model = new ModelAndView("dashboard");
+//		
+//		 LinkedHashMap<String,String> hm = new LinkedHashMap<String, String>();
+//        
+//         hm.put("4", "Apr");
+//         hm.put("5", "May");
+//         hm.put("6", "Jun");
+//         hm.put("7", "Jul");
+//         hm.put("8", "Aug");
+//         hm.put("9", "Sep");
+//         hm.put("10", "Oct");
+//         hm.put("11", "Nov");
+//         hm.put("12", "Dec");
+//         hm.put("1", "Jan");
+//         hm.put("2", "Feb");
+//         hm.put("3", "Mar");
+//         model.addObject("months", hm);
+//         
+//         
+//	List<MonthlyDashboardData> monthDataList=new ArrayList<>();
+//		try {
+//			// --------Getting Current Month And Year --------
+//			java.util.Date utildate = new Date();
+//			Calendar calender = Calendar.getInstance();
+//			calender.setTime(utildate);
+//			int currentMonth = calender.get(Calendar.MONTH)+1;
+//			int year=calender.get(Calendar.YEAR);
+//			//------------------------------------------------
+//			int startYear=year-1;
+//			int endYear=year;
+//			if(currentMonth>3)
+//			{
+//				startYear=year;
+//				endYear=(year+1);
+//			}
+//			for(int i=1;i<=12;i++) {
+//				System.err.println("||----------------------"+i+"-------------------||");
+//				MonthlyDashboardData monthData=new MonthlyDashboardData();
+//				 String fromDate="";
+//				 String toDate="";
+//				if(i<=3)
+//				{
+//			        fromDate="01-"+i+"-"+endYear;
+//			        try{
+//			        java.util.Date dt= formatter.parse(fromDate);
+//			        Calendar calendar = Calendar.getInstance();  
+//			        calendar.setTime(dt);  
+//
+//			        calendar.add(Calendar.MONTH, 1);  
+//			        calendar.set(Calendar.DAY_OF_MONTH, 1);  
+//			        calendar.add(Calendar.DATE, -1);  
+//
+//			        java.util.Date lastDay = calendar.getTime();  
+//
+//			        toDate = formatter.format(lastDay);
+//			        } catch (ParseException e) {
+//			            e.printStackTrace();
+//			        }
+//				}
+//				else
+//				{
+//					 fromDate="01-"+i+"-"+startYear;
+//					 try{
+//					        java.util.Date dt= formatter.parse(fromDate);
+//					        Calendar calendar = Calendar.getInstance();  
+//					        calendar.setTime(dt);  
+//
+//					        calendar.add(Calendar.MONTH, 1);  
+//					        calendar.set(Calendar.DAY_OF_MONTH, 1);  
+//					        calendar.add(Calendar.DATE, -1);  
+//
+//					        java.util.Date lastDay = calendar.getTime();  
+//
+//					        toDate = formatter.format(lastDay);
+//					        } catch (ParseException e) {
+//					            e.printStackTrace();
+//					        }
+//				}
+//				System.err.println("fromDate:"+fromDate+"toDate:"+toDate);
+//		
+//				 MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+//			     map.add("frIdList", 0);
+//		         map.add("fromDate", DateConvertor.convertToYMD(fromDate));
+//			     map.add("toDate", DateConvertor.convertToYMD(toDate));
+//			
+//			
+//				ParameterizedTypeReference<List<GrnGvnReportByGrnType>> typeRef = new ParameterizedTypeReference<List<GrnGvnReportByGrnType>>() {
+//				};
+//				ResponseEntity<List<GrnGvnReportByGrnType>> responseEntity = rest.exchange(
+//						Constants.url + "getGrnGvnReportByGrnType", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+//				
+//				List<GrnGvnReportByGrnType> grnGvnByTypeList = responseEntity.getBody();
+//				System.err.println("grn"+grnGvnByTypeList.toString());
+//				
+//				float grnAmt1 = 0;float grnAmt2 = 0;float grnAmt3 = 0;float grnTotalAmt = 0;float gvnAmt=0;long netSalesAmt=0;
+//				long salesAmt=0;
+//				map = new LinkedMultiValueMap<String, Object>();
+//				map.add("monthNumber", i);
+//				if(i<=3)
+//				{
+//				map.add("year", endYear);
+//				}
+//				else
+//				{
+//				map.add("year", startYear);
+//				}
+//				SalesComparison	reportList = rest.postForObject(Constants.url + "getSalesReportComparion", map,
+//						SalesComparison.class);
+//				System.err.println("report"+reportList.toString());
+//				for(int k=0;k<reportList.getBillTotalList().size();k++)
+//				{
+//					salesAmt=salesAmt+(Math.round(reportList.getBillTotalList().get(k).getBillTotal()));
+//				}
+//				monthData.setSalesAmt(salesAmt);
+//				
+//				for(int j=0;j<grnGvnByTypeList.size();j++)
+//				{
+//					grnAmt1=grnAmt1+(roundUp(grnGvnByTypeList.get(j).getAprAmtGrn1()));
+//					grnAmt2=grnAmt2+(roundUp(grnGvnByTypeList.get(j).getAprAmtGrn2()));
+//					grnAmt3=grnAmt3+(roundUp(grnGvnByTypeList.get(j).getAprAmtGrn3()));
+//					gvnAmt=gvnAmt+(roundUp(grnGvnByTypeList.get(j).getAprAmtGvn()));
+//				}
+//				grnTotalAmt=grnTotalAmt+(grnAmt1+grnAmt2+grnAmt3);
+//
+//				netSalesAmt=salesAmt-(Math.round(grnTotalAmt+gvnAmt));
+//				
+//				monthData.setGrnAmt1(grnAmt1);
+//				monthData.setGrnAmt2(grnAmt2);
+//				monthData.setGrnAmt3(grnAmt3);
+//				monthData.setGrnTotalAmt(grnTotalAmt);
+//				monthData.setGvnAmt(gvnAmt);
+//				monthData.setMonth(i);
+//				monthData.setNetSaleAmt(netSalesAmt);
+//				if(i<=3)
+//				{
+//					monthData.setYear(endYear);
+//				}
+//				else
+//				{
+//					monthData.setYear(startYear);
+//				}
+//				monthDataList.add(monthData);
+//			}
+//			System.err.println(monthDataList.toString());	
+//          model.addObject("monthDataList", monthDataList);
+//          
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		return model;
+//	}
+
 	public static float roundUp(float d) {
 		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
-	@RequestMapping(value = "/getDashboardData", method = RequestMethod.GET)
-	public @ResponseBody DashboardData getDashboardData(HttpServletRequest request,
-			HttpServletResponse response) {
 
-		DashboardData dashData=new DashboardData();
+	@RequestMapping(value = "/getDashboardData", method = RequestMethod.GET)
+	public @ResponseBody DashboardData getDashboardData(HttpServletRequest request, HttpServletResponse response) {
+
+		DashboardData dashData = new DashboardData();
 		try {
-			CredNoteReport daygrn=null;
-			CredNoteReport	daygvn=null;
-			CredNoteReport	monthgrn=null;
-			CredNoteReport	monthgvn=null;
-			CredNoteReport yeargrn=null;
-			CredNoteReport yeargvn=null;
-			PurBillBackEndReport daysales=null;PurBillBackEndReport monthsale=null;PurBillBackEndReport yearSale=null;
-			
+			CredNoteReport daygrn = null;
+			CredNoteReport daygvn = null;
+			CredNoteReport monthgrn = null;
+			CredNoteReport monthgvn = null;
+			CredNoteReport yeargrn = null;
+			CredNoteReport yeargvn = null;
+			PurBillBackEndReport daysales = null;
+			PurBillBackEndReport monthsale = null;
+			PurBillBackEndReport yearSale = null;
+
 			String date = request.getParameter("date");
-			String ymdDate=DateConvertor.convertToYMD(date);
+			String ymdDate = DateConvertor.convertToYMD(date);
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-            map.add("fromDate", ymdDate);
-            map.add("toDate", ymdDate);
-            
-			 try {
-				daysales=rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
+			map.add("fromDate", ymdDate);
+			map.add("toDate", ymdDate);
+
+			try {
+				daysales = rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
 				dashData.setDaySale(daysales);
 			} catch (Exception e3) {
 				// TODO Auto-generated catch block
 				e3.printStackTrace();
 			}
-			
+
 			map = new LinkedMultiValueMap<String, Object>();
-            map.add("fromDate", ymdDate);
-            map.add("toDate", ymdDate);
-            map.add("frIdList", 0);
-            map.add("isGrn",1);
-				try {
-					daygrn=rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
-                    dashData.setDayGrn(daygrn);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
+			map.add("fromDate", ymdDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 1);
+			try {
+				daygrn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				dashData.setDayGrn(daygrn);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			map = new LinkedMultiValueMap<String, Object>();
-            map.add("fromDate", ymdDate);
-            map.add("toDate", ymdDate);
-            map.add("frIdList", 0);
-            map.add("isGrn",0);
-				try {
-					daygvn=rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
-dashData.setDayGvn(daygvn);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			
+			map.add("fromDate", ymdDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 0);
+			try {
+				daygvn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				dashData.setDayGvn(daygvn);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-	            Date d = sdf.parse(date);
-	            Calendar cal = Calendar.getInstance();
-	            cal.setTime(d);
-	            int month = cal.get(Calendar.MONTH)+1;
-	            int year=cal.get(Calendar.YEAR);
-	            String startDate=year+"-"+month+"-01";
-	            System.err.println(startDate);
-	            
-	           
-	            
-	            map = new LinkedMultiValueMap<String, Object>();
-	            map.add("fromDate", startDate);
-	            map.add("toDate", ymdDate);
-	            
-				 try {
-					monthsale=rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
-					dashData.setMonthSale(monthsale);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				map = new LinkedMultiValueMap<String, Object>();
-	            map.add("fromDate", startDate);
-	            map.add("toDate", ymdDate);
-	            map.add("frIdList", 0);
-	            map.add("isGrn",1);
-					try {
-						monthgrn=rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
-dashData.setMonthGrn(monthgrn);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-				map = new LinkedMultiValueMap<String, Object>();
-	            map.add("fromDate", startDate);
-	            map.add("toDate", ymdDate);
-	            map.add("frIdList", 0);
-	            map.add("isGrn",0);
-					try {
-						monthgvn=rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
-dashData.setMonthGvn(monthgvn);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+			Date d = sdf.parse(date);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(d);
+			int month = cal.get(Calendar.MONTH) + 1;
+			int year = cal.get(Calendar.YEAR);
+			String startDate = year + "-" + month + "-01";
+			System.err.println(startDate);
 
-				    java.util.Date utildate= new Date();
-		            Calendar calender = Calendar.getInstance();
-		            calender.setTime(utildate);
-		            int currentMonth = calender.get(Calendar.MONTH)+1;
-		            int prevYear=year-1;
-		            String yearStartDate=prevYear+"-04-01";
-		            if(currentMonth>3)
-		            {
-		            	yearStartDate=year+"-04-01";
-		            }
-		            
-				  map = new LinkedMultiValueMap<String, Object>();
-		            map.add("fromDate", yearStartDate);
-		            map.add("toDate", ymdDate);
-		            
-					 try {
-						yearSale=rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
-						dashData.setYearSale(yearSale);
-					} catch (Exception e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-                    
-					map = new LinkedMultiValueMap<String, Object>();
-		            map.add("fromDate", yearStartDate);
-		            map.add("toDate", ymdDate);
-		            map.add("frIdList", 0);
-		            map.add("isGrn",1);
-						try {
-							yeargrn=rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
-dashData.setYearGrn(yeargrn);
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					
-					map = new LinkedMultiValueMap<String, Object>();
-		            map.add("fromDate", yearStartDate);
-		            map.add("toDate", ymdDate);
-		            map.add("frIdList", 0);
-		            map.add("isGrn",0);
-						try {
-							yeargvn=rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
-dashData.setYearGvn(yeargvn);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					System.err.println("GRN YEAR "+yeargrn.toString());
-					System.err.println("GVN YEAR "+yeargvn.toString());
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", startDate);
+			map.add("toDate", ymdDate);
 
-					System.err.println("GRN Month "+monthgrn.toString());
-					System.err.println("dashData "+dashData.toString());
+			try {
+				monthsale = rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
+				dashData.setMonthSale(monthsale);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		}
-			catch (Exception e) {
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", startDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 1);
+			try {
+				monthgrn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				dashData.setMonthGrn(monthgrn);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", startDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 0);
+			try {
+				monthgvn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				dashData.setMonthGvn(monthgvn);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			java.util.Date utildate = new Date();
+			Calendar calender = Calendar.getInstance();
+			calender.setTime(utildate);
+			int currentMonth = calender.get(Calendar.MONTH) + 1;
+			int prevYear = year - 1;
+			String yearStartDate = prevYear + "-04-01";
+			if (currentMonth > 3) {
+				yearStartDate = year + "-04-01";
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", yearStartDate);
+			map.add("toDate", ymdDate);
+
+			try {
+				yearSale = rest.postForObject(Constants.url + "/getPurBillReport", map, PurBillBackEndReport.class);
+				dashData.setYearSale(yearSale);
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", yearStartDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 1);
+			try {
+				yeargrn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				dashData.setYearGrn(yeargrn);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", yearStartDate);
+			map.add("toDate", ymdDate);
+			map.add("frIdList", 0);
+			map.add("isGrn", 0);
+			try {
+				yeargvn = rest.postForObject(Constants.url + "/getCredNoteReport", map, CredNoteReport.class);
+				dashData.setYearGvn(yeargvn);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.err.println("GRN YEAR " + yeargrn.toString());
+			System.err.println("GVN YEAR " + yeargvn.toString());
+
+			System.err.println("GRN Month " + monthgrn.toString());
+			System.err.println("dashData " + dashData.toString());
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return dashData;
 	}
+
 }
