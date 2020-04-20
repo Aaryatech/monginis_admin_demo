@@ -140,7 +140,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12" style="text-align: center;">
-						<button class="btn btn-info" onclick="searchReport()">Search
+						<button class="btn btn-primary" onclick="searchReport()">Search
 							Report</button>
 
 
@@ -174,12 +174,12 @@
 
 
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>Bill Report
 				</h3>
 
-			</div>
+			</div> -->
 
 			<form id="submitBillForm" method="post">
 				<div class=" box-content">
@@ -189,16 +189,16 @@
 								style="width: 100%" id="table_grid">
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										<th>Item Name</th>
-										<th>HSNCD</th>
-										<th>Tax Rate</th>
-										<th>Qty</th>
-										<th>Taxable Value</th>
-										<th>CGST</th>
-										<th>SGST</th>
-										<th>IGST</th>
-										<th>Total GST</th>
+										<th style="text-align: center;">Sr.No.</th>
+										<th style="text-align: center;">Item Name</th>
+										<th style="text-align: center;">HSNCD</th>
+										<th style="text-align: center;">Tax Rate</th>
+										<th style="text-align: center;">Qty</th>
+										<th style="text-align: center;">Taxable Value</th>
+										<th style="text-align: center;">CGST</th>
+										<th style="text-align: center;">SGST</th>
+										<th style="text-align: center;">IGST</th>
+										<th style="text-align: center;">Total GST</th>
 
 									</tr>
 								</thead>
@@ -213,7 +213,7 @@
 
 							<div class="col-sm-3  controls">
 								<input type="button" id="expExcel" class="btn btn-primary"
-									value="EXPORT TO Excel" onclick="exportToExcel();"
+									value="Export To Excel" onclick="exportToExcel();"
 									disabled="disabled">
 							</div>
 						</div>

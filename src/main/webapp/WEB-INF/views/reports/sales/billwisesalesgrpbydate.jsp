@@ -124,8 +124,8 @@
 
 				<br>
 				<div class="row">
-					<label class="col-sm-3 col-lg-2 control-label"><b>OR</b>&nbsp;Select
-							Franchisee</label>
+					<label class="col-sm-3 col-lg-2 control-label">&nbsp;Select
+							Franchise</label>
 						<div class="col-md-8">
 
 							<select data-placeholder="Choose Franchisee"
@@ -158,7 +158,9 @@
 
 					</div>
 				</div>
-
+<div class="row">
+				<label class="col-md-12 control-label" style="color: red; font-size: 12px;">*Select Route or Franchise
+				</label></div>
 
 				<div align="center" id="loader" style="display: none">
 
@@ -176,12 +178,12 @@
 
 
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>Date-wise Report
 				</h3>
 
-			</div>
+			</div> -->
 
 
 			<div class=" box-content" id="allTable">
@@ -219,7 +221,7 @@
 
 						<div class="col-sm-3  controls">
 							<input type="button" id="expExcel" class="btn btn-primary"
-								value="EXPORT TO Excel" onclick="exportToExcel();"
+								value="Export To Excel" onclick="exportToExcel();"
 								disabled="disabled">
 						</div>
 					</div>

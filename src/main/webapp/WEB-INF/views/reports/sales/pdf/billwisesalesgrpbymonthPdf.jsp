@@ -11,7 +11,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Sales Report Billwise PDF</title>
+<title>Month-wise Report Pdf</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -52,7 +52,7 @@ th {
 	<p align="center">${FACTORYADDRESS}</p>
 
 	<div align="center">
-		<h5>Sales Report (Group by Month Wise) &nbsp;&nbsp;&nbsp;&nbsp;
+		<h5>Month-wise Report &nbsp;&nbsp;&nbsp;&nbsp;
 			From &nbsp; ${fromDate} &nbsp;To &nbsp; ${toDate}</h5>
 	</div>
 	<table align="center" border="1" cellspacing="0" cellpadding="1"
@@ -61,14 +61,14 @@ th {
 			<tr class="bgpink">
 				<th height="25">Sr.No.</th>
 				<th>Month</th>
-				<th>Taxable Value</th>
-				<th>Tax Value</th>
+				<!-- <th>Taxable Value</th>
+				<th>Tax Value</th> -->
 				<th>Grand Total</th>
-				<th>GRN Taxable Value</th>
-				<th>GRN Tax Value</th>
+			<!-- 	<th>GRN Taxable Value</th>
+				<th>GRN Tax Value</th> -->
 				<th>GRN Grand Total</th>
-				<th>GVN Taxable Value</th>
-				<th>GVN Tax Value</th>
+				<!-- <th>GVN Taxable Value</th>
+				<th>GVN Tax Value</th> -->
 				<th>GVN Grand Total</th>
 				<th>NET Taxable Total</th>
 				<th>NET Tax Total</th>
@@ -129,59 +129,56 @@ th {
 
 
 					<td width="0"><c:out value="${count.index+1}" /></td>
-					<td width="100"><c:out value="${report.month}" /></td>
-					<td width="100" align="right"><fmt:formatNumber type="number"
+					<td><c:out value="${report.month}" /></td>
+					<%-- <td width="100" align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.taxableAmt}" /></td>
 
 					<td width="100" align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
-							value="${report.totalTax}" /></td>
-					<td width="100" align="right"><fmt:formatNumber type="number"
+							value="${report.totalTax}" /></td> --%> 
+							
+					<td align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.grandTotal}" /></td>
 
-					<td width="100" align="right"><fmt:formatNumber type="number"
+					<%-- <td width="100" align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.grnTaxableAmt}" /></td>
 
 					<td width="100" align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
-							value="${report.grnTotalTax}" /></td>
+							value="${report.grnTotalTax}" /></td> --%>
 
 
-					<td width="100" align="right"><fmt:formatNumber type="number"
+					<td  align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.grnGrandTotal}" /></td>
 
 
-					<td width="100" align="right"><fmt:formatNumber type="number"
+					<%-- <td width="100" align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.gvnTaxableAmt}" /></td>
 
 					<td width="100" align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.gvnTotalTax}" /></td>
+ --%>
 
-
-					<td width="100" align="right"><fmt:formatNumber type="number"
+					<td align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.gvnGrandTotal}" /></td>
 
-
-
-
-
-					<td width="100" align="right"><fmt:formatNumber type="number"
+					<td  align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.netTaxableAmt}" /></td>
 
-					<td width="100" align="right"><fmt:formatNumber type="number"
+					<td align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.netTotalTax}" /></td>
 
 
-					<td width="100" align="right"><fmt:formatNumber type="number"
+					<td  align="right"><fmt:formatNumber type="number"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${report.netGrandTotal}" /></td>
 
@@ -197,49 +194,52 @@ th {
 				<td colspan='2'><b>Total</b></td>
 
 
-				<td width="100" align="right"><b><fmt:formatNumber
+				<%-- <td width="100" align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalTaxableAmt}" /></b></td>
 				<td width="100" align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
-							value="${totalTax}" /></b></td>
-				<td width="100" align="right"><b><fmt:formatNumber
+							value="${totalTax}" /></b></td> --%>
+							
+				<td align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalGrandTotal}" /></b></td>
 
 
 
-				<td width="100" align="right"><b><fmt:formatNumber
+				<%-- <td width="100" align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalGrnTaxableAmt}" /></b></td>
 				<td width="100" align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
-							value="${totalGrnTax}" /></b></td>
-				<td width="100" align="right"><b><fmt:formatNumber
+							value="${totalGrnTax}" /></b></td> --%>
+							
+				<td align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalGrnGrandTotal}" /></b></td>
 
 
 
-				<td width="100" align="right"><b><fmt:formatNumber
+				<%-- <td width="100" align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalGvnTaxableAmt}" /></b></td>
 				<td width="100" align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
-							value="${totalGvnTax}" /></b></td>
-				<td width="100" align="right"><b><fmt:formatNumber
+							value="${totalGvnTax}" /></b></td> --%>
+							
+				<td align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalGvnGrandTotal}" /></b></td>
 
 
 
-				<td width="100" align="right"><b><fmt:formatNumber
+				<td align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalNetTaxableAmt}" /></b></td>
-				<td width="100" align="right"><b><fmt:formatNumber
+				<td align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalNetTax}" /></b></td>
-				<td width="100" align="right"><b><fmt:formatNumber
+				<td align="right"><b><fmt:formatNumber
 							type="number" maxFractionDigits="2" minFractionDigits="2"
 							value="${totalNetGrandTotal}" /></b></td>
 

@@ -11,7 +11,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Sales Report Billwise PDF</title>
+<title>Franchisee SubCategory Item-wise Report PDF</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -50,7 +50,7 @@ th {
 	<h3 align="center">${FACTORYNAME}</h3>
 	<p align="center">${FACTORYADDRESS}</p>
 	<div align="center">
-		<h5>Sales Report (Franchisee Sub Category - Item Wise) &nbsp;&nbsp;&nbsp;&nbsp; From
+		<h5>Franchisee SubCategory Item-wise Report &nbsp;&nbsp;&nbsp;&nbsp; From
 			&nbsp; ${fromDate} &nbsp;To &nbsp; ${toDate}</h5>
 	</div>
 	<table align="center" border="1" cellspacing="0" cellpadding="1"

@@ -56,7 +56,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>View Sales Royalty by Category
+					<i class="fa fa-bars"></i>Sales Royalty Report Consolidated by Category
 				</h3>
 
 			</div>
@@ -170,8 +170,7 @@
 								<option value="2">CRN</option>
 							</select>
 						</div>
-						<button class="btn btn-info" onclick="searchReport()">Search
-							Report</button>
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 						<!-- <button class="btn search_btn"  onclick="showChart()">Graph</button> -->
 
 
@@ -200,13 +199,13 @@
 
 
 			<div class="box">
-				<div class="box-title">
+				<!-- <div class="box-title">
 					<h3>
 						<i class="fa fa-list-alt"></i>Royalty Cons Report (r10)
 					</h3>
 
 				</div>
-
+ -->
 				<form id="submitBillForm"
 					action="${pageContext.request.contextPath}/submitNewBill"
 					method="post">
