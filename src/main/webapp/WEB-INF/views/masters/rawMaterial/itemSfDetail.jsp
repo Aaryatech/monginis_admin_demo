@@ -674,7 +674,7 @@ function editSfDetail(token){
 		ajax : 'true',
 	}, function(data) {
 		var len = data.length;
-alert(JSON.stringify(data))
+//alert(JSON.stringify(data))
 		 $.each(data,function(key, sfDetail) {
 			editKey=key; 
 

@@ -445,12 +445,23 @@ int deptId=Integer.parseInt(request.getParameter("to_dept"));//new
 				}
 				
 			}
+			String uom="";
+			RestTemplate restTemplate=new RestTemplate();
+			RawMaterialUom[]  rawMaterialUomListRes = restTemplate.getForObject(Constants.url + "rawMaterial/getRmUom",
+					RawMaterialUom[].class);
+			List<RawMaterialUom> uomList=Arrays.asList(rawMaterialUomListRes);
+			for(int i=0;i<uomList.size();i++) {
+				if(uomList.get(i).getUomId()==unitOM) {
+					uom=uomList.get(i).getUom();
+			}
+			}
 			
 			sfDetail.setDelStatus(0);
 			sfDetail.setRmType(materialType);
 			sfDetail.setRmId(materialNameId);
 			sfDetail.setRmName(matName);
 			sfDetail.setRmQty(qty);
+			sfDetail.setUom(uom);
 			sfDetail.setRmWeight(sfWeight);
 			sfDetail.setSfId(globalSfId);
 			sfDetail.setRmUnit(unitOM);
