@@ -4107,7 +4107,7 @@ public class SalesReportController {
 		HttpSession session = request.getSession();
 		session.setAttribute("exportExcelListNew", exportToExcelList);
 		session.setAttribute("excelNameNew", "SalesReportBillwiseAllFr");
-		session.setAttribute("reportNameNew", "Bill-wise & HSN Code-wise Report");
+		session.setAttribute("reportNameNew", "Bill-wise & HSN-wise Report");
 		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
 		session.setAttribute("mergeUpto1", "$A$1:$P$1");
 		session.setAttribute("mergeUpto2", "$A$2:$P$2");
@@ -6784,7 +6784,7 @@ public class SalesReportController {
 				System.err.println("exportToExcelList" + exportToExcelList.toString());
 				HttpSession session = request.getSession();
 				session.setAttribute("exportExcelList", exportToExcelList);
-				session.setAttribute("excelName", "MonthlySalesReturnValueReport");
+				session.setAttribute("excelName", "MonthlySalesReturnValueWiseReport");
 
 			}
 		} catch (Exception e) {

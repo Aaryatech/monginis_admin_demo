@@ -55,7 +55,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Bill-wise & HSN Code-wise Report
+					<i class="fa fa-bars"></i>Bill-wise & HSN-wise Report
 				</h3>
 
 			</div>
@@ -129,8 +129,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12" style="text-align: center;">
-						<button class="btn btn-info" onclick="searchReport()">Search
-							Billwise Report</button>
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 
 
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
@@ -169,12 +168,12 @@
 
 
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>Bill Report
 				</h3>
 
-			</div>
+			</div> -->
 
 			<form id="submitBillForm"
 				action="${pageContext.request.contextPath}/submitNewBill"
@@ -186,20 +185,20 @@
 								style="width: 100%" id="table_grid">
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										<th>Invoice No</th>
-										<th>Date</th>
-										<th>Party Name</th>
-										<th>City</th>
-										<th>GSTIN</th>
-										<th>HSNCD</th>
-										<th>Tax Rate</th>
-										<th>Taxable Value</th>
-										<th>CGST</th>
-										<th>SGST</th>
-										<th>IGST</th>
-										<th>Tax Amt</th>
-										<th>Total Amt</th>
+										<th style="text-align: center;">Sr.No.</th>
+										<th style="text-align: center;">Invoice No</th>
+										<th style="text-align: center;" class="col-md-1">Date</th>
+										<th style="text-align: center;">Party Name</th>
+										<!-- <th style="text-align: center;">City</th> -->
+										<th style="text-align: center;">GSTIN</th>
+										<th style="text-align: center;">HSNCD</th>
+										<th style="text-align: center;">Tax Rate</th>
+										<th style="text-align: center;">Taxable Value</th>
+										<th style="text-align: center;">CGST</th>
+										<th style="text-align: center;">SGST</th>
+										<th style="text-align: center;">IGST</th>
+										<th style="text-align: center;">Tax Amt</th>
+										<th style="text-align: center;">Total Amt</th>
 
 									</tr>
 								</thead>
@@ -289,7 +288,7 @@
 					tr.append($('<td></td>').html(report.invoiceNo));
 					tr.append($('<td></td>').html(report.billDate));
 					tr.append($('<td></td>').html(report.frName));
-					tr.append($('<td></td>').html(report.frCity));
+					/* tr.append($('<td></td>').html(report.frCity)); */
 					tr.append($('<td></td>').html(report.frGstNo));
 					tr.append($('<td></td>').html(report.itemHsncd));
 
@@ -338,7 +337,7 @@
 				tr.append($('<td></td>').html(""));
 				tr.append($('<td></td>').html(""));
 				tr.append($('<td></td>').html(""));
-				tr.append($('<td></td>').html(""));
+				/* tr.append($('<td></td>').html("")); */
 
 				tr.append($('<td style="font-weight:bold;"></td>')
 						.html("Total"));

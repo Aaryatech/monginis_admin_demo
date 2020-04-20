@@ -52,7 +52,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Credit Note Register Report
+					<i class="fa fa-bars"></i>Credit Note-wise Tax Slab-wise Report
 				</h3>
 
 			</div>
@@ -60,26 +60,28 @@
 			<div class="box-content">
 				<div class="row">
 
-
 					<div class="form-group">
-						<label class="col-sm-1 col-lg-1	 control-label">From Date:</label>
-						<div class="col-sm-2 col-lg-1 controls date_select">
+						<label class="col-sm-3 col-lg-2	 control-label">From Date:</label>
+						<div class="col-sm-6 col-lg-4 controls date_select">
 							<input class="form-control date-picker" id="fromDate"
 								name="fromDate" size="30" type="text" value="${todaysDate}" />
 						</div>
+				
 
-						<!-- </div>
-
-					<div class="form-group  "> -->
-
-						<label class="col-sm-1 col-lg-1	 control-label">To Date</label>
-						<div class="col-sm-2 col-lg-1 controls date_select">
+						<label class="col-sm-3 col-lg-2	 control-label">To Date</label>
+						<div class="col-sm-6 col-lg-4 controls date_select">
 							<input class="form-control date-picker" id="toDate" name="toDate"
 								size="30" type="text" value="${todaysDate}" />
 								
 						</div>
-						<label class="col-sm-1 col-lg-1	 control-label">Credit Note Type</label>
-						<div class="col-sm-6 col-lg-2  controls">
+							</div>
+				</div>
+					<br>
+					<div class="row">
+					<div class="form-group">
+						
+						<label class="col-sm-3 col-lg-2	 control-label">Credit Note Type</label>
+						<div class="col-sm-6 col-lg-4  controls">
 
 							<select data-placeholder="Select Type"
 								class="form-control chosen" id="Credittype" name="Credittype" required>
@@ -89,41 +91,21 @@
 								<option value="0">GVN</option>
 							</select>
 						</div>
-						
-						<!-- 	</div>
-
+					</div>
 				</div>
 
-
 				<br>
-<div class="row">
-					<div class="form-group"> -->
-						<%-- <label class="col-sm-3 col-lg-2 control-label"><b></b>Select
-							Franchisee</label>
-						<div class="col-sm-6 col-lg-4">
+				<div class="row"></div>
+				<div class="row">
+					<div class="form-group"> 					
 
-							<select data-placeholder="Choose Franchisee"
-								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr">
-
-								<option value="-1"><c:out value="All"/></option>
-
-								<c:forEach items="${allFrIdNameList}" var="fr"
-									varStatus="count">
-									<option value="${fr.frId}"><c:out value="${fr.frName}"/></option>
-								</c:forEach>
-							</select>
-
-						</div> --%>
-
-						<div class="col-sm-6 col-lg-4">
-							<button class="btn btn-info" onclick="searchReport()">Search
-								Report</button>
+						<div class="col-md-10" style="text-align: center;">
+							<button class="btn btn-primary" onclick="searchReport()">Search</button>
 							<input type="button" id="expExcel" class="btn btn-primary"
-								value="EXPORT TO Excel" onclick="exportToExcel();"
+								value="Export To Excel" onclick="exportToExcel();"
 								disabled="disabled"> <input type="button"
 								id="expExcelTally" class="btn btn-primary"
-								value="EXPORT TO Excel For Tally"
+								value="Export To Excel For Tally"
 								onclick="exportToExcelTally();" disabled>
 
 							<button class="btn btn-primary" value="PDF" id="PDFButton"
@@ -158,12 +140,12 @@
 
 
 			<div class="box">
-				<div class="box-title">
+				<!-- <div class="box-title">
 					<h3>
 						<i class="fa fa-list-alt"></i>Credit Note Register
 					</h3>
 
-				</div>
+				</div> -->
 
 				<form id="submitBillForm"
 					action="${pageContext.request.contextPath}/submitNewBill"
@@ -175,21 +157,19 @@
 							style="width: 100%" id="table_grid">
 							<thead style="background-color: #f3b5db;">
 								<tr>
-									<th>Sr</th>
-									<th>CRN No</th>
-									<th>CRN Date</th>
-									<th>Invoice No</th>
-									<th>Invoice Date</th>
-									<th>Party Name</th>
-									<th>GST No</th>
-									<th>Tax Rate</th>
-									<th>Crn Qty</th>
-									<th>Taxable Amt</th>
-
-									<th>Cgst Amt</th>
-
-									<th>Sgst Amt</th>
-									<th>Crn Amt</th>
+									<th style="text-align: center;">Sr</th>
+									<th style="text-align: center;">CRN No</th>
+									<th style="text-align: center;">CRN Date</th>
+									<th style="text-align: center;">Invoice No</th>
+									<th style="text-align: center;">Invoice Date</th>
+									<th style="text-align: center;">Party Name</th>
+									<!-- <th style="text-align: center;">GST No</th> -->
+									<th style="text-align: center;">Tax Rate</th>
+									<th style="text-align: center;">CRN Qty</th>
+									<!-- <th style="text-align: center;">Taxable Amt</th> -->
+									<th style="text-align: center;">CGST Amt</th>
+									<th style="text-align: center;">SGST Amt</th>
+									<th style="text-align: center;">CRN Amt</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -285,8 +265,8 @@
 					tr.append($('<td></td>').html(report.billDate));
 					tr.append($('<td style="text-align:left;"></td>').html(
 							report.frName));
-					tr.append($('<td style="text-align:left;"></td>').html(
-							report.frGstNo));
+					/* tr.append($('<td style="text-align:left;"></td>').html(
+							report.frGstNo)); */
 					crnQty = crnQty + report.crnQty;
 					crnTaxable = crnTaxable + report.crnTaxable;
 					cgstAmt = cgstAmt + report.cgstAmt;
@@ -296,8 +276,8 @@
 							(report.cgstPer + report.sgstPer).toFixed(2)));
 					tr.append($('<td style="text-align:center;"></td>').html(
 							(report.crnQty)));
-					tr.append($('<td style="text-align:right;"></td>').html(
-							report.crnTaxable.toFixed(2)));
+					/* tr.append($('<td style="text-align:right;"></td>').html(
+							report.crnTaxable.toFixed(2))); */
 
 					tr.append($('<td style="text-align:right;"></td>').html(
 							report.cgstAmt.toFixed(2)));
@@ -316,21 +296,20 @@
 				tr.append($('<td></td>').html(""));
 				tr.append($('<td></td>').html(""));
 				tr.append($('<td></td>').html(""));
-				tr.append($('<td></td>').html(""));
 
-				tr.append($('<td style="font-weight:12px;"></td>').html(""));
+				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(""));
 				tr.append($('<td></td>').html("Total"));
-				tr.append($('<td style="font-weight:12px;"></td>').html(
+				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(
 						"" + crnQty.toFixed(2)));
-				tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + crnTaxable.toFixed(2)));
+			/* 	tr.append($('<td style="font-weight:12px;"></td>').html(
+						"" + crnTaxable.toFixed(2))); */
 
-				tr.append($('<td style="font-weight:12px;"></td>').html(
+				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(
 						"" + cgstAmt.toFixed(2)));
 
-				tr.append($('<td style="font-weight:12px;"></td>').html(
+				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(
 						"" + sgstAmt.toFixed(2)));
-				tr.append($('<td style="font-weight:12px;"></td>').html(
+				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(
 						"" + crnAmt.toFixed(0)));
 				$('#table_grid tbody').append(tr);
 

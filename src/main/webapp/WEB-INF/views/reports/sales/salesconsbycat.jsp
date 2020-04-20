@@ -241,7 +241,7 @@
 
 								<div class="col-sm-3  controls">
 									<input type="button" id="expExcel" class="btn btn-primary"
-										value="EXPORT TO Excel" onclick="exportToExcel();"
+										value="Export To Excel" onclick="exportToExcel();"
 										disabled="disabled">
 								</div>
 							</div>

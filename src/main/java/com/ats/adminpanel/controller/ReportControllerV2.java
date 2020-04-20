@@ -325,7 +325,7 @@ public class ReportControllerV2 {
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("IN Lacs", headFont1)); // Varience title replaced with P2 Production
+			hcell = new PdfPCell(new Phrase("IN Lakh", headFont1)); // Varience title replaced with P2 Production
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
@@ -490,7 +490,7 @@ public class ReportControllerV2 {
 
 			document.open();
 
-			Paragraph heading = new Paragraph("Sales Report by Franchisee");
+			Paragraph heading = new Paragraph("Franchise Sales Report");
 			heading.setAlignment(Element.ALIGN_CENTER);
 			document.add(heading);
 
@@ -1245,7 +1245,7 @@ public class ReportControllerV2 {
 			HttpSession session = request.getSession();
 			session.setAttribute("exportExcelListNew", exportToExcelList);
 			session.setAttribute("excelNameNew", "CR Note Register");
-			session.setAttribute("reportNameNew", "Credit Note Register Report");
+			session.setAttribute("reportNameNew", "Credit Note-Wise HSN wise Report");
 			session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
 			session.setAttribute("mergeUpto1", "$A$1:$P$1");
 			session.setAttribute("mergeUpto2", "$A$2:$P$2");
@@ -1611,7 +1611,7 @@ public class ReportControllerV2 {
 			document.open();
 
 			Paragraph heading = new Paragraph(
-					"Credit Note Register Report \n From Date:" + fromdate + " To Date:" + todate);
+					"Credit Note-Wise HSN wise Report \n From Date:" + fromdate + " To Date:" + todate);
 			heading.setAlignment(Element.ALIGN_CENTER);
 			document.add(heading);
 

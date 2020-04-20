@@ -212,7 +212,7 @@ public class SaleItemReportController {
 				System.err.println("exportToExcelList" + exportToExcelList.toString());
 				HttpSession session = request.getSession();
 				session.setAttribute("exportExcelList", exportToExcelList);
-				session.setAttribute("excelName", "MonthlySalesReturnItemValueReport");
+				session.setAttribute("excelName", "MonthlyItemWiseReport");
 
 			}
 

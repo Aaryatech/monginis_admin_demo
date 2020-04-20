@@ -140,8 +140,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12" style="text-align: center;">
-						<button class="btn btn-primary" onclick="searchReport()">Search
-							Report</button>
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 
 
 						<button class="btn btn-primary" value="PDF" id="PDFButton"

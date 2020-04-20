@@ -52,7 +52,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Sales Report By Franchise
+					<i class="fa fa-bars"></i>Franchise Sales Report 
 				</h3>
 
 			</div>
@@ -107,9 +107,8 @@
 						</div>
 					
 					<div class="col-sm-6 col-lg-4">
-						<button class="btn btn-info" onclick="searchReport()">Search
-							 Report</button>
-											 <input type="button" id="expExcel" class="btn btn-primary" value="EXPORT TO Excel" onclick="exportToExcel();" disabled="disabled">
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
+											 <input type="button" id="expExcel" class="btn btn-primary" value="Export To Excel" onclick="exportToExcel();" disabled="disabled">
 								
 							
 							<button class="btn btn-primary" value="PDF" id="PDFButton" onclick="genPdf()" disabled="disabled">PDF</button>
@@ -145,12 +144,12 @@
 
 
 		<div class="box" >
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>Sales Report
 				</h3>
 
-			</div>
+			</div> -->
 
 			<form id="submitBillForm"
 				action="${pageContext.request.contextPath}/submitNewBill"
@@ -161,15 +160,15 @@
 								style="width: 100%" id="table_grid" >
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Party Code</th>
-										<th>Party Name</th>
-										<th>Sales</th>
-										<th>GVN</th>
-										<th>NET Value</th>
-										<th>GRN</th>
-										<th>NET Value</th>
-										<th>In Lakh</th>
-										<th>Return %</th>
+										<th style="text-align: center;">Party Code</th>
+										<th style="text-align: center;">Party Name</th>
+										<th style="text-align: center;">Sales</th>
+										<th style="text-align: center;">GVN</th>
+										<th style="text-align: center;">NET Value</th>
+										<th style="text-align: center;">GRN</th>
+										<th style="text-align: center;">NET Value</th>
+										<th style="text-align: center;">In Lakh</th>
+										<th style="text-align: center;">Return %</th>
 									</tr>
 								</thead>
 								<tbody>

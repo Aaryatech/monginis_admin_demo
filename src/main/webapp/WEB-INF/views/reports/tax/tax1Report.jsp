@@ -71,7 +71,7 @@
 
 				<div class="row">
 					<div class="col-md-12" style="text-align: center;"> -->
-							<input type="submit" class="btn btn-info" value="Search" />
+							<input type="submit" class="btn btn-primary" value="Search" />
 						</div>
 					</div>
 				</form>
@@ -208,12 +208,12 @@
 
 						<div class="col-sm-3  controls">
 							<input type="button" id="expExcel" class="btn btn-primary"
-								value="EXPORT TO Excel" onclick="exportToExcel();">
+								value="Export To Excel" onclick="exportToExcel();">
 						</div>
 
 						<div class="col-sm-3  controls">
 							<input type="button" id="expExcelTally" class="btn btn-primary"
-								value="EXPORT TO Excel For Tally"
+								value="Export To Excel For Tally"
 								onclick="exportToExcelTally();">
 						</div>
 					</div>

@@ -106,10 +106,9 @@
 						</div>
 
 						<div class="col-sm-6 col-lg-4">
-							<button class="btn btn-info" onclick="searchReport()">Search
-								Report</button>
+							<button class="btn btn-primary" onclick="searchReport()">Search</button>
 							<input type="button" id="expExcel" class="btn btn-primary"
-								value="EXPORT TO Excel" onclick="exportToExcel();"
+								value="Export To Excel" onclick="exportToExcel();"
 								disabled="disabled">
 
 
@@ -145,12 +144,12 @@
 
 
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>GST Register
 				</h3>
 
-			</div>
+			</div> -->
 
 			<form id="submitBillForm"
 				action="${pageContext.request.contextPath}/submitNewBill"

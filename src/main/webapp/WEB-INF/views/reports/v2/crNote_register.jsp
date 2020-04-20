@@ -52,7 +52,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Credit Note Register Report
+					<i class="fa fa-bars"></i>Credit Note-Wise HSN wise Report
 				</h3>
 
 			</div>
@@ -104,10 +104,9 @@
 						</div> --%>
 
 						<div class="col-sm-6 col-lg-4">
-							<button class="btn btn-info" onclick="searchReport()">Search
-								Report</button>
+							<button class="btn btn-primary" onclick="searchReport()">Search</button>
 							<input type="button" id="expExcel" class="btn btn-primary"
-								value="EXPORT TO Excel" onclick="exportToExcel();"
+								value="Export To Excel" onclick="exportToExcel();"
 								disabled="disabled">
 
 
@@ -143,12 +142,12 @@
 
 
 			<div class="box">
-				<div class="box-title">
+				<!-- <div class="box-title">
 					<h3>
 						<i class="fa fa-list-alt"></i>Credit Note Register
 					</h3>
 
-				</div>
+				</div> -->
 
 				<form id="submitBillForm"
 					action="${pageContext.request.contextPath}/submitNewBill"
@@ -160,24 +159,23 @@
 							style="width: 100%" id="table_grid">
 							<thead style="background-color: #f3b5db;">
 								<tr>
-									<th>Sr</th>
-									<th>CRN No</th>
-									<th>CRN Date</th>
-									<th>Invoice No</th>
-									<th>Invoice Date</th>
-									<th>Party Name</th>
-									<th>GST No</th>
-									<th>HSN Code</th>
-									<th>Crn Qty</th>
-									<th>Taxable Amt</th>
-									<th>Cgst %</th>
-									<th>Cgst Amt</th>
-									<th>Sgst %</th>
-									<th>Sgst Amt</th>
-									<th>Crn Amt</th>
-									
-									<th>Tax Amt</th>
-									<th>Total Amt</th>
+									<th style="text-align: center;">Sr</th>
+									<th style="text-align: center;">CRN No</th>
+									<th style="text-align: center;">CRN Date</th>
+									<th style="text-align: center;">Invoice No</th>
+									<th style="text-align: center;">Invoice Date</th>
+									<th style="text-align: center;">Party Name</th>
+									<th style="text-align: center;">GST No</th>
+									<th style="text-align: center;">HSN Code</th>
+									<th style="text-align: center;">CRN Qty</th>
+									<th style="text-align: center;">Taxable Amt</th>
+									<th style="text-align: center;">CGST %</th>
+									<th style="text-align: center;">CGST Amt</th>
+									<th style="text-align: center;">SGST %</th>
+									<th style="text-align: center;">SGST Amt</th>
+									<th style="text-align: center;">CRN Amt</th>									
+									<th style="text-align: center;">Tax Amt</th>
+									<th style="text-align: center;">Total Amt</th>
 								</tr>
 							</thead>
 							<tbody>

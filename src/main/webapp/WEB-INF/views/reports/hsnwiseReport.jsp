@@ -29,7 +29,7 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<div class="page-title">
+		<!-- <div class="page-title">
 			<div>
 				<h1>
 					<i class="fa fa-file-o"></i>NET SALES HSN CODE WISE SUMMERY Report
@@ -37,7 +37,7 @@
 				<h4></h4>
 			</div>
 
-		</div>
+		</div> -->
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
@@ -55,7 +55,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>View HSN Wise Report
+					<i class="fa fa-bars"></i>HSN wise Summary Report
 				</h3>
 
 			</div>
@@ -119,7 +119,7 @@
 
 
 						<div class="col-md-4" style="text-align: center;">
-							<button class="btn btn-info" onclick="searchReport()">Search
+							<button class="btn btn-primary" onclick="searchReport()">Search
 								Report</button>
 							<button class="btn btn-primary" value="PDF" id="PDFButton"
 								onclick="genPdf()">PDF</button>
@@ -149,12 +149,12 @@
 
 
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>HSN Report
 				</h3>
 
-			</div>
+			</div> -->
 
 			<form id="submitBillForm"
 				action="${pageContext.request.contextPath}/submitNewBill"
@@ -162,27 +162,27 @@
 				<div class=" box-content">
 					<div class="row">
 						<div class="col-md-12 table-responsive">
-							<input type="button"
+							<!-- <input type="button"
 								onclick="tableToExcel('table_grid', 'name', 'HsnReport.xls')"
-								value="Export to Excel">
+								value="Export to Excel"> -->
 							<table class="table table-bordered table-striped fill-head "
 								style="width: 100%" id="table_grid">
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										<th>HSN</th>
-										<th>TAX %</th>
-										<th>MANUF</th>
-										<th>RET</th>
-										<th>TOTAL</th>
-										<th>TAXABLE AMT</th>
-										<th>CGST</th>
-										<th>CGST AMT</th>
-										<th>SGST</th>
-										<th>SGST AMT</th>
-										<th>CESS</th>
-										<th>CESS AMT</th>
-										<th>Total</th>
+										<th style="text-align: center;">Sr.No.</th>
+										<th style="text-align: center;">HSN</th>
+										<th style="text-align: center;">TAX %</th>
+										<th style="text-align: center;">MANUF</th>
+										<th style="text-align: center;">RET</th>
+										<th style="text-align: center;">TOTAL</th>
+										<th style="text-align: center;">TAXABLE AMT</th>
+										<th style="text-align: center;">CGST</th>
+										<th style="text-align: center;">CGST AMT</th>
+										<th style="text-align: center;">SGST</th>
+										<th style="text-align: center;">SGST AMT</th>
+										<th style="text-align: center;">CESS</th>
+										<th style="text-align: center;">CESS AMT</th>
+										<th style="text-align: center;">Total</th>
 
 									</tr>
 								</thead>
@@ -197,7 +197,7 @@
 
 							<div class="col-sm-3  controls">
 								<input type="button" id="expExcel" class="btn btn-primary"
-									value="EXPORT TO Excel" onclick="exportToExcel();"
+									value="Export To Excel" onclick="exportToExcel();"
 									disabled="disabled">
 							</div>
 						</div>

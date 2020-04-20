@@ -312,7 +312,7 @@ public class ReportController {
 			HttpSession session = request.getSession();
 			session.setAttribute("exportExcelListNew", exportToExcelList);
 			session.setAttribute("excelNameNew", "CR Note Register");
-			session.setAttribute("reportNameNew", "Credit Note Register Report");
+			session.setAttribute("reportNameNew", "Credit Note-wise Tax Slab-wise Report");
 			session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
 			session.setAttribute("mergeUpto1", "$A$1:$M$1");
 			session.setAttribute("mergeUpto2", "$A$2:$M$2");
@@ -660,7 +660,7 @@ public class ReportController {
 			document.open();
 
 			Paragraph heading = new Paragraph(
-					"Credit Note Register Report \n From Date:" + fromdate + " To Date:" + todate);
+					"Credit Note-wise Tax Slab-wise Report \n From Date:" + fromdate + " To Date:" + todate);
 			heading.setAlignment(Element.ALIGN_CENTER);
 			document.add(heading);
 
@@ -933,7 +933,7 @@ public class ReportController {
 		HttpSession session = request.getSession();
 		session.setAttribute("exportExcelListNew", exportToExcelList);
 		session.setAttribute("excelNameNew", "HSNWiseReport");
-		session.setAttribute("reportNameNew", "View HSN Wise Report");
+		session.setAttribute("reportNameNew", "HSN wise Summary Report");
 		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
 		session.setAttribute("mergeUpto1", "$A$1:$L$1");
 		session.setAttribute("mergeUpto2", "$A$2:$L$2");
@@ -1191,7 +1191,7 @@ public class ReportController {
 			document.open();
 
 			Paragraph heading = new Paragraph(
-					"NET SALES CODE TAX WISE SUMMERY Report \n From Date:" + fromdate + " To Date:" + todate);
+					"HSN wise Summary Report \n From Date:" + fromdate + " To Date:" + todate);
 			heading.setAlignment(Element.ALIGN_CENTER);
 			document.add(heading);
 
