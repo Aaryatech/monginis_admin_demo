@@ -28,16 +28,45 @@
 
 <link rel="shortcut icon" href="resources/img/favicon.png">
 
-</head>
-<body class="login-page">
+<style type="text/css">
+.bg-overlay {
+    background: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url("${pageContext.request.contextPath}/resources/img/cake.jpg");
+   background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+    height:auto;
+    width:auto;
+    padding-top: 0px;
+}    
 
-	<!-- BEGIN Main Content -->
-	<div class="login-wrapper">
-	
-	<!-- BEGIN Forgot Password Form -->
-		<form id="form-forgot" action="${pageContext.request.contextPath}/getUserInfo" method="post">
-			<h3>Get back your password</h3>
-			<hr />
+.login_bx{background: #FFF; border-radius:10px; color:#000; margin: 200px 0 0 0;}
+.login_left{padding:40px 10px 30px 40px;}
+.login_right{width: 100%; border-radius:0 10px 10px 0; padding:45px 20px; background: #ec268f; min-height: 240px;
+text-align: center; color: #FFF;} 
+.login_right img{width: 150px;}
+.login_head{color: #333; font-size: 22px; margin: 0 0 20px 0; text-align: center; font-weight: 400; font-family: 'Source Sans Pro', sans-serif;}
+.welcome{color: #FFF; font-size: 15px; font-weight: 600; font-family: 'Source Sans Pro', sans-serif; 
+text-transform: uppercase; margin: 15px 0 5px 0;}
+.welcome_txt{color: #ffe3f2; font-size: 13px; line-height: 18px;}
+
+</style>
+
+</head>
+<body class="container bg-overlay"><!-- login-page -->
+
+
+
+	<div class="row">
+		<div class="col-md-2">&nbsp;</div>
+		<div class="col-md-8">
+			<div class="login_bx">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="login_left">
+							<form id="form-forgot" action="${pageContext.request.contextPath}/getUserInfo" method="post">
+			<h3 class="login_head">Forgot password</h3>
+			
 			<div class="form-group">
 				<div class="controls">
 					<input type="text" placeholder="Username" class="form-control" id="username" name="username" required/>
@@ -48,11 +77,33 @@
 					<button type="submit" class="btn btn-primary form-control">Send OTP</button>
 				</div>
 			</div>
-			<hr />
+			
 			<p class="clearfix">
-				<a href="${pageContext.request.contextPath}/login" class="goto-login pull-left">Back to login form</a>
+				<a href="${pageContext.request.contextPath}/login" class="goto-login pull-left">Back to Login</a>
 			</p>
 		</form>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="login_right">
+						<img src="${pageContext.request.contextPath}/resources/img/monginislogo.png">
+						<h2 class="welcome">Welcome to Monginis</h2>
+						<p class="welcome_txt">	Lets make Monginis a part of everybody’s celebration!!</p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">&nbsp;</div>
+	</div>
+
+
+	<!-- BEGIN Main Content -->
+	<div class="login-wrapper">
+	
+	<!-- BEGIN Forgot Password Form -->
+		
 		<!-- END Forgot Password Form -->
 	
 	<%-- 

@@ -57,7 +57,7 @@
 			<div class="page-title">
 				<div>
 					<h1>
-						<i class="fa fa-file-o"></i> Sales Dashboard
+						<i class="fa fa-dashboard"></i> Sales Dashboard
 					</h1>
 					<!--<h4>Overview, stats, chat and more</h4>-->
 				</div>
@@ -65,36 +65,36 @@
 			<!-- END Page Title -->
 
 
-			<form
+			<form style="background: #FFF; padding:10px;"
 				action="${pageContext.request.contextPath}/getSalesDashboardData">
 
 				<div class="container" id="main-container">
 					<div class="col-md-1">
-						<label class="radio-inline"> <input type="radio"
+						<label class="radio-inline" style="margin: 6px 0 0 0;"> <input type="radio"
 							name="rdDate" id="rdDate1" value="1" ${radio==1 ? 'checked' : ''}
 							checked="checked" onchange="radioSelection(this.value)" />
-							TODAY'S
+							Today's
 						</label>
 					</div>
 
 					<div class="col-md-1">
-						<label class="radio-inline"> <input type="radio"
+						<label class="radio-inline" style="margin: 6px 0 0 0;"> <input type="radio"
 							name="rdDate" id="rdDate2" value="2" ${radio==2 ? 'checked' : ''}
-							onchange="radioSelection(this.value)"> WEEKLY
+							onchange="radioSelection(this.value)"> Weekly
 						</label>
 					</div>
 
 					<div class="col-md-1">
-						<label class="radio-inline"> <input type="radio"
+						<label class="radio-inline" style="margin: 6px 0 0 0;"> <input type="radio"
 							name="rdDate" id="rdDate3" value="3" ${radio==3 ? 'checked' : ''}
-							onchange="radioSelection(this.value)"> MONTHLY
+							onchange="radioSelection(this.value)"> Monthly
 						</label>
 					</div>
 
 					<div class="col-md-1">
-						<label class="radio-inline"> <input type="radio"
+						<label class="radio-inline" style="margin: 6px 0 0 0;"> <input type="radio"
 							name="rdDate" id="rdDate4" value="4" ${radio==4 ? 'checked' : ''}
-							onchange="radioSelection(this.value)"> CUSTOM
+							onchange="radioSelection(this.value)"> Custom
 						</label>
 					</div>
 
@@ -102,14 +102,14 @@
 					<div class="col-md-6" id="customDiv" style="display: none;">
 						<div class="row">
 
-							<label class="col-md-1 control-label" style="text-align: right;">From</label>
+							<label class="col-md-1 control-label" style="text-align: right; margin:7px 0 0 0;">From</label>
 							<div class="col-md-5">
 								<input class="form-control" placeholder="Date" name="fromDate"
 									style="border-radius: 25px;" id="fromDate" type="date"
 									format="dd-mm-yyyy" value="${fromDate}" required />
 							</div>
 
-							<label class="col-md-1 control-label" style="text-align: right;">To</label>
+							<label class="col-md-1 control-label" style="text-align: right; margin:7px 0 0 0;">To</label>
 
 							<div class="col-md-5">
 								<input class="form-control" placeholder="Date" name="toDate"
@@ -124,52 +124,56 @@
 					<div class="col-md-2">
 						<input type="submit" name="Search" id="submit"
 							class="btn btn-primary" />
-
 					</div>
 				</div>
 			</form>
-
-			<br> <br>
-
+  
 
 			<!-- BEGIN Tiles -->
 			<div class="row">
-				<div class="col-md-12">
-
-					<div class="col-md-2">
-
-						<fmt:formatNumber var="sale" minFractionDigits="2"
+				
+				
+					<div class="col-md-4">
+						<div class="total_one bg_one">
+							<div class="total_l"><i class="fa fa-dashboard"></i></div>
+							<div class="total_r">
+								<fmt:formatNumber var="sale" minFractionDigits="2"
 							maxFractionDigits="2" type="number" value="${totalAmt.totalSale}" />
 
-						<label class="control-label">Total Sale</label> <br> <label
-							class="control-label">${sale}</label>
-
+						<label class="control-label total_head">Total Sale</label> <label
+							class="control-label total_subhead">${sale}</label>
+							</div>
+						</div>
 					</div>
-					<div class="col-md-2">
-
-						<fmt:formatNumber var="crn" minFractionDigits="2"
+					<div class="col-md-4">
+						<div class="total_one bg_two">
+							<div class="total_l"><i class="fa fa-dashboard"></i></div>
+							<div class="total_r"><fmt:formatNumber var="crn" minFractionDigits="2"
 							maxFractionDigits="2" type="number" value="${totalAmt.totalCrn}" />
 
-						<label class="control-label">Credit Note Sale</label> <br> <label
-							class="control-label">${crn}</label>
-
+						<label class="control-label total_head">Credit Note Sale</label> <label
+							class="control-label total_subhead">${crn}</label></div>
+						</div>
 					</div>
-					<div class="col-md-2">
-
-						<fmt:formatNumber var="net" minFractionDigits="2"
+					<div class="col-md-4">
+						<div class="total_one bg_three">
+							<div class="total_l"><i class="fa fa-dashboard"></i></div>
+							<div class="total_r"><fmt:formatNumber var="net" minFractionDigits="2"
 							maxFractionDigits="2" type="number" value="${totalAmt.netTotal}" />
 
-						<label class="control-label">Net Sale</label> <br> <label
-							class="control-label">${net}</label>
-
+						<label class="control-label total_head">Net Sale</label> <label
+							class="control-label total_subhead">${net}</label></div>
+						</div>
 					</div>
 
+					
 
-				</div>
+
+				
 			</div>
 			
-			<br>
-
+		
+			<div style="background: #FFF; padding:10px; margin: 0 0 20px 0;">
 			<div class="row">
 				<div class="col-md-3">
 
@@ -192,45 +196,48 @@
 
 				<div class="col-md-6"></div>
 
-			</div>
+			</div> </div>
 
-			<div class="row" id="frDiv">
-				<div class="col-md-12">
+			<div class="col-md-12" id="frDiv" style="background: #FFF; padding: 10px;">
+				<div>
 
 					<div id="frBarChart1"></div>
 
 				</div>
 			</div>
-
-			<div class="row" id="routeDiv" style="display: none;">
-				<div class="col-md-6">
-
+			
+			
+			
+			<div id="routeDiv" style="display: none;">
+				
+				<div class="col-md-6" style="background: #FFF; padding: 10px;">
 					<div id="routeBarChart"></div>
-
 				</div>
 
-				<div class="col-md-6">
-
+				<div class="col-md-6" style="background: #FFF; padding: 10px;">
 					<div id="frBarChart2"></div>
-
 				</div>
+				
 
 			</div>
-<br><br>
 
-			<div class="row">
-				<div class="col-md-12">
 
-					<div class="col-md-7">
+			<div style="margin: 20px 0;">
+				<div class="row">
 
-						<div id="lineChart1"></div>
+					<div class="col-md-8">
+						<div  style="background: #FFF; padding: 10px;">
+							<div id="lineChart1"></div>
+						</div>
 
 					</div>
+					
+					<div class="col-md-4">
+					
+						<div class="col-md-12">
 
-					<div class="col-md-3">
-
-						<div class="row">
-							<div class="col-md-12">
+						<div ><!-- class="row" -->
+							<div style="background: #FFF; padding: 10px;">
 								<label class="radio-inline"> <input type="radio"
 									name="rdPie" id="rdPieSale" value="1"
 									${radioPie==1 ? 'checked' : ''} checked="checked"
@@ -259,17 +266,18 @@
 						</div>
 
 					</div>
-
-					<div class="col-md-2">
+					
+					
+					<div class="col-md-12">
 
 						<div class="row">
-							<div class="col-md-12 table-responsive">
+							<div class="table-responsive">
 								<div
 									style="overflow: scroll; height: 100%; width: 100%; overflow: auto">
 
 									<table class="table table-bordered table-striped fill-head "
 										style="width: 100%" id="table_grid1">
-										<thead style="background-color: #f3b5db;">
+										<thead style="background-color: #ec268f;">
 											<tr>
 												<th style="text-align: center;">Sub Category</th>
 												<th style="text-align: center;">Amount</th>
@@ -285,11 +293,17 @@
 						</div>
 
 					</div>
+					
+					</div>
+
+					
+
+					
 
 				</div>
 			</div>
 
-			<br>
+			
 
 			<div class="row">
 				<div class="col-md-12 table-responsive">
@@ -298,7 +312,7 @@
 
 						<table class="table table-bordered table-striped fill-head "
 							style="width: 100%" id="table_grid">
-							<thead style="background-color: #f3b5db;">
+							<thead style="background-color: #ec268f;">
 								<tr>
 									<th style="text-align: center;">Sr.No.</th>
 									<th style="text-align: center;">Item Name</th>

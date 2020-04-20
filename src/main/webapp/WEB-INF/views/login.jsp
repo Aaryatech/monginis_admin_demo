@@ -21,7 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
 <style type="text/css">
 .bg-overlay {
-    background: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url("${pageContext.request.contextPath}/resources/img/cake.jpeg");
+    background: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url("${pageContext.request.contextPath}/resources/img/cake.jpg");
    background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -33,37 +33,38 @@
 </style>
 </head>
 <body class="container bg-overlay">
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
-				<form class="login100-form validate-form" id="form-login" action="loginProcess" method="post">
-				
-					<span class="login100-form-title p-b-33">
-					<b>Account Login</b>	
-					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid username is required" style="border-radius:25px;">
-						<input class="input100" type="text" id="username" name="username" placeholder="Username" style="border-radius:25px;">
+
+	<div class="row">
+		<div class="col-md-2">&nbsp;</div>
+		<div class="col-md-8">
+			<div class="login_bx">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="login_left">
+							<form class="login100-form validate-form" id="form-login" action="loginProcess" method="post">
+				
+			     
+					<h2 class="login_head">Admin Panel Login</h2>
+					
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid username is required" >
+						<input class="input100" type="text" id="username" name="username" placeholder="Username">
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
                     <br>
-					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required"  style="border-radius:25px;">
-						<input class="input100" type="password" name="userpassword" id="userpassword" placeholder="Password"  style="border-radius:25px;">
+					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required" >
+						<input class="input100" type="password" name="userpassword" id="userpassword" placeholder="Password"  >
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
 
-					<div class="container-login100-form-btn m-t-20"  style="border-radius:25px;">
-						<button class="login100-form-btn"  style="border-radius:25px;">
+					<div class="container-login100-form-btn m-t-20" >
+						<button class="login100-form-btn">
 							Sign in
 						</button>
 					</div>
-					
-					
-<%-- 	<c:if test="${not empty changePasswordResp}"> --%>
-   <!-- here would be a message with a result of processing -->
-
 
 					<%
 						if (session.getAttribute("changePassword") != null) {
@@ -100,11 +101,11 @@
 					</label>
 				</div> -->
 			</div>
-<div class="text-center p-t-45 p-b-4">
+<div class="text-right">
 					
 						<span class="txt1" >
 							<!-- Forgot -->
-							<a href="${pageContext.request.contextPath}/forgetPwd"><span class="links" style="color:white;">
+							<a href="${pageContext.request.contextPath}/forgetPwd"><span class="links">
 							Forgot Password</span></a>
 						</span>
 
@@ -123,9 +124,30 @@
 						</a>
 					</div>
 				</form>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="login_right">
+						<img src="${pageContext.request.contextPath}/resources/img/monginislogo.png">
+						<h2 class="welcome">Welcome to Monginis</h2>
+						<p class="welcome_txt">	Lets make Monginis a part of everybody’s celebration!!</p>
+							
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
+		<div class="col-md-2">&nbsp;</div>
+	</div>	
+
+
+	<!-- <div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+				
+			</div>
+		</div>
+	</div> -->
 
 <!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>

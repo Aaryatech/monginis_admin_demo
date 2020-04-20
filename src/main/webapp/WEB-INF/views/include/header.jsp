@@ -90,6 +90,12 @@
 	src="${pageContext.request.contextPath}/resources/assets/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/assets/jquery-validation/dist/additional-methods.min.js"></script>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- font-family: 'Source Sans Pro', sans-serif; -->
+
+
 	
 </head>
 

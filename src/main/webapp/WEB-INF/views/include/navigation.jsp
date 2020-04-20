@@ -136,8 +136,6 @@
 				<ul class="submenu">
 				
 				<c:forEach items="${allModuleList.subModuleJsonList}" var="allSubModuleList">
-				
-
 					<c:choose>
 						<c:when test="${allSubModuleList.subModuleId==sessionScope.sessionSubModuleId}">
 							<li class="active">

@@ -22,12 +22,23 @@ html {
 body {
     padding-bottom: 0;
     min-height: 100%;
-    font-family:'Open Sans';/* 'Roboto', sans-serif;*/
-    font-size: 13px;
+    /* font-family:'Open Sans';'Roboto', sans-serif; */
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size:15px /* 13px */;
     color: #393939;
     -webkit-font-smoothing: antialiased;
 }
 .clr{clear:both;}
+
+
+.total_one{padding: 15px; width: 100%; display: table; height: 80px; line-height: 28px; margin: 20px 0;}
+.total_one.bg_one{background: #4345bf;}
+.total_one.bg_two{background: #f73099;}
+.total_one.bg_three{background: #2bd5ea;}
+.total_l{width: 25%; text-align:center; display: table-cell; vertical-align: middle; font-size: 40px; color: #FFF;}
+.total_r{width: 75%; display: table-cell; vertical-align: middle;}
+.total_head{font-size: 20px; line-height:24px; font-weight: 600;  font-family: 'Source Sans Pro', sans-serif; color: #FFF;}
+.total_subhead{display:block; font-size:30px; font-weight: 600; font-family: 'Source Sans Pro', sans-serif; color: #FFF;}
 
 ::-moz-selection {background: #3e4349; color: #fff; }
 ::selection      {background: #3e4349; color: #fff; }
@@ -75,7 +86,7 @@ a:active {
     background-color: transparent;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Open Sans';
+    font-family: 'Source Sans Pro', sans-serif;
 }
 h1, h2, h3, h4, h5, h6 {
     margin: 5px 0;
@@ -206,8 +217,8 @@ hr.margin-0  {margin: 0;}
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-    position: relative;
-    z-index:0; height:40px; line-height:40px;
+    position: relative; /* z-index:10; */
+     height:40px; line-height:40px;
     border: 0;
     border-radius: 0;
 }
@@ -244,7 +255,7 @@ hr.margin-0  {margin: 0;}
 .navbar .nav > li > a,
 .navbar .nav > li > a:hover,
 .navbar .nav > li > a:focus {
-    font-size: 13px;
+    font-size: 16px;
     text-shadow: none;
 }
 .flaty-nav {
@@ -544,7 +555,9 @@ hr.margin-0  {margin: 0;}
     margin: 0;
     border: 0;
     position: relative;
-   box-shadow: 0 8px 10px 1px rgba(44, 38, 38, 0.14), 0 3px 14px 2px rgba(33, 31, 31, 0.12), 0 5px 5px -3px rgba(30, 26, 31, 0.2);
+   /* box-shadow: 0 8px 10px 1px rgba(44, 38, 38, 0.14), 0 3px 14px 2px rgba(33, 31, 31, 0.12), 0 5px 5px -3px rgba(30, 26, 31, 0.2); */
+   border-bottom: 1px solid #c9206c;
+border-top: 1px solid #fd54a0;
 }
 .nav-list .search-form {
     margin-top: 16px;
@@ -585,7 +598,7 @@ hr.margin-0  {margin: 0;}
     padding: 0 16px 0 7px!important;
     color: #fff!important;
     text-shadow: none!important;
-    font-size: 13px;
+    /* font-size: 13px; */font-size:16px;
     text-decoration: none;
 }
 .nav-list .search-pan button > i,
@@ -622,8 +635,8 @@ hr.margin-0  {margin: 0;}
 .nav-list > li.active > a:hover,
 .nav-list > li.active > a:focus,
 .nav-list > li.active > a:active {
-    font-weight: bold!important;
-    font-size: 13px;
+    /* font-weight: bold!important; */
+    font-size:16px /* 13px */;
 }
 .nav-list > li.active > a > [class*="fa-"] {
     font-weight: normal;
@@ -906,12 +919,13 @@ hr.margin-0  {margin: 0;}
     margin-bottom: 20px;
 }
 .page-title > div h1 {
-    font-size: 30px;
+    font-size: 26px;
     text-shadow: 0 1px 0 rgba(150,150,150,0.6);
+    color: #e53878
 }
 .page-title > div h1 > i {
-    width: 35px;
-    text-align: center;
+    width: 32px;
+    text-align: center; color: #333;
 }
 .page-title > div h4 {
     font-size: 14px;
@@ -1539,8 +1553,8 @@ Bordered form layout
 .dropdown-menu > li > a {
     padding: 6px 2px;
     margin: 0;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 15px;
+    line-height: 18px;
     color: #444;
     text-shadow: none;
 }
@@ -1703,13 +1717,13 @@ a.btn {
     background-color: #dcdcdc;
 }
 .btn.btn-primary {
-    background-color: #0090ff;
+    background-color:#343690 /*#0090ff*/;
 }
 .btn.btn-primary:active,
 .btn.btn-primary.active,
 .btn-group.open .btn.btn-primary.dropdown-toggle,
 .btn.btn-primary:hover {
-    background-color: #017cdb;
+    background-color: #ec268f /* #017cdb */;
 }
 .btn.btn-info {
     background-color: #5ab4da;
@@ -4696,7 +4710,7 @@ div.tagsinput .not_valid {
 .sidebar-collapsed .nav-list > li.open:hover > a    {color: #fff;}
 
 .navbar {
-    background: #8d8ab7; /* border-bottom:1px solid #ec268f; 24-8-2018 change*/
+    background:#ec268f /* #8d8ab7 */; /* border-bottom:1px solid #ec268f; 24-8-2018 change*/
 }
 .flaty-nav > li > a > .badge {
     border-color: #58b1fc;
@@ -5935,6 +5949,13 @@ div.tagsinput .not_valid {
 .demo-glyphicons li:hover {
   background-color: rgba(86,61,124,.1);
 }
+
+
+
+
+
+
+
 
 @media (min-width: 768px) {
   .demo-glyphicons li {
