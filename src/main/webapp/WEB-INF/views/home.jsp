@@ -32,7 +32,7 @@
 			<div class="page-title">
 				<div>
 					<h1>
-						<i class="fa fa-file-o"></i> Dashboard
+						<i class="fa fa-dashboard"></i> Dashboard
 					</h1>
 					<!--<h4>Overview, stats, chat and more</h4>-->
 				</div>
@@ -50,7 +50,7 @@
 								id="validation-form">
 			<div class="container" id="main-container">
 			<div class="col-md-1">
-												<div class="col1title">Date:</div>
+												<div class="col1title" style="margin:6px 0 0 0">Date:</div>
 											</div>
 	<div class="col-md-3">
             	<input class="form-control"	placeholder="Date" name="from_datepicker" style="border-radius:25px;"
@@ -64,9 +64,38 @@
 			<!-- BEGIN Tiles -->
 			<div class="row">
             
-                 
-					<div class="col-md-12">
-					<div class="row">
+					<!-- new html -->
+					<div class="col-md-3">
+						<div class="home_one bg_one">
+							<div class="home_pic">
+								<div class="home_pic_l"><i class="fa fa-shopping-cart" ></i></div>
+								<div class="home_pic_r">605</div>
+							</div>
+							<p class="home_txt">1st Delivery Cake & Pastries 11:00 PM</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="home_one bg_two">
+							<div class="home_pic">
+								<div class="home_pic_l"><i class="fa fa-shopping-cart" ></i></div>
+								<div class="home_pic_r">605</div>
+							</div>
+							<p class="home_txt">1st Delivery Cake & Pastries 11:00 PM</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="home_one bg_three">
+							<div class="home_pic">
+								<div class="home_pic_l"><i class="fa fa-shopping-cart" ></i></div>
+								<div class="home_pic_r">605</div>
+							</div>
+							<p class="home_txt">1st Delivery Cake & Pastries 11:00 PM</p>
+						</div>
+					</div>
+					
+					<div style="clear:both"></div>
+					
+					
 					
 		<c:forEach items="${orderCounts}"  var ="orderCounts">
 						<!-- <a href="resoucres/index.php/orders/list_all"> -->
@@ -160,10 +189,10 @@
 
 
 
-					</div>
+				
 
 
-				</div>
+				
 			</div>
 
 

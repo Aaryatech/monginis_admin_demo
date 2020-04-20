@@ -40,6 +40,15 @@ body {
 .total_head{font-size: 20px; line-height:24px; font-weight: 600;  font-family: 'Source Sans Pro', sans-serif; color: #FFF;}
 .total_subhead{display:block; font-size:30px; font-weight: 600; font-family: 'Source Sans Pro', sans-serif; color: #FFF;}
 
+.home_one{padding:10px; width: 100%; margin: 10px 0; color: #FFF;}
+.home_pic{height: 70px; width:100%; line-height: 28px; display: table;}
+.home_pic_l{width:40%; display:table-cell; vertical-align: middle; font-size: 70px;}
+.home_pic_r{width:60%; display:table-cell; vertical-align: middle; text-align: right; font-size: 36px;}
+.home_one.bg_one{background: #4345bf;}
+.home_one.bg_two{background: #f73099;}
+.home_one.bg_three{background: #2bd5ea;}
+.home_txt{color: #FFF; font-size: 17px; margin: 0; line-height: 22px;}
+
 ::-moz-selection {background: #3e4349; color: #fff; }
 ::selection      {background: #3e4349; color: #fff; }
 
