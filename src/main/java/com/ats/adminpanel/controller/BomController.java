@@ -1062,7 +1062,7 @@ public class BomController {
 		 */
 		RestTemplate rest = new RestTemplate();
 		String ret = null;
-		try {
+		try { 
 			Date date = new Date();
 			HttpSession session = request.getSession();
 			UserResponse userResponse = (UserResponse) session.getAttribute("UserDetail");
