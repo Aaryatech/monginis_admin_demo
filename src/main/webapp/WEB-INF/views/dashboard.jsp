@@ -73,12 +73,16 @@
 
 
 		<!-- BEGIN Content -->
-		<div id="main-content" style="background: transparent;">
+		<div id="main-content">
 			<!-- BEGIN Page Title -->
+			
+			
+			
+			
 			<div class="page-title">
 				<div>
-					<h1 style="color: #fff;">
-						<i class="fa fa-file-o"></i> Dashboard
+					<h1>
+						<i class="fa fa-dashboard"></i> Dashboard
 					</h1>
 					<!--<h4>Overview, stats, chat and more</h4>-->
 				</div>
@@ -89,27 +93,36 @@
 				class="form-horizontal" method="get">
 
 				<!-- BEGIN Breadcrumb -->
-				<div id="breadcrumbs">
-					<ul class="breadcrumb">
-						<li class="active"><label
-							class="col-sm-3 col-lg-2 control-label" style="padding-top: 4px;">Date</label>
-							<div class="col-sm-5 col-lg-4 controls">
-								<input class="form-control date-picker" id="date" type="text"
-									name="date" value="${dispDate}" placeholder="Date"
-									autocomplete="off" required />
-							</div>
-							<div class="col-sm-5 col-lg-3 controls">
+				<div  style="background: #FFF; padding:10px; clear:both; margin: 0 0 20px 0;">
+				<div class="row" id="breadcrumbs">
+				
+				
+				<div class="col-md-1">
+					<label class="control-label" style="padding-top: 8px;">Date</label>
+				</div>
+				<div class="col-md-5 controls">
+					<input class="form-control date-picker" id="date" type="text"
+						name="date" value="${dispDate}" placeholder="Date" autocomplete="off" required />
+				</div>
+				<div class="col-md-2 controls">
 								<button type="button" class="btn btn-primary"
-									onclick="searchData()">Search</button>
+									onclick="searchData()" style="margin: 2px 0 0 0;">Search</button>
 
 							</div>
-							<div class="col-sm-2">
+							<div class="col-md-2">
 								<button class="buttonload" id="loader">
 									<i class="fa fa-spinner fa-spin"></i>Loading
 								</button>
-							</div></li>
+							</div>
+				
+				
+				<!-- <div >
+					<ul class="breadcrumb">
+						<li class="active">
+							
+							</li>
 					</ul>
-				</div>
+				</div> --></div></div>
 				<!-- END Breadcrumb -->
 
 
@@ -121,9 +134,84 @@
 
 							<%-- 	<c:forEach items="${orderCounts}"  var ="orderCounts"> --%>
 							<!-- <a href="resoucres/index.php/orders/list_all"> -->
+							
 							<div class="col-md-4">
+								<div class="multi_bx blue_bg">
+									<h2 class="multi_title blue_head"><c:out value="Sales"></c:out></h2>
+									<div class="sale_one">
+										<div class="sale_one_l" id="daysaletext"> <c:out value="Day Sales On ${dispDate}"></c:out> </div>
+										<div class="sale_one_r" id="daysalevalue"> <span><i class="fa fa-rupee"></i></span>  <c:out value="${daySale}"></c:out></div>
+									</div>
+									
+									<div class="sale_one">
+										<div class="sale_one_l" id="monthsaletext"> <c:out value="Month to date sales as on ${dispDate}"></c:out></div>
+										<div class="sale_one_r" id="monthsalevalue"> <span><i class="fa fa-rupee"></i></span> <c:out value="${monthSale}"></c:out></div>
+									</div>
+									
+									<div class="sale_one">
+										<div class="sale_one_l" id="yearsaletext"> <c:out value="Year to month sales as on ${dispDate}"></c:out></div>
+										<div class="sale_one_r" id="yearsalevalue"> <span><i class="fa fa-rupee"></i></span> <c:out value="${yearSale}"></c:out></div>
+									</div>
+									
+									
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+								<div class="multi_bx pink_bg">
+									<h2 class="multi_title pink_head"><c:out value="GRN"></c:out></h2>
+									<div class="sale_one">
+										<div class="sale_one_l" id="daygrntext"> <c:out value="Day GRN On ${dispDate}"></c:out> </div>
+										<div class="sale_one_r" id="daygrnvalue"> <span><i class="fa fa-rupee"></i></span>  <c:out value="${dayGrn}"></c:out></div>
+									</div>
+									
+									<div class="sale_one">
+										<div class="sale_one_l" id="monthgrntext"> <c:out value="Month to date GRN as on ${dispDate}"></c:out></div>
+										<div class="sale_one_r" id="monthgrnvalue"> <span><i class="fa fa-rupee"></i></span> <c:out value="${dayGrn}"></c:out></div>
+									</div>
+									
+									<div class="sale_one">
+										<div class="sale_one_l" id="yeargrntext"> <c:out value="Year to month GRN as on ${dispDate}"></c:out></div>
+										<div class="sale_one_r" id="yeargrnvalue"> <span><i class="fa fa-rupee"></i></span> <c:out value="${yearGrn}"></c:out></div>
+									</div>
+									
+									
+									
+								</div>
+							</div>
+								
+							
+		<div class="col-md-4">
+			<div class="multi_bx sky_bg">
+				<h2 class="multi_title sky_head"><c:out value="GVN"></c:out></h2>
+				<div class="sale_one">
+					<div class="sale_one_l" id="daygvntext"> <c:out value="Day GVN On ${dispDate}"></c:out> </div>
+					<div class="sale_one_r" id="daygvnvalue"> <span><i class="fa fa-rupee"></i></span>  <c:out value="${dayGvn}"></c:out></div>
+				</div>
+				
+				<div class="sale_one">
+					<div class="sale_one_l" id="monthgvntext"> <c:out value="Month to Date GVN as on ${dispDate}"></c:out></div>
+					<div class="sale_one_r" id="monthgvnvalue"> <span><i class="fa fa-rupee"></i></span> <c:out value="${monthGvn}"></c:out></div>
+				</div>				
+				
+				<div class="sale_one">
+					<div class="sale_one_l" id="yeargvntext"> <c:out value="Year to Month GVN as on ${dispDate}"></c:out></div>
+					<div class="sale_one_r" id="yeargvnvalue"> <span><i class="fa fa-rupee"></i></span> <c:out value="${yearGvn}"></c:out></div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+							
+							
+							
+							
+							
+							<%-- <div class="col-md-4">
 								<div class="tile tile-light-pink"
-									style="height: auto; border: 5px solid #decfbc; border-radius: 25px; background: linear-gradient(-45deg, #ffec61, #f321d7);">
+									style="height: auto; border: 5px solid #decfbc; border-radius: 25px; 
+									background: linear-gradient(-45deg, #ffec61, #f321d7);">
 									<!-- <div class="img">
 										<i class="fa fa-rupee"></i>
 									</div> -->
@@ -171,8 +259,9 @@
 									</div>
 								</div>
 
-							</div>
-							<div class="col-md-4">
+							</div> --%>
+							
+							<%-- <div class="col-md-4">
 								<div class="tile tile-light-pink"
 									style="height: auto; border: 5px solid #decfbc; border-radius: 25px; background: linear-gradient(-45deg, #ffec61, #f321d7);">
 									<!-- <div class="img">
@@ -222,8 +311,9 @@
 									</div>
 								</div>
 
-							</div>
-							<div class="col-md-4">
+							</div> --%>
+							
+							<%-- <div class="col-md-4">
 								<div class="tile tile-light-pink"
 									style="height: auto; border: 5px solid #decfbc; border-radius: 25px; background: linear-gradient(-45deg, #ffec61, #f321d7);">
 
@@ -270,7 +360,7 @@
 									</div>
 								</div>
 
-							</div>
+							</div> --%>
 
 
 
@@ -327,16 +417,14 @@
 									<c:if test="${data.net>0}">
 
 										<div class="col-md-4">
-											<div class="tile tile-light-pink"
-												style="height: auto; border: 5px solid #decfbc;">
-
-												<div class="content1">
-													<p class="title"
-														style="font-size: 15px; background-color: #e79938; text-align: center;">
+											<div class="multi_bx pink_bg">												
+													<p class="multi_title pink_head">
 														<c:out value="${data.monthStr}"></c:out>
 													</p>
-													<p class="title"
-														style="font-size: 15px; background-color: #374390;">
+													
+													
+													
+													<p class="sub_title">
 														<c:out value="Sales "></c:out>
 													</p>
 
@@ -400,7 +488,7 @@
 																maxFractionDigits="2" value="${data.net}" /></b>&nbsp;&nbsp;&nbsp;&nbsp;
 													</p>
 
-												</div>
+												
 											</div>
 
 										</div>

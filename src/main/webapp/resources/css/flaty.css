@@ -49,6 +49,24 @@ body {
 .home_one.bg_three{background: #2bd5ea;}
 .home_txt{color: #FFF; font-size: 17px; margin: 0; line-height: 22px;}
 
+.multi_bx{display: block; margin: 0 0 15px 0; width: 100%;}
+.blue_bg{background: #4345bf; padding: 8px;}
+.blue_head{color: #4345bf;}
+.pink_bg{background: #f73099; padding: 8px;}
+.pink_head{color: #f73099;}
+.sky_bg{background: #18c0d5; padding: 8px;}
+.sky_head{color:#18c0d5 }
+.multi_title{background:#FFF /* rgba(255,255,255,0.5) */;  margin: 0; font-size: 22px; font-weight: 600; padding: 10px;
+text-align: center;}
+.sale_one{padding: 10px 0; display: inline-block; width: 100%; font-size: 16px; color: #FFF;
+border-bottom:1px dashed rgba(255,255,255,0.4);}
+.sale_one_l{float: left; width: 50%;}
+.sale_one_r{float: left; width: 50%; padding:10px 0 0 10px; font-size: 18px;}
+.sale_one_r span{font-size: 20px; margin: 5px 0 0 0; vertical-align: middle;}
+
+.sub_title{color: #FFF; font-size: 18px; font-weight: 600; margin: 10px; padding-bottom: 10px; border-bottom: 1px dashed #FFF; }
+
+
 ::-moz-selection {background: #3e4349; color: #fff; }
 ::selection      {background: #3e4349; color: #fff; }
 
