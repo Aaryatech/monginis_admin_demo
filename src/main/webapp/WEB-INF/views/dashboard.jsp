@@ -745,7 +745,7 @@
 			//alert("hi - ");
 
 			google.charts.load('current', {
-				'packages' : [ 'corechart', 'line' ]
+				'packages' : [ 'corechart', 'bar' ]
 			});
 			google.charts.setOnLoadCallback(drawStuffCat);
 
@@ -767,9 +767,9 @@
 			var dataTable = new google.visualization.DataTable();
 
 			dataTable.addColumn('string', 'Month'); // Implicit domain column.
-			dataTable.addColumn('number', 'Sale '); // Implicit data column. 
-			dataTable.addColumn('number', 'GRN ');
-			dataTable.addColumn('number', 'GVN ');
+			//dataTable.addColumn('number', 'Sale '); // Implicit data column. 
+			dataTable.addColumn('number', 'GRN-GVN ');
+			//dataTable.addColumn('number', 'GVN ');
 			dataTable.addColumn('number', 'Net ');
 
 			//alert("in");
@@ -786,11 +786,12 @@
 				//alert("LEN - " + len);
 
 				$.each(chartsBardata, function(key, chartsBardata) {
+					
+					var grngvn=parseInt(chartsBardata.grnTotal)+parseInt(chartsBardata.gvn);
 
 					dataTable.addRows([ [ chartsBardata.monthStr,
-							parseInt(chartsBardata.sale),
-							parseInt(chartsBardata.grnTotal),
-							parseInt(chartsBardata.gvn),
+							//parseInt(chartsBardata.sale),
+							parseInt(grngvn),
 							parseInt(chartsBardata.net) ] ]);
 
 				});
@@ -798,9 +799,11 @@
 				//alert(11);
 
 				var materialOptions = {
-					width : 1100,
+					width : 1000,
 					height : 500,
 					//isStacked: 'percent',
+					bar: { groupWidth: '45%' },
+					isStacked:true,
 					chart : {
 						title : ' ',
 						subtitle : ' '
@@ -822,10 +825,10 @@
 					}
 				};
 
-				var materialChart = new google.charts.Line(chartDiv);
+				var materialChart = new google.visualization.ColumnChart(chartDiv);
 
 				function drawMaterialChart() {
-					materialChart.draw(dataTable, google.charts.Line
+					materialChart.draw(dataTable, google.charts.Bar
 							.convertOptions(materialOptions));
 				}
 
