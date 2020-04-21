@@ -35,26 +35,6 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<%-- <div class="page-title">
-			<div>
-				<h1>
-					<i class="fa fa-file-o"></i>Franchisee FR Invoice
-				</h1>
-				<h4>Bill for franchises</h4>
-			</div>
-		</div>
-		<!-- END Page Title -->
-
-		<!-- BEGIN Breadcrumb -->
-		<div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Franchise Bill</li>
-			</ul>
-		</div> --%>
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
@@ -77,38 +57,7 @@
 								name="deliveryDate" size="30" type="text" value="${todaysDate}" />
 						</div>
 
-						<!-- </div>
 
-					<div class="form-group  "> -->
-
-						<%-- <label class="col-sm-3 col-lg-2	 control-label">Select
-							Menu</label>
-						<div class="col-sm-6 col-lg-4 controls">
-							<select data-placeholder="Choose Menu"
-								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectMenu" name="selectMenu">
-
-								<option value="-1"><c:out value="All"/></option>
-
-								<c:forEach items="${unSelectedMenuList}" var="unSelectedMenu"
-									varStatus="count">
-									<option value="${unSelectedMenu.menuId}"><c:out value="${unSelectedMenu.menuTitle}"/></option>
-								</c:forEach>
-
-
-							</select>
-						</div> --%>
-					</div>
-
-				</div>
-
-
-				<br>
-
-				<div class="row">
-
-
-					<div class="form-group">
 						<label class="col-sm-3 col-lg-2	 control-label">Select
 							Section</label>
 						<div class="col-sm-6 col-lg-4 controls date_select">
@@ -127,19 +76,27 @@
 							</select>
 						</div>
 
+
+					</div>
+
+				</div>
+
+
+				<br>
+
+				<div class="row">
+
+
+					<div class="form-group">
+
+
 						<label class="col-sm-3 col-lg-2	 control-label">Select
 							Menu</label>
-						<div class="col-sm-6 col-lg-4 controls">
+						<div class="col-sm-6 col-lg-10 controls">
 							<select data-placeholder="Choose Menu"
 								class="form-control chosen" multiple="multiple" tabindex="6"
 								id="selectMenu" name="selectMenu">
 
-								<%-- <option value="-1"><c:out value="All"/></option>
-
-								<c:forEach items="${unSelectedMenuList}" var="unSelectedMenu"
-									varStatus="count">
-									<option value="${unSelectedMenu.menuId}"><c:out value="${unSelectedMenu.menuTitle}"/></option>
-								</c:forEach> --%>
 
 
 							</select>
@@ -149,49 +106,11 @@
 				</div>
 
 				<br>
-
-				<!-- <div class="col-sm-9 col-lg-5 controls">
- -->
-				<%-- <div class="row">
-					<div class="form-group">
-						<label class="col-sm-3 col-lg-2 control-label">Delivery </label>
-						<div class="col-sm-6 col-lg-2 controls">
-							<select data-placeholder="Select Delivery"
-								class="form-control chosen" name="delType" id="delType"
-								onchange="onDeliveryChange(this.value)">
-								<option value="">Select Delivery</option>
-								<option value="1"><c:out value="First Delivery" />
-								</option>
-								<option value="2"><c:out value="Second Delivery" />
-								</option>
-							</select>
-
-						</div>
-						<label class="col-sm-3 col-lg-1 control-label">Route </label>
-						<div class="col-sm-6 col-lg-3 controls">
-							<select data-placeholder="Select Route"
-								class="form-control chosen" name="selectRoute" id="selectRoute"
-								onchange="onRouteChange(this.value)">
-							
-								<option value="0">Select Route</option> --%>
-								<%-- <c:forEach items="${routeList}" var="route" varStatus="count">
-									<option value="${route.routeId}"><c:out value="${route.routeName}"/> </option>
-
-								</c:forEach> --%>
-						<!-- 	</select>
-
-						</div>
-
-
-					</div> 
-				</div>-->
-				<br>
-				<br>
 				<div class="row">
 					<div class="form-group">
 						<label class="col-sm-3 col-lg-2 control-label">Franchisee
 						</label>
-						<div class="col-sm-6 col-lg-8">
+						<div class="col-sm-6 col-lg-10">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
@@ -207,39 +126,19 @@
 							</select>
 
 						</div>
-						<!--	</div>
-				 </div> -->
 
-
-						<%-- <div class="form-group col-md-9">
-					<label class=" col-md-2">Select
-						Franchise </label>
-					<div class=" col-md-7">
-						<select data-placeholder="Choose Franchisee"
-							class="form-control chosen " multiple="multiple" tabindex="6"
-							id="selectFr" name="selectFr">
-
-							<option value="-1"><c:out value="All"/></option>
-
-							<c:forEach items="${unSelectedFrList}" var="fr" varStatus="count">
-								<option value="${fr.frId}"><c:out value="${fr.frName}"/></option>
-							</c:forEach>
-						</select>
 					</div>
 
-				</div> --%>
+				</div>
 
-						<!-- 
-				<br>
-				<div class="row"> -->
-						<div class="col-md-1">
+				<br> 
+				<div class="row">
+					<div class="form-group">
+						<div class="col-md-12" style="text-align: center;">
 							<button class="btn btn-info" onclick="generateNewBill()">Search</button>
-
-
 						</div>
+
 					</div>
-
-
 					<div align="center" id="loader" style="display: none">
 
 						<span>
@@ -250,25 +149,19 @@
 							class="l-3"></span> <span class="l-4"></span> <span class="l-5"></span>
 						<span class="l-6"></span>
 					</div>
-
 				</div>
+
 			</div>
 
 
 			<div class="box">
-				<!-- <div class="box-title">
-				<h3>
-					<i class="fa fa-list-alt"></i>Bill
-				</h3>
 
-			</div>
- -->
 				<form id="submitBillForm"
 					action="${pageContext.request.contextPath}/submitNewBill"
 					method="post"
 					onsubmit="submitBill.disabled = true; return confirm('Do you want to Generate Bill ?');">
-					
-					<input type="hidden" name="sectionId" id="postSectionId"/>
+
+					<input type="hidden" name="sectionId" id="postSectionId" />
 					<div class=" box-content">
 						<div class="row">
 							<div class="col-md-12 table-responsive">
@@ -306,11 +199,13 @@
 						<div class="row">
 							<label class="col-sm-3 col-lg-1 control-label">Veh-No: </label>
 							<div class="col-sm-6 col-lg-2 controls">
-								<input type="text" name="vehNo" class="form-control" id="vehNo" value="-"/>
+								<input type="text" name="vehNo" class="form-control" id="vehNo"
+									value="-" />
 							</div>
 							<label class="col-sm-3 col-lg-1 control-label">Time </label>
 							<div class="col-sm-6 col-lg-2 controls">
-								<input type="text" name="time" id="time" class="form-control" value="${time}"/>
+								<input type="text" name="time" id="time" class="form-control"
+									value="${time}" />
 							</div>
 							<div class="col-md-offset-3 col-md-1">
 								<!-- 							<button class="btn btn-info pull-right">Submit & PDF</button>

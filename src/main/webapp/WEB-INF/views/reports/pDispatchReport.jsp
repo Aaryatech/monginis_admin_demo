@@ -206,9 +206,9 @@
 							
 							
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
-							onclick="genDispatchPdf()">PDF</button> 
+							onclick="genDispatchPdf()" style="display: none;">PDF</button> 
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
-							onclick="genDispatchItextPdf()">Disp PDF1</button>
+							onclick="genDispatchItextPdf()">PDF</button>
 							</div>
 							
 					<div align="center" id="loader" style="display: none">

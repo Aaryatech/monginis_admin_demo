@@ -197,12 +197,15 @@
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button> -->
 							<input type="button" class="btn btn-primary" value="PDF"
-								id="PDFButton" onclick="genPdf()" value="PDF" />
+								id="PDFButton" onclick="genPdf()" value="PDF" style="display: none;" />
+								
 								<input type="button" class="btn btn-primary"
-								id="PDFButtonNew" onclick="genPdfNew()" value="PDF 1" />  <input
+								id="PDFButtonNew" onclick="genPdfNew()" value="PDF" />  
+								
+								<input
 								type="button" class="btn btn-primary" value="PDF FOR DOT MATRIX"
 								id="PDFButton" onclick="genPdfForDotMatrix()"
-								value="PDF FOR DOT MATRIX" />
+								value="PDF FOR DOT MATRIX" style="display: none;"/>
 						</div>
 
 

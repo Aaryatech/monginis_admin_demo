@@ -193,7 +193,7 @@
 
 							<label class="col-sm-3 col-lg-1 control-label">Select
 								Item </label>
-							<div class="col-sm-10 col-lg-10">
+							<div class="col-sm-10 col-lg-11">
 
 								<select data-placeholder="Select Items"
 									class="form-control chosen" id="itemId" name="itemId"
@@ -207,17 +207,24 @@
 								</select>
 
 							</div>
-							<div class="form-group" align="left">
+							<!-- <div class="form-group" align="left">
 
 								<input type="submit" id="submit" class="btn btn-primary"
 									value="Search">
 
 
-							</div>
+							</div> -->
 						</div>
 
 
 
+					</div>
+
+					<div class="row">
+						<div class="form-group" style="text-align: center;">
+						<input type="submit" id="submit" class="btn btn-primary"
+									value="Search">
+						</div>
 					</div>
 			</form>
 			<form id="validation-form1"
@@ -236,7 +243,8 @@
 				</div>
 				<div class="form-group" align="center">
 					<input type="button" id="pdf" class="btn btn-primary"
-						value="PDF For Dot Matrix" onclick="onPdfClickForDotMt()">
+						value="PDF For Dot Matrix" onclick="onPdfClickForDotMt()"
+						style="display: none;">
 				</div>
 			</form>
 		</div>

@@ -108,10 +108,10 @@
 			<div style="clear: both;"></div>
 			<ul class="nav nav-list">
 				<li class="active"><a href="${pageContext.request.contextPath}/home"> <i
-						class="fa fa-dashboard"></i> <span>Dashboard</span>
+						class="fa fa-dashboard"></i> <span>Production Dashboard</span>
 				</a></li>
                <li ><a href="${pageContext.request.contextPath}/showDashboard"> <i
-						class="fa fa-dashboard"></i> <span>Dashboard2</span>
+						class="fa fa-dashboard"></i> <span>Admin Dashboard</span>
 				</a></li>
 				<li ><a href="${pageContext.request.contextPath}/getSalesDashboardData"> <i
 						class="fa fa-dashboard"></i> <span>Sales Dashboard</span>
