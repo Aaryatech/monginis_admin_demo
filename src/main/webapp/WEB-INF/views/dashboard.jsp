@@ -49,7 +49,7 @@
 
 
 
-<body class="container bg-overlay" style="padding-left: 0px;"
+<body class="container bg-overlay" style="padding-left: 0px; padding-right:0px;"
 	onload="drawGraph()">
 
 	<jsp:include page="/WEB-INF/views/include/logout.jsp"></jsp:include>
@@ -422,73 +422,72 @@
 														<c:out value="${data.monthStr}"></c:out>
 													</p>
 													
-													
-													
-													<p class="sub_title">
-														<c:out value="Sales "></c:out>
-													</p>
-
-
-
-													<p class="title"
-														style="text-align: right; font-size: 18px;">
-														<i class="fa fa-rupee"></i>&nbsp;&nbsp;
+													<div class="row_one">
+														<div class="row_one_l"><c:out value="Sales "></c:out></div>
+														<div class="row_one_r">
+														<span><i class="fa fa-rupee"></i></span>
 														<fmt:formatNumber type="number" minFractionDigits="2"
-															maxFractionDigits="2" value="${data.sale}" />
-														&nbsp;&nbsp;&nbsp;&nbsp;
-													</p>
-
-													<p class="title"
-														style="font-size: 15px; background-color: #374390;">
+															maxFractionDigits="2" value="${data.sale}" /></div>
+															<div class="clr"></div>
+													</div>
+													
+													<div class="small_title">
 														<c:out value="GRN "></c:out>
-													</p>
-
-													<p class="title" style="text-align: left; font-size: 14px;">
-														&nbsp;&nbsp;Grn1: <i class="fa fa-rupee"></i>&nbsp;&nbsp;<span
-															style="float: right; font-weight: bold;"><fmt:formatNumber
-																type="number" minFractionDigits="2"
-																maxFractionDigits="2" value="${data.grn1}" />&nbsp;&nbsp;&nbsp;&nbsp;</span>
-														<br> &nbsp;&nbsp;Grn2: <i class="fa fa-rupee"></i>&nbsp;&nbsp;<span
-															style="float: right; font-weight: bold;"><fmt:formatNumber
-																type="number" minFractionDigits="2"
-																maxFractionDigits="2" value="${data.grn2}" />&nbsp;&nbsp;&nbsp;&nbsp;</span>
-														<br> &nbsp;&nbsp;Grn3: <i class="fa fa-rupee"></i>&nbsp;&nbsp;<span
-															style="float: right; font-weight: bold;"><fmt:formatNumber
-																type="number" minFractionDigits="2"
-																maxFractionDigits="2" value="${data.grn3}" />&nbsp;&nbsp;&nbsp;&nbsp;</span>
-													<hr>
-													&nbsp;&nbsp;Total GRN: <i class="fa fa-rupee"></i>&nbsp;&nbsp;<span
-														style="float: right; font-weight: bold; font-size: 17px;"><fmt:formatNumber
-															type="number" minFractionDigits="2" maxFractionDigits="2"
-															value="${data.grnTotal}" />&nbsp;&nbsp;&nbsp;&nbsp;</span>
-
-													</p>
-													<p class="title"
-														style="font-size: 15px; background-color: #374390;">
-														<c:out value="GVN "></c:out>
-													</p>
-
-													<p class="title"
-														style="text-align: right; font-size: 18px;">
-														<i class="fa fa-rupee"></i>&nbsp;&nbsp;
-														<fmt:formatNumber type="number" minFractionDigits="2"
-															maxFractionDigits="2" value="${data.gvn}" />
-														&nbsp;&nbsp;&nbsp;&nbsp;
-													</p>
-
-													<p class="title"
-														style="font-size: 15px; background-color: #374390;">
-														<c:out value="Net Sale "></c:out>
-													</p>
-
-													<p class="title"
-														style="text-align: right; font-size: 18px;">
-														<i class="fa fa-rupee"></i>&nbsp;&nbsp;<b><fmt:formatNumber
-																type="number" minFractionDigits="2"
-																maxFractionDigits="2" value="${data.net}" /></b>&nbsp;&nbsp;&nbsp;&nbsp;
-													</p>
-
-												
+													</div>	
+													
+			<div class="grn_row">
+				<div class="grn_one">
+					<div class="grn_one_l">Grn1 :</div>
+					<div class="grn_one_r"><i class="fa fa-rupee"></i>
+					<fmt:formatNumber type="number" minFractionDigits="2"
+						maxFractionDigits="2" value="${data.grn1}" /></div>
+					<div class="clr"></div>
+				</div>
+				
+				<div class="grn_one">
+					<div class="grn_one_l">Grn2 :</div>
+					<div class="grn_one_r"><i class="fa fa-rupee"></i>
+					<fmt:formatNumber type="number" minFractionDigits="2"
+					maxFractionDigits="2" value="${data.grn2}" /></div>
+					<div class="clr"></div>
+				</div>
+				
+				<div class="grn_one">
+					<div class="grn_one_l">Grn3 :</div>
+					<div class="grn_one_r"><i class="fa fa-rupee"></i>
+					<fmt:formatNumber type="number" minFractionDigits="2"
+					maxFractionDigits="2" value="${data.grn3}" /></span></div>
+					<div class="clr"></div>
+				</div>
+			</div>
+			
+			<div class="total_gvn">
+				<div class="grn_one_l">Total GRN:</div>
+				<div class="grn_one_r"><i class="fa fa-rupee"></i>
+				<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2"
+				value="${data.grnTotal}" /></div>
+				<div class="clr"></div>
+			</div>
+			
+			<div class="row_one" style="padding-top:10px; border-top:1px dashed #FFF;">
+				<div class="row_one_l"><c:out value="GVN "></c:out> </div>
+				<div class="row_one_r">
+				<i class="fa fa-rupee"></i>
+				<fmt:formatNumber type="number" minFractionDigits="2"
+				maxFractionDigits="2" value="${data.gvn}" /></div>
+				<div class="clr"></div>
+			</div>
+			
+			<div class="row_one" style="font-size: 20px; border:none; margin-bottom: 0; padding-bottom: 0;">
+				<div class="row_one_l"><c:out value="Net Sale "></c:out>  </div>
+				<div class="row_one_r">
+					<i class="fa fa-rupee"></i>
+					<fmt:formatNumber type="number" minFractionDigits="2"
+					maxFractionDigits="2" value="${data.net}" /></div>
+				<div class="clr"></div>
+			</div>
+													
+										
 											</div>
 
 										</div>
@@ -746,7 +745,7 @@
 			//alert("hi - ");
 
 			google.charts.load('current', {
-				'packages' : [ 'corechart', 'bar' ]
+				'packages' : [ 'corechart', 'line' ]
 			});
 			google.charts.setOnLoadCallback(drawStuffCat);
 
@@ -768,9 +767,9 @@
 			var dataTable = new google.visualization.DataTable();
 
 			dataTable.addColumn('string', 'Month'); // Implicit domain column.
-			//dataTable.addColumn('number', 'Sale '); // Implicit data column. 
-			dataTable.addColumn('number', 'GRN-GVN ');
-			//dataTable.addColumn('number', 'GVN ');
+			dataTable.addColumn('number', 'Sale '); // Implicit data column. 
+			dataTable.addColumn('number', 'GRN ');
+			dataTable.addColumn('number', 'GVN ');
 			dataTable.addColumn('number', 'Net ');
 
 			//alert("in");
@@ -787,12 +786,11 @@
 				//alert("LEN - " + len);
 
 				$.each(chartsBardata, function(key, chartsBardata) {
-					
-					var grngvn=parseInt(chartsBardata.grnTotal)+parseInt(chartsBardata.gvn);
 
 					dataTable.addRows([ [ chartsBardata.monthStr,
-							//parseInt(chartsBardata.sale),
-							parseInt(grngvn),
+							parseInt(chartsBardata.sale),
+							parseInt(chartsBardata.grnTotal),
+							parseInt(chartsBardata.gvn),
 							parseInt(chartsBardata.net) ] ]);
 
 				});
@@ -803,8 +801,6 @@
 					width : 1100,
 					height : 500,
 					//isStacked: 'percent',
-					bar: { groupWidth: '45%' },
-					isStacked:true,
 					chart : {
 						title : ' ',
 						subtitle : ' '
@@ -826,10 +822,10 @@
 					}
 				};
 
-				var materialChart = new google.visualization.ColumnChart(chartDiv);
+				var materialChart = new google.charts.Line(chartDiv);
 
 				function drawMaterialChart() {
-					materialChart.draw(dataTable, google.charts.Bar
+					materialChart.draw(dataTable, google.charts.Line
 							.convertOptions(materialOptions));
 				}
 
