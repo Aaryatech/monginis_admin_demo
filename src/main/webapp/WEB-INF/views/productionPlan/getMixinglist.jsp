@@ -36,10 +36,16 @@
 					<h1>
 					<c:choose>
 						<c:when test="${flag==15}">
-						<i class="fa fa-file-o"></i> Search Mixing Todays List
+						<i class="fa fa-file-o"></i> Mixing Todays List
 						</c:when>
 						<c:when test="${flag==14}">
-						<i class="fa fa-file-o"></i> Search Mixing List For Production Department
+						<i class="fa fa-file-o"></i> Mixing List For Production Department
+						</c:when>
+						<c:when test="${flag==10}">
+						<i class="fa fa-file-o"></i> Mixing List
+						</c:when>
+						<c:when test="${flag==11}">
+						<i class="fa fa-file-o"></i> BMS Mixing List
 						</c:when>
 					</c:choose>
 						
@@ -76,7 +82,7 @@
 										
 										<th>Mixing Date</th>
 										<th>Production Batch</th>
-										<th>Time Slot</th>
+									<!-- 	<th>Time Slot</th> -->
 										<th>Status</th>
 										<th>Action</th>
 										
@@ -114,10 +120,10 @@
 													<td align="left"><c:out
 																value="${todaysmixrequest.productionBatch}" />  </td>
 															
-															<td align="left"><c:out	
+															<%-- <td align="left"><c:out	
 																value="${todaysmixrequest.timeSlot}" />
 																</td>
-																
+																 --%>
 																
 																<td align="left"><c:out	
 																value="${sts}" />
@@ -155,7 +161,7 @@
 						<div class="form-group"><br>
 									<label class="col-sm-3 col-lg-2 control-label">From Date:</label>
 									<div class="col-sm-5 col-lg-3 controls">
-										<input class="form-control date-picker" id="from_date" size="16" value="${fromDate}"
+										<input class="form-control date-picker" id="from_date" size="16"
 											 type="text" name="from_date" required />
 											 <input class="form-control " id="deptId" size="16" 
 											 type="hidden" name="deptId" value="${flag}" required />
@@ -164,7 +170,7 @@
 										
 										<label class="col-sm-3 col-lg-2 control-label">To Date:</label>
 									<div class="col-sm-5 col-lg-3 controls">
-										<input class="form-control date-picker" id="to_date" size="16" value="${fromDate}"
+										<input class="form-control date-picker" id="to_date" size="16" 
 											 type="text" name="to_date" required />
 									
 										</div>
@@ -326,7 +332,7 @@
 			  
 				var from_date = $("#from_date").val();
 				var to_date = $("#to_date").val();
-				
+				var deptId = $("#deptId").val();
 				
 				$('#loader').show();
 
@@ -337,7 +343,7 @@
 								{
 									 
 									from_date : from_date,
-									to_date : to_date,
+									to_date : to_date,deptId:deptId,
 									ajax : 'true'
 
 								},
@@ -368,7 +374,7 @@
 												  	tr.append($('<td></td>').html(itemList.mixDate));
 												  	
 
-												  	tr.append($('<td></td>').html(itemList.productionBatch));
+												  	tr.append($('<td></td>').html(itemList.productionId));
 												  	tr.append($('<td></td>').html(itemList.timeSlot));
 												  	tr.append($('<td></td>').html(sts));
 												  	tr.append($('<td></td>').html("<a href='${pageContext.request.contextPath}/viewDetailMixRequest?mixId="+itemList.mixId+"&deptId="+deptId+"'  class='action_btn'> <abbr title='detailes'> <i class='fa fa-list' ></i></abbr> "));

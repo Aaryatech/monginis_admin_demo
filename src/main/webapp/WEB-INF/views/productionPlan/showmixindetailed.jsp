@@ -91,7 +91,7 @@
 									
 									
 									
-									<input type="text" id="status" name="status"
+									<input type="text" id="statuss" name="statuss"
 											value="${sts}" class="form-control" readonly>
 										<input type="hidden" id="status" name="status"
 											value="${mixheader.status}" class="form-control" readonly>
@@ -109,20 +109,19 @@
 											readonly />
 									<!-- </div> -->
 
-							<!-- 	</div>
+							<!-- 	</div>-->
 								<br>
 
 								<div class="box-content">
- -->
-								<!-- 	<div class="col-md-1">Production Batch</div>
-									<div class="col-md-2"> -->
-										<input type="hidden" id="production_batch"
-											name="production_batch" value="${mixheader.productionBatch}"
+									<div class="col-md-2">Production Id</div>
+									<div class="col-md-3">
+										<input type="text" id="production_batch"
+											name="production_batch" value="${mixheader.productionId}"
 											class="form-control" readonly>
 
-									<!-- </div>
+									</div>
 								</div>
-								<br> -->
+								<br> 
 
 
 
@@ -141,8 +140,8 @@
 														<th>Auto Order Qty</th>
 														<th>Received Qty</th>
 														<th>Production Qty</th>
-														<th>Rejected Qty</th> 
-													<!-- 	<th>Mixing Date</th> -->
+													<!--	<th>Rejected Qty</th> 
+													 	<th>Mixing Date</th> -->
                                                        
 
 													</tr>
@@ -158,14 +157,13 @@
 															<c:set var="srNo" value="${srNo+1}" />
 															<td><c:out value="${mixwithdetaild.sfName}" /></td>
 															<td style="text-align:right;"><c:out value="${mixwithdetaild.originalQty}" /></td>
-															<td style="text-align:right;"><c:out value="${mixwithdetaild.autoOrderQty/mixwithdetaild.originalQty}" /></td>
-														
+															<td style="text-align:right;"><c:out value="${mixwithdetaild.exVarchar1}" /></td>
 															<td style="text-align:right;">  <c:out value="${mixwithdetaild.autoOrderQty}" /></td>
 
 															<td style="text-align:right;"><c:out value="${mixwithdetaild.receivedQty}" /></td>
-
-															<c:choose>
-																<c:when test="${(mixheader.status!=2) and (deptId==15)}">
+															<td style="text-align:right;"><input class="form-control" type="text"  value="${mixwithdetaild.receivedQty}" id="prodQty${mixwithdetaild.mixing_detailId}" name="prodQty${mixwithdetaild.mixing_detailId}"></td>
+														<%-- 	<c:choose>
+																<c:when test="${(mixheader.status==2)}">
 																	<td style="text-align:right;"><input type="text"
 																		name='production_Qty<c:out
 																		value="${mixwithdetaild.mixing_detailId}" />'
@@ -182,11 +180,11 @@
 																	<td style="text-align:right;"><c:out value="${mixwithdetaild.productionQty}" /></td>
 																	<td style="text-align:right;"><c:out value="${mixwithdetaild.rejectedQty}" /></td>
 																</c:otherwise>
-															</c:choose>
+															</c:choose> --%>
 															 
-														<%-- 	<td style="text-align:right;"><fmt:formatDate pattern = "dd-MM-yyyy" value = "${mixwithdetaild.mixingDate}" /></td>--%>
- 
- 
+															<%-- <td style="text-align:right;"><fmt:formatDate pattern = "dd-MM-yyyy" value = "${mixwithdetaild.mixingDate}" /></td> --%>
+
+
 														</tr>
 													</c:forEach>
 
@@ -202,7 +200,7 @@
 									<div align="center" class="form-group">
 										<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-5">
 											
-								
+								<%-- 
 						
 											<c:choose>
 												<c:when test="${(mixheader.status!=2) and (deptId==15)}">
@@ -224,14 +222,15 @@
 													</button>
 										 
 												</c:when> 
-											</c:choose>
+											</c:choose> --%>
 											
 											<c:choose>
-												<c:when test="${(mixheader.status!=2) and (deptId==15)}">
+												<c:when test="${(mixheader.status!=2) and (deptId==10)}">
 										 			<input type="submit" class="btn btn-primary"
 													value="Complete Production">
 											    </c:when>
 											</c:choose>
+											
 										</div>
 								</div>
 							</div>

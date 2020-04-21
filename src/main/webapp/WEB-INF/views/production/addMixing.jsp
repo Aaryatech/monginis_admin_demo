@@ -64,6 +64,9 @@
 									type="hidden" name="productionId" value="${productionId}"
 									readonly> <input type="hidden" name="ismixing"
 									value="${isMixing}" readonly>
+									 <input
+									type="hidden" name="deptId" value="${deptId}"
+									readonly>
 								<div class="table-responsive" style="border: 0">
 									<table class="table table-advance" id="table1">
 										<thead style="background-color: #f3b5db;">
@@ -71,9 +74,9 @@
 												<th width="17" style="width: 18px">Sr No</th>
 												<th width="120" align="left">Rm Name</th>
 
-												<th width="120" align="left">Multip Factor</th>
+											<!-- 	<th width="120" align="left">Multip Factor</th>
 
-												<th width="120" align="left">Qty</th>
+												<th width="120" align="left">Qty</th> -->
 
 												<th width="120" align="left">Req Qty</th>
 
@@ -90,9 +93,9 @@
 												<tr>
 													<td><c:out value="${count.index+1}" /></td>
 													<td align="left"><c:out value="${mixingList.rmName}" /></td>
-													<td align="left"><c:out value="${mixingList.mulFactor}" /></td>
+													<%-- <td align="left"><c:out value="${mixingList.mulFactor}" /></td>
 
-													<td align="left"><c:out value="${mixingList.total}" /></td>
+													<td align="left"><c:out value="${mixingList.total}" /></td> --%>
 													<td align="left"><%-- c:out
 															value="${mixingList.total * mixingList.mulFactor}" /> --%>
 <fmt:formatNumber type="number" maxFractionDigits="2" var="total" value="${mixingList.total * mixingList.mulFactor}" />
@@ -120,8 +123,11 @@
 										<div align="center" class="form-group">
 											<div
 												class="col-sm-25 col-sm-offset-3 col-lg-30 col-lg-offset-0">
-												<input type="submit" class="btn btn-primary"
-													value="Request For Mixing From Production" id="search">
+												<!-- <input type="submit" class="btn btn-primary"
+													value="Request For Mixing From Production" id="search"> -->
+													
+													<input type="submit" class="btn btn-primary"
+													value="Add to  Production" id="search">
 
 											</div>
 											<br>
@@ -130,7 +136,7 @@
 								</c:choose>
 
 	<div style="text-align: center;">
-								<a href="${pageContext.request.contextPath}/showMixReqPdf"
+								<a href="${pageContext.request.contextPath}/showMixPDF"
 								target="_blank">PDF</a></div>
 							</form>
 						</div>

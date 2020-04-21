@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -90,7 +89,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Controller
 @Scope("session")
-public class ViewProdController {
+@RequestMapping("temp_old")
+public class ViewProdControllerold {
 
 	String globalProductionBatch;
 	int globalTimeSlot;
@@ -120,235 +120,7 @@ public class ViewProdController {
 	private int isMixing;
 	private String globalProdDate;
 	String fromDate, toDate;
-	@RequestMapping(value = "/addToMixing/{headerId}/{dept}", method = RequestMethod.GET)
-	public ModelAndView showMixing(@PathVariable("headerId")int headerId,@PathVariable("dept")String dept,HttpServletRequest request, HttpServletResponse response) {
 
-		ModelAndView mav = new ModelAndView("production/addMixing");
-
-		try {
-
-			RestTemplate restTemplate = new RestTemplate();
-
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("settingKeyList", dept);
-			
-			// web Service to get Dept Name And Dept Id for bom toDept and toDeptId
-			
-			FrItemStockConfigureList toSettingList = restTemplate.postForObject(Constants.url + "getDeptSettingValue", map,
-					FrItemStockConfigureList.class);
-			map = new LinkedMultiValueMap<String, Object>();
-			map.add("headerId", headerId);
-			map.add("deptId", toSettingList.getFrItemStockConfigure().get(0).getSettingValue());
-			prodMixingReqP1List = restTemplate.postForObject(Constants.url + "getSfPlanDetailForMixing", map,
-					ProdMixingReqP1List.class);
-
-			prodMixingReqP1 = new ArrayList<>();
-
-			prodMixingReqP1 = prodMixingReqP1List.getProdMixingReqP1();
-
-			
-			System.out.println("sf Plan Detail For Mixing  " + sfPlanDetailForMixing.toString());
-			for (int i = 0; i < prodMixingReqP1.size(); i++) {
-				prodMixingReqP1.get(i).setTotal((int) Math.ceil(prodMixingReqP1.get(i).getTotal()));
-			}
-			mav.addObject("mixingList", prodMixingReqP1);
-			mav.addObject("productionBatch", globalProductionBatch);
-			mav.addObject("globalTimeSlot", globalTimeSlot);
-			mav.addObject("productionId", headerId);
-			mav.addObject("isMixing", isMixing);
-			mav.addObject("deptId", toSettingList.getFrItemStockConfigure().get(0).getSettingValue());
-			ModelAndView model = new ModelAndView("production/addBom");
-			model.addObject("prodDate", globalProdDate);
-		} catch (Exception e) {
-
-			e.printStackTrace();
-			System.out.println("Ex oc");
-		}
-
-		return mav;
-
-	}
-	public static float roundUp(float d) {
-		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
-	}
-	
-	@RequestMapping(value = "/showMixPDF", method = RequestMethod.GET)
-	public void  showMixPDF(HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException {
-		  BufferedOutputStream outStream = null;
-		Document doc=new Document();
-				
-		Document document = new Document(PageSize.A4);
-		//  ByteArrayOutputStream out = new ByteArrayOutputStream();
-		 
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Calendar cal = Calendar.getInstance();
-
-		String timeStamp=dateFormat.format(cal.getTime());
-		String FILE_PATH=Constants.REPORT_SAVE;
-		File file=new File(FILE_PATH);
-		
-		PdfWriter writer = null;
-		
-		
-		 FileOutputStream out=new FileOutputStream(FILE_PATH);
-		   try {
-			    writer=PdfWriter.getInstance(document,out);
-		} catch (DocumentException e) {
-			
-			e.printStackTrace();
-		}
-		
-		 PdfPTable table = new PdfPTable(5);
-		 try {
-		 System.out.println("Inside PDF Table try");
-		 table.setWidthPercentage(100);
-	     table.setWidths(new float[]{0.9f, 2.0f,2.0f,2.0f,2.0f});
-	     Font headFont = new Font(FontFamily.HELVETICA,11 , Font.NORMAL, BaseColor.BLACK);
-	     Font headFont1 = new Font(FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);
-	     Font f=new Font(FontFamily.TIMES_ROMAN,12.0f,Font.UNDERLINE,BaseColor.BLUE);
-	     
-	     PdfPCell hcell;
-	     hcell = new PdfPCell(new Phrase("Sr.", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     hcell.setBackgroundColor(BaseColor.PINK);
-	     table.addCell(hcell);
-
-	     hcell = new PdfPCell(new Phrase("SF/RM Name", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     hcell.setBackgroundColor(BaseColor.PINK);
-	     table.addCell(hcell);
-	    
-	     
-	   /*  hcell = new PdfPCell(new Phrase("Original Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     hcell.setBackgroundColor(BaseColor.PINK);
-	     table.addCell(hcell);
-	     
-	     
-	     hcell = new PdfPCell(new Phrase("Multipl Factor", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     hcell.setBackgroundColor(BaseColor.PINK);
-	     table.addCell(hcell);*/
-	     
-	     hcell = new PdfPCell(new Phrase("Auto Order Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     hcell.setBackgroundColor(BaseColor.PINK);
-	     table.addCell(hcell);
-	         
-	    
-	     hcell = new PdfPCell(new Phrase("Received Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     hcell.setBackgroundColor(BaseColor.PINK);
-	     table.addCell(hcell);
-	     
-
-	     hcell = new PdfPCell(new Phrase("Production Qty", headFont1));
-	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	     hcell.setBackgroundColor(BaseColor.PINK);
-	     table.addCell(hcell);
-	     
-	 
-	     int index=0;
-	     if(prodMixingReqP1.size()>0) {
-	     for (ProdMixingReqP1 mixDetail : prodMixingReqP1) {
-	       index++;
-	         PdfPCell cell;
-
-	        cell = new PdfPCell(new Phrase(String.valueOf(index),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         table.addCell(cell);
-
-	        
-	         cell = new PdfPCell(new Phrase(mixDetail.getRmName(),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	         cell.setPaddingRight(4);
-	         table.addCell(cell);
-	         
-	         
-	       /*  cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getTotal()),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(4);
-	         table.addCell(cell);
-	         
-	         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getMulFactor()),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(4);
-	         table.addCell(cell);*/
-	         float prodQty=roundUp(mixDetail.getTotal()*mixDetail.getMulFactor());
-	         
-	         cell = new PdfPCell(new Phrase(String.valueOf(prodQty),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(4);
-	         table.addCell(cell);
-	         
-	         cell = new PdfPCell(new Phrase(String.valueOf(Math.round(prodQty)),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(4);
-	         table.addCell(cell);
-	         cell = new PdfPCell(new Phrase(String.valueOf(""),headFont));
-	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-	         cell.setPaddingRight(4);
-	         table.addCell(cell);
-	     }
-	     }
-
-	     document.open();
-	     Paragraph company = new Paragraph(Constants.FACTORYNAME+"\n" + 
-					"Factory Add:"+Constants.FACTORYADDRESS, f);
-	     company.setAlignment(Element.ALIGN_CENTER);
-	     document.add(company);
-	     document.add(new Paragraph(" "));
-
-	     Paragraph heading = new Paragraph("Report-Mixing Request");
-	     heading.setAlignment(Element.ALIGN_CENTER);
-	     document.add(heading);
-	     DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
-			String reportDate = DF.format(new Date());
-			
-			document.add(new Paragraph(""+ reportDate));
-			document.add(new Paragraph("\n"));
-	     document.add(table);
-	 	 int totalPages=writer.getPageNumber();
-	 	  document.close();
-	  	if (file != null) {
-
-				String mimeType = URLConnection.guessContentTypeFromName(file.getName());
-
-				if (mimeType == null) {
-
-					mimeType = "application/pdf";
-
-				}
-
-				response.setContentType(mimeType);
-
-				response.addHeader("content-disposition", String.format("inline; filename=\"%s\"", file.getName()));
-
-				response.setContentLength((int) file.length());
-
-				InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-
-				try {
-					FileCopyUtils.copy(inputStream, response.getOutputStream());
-				} catch (IOException e) {
-					System.out.println("Excep in Opening a Pdf File for Mixing");
-					e.printStackTrace();
-				}
-			}
-	     
-	    
-	 } catch (DocumentException ex) {
-		 ex.printStackTrace();
-	 }
-	}
-	
 	@RequestMapping(value = "/showProdHeader", method = RequestMethod.GET)
 	public ModelAndView showProdHeader(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1231,323 +1003,6 @@ public class ViewProdController {
 		}
 
 	}
-	
-	
-	@RequestMapping(value = "/showProdLinePdf", method = RequestMethod.GET)
-	public void showProdLinePdf(HttpServletRequest request, HttpServletResponse response)
-			throws FileNotFoundException {/*
-											 * BufferedOutputStream outStream = null;
-											 * System.out.println("Inside Pdf showProdLinePdf View Prod Contr");
-											 * 
-											 * List<GetProdPlanDetail> moneyOutList = prodPlanDetailList; //
-											 * -------------------------------------------------------------------------
-											 * ArrayList<LineMaster> subCatAList = null; List<Item> itemsList = null;
-											 * try { RestTemplate restTemplate = new RestTemplate();
-											 * 
-											 * //getAllItemsForProdLine AllItemsListResponse allItemsListResponse =
-											 * restTemplate.getForObject(Constants.url + "getAllItemsForProdLine",
-											 * AllItemsListResponse.class);
-											 * 
-											 * itemsList = allItemsListResponse.getItems();
-											 * 
-											 * LineMaster[] lineMstArray = restTemplate.getForObject(Constants.url +
-											 * "getLineMasterList", LineMaster[].class);
-											 * 
-											 * subCatAList = new ArrayList<LineMaster>(Arrays.asList(lineMstArray));
-											 * 
-											 * } catch (Exception e) { e.printStackTrace(); } //
-											 * -------------------------------------------------------------------------
-											 * - // moneyOutList = prodPlanDetailList; Document document = new
-											 * Document(PageSize.A4); // ByteArrayOutputStream out = new
-											 * ByteArrayOutputStream(); DateFormat DF = new
-											 * SimpleDateFormat("dd-MM-yyyy"); String reportDate = DF.format(new
-											 * Date()); document.addHeader("Date: ", reportDate); DateFormat dateFormat
-											 * = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); Calendar cal =
-											 * Calendar.getInstance();
-											 * 
-											 * System.out.println("time in Gen Bill PDF ==" +
-											 * dateFormat.format(cal.getTime())); String timeStamp =
-											 * dateFormat.format(cal.getTime()); String FILE_PATH =
-											 * Constants.REPORT_SAVE; File file = new File(FILE_PATH);
-											 * 
-											 * PdfWriter writer = null;
-											 * 
-											 * FileOutputStream out = new FileOutputStream(FILE_PATH); try { writer =
-											 * PdfWriter.getInstance(document, out); } catch (DocumentException e) {
-											 * 
-											 * e.printStackTrace(); } int cols = 0; float[] cols1 = new float[] { 0.4f,
-											 * 1.7f, 1.0f, 0.9f, 1.0f }; if (pdfPlanHeader.getIsPlanned() == 0) { cols =
-											 * 5; cols1 = new float[] { 0.4f, 1.7f, 1.0f, 0.9f, 1.0f }; } else if
-											 * (pdfPlanHeader.getIsPlanned() == 1) { cols = 6; cols1 = new float[] {
-											 * 0.4f, 1.7f, 1.0f, 1.0f, 0.9f, 1.0f }; } else if
-											 * (pdfPlanHeader.getIsPlanned() == 2) { cols = 8; cols1 = new float[] {
-											 * 0.4f, 1.7f, 1.0f, 1.0f, 1.0f, 1.0f, 0.9f, 1.0f }; } PdfPTable table = new
-											 * PdfPTable(cols); try {
-											 * System.out.println("Inside PDF Table try showProdLinePdf");
-											 * table.setWidthPercentage(100); table.setWidths(cols1); Font headFont =
-											 * new Font(FontFamily.TIMES_ROMAN, 10, Font.NORMAL, BaseColor.BLACK); Font
-											 * headFont1 = new Font(FontFamily.HELVETICA, 11, Font.BOLD,
-											 * BaseColor.WHITE); Font f = new Font(FontFamily.TIMES_ROMAN, 11.0f,
-											 * Font.UNDERLINE, BaseColor.BLUE); Font f1 = new
-											 * Font(FontFamily.TIMES_ROMAN, 11.0f, Font.UNDERLINE, BaseColor.DARK_GRAY);
-											 * 
-											 * PdfPCell hcell = new PdfPCell();
-											 * 
-											 * hcell.setPadding(4); hcell = new PdfPCell(new Phrase("Sr.No.",
-											 * headFont1)); hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * hcell.setBackgroundColor(BaseColor.PINK); table.addCell(hcell);
-											 * 
-											 * hcell = new PdfPCell(new Phrase("Item Name", headFont1));
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * hcell.setBackgroundColor(BaseColor.PINK); table.addCell(hcell);
-											 * 
-											 * System.out.println("Plan Header data " + pdfPlanHeader.getIsPlanned());
-											 * hcell = new PdfPCell(new Phrase("Current Stock", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(hcell);
-											 * if (pdfPlanHeader.getIsPlanned() == 0) { hcell = new PdfPCell(new
-											 * Phrase("Order Quantity", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(hcell);
-											 * } else if (pdfPlanHeader.getIsPlanned() == 1) { hcell = new PdfPCell(new
-											 * Phrase("Plan Quantity", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(hcell);
-											 * hcell = new PdfPCell(new Phrase("Prod1 Quantity", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(hcell);
-											 * 
-											 * } else if (pdfPlanHeader.getIsPlanned() == 2) { hcell = new PdfPCell(new
-											 * Phrase("Plan Quantity", headFont1));
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * hcell.setBackgroundColor(BaseColor.PINK); table.addCell(hcell); hcell =
-											 * new PdfPCell(new Phrase("Prod1 Qty", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(hcell);
-											 * hcell = new PdfPCell(new Phrase("Act Order Qty", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * hcell.setBackgroundColor(BaseColor.PINK); table.addCell(hcell); hcell =
-											 * new PdfPCell(new Phrase("Prod2 Qty", headFont1));
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * hcell.setBackgroundColor(BaseColor.PINK); table.addCell(hcell);
-											 * 
-											 * } hcell = new PdfPCell(new Phrase("Actual Prod Qty", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(hcell);
-											 * 
-											 * int index = 0; for (int i = 0; i < subCatAList.size(); i++) { int flag =
-											 * 0; for (int j = 0; j < itemsList.size(); j++) {
-											 * 
-											 * if (subCatAList.get(i).getLineId() == itemsList.get(j).getItemGrp3()) {
-											 * 
-											 * for (int k = 0; k < moneyOutList.size(); k++) { if
-											 * (moneyOutList.get(k).getItemId() == itemsList.get(j).getId()) {
-											 * 
-											 * index++; if (flag == 0) { PdfPCell cell;
-											 * 
-											 * cell = new PdfPCell(new Phrase(String.valueOf(""), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER); cell.setPadding(3);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(cell);
-											 * 
-											 * cell = new PdfPCell(new Phrase(subCatAList.get(i).getLineName(),
-											 * headFont1)); cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_LEFT); cell.setPaddingRight(2);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); cell.setPadding(3);
-											 * table.addCell(cell);
-											 * 
-											 * cell = new PdfPCell(new Phrase("", headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_LEFT); cell.setPaddingRight(2);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); cell.setPadding(3);
-											 * table.addCell(cell); if (pdfPlanHeader.getIsPlanned() == 0) { cell = new
-											 * PdfPCell(new Phrase("", headFont));
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(cell); }
-											 * else if (pdfPlanHeader.getIsPlanned() == 1) { cell = new PdfPCell(new
-											 * Phrase("", headFont)); cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(cell); cell
-											 * = new PdfPCell(new Phrase("", headFont));
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(cell);
-											 * 
-											 * } else if (pdfPlanHeader.getIsPlanned() == 2) { cell = new PdfPCell(new
-											 * Phrase("", headFont)); cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(cell); cell
-											 * = new PdfPCell(new Phrase("", headFont));
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(cell); cell
-											 * = new PdfPCell(new Phrase("", headFont));
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(cell); cell
-											 * = new PdfPCell(new Phrase("", headFont));
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(cell);
-											 * 
-											 * } cell = new PdfPCell(new Phrase("", headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_LEFT); cell.setPaddingRight(2);
-											 * cell.setBackgroundColor(BaseColor.LIGHT_GRAY); cell.setPadding(3);
-											 * table.addCell(cell);
-											 * 
-											 * flag = 1; } // FooterTable footerEvent = new FooterTable(table); //
-											 * writer.setPageEvent(footerEvent); PdfPCell cell; cell = new PdfPCell(new
-											 * Phrase(String.valueOf(index), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER); cell.setPadding(4);
-											 * table.addCell(cell);
-											 * 
-											 * cell = new PdfPCell(new Phrase(moneyOutList.get(k).getItemName(),
-											 * headFont)); cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_LEFT); cell.setPaddingRight(2);
-											 * cell.setPadding(4); table.addCell(cell); cell = new PdfPCell( new
-											 * Phrase(String.valueOf(moneyOutList.get(k).getCurOpeQty()), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell);
-											 * 
-											 * int currentQty = (int) (Math.round(moneyOutList.get(k).getCurOpeQty()));
-											 * int production1Qty = (moneyOutList.get(k).getPlanQty() - currentQty); int
-											 * production2Qty = (moneyOutList.get(k).getOrderQty() - production1Qty); if
-											 * (pdfPlanHeader.getIsPlanned() == 0) { cell = new PdfPCell( new
-											 * Phrase(String.valueOf(moneyOutList.get(k).getOrderQty()), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell); } else
-											 * if (pdfPlanHeader.getIsPlanned() == 1) { cell = new PdfPCell( new
-											 * Phrase(String.valueOf(moneyOutList.get(k).getPlanQty()), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell); cell =
-											 * new PdfPCell(new Phrase(String.valueOf(production1Qty), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell); } else
-											 * if (pdfPlanHeader.getIsPlanned() == 2) { cell = new PdfPCell( new
-											 * Phrase(String.valueOf(moneyOutList.get(k).getPlanQty()), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell); cell =
-											 * new PdfPCell(new Phrase(String.valueOf(production1Qty), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell); cell =
-											 * new PdfPCell( new
-											 * Phrase(String.valueOf(moneyOutList.get(k).getOrderQty()), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell); cell =
-											 * new PdfPCell(new Phrase(String.valueOf(production2Qty), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell); } cell
-											 * = new PdfPCell(new Phrase("", headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(4); table.addCell(cell); }
-											 * 
-											 * } } } } PdfPTable subCatTable = new PdfPTable(3);
-											 * 
-											 * System.out.println("Inside PDF Table try");
-											 * subCatTable.setWidthPercentage(100); subCatTable.setWidths(new float[] {
-											 * 0.4f, 1.7f, 1.7f });
-											 * 
-											 * hcell = new PdfPCell(); hcell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-											 * hcell.setPadding(2); hcell = new PdfPCell(new Phrase("Sr.No.",
-											 * headFont1)); hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * hcell.setBackgroundColor(BaseColor.PINK); subCatTable.addCell(hcell);
-											 * 
-											 * hcell = new PdfPCell(new Phrase("Line Name", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * subCatTable.addCell(hcell);
-											 * 
-											 * hcell = new PdfPCell(new Phrase("Total Quantity", headFont1));
-											 * hcell.setBackgroundColor(BaseColor.PINK);
-											 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * subCatTable.addCell(hcell); RestTemplate restTemplate = new
-											 * RestTemplate(); MultiValueMap<String, Object> map = new
-											 * LinkedMultiValueMap<String, Object>(); map.add("prodHeaderId",
-											 * globalHeaderId); GetProdDetailBySubCatList subList =
-											 * restTemplate.postForObject(Constants.url + "getProdDetailByProdLine",
-											 * map, GetProdDetailBySubCatList.class); index = 0; for
-											 * (GetProdDetailBySubCat getMoneyOut : subList.getProdDetailBySubCat()) {
-											 * index++; PdfPCell cell;
-											 * 
-											 * cell = new PdfPCell(new Phrase(String.valueOf(index), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER); cell.setPadding(2);
-											 * subCatTable.addCell(cell);
-											 * 
-											 * cell = new PdfPCell(new Phrase(getMoneyOut.getSubCateName(), headFont));
-											 * cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_LEFT); cell.setPaddingRight(2);
-											 * cell.setPadding(2); subCatTable.addCell(cell);
-											 * 
-											 * cell = new PdfPCell(new Phrase(String.valueOf(getMoneyOut.getTotalQty()),
-											 * headFont)); cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-											 * cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-											 * cell.setPaddingRight(2); cell.setPadding(2); subCatTable.addCell(cell);
-											 * 
-											 * }
-											 * 
-											 * document.open(); Paragraph company = new
-											 * Paragraph(Constants.FACTORYNAME+"\n", f);
-											 * company.setAlignment(Element.ALIGN_CENTER); document.add(company);
-											 * 
-											 * if (pdfPlanHeader.getIsPlanned() == 1) { Paragraph heading = new
-											 * Paragraph( pdfPlanHeader.getCatName()+"- Production Line Report" );
-											 * heading.setAlignment(Element.ALIGN_CENTER); document.add(heading); } if
-											 * (pdfPlanHeader.getIsPlanned() == 0) { Paragraph heading = new
-											 * Paragraph(pdfPlanHeader.getCatName() + " Production Line  Report- ", f1);
-											 * heading.setAlignment(Element.ALIGN_CENTER); document.add(heading); }
-											 * 
-											 * document.add(new Paragraph("Production Date: " +
-											 * pdfPlanHeader.getProductionDate() + "\n")); Paragraph heading = new
-											 * Paragraph(" "); document.add(heading); document.add(table);
-											 * 
-											 * document.add(subCatTable); int totalPages = writer.getPageNumber();
-											 * 
-											 * System.out.println("Page no " + totalPages);
-											 * 
-											 * document.close(); // Atul Sir code to open a Pdf File if (file != null) {
-											 * 
-											 * String mimeType = URLConnection.guessContentTypeFromName(file.getName());
-											 * 
-											 * if (mimeType == null) {
-											 * 
-											 * mimeType = "application/pdf";
-											 * 
-											 * }
-											 * 
-											 * response.setContentType(mimeType);
-											 * 
-											 * response.addHeader("content-disposition",
-											 * String.format("inline; filename=\"%s\"", file.getName()));
-											 * 
-											 * response.setContentLength((int) file.length());
-											 * 
-											 * InputStream inputStream = new BufferedInputStream(new
-											 * FileInputStream(file));
-											 * 
-											 * try { FileCopyUtils.copy(inputStream, response.getOutputStream()); }
-											 * catch (IOException e) {
-											 * System.out.println("Excep in Opening a Pdf File"); e.printStackTrace(); }
-											 * }
-											 * 
-											 * } catch (DocumentException ex) {
-											 * 
-											 * System.out.println("Pdf Generation Error: BOm Prod  View Prod" +
-											 * ex.getMessage());
-											 * 
-											 * ex.printStackTrace();
-											 * 
-											 * }
-											 */
-	}
-	
-	
 
 	@RequestMapping(value = "/updateQty", method = RequestMethod.POST)
 	public String updateQty(HttpServletRequest request, HttpServletResponse response) {
@@ -1917,8 +1372,6 @@ public class ViewProdController {
 		int timeSlot = Integer.parseInt(request.getParameter("globalTimeSlot"));
 		String globalProductionBatch = request.getParameter("globalProductionBatch");
 		int prodId = Integer.parseInt(request.getParameter("productionId"));
-		int deptId = Integer.parseInt(request.getParameter("deptId"));
-
 		// new code 31 Jan
 		int count = 0;
 		for (int i = 0; i < prodMixingReqP1.size(); i++) {
@@ -1941,7 +1394,7 @@ public class ViewProdController {
 
 			tempMx = new TempMixing();
 
-			tempMx.setQty(planMixing.getTotal() * planMixing.getMulFactor());
+			tempMx.setQty(planMixing.getTotal());
 
 			tempMx.setRmId(planMixing.getRmId());
 			tempMx.setSfId(0);
@@ -2025,13 +1478,11 @@ public class ViewProdController {
 		mixingHeader.setMixDate(date);
 		mixingHeader.setProductionId(prodId);
 		mixingHeader.setProductionBatch(globalProductionBatch);
-		mixingHeader.setStatus(2);
+		mixingHeader.setStatus(0);
 		mixingHeader.setDelStatus(0);
 		mixingHeader.setTimeSlot(timeSlot);
 		mixingHeader.setIsBom(0);
 		mixingHeader.setExBool1(0);
-		mixingHeader.setExInt1(deptId);//deptId
-
 		mixingHeader.setExInt2(0);
 		mixingHeader.setExInt3(0);
 		mixingHeader.setExVarchar1("");
@@ -2049,8 +1500,6 @@ public class ViewProdController {
 
 			mixingDetailed.setSfName(prodMixingReqP1.get(i).getRmName());
 			mixingDetailed.setReceivedQty(prodMixingReqP1.get(i).getTotal());
-			mixingDetailed.setProductionQty(prodMixingReqP1.get(i).getTotal());//req qty set to Production
-
 
 			mixingDetailed.setUom(prodMixingReqP1.get(i).getUom());
 			mixingDetailed.setMixingDate(date);
@@ -2059,7 +1508,7 @@ public class ViewProdController {
 																					// mulfactor
 			mixingDetailed.setExInt1(0);
 			mixingDetailed.setExInt3(0);
-			mixingDetailed.setExVarchar1(""+prodMixingReqP1.get(i).getMulFactor());
+			mixingDetailed.setExVarchar1("");
 			mixingDetailed.setExVarchar2("");
 			mixingDetailed.setExVarchar3("");
 
@@ -2089,7 +1538,6 @@ public class ViewProdController {
 		map = new LinkedMultiValueMap<String, Object>();
 		map.add("productionId", prodId);
 		map.add("flag", 0);
-		map.add("deptId", deptId);
 		if (mixingHeaderin != null) {
 			int updateisMixing = rest.postForObject(Constants.url + "updateisMixingandBom", map, Integer.class);
 		}

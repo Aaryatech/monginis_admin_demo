@@ -67,7 +67,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Controller
 @Scope("session")
-public class ViewMixingController {
+@RequestMapping("OldviewMix")
+public class ViewMixingControllerold {
 	
 	
 	
@@ -79,60 +80,35 @@ public class ViewMixingController {
 	public MixingHeader mixingHeader=new MixingHeader();
 	 
 	
-	/*
-	 * @RequestMapping(value = "/getMixingList", method = RequestMethod.GET) public
-	 * ModelAndView getMixingList(HttpServletRequest request, HttpServletResponse
-	 * response) { Constants.mainAct =6; Constants.subAct=42;
-	 * 
-	 * ModelAndView model = new ModelAndView("productionPlan/getMixinglist");//
-	 * 
-	 * Date date = new Date(); SimpleDateFormat formatter = new
-	 * SimpleDateFormat("dd-MM-yyyy"); String currDate= formatter.format(date);
-	 * 
-	 * 
-	 * RestTemplate rest = new RestTemplate();
-	 * 
-	 * GetMixingList getMixingList= rest.getForObject(Constants.url +
-	 * "/gettodaysMixingRequest", GetMixingList.class);
-	 * 
-	 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
-	 * Object>(); String settingKey1 = new String(); settingKey1 = "MIX";
-	 * map.add("settingKeyList", settingKey1); RestTemplate restTemplate = new
-	 * RestTemplate(); FrItemStockConfigureList settingList1 =
-	 * restTemplate.postForObject(Constants.url + "getDeptSettingValue", map,
-	 * FrItemStockConfigureList.class);
-	 * 
-	 * System.out.println("flag "+settingList1.getFrItemStockConfigure().get(0).
-	 * getSettingValue());
-	 * 
-	 * model.addObject("fromDate", currDate);
-	 * model.addObject("todaysmixrequest",getMixingList.getMixingHeaderList());
-	 * model.addObject("flag",settingList1.getFrItemStockConfigure().get(0).
-	 * getSettingValue()); return model;
-	 * 
-	 * }
-	 */
-	@RequestMapping(value = "/getMixingList/{deptId}", method = RequestMethod.GET)
-	public ModelAndView getMixingList(@PathVariable("deptId")int deptId,HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/getMixingList", method = RequestMethod.GET)
+	public ModelAndView getMixingList(HttpServletRequest request, HttpServletResponse response) {
 		Constants.mainAct =6;
 		Constants.subAct=42;
 		
 		ModelAndView model = new ModelAndView("productionPlan/getMixinglist");//
-         RestTemplate rest = new RestTemplate();
-            MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-					
-			//map.add("settingKeyList", "MIX");
-			RestTemplate restTemplate = new RestTemplate();
-			//FrItemStockConfigureList settingList1 = restTemplate.postForObject(Constants.url + "getDeptSettingValue", map,
-			//		FrItemStockConfigureList.class);
-			
-			map = new LinkedMultiValueMap<String, Object>();
-			map.add("deptId",deptId);
-			GetMixingList getMixingList= rest.postForObject(Constants.url + "/getMixingReqList",map, GetMixingList.class);
-			System.out.println("getMixingList "+getMixingList.toString());
+
+		  Date date = new Date();  
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");  
+		    String currDate= formatter.format(date);  
+
 		
+		RestTemplate rest = new RestTemplate();
+		
+			GetMixingList getMixingList= rest.getForObject(Constants.url + "/gettodaysMixingRequest", GetMixingList.class);
+			
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			String settingKey1 = new String();
+			settingKey1 = "MIX";
+			map.add("settingKeyList", settingKey1);
+			RestTemplate restTemplate = new RestTemplate();
+			FrItemStockConfigureList settingList1 = restTemplate.postForObject(Constants.url + "getDeptSettingValue", map,
+					FrItemStockConfigureList.class);
+			 
+			System.out.println("flag "+settingList1.getFrItemStockConfigure().get(0).getSettingValue());
+		
+		model.addObject("fromDate", currDate);
 		model.addObject("todaysmixrequest",getMixingList.getMixingHeaderList());
-		model.addObject("flag",deptId);
+		model.addObject("flag",settingList1.getFrItemStockConfigure().get(0).getSettingValue());
 		return model;
 
 	}
@@ -174,8 +150,7 @@ public class ViewMixingController {
 		
 		String frmdate=request.getParameter("from_date");
 		String todate=request.getParameter("to_date");
-		int deptId=Integer.parseInt(request.getParameter("deptId"));
-
+		
 		System.out.println("in getMixingListWithDate   "+frmdate+todate);
 		String frdate=DateConvertor.convertToYMD(frmdate);
 		String tdate=DateConvertor.convertToYMD(todate);
@@ -183,14 +158,13 @@ public class ViewMixingController {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		map.add("frmdate",frdate);
 		map.add("todate",tdate);
-		map.add("deptId", deptId);
 		System.out.println("in getMixingListWithDate   "+frdate+tdate);
 		
 
 		RestTemplate rest = new RestTemplate();
 		try
 		{
-			GetMixingList getMixingList= rest.postForObject(Constants.url + "/getMixingHeaderListByDept",map, GetMixingList.class);
+			GetMixingList getMixingList= rest.postForObject(Constants.url + "/getMixingHeaderList",map, GetMixingList.class);
 			 
 			mixingHeaderList = new ArrayList<MixingHeader>();
 			System.out.println("getMixingList"+getMixingList.getMixingHeaderList().toString());
@@ -279,16 +253,14 @@ public class ViewMixingController {
 	
 	
 	@RequestMapping(value = "/showMixReqPdf", method = RequestMethod.GET)
-	public void  showMixReqPdf(HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException {
+	public void  showProdByOrderPdf(HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException {
 		  BufferedOutputStream outStream = null;
-		System.out.println("Inside show Prod BOM Pdf /showMixReqPdf");
+		System.out.println("Inside show Prod BOM Pdf ");
 		Document doc=new Document();
 		
 		List<MixingDetailed> mixDetailList = mixwithdetaild;
 		
 		mixDetailList = mixwithdetaild;
-		System.err.println("mixwithdetaild " +mixwithdetaild.toString());
-		try {
 		Document document = new Document(PageSize.A4);
 		//  ByteArrayOutputStream out = new ByteArrayOutputStream();
 		 
@@ -310,111 +282,87 @@ public class ViewMixingController {
 			
 			e.printStackTrace();
 		}
+		
+		 PdfPTable table = new PdfPTable(5);
+		 try {
+		 System.out.println("Inside PDF Table try");
+		 table.setWidthPercentage(100);
+	     table.setWidths(new float[]{0.9f, 1.8f,1.4f,1.4f,1.4f});
+	     Font headFont = new Font(FontFamily.HELVETICA, 8, Font.ITALIC, BaseColor.BLACK);
+	     Font headFont1 = new Font(FontFamily.HELVETICA, 8, Font.BOLD, BaseColor.BLACK);
+	     Font f=new Font(FontFamily.TIMES_ROMAN,12.0f,Font.UNDERLINE,BaseColor.BLUE);
+	     
+	     PdfPCell hcell;
+	     hcell = new PdfPCell(new Phrase("Sr.No.", headFont1));
+	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	     table.addCell(hcell);
 
-			 PdfPTable table = new PdfPTable(7);
-			 try {
-			 System.out.println("Inside PDF Table try");
-			 table.setWidthPercentage(100);
-		     table.setWidths(new float[]{0.9f, 2.0f,2.0f,2.0f,2.0f,2.0f,2.0f});
-		     Font headFont = new Font(FontFamily.HELVETICA,11 , Font.NORMAL, BaseColor.BLACK);
-		     Font headFont1 = new Font(FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);
-		     Font f=new Font(FontFamily.TIMES_ROMAN,12.0f,Font.UNDERLINE,BaseColor.BLUE);
-		     
-		     PdfPCell hcell;
-		     hcell = new PdfPCell(new Phrase("Sr.", headFont1));
-		     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		     hcell.setBackgroundColor(BaseColor.PINK);
-		     table.addCell(hcell);
+	     hcell = new PdfPCell(new Phrase("SF Name", headFont1));
+	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	     table.addCell(hcell);
+	    
+	     
+	     hcell = new PdfPCell(new Phrase("Ori Quantity", headFont1));
+	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	     table.addCell(hcell);
+	     
+	     
+	    
+	     
+	     hcell = new PdfPCell(new Phrase("Multiplication Factor", headFont1));
+	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	     table.addCell(hcell);
+	     
+	    
+	     hcell = new PdfPCell(new Phrase("Order Quantity", headFont1));
+	     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	     table.addCell(hcell);
+	 
+	     int index=0;
+	     for (MixingDetailed mixDetail : mixDetailList) {
+	       index++;
+	         PdfPCell cell;
 
-		     hcell = new PdfPCell(new Phrase("SF Name", headFont1));
-		     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		     hcell.setBackgroundColor(BaseColor.PINK);
-		     table.addCell(hcell);
-		    
-		     
-		     hcell = new PdfPCell(new Phrase("Original Qty", headFont1));
-		     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		     hcell.setBackgroundColor(BaseColor.PINK);
-		     table.addCell(hcell);
-		     
-		     
-		     hcell = new PdfPCell(new Phrase("Multipl Factor", headFont1));
-		     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		     hcell.setBackgroundColor(BaseColor.PINK);
-		     table.addCell(hcell);
-		     
-		     hcell = new PdfPCell(new Phrase("Auto Order Qty", headFont1));
-		     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		     hcell.setBackgroundColor(BaseColor.PINK);
-		     table.addCell(hcell);
-		         
-		    
-		     hcell = new PdfPCell(new Phrase("Received Qty", headFont1));
-		     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		     hcell.setBackgroundColor(BaseColor.PINK);
-		     table.addCell(hcell);
-		     
+	        cell = new PdfPCell(new Phrase(String.valueOf(index),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	         table.addCell(cell);
 
-		     hcell = new PdfPCell(new Phrase("Production Qty", headFont1));
-		     hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		     hcell.setBackgroundColor(BaseColor.PINK);
-		     table.addCell(hcell);
-		     
-		 
-		     int index=0;
-		     for (MixingDetailed mixDetail : mixDetailList) {
-		       index++;
-		         PdfPCell cell;
+	        
+	         cell = new PdfPCell(new Phrase(mixDetail.getSfName(),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	         cell.setPaddingRight(4);
+	         table.addCell(cell);
+	         
+	         
+	         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getOriginalQty()),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	         cell.setPaddingRight(4);
+	         table.addCell(cell);
+	         
+	         
+	         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getExInt2()),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	         cell.setPaddingRight(4);
+	         table.addCell(cell);
+	         
+	         
+	         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getReceivedQty()),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	         cell.setPaddingRight(4);
+	         table.addCell(cell);
+	         
+	       
+	        	         
+	         //FooterTable footerEvent = new FooterTable(table);
+	        // writer.setPageEvent(footerEvent);
+	     }
 
-		        cell = new PdfPCell(new Phrase(String.valueOf(index),headFont));
-		         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		         table.addCell(cell);
-
-		        
-		         cell = new PdfPCell(new Phrase(mixDetail.getSfName(),headFont));
-		         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		         cell.setPaddingRight(4);
-		         table.addCell(cell);
-		         
-		         
-		         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getOriginalQty()),headFont));
-		         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		         cell.setPaddingRight(4);
-		         table.addCell(cell);
-		         
-		         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getExVarchar1()),headFont));
-		         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		         cell.setPaddingRight(4);
-		         table.addCell(cell);
-		         
-		         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getAutoOrderQty()),headFont));
-		         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		         cell.setPaddingRight(4);
-		         table.addCell(cell);
-		         
-		         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getReceivedQty()),headFont));
-		         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		         cell.setPaddingRight(4);
-		         table.addCell(cell);
-		         cell = new PdfPCell(new Phrase(String.valueOf(mixDetail.getProductionQty()),headFont));
-		         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		         cell.setPaddingRight(4);
-		         table.addCell(cell);
-		         
-		       
-		        	         
-		         //FooterTable footerEvent = new FooterTable(table);
-		        // writer.setPageEvent(footerEvent);
-		     }
-
-		     document.open();
+	     document.open();
 	     Paragraph company = new Paragraph(Constants.FACTORYNAME+"\n"+Constants.FACTORYADDRESS, f);
 	     company.setAlignment(Element.ALIGN_CENTER);
 	     document.add(company);
@@ -502,9 +450,7 @@ public class ViewMixingController {
 
 		ModelAndView model = new ModelAndView("production/pdf/productionPdf");
 		//model.addObject("prodFromOrderReport",updateStockDetailList);
-		}catch (Exception e) {
-		e.printStackTrace();
-		}
+
 	
 	}
 	
@@ -517,11 +463,11 @@ public class ViewMixingController {
 		{
 			for(int i=0;i<mixingHeader.getMixingDetailed().size();i++)
 			{
-				//System.out.println(12);
+				System.out.println(12);
 				 
 				 
-					//System.out.println(13);
-					String production_Qty=request.getParameter("prodQty"+mixingHeader.getMixingDetailed().get(i).getMixing_detailId());
+					System.out.println(13);
+					String production_Qty=request.getParameter("production_Qty"+mixingHeader.getMixingDetailed().get(i).getMixing_detailId());
 					String rejected_Qty=request.getParameter("rejected_Qty"+mixingHeader.getMixingDetailed().get(i).getMixing_detailId());
 					if(production_Qty!=null) {
 						System.out.println("production_Qty Qty   :"+production_Qty);

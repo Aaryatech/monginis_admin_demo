@@ -1,6 +1,5 @@
 package com.ats.adminpanel.model.production;
 
-import java.util.Date;
 
 public class GetProdPlanHeader {
 	 
@@ -36,8 +35,22 @@ public class GetProdPlanHeader {
 	private String  catName;
 
 	private int isPlanned;
+	//new Added on 06-03-2020 mS
+	private int isStoreBom;
 	
 	
+	
+	
+	public int getIsStoreBom() {
+		return isStoreBom;
+	}
+
+
+	public void setIsStoreBom(int isStoreBom) {
+		this.isStoreBom = isStoreBom;
+	}
+
+
 	public int getProductionHeaderId() {
 		return productionHeaderId;
 	}
