@@ -120,9 +120,13 @@
 														 	<c:set var="depname" value="Mixing"></c:set>
 														 	
 														 	</c:when>
+														 		<c:when test="${getbomList.fromDeptName=='BMS'}">
+														 	<c:set var="depname" value="BMS"></c:set>
+														 	
+														 	</c:when>
 														</c:choose>
 																<td align="left"><c:out
-																value="${getbomList.fromDeptName}" /></td>
+																value="${depname}" /></td>
 																
 													  
 													<td align="left"><fmt:formatDate pattern = "dd-MM-yyyy" value = "${getbomList.reqDate}" />   </td>

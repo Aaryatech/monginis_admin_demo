@@ -69,6 +69,9 @@
 								<div class="clearfix"></div>
 								<input type="hidden" name="isMix" value="${isMix}">
 	                            <input type="hidden" name="catId" value="${catId}">
+	                            <input type="hidden" name="fromDept" value="${fromDept}">
+									<input type="hidden" name="toDept" value="${toDept}">
+									
 								<div class="table-responsive" style="border: 0">
 									<table class="table table-advance" id="table1">
 										<thead style="background-color: #f3b5db;">
@@ -77,10 +80,10 @@
 <!-- 												<th width="100" align="left">Rm Id</th>
  -->												<th width="120" align="left">Rm Name</th>
 												<th width="100" align="left">Rm Type</th>
+												<th width="100" align="left">Single Cut</th>
+												<th width="100" align="left">Double Cut</th>
 												<th width="120" align="left">Qty</th>
-
 												<th width="120" align="left">Edit Qty</th>
-
 												<th width="100" align="left">Unit</th>
 											</tr>
 										</thead>
@@ -107,7 +110,10 @@
 														</c:when>
 
 													</c:choose>
-													<c:set var="total"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${planDetailForBom.total}" /></c:set>
+													<td  align="left">${planDetailForBom.singleCut}</td>
+													<td align="left">${planDetailForBom.doubleCut}</td>
+													
+													<c:set var="total"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${planDetailForBom.total}" groupingUsed="false" /></c:set>
 													<td align="left"><c:out
 															value="${total}" /></td>
 

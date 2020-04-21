@@ -112,7 +112,7 @@
 											<c:set var="sts" value="Request Closed"></c:set>
 										</c:when>
 									</c:choose>
-									<input type="text" id="status" name="status"
+									<input type="text" id="statusText" name="status"
 											value="${sts}" class="form-control"
 											readonly>
 										<input type="hidden" id="status" name="status"
@@ -178,12 +178,16 @@
 														<th>Auto Request Qty</th>
 														<th>request Qty</th>
 														<th>issue Qty</th>
-														<c:choose>
+														<th>Total Qty</th>
+															<!-- <th>Single Cut</th>
+														<th>Double Cut</th> -->
+														
+														<%-- <c:choose>
 															<c:when test="${billOfMaterialHeader.status!=0}">
 																<th>Return Qty</th>
 																<th>Reject Qty</th>
 															</c:when>
-														</c:choose>
+														</c:choose> --%>
 
 
 
@@ -204,9 +208,12 @@
   															
   															
   															<td><c:out value="${bomwithdetaild.rmIssueQty}" /></td>
-																 
-
-															<c:choose>
+  															 <td><c:out value="${bomwithdetaild.exVarchar1+bomwithdetaild.exVarchar2}" /></td>
+  															
+															<%-- <td><c:out value="${bomwithdetaild.exVarchar1}" /></td>
+															<td><c:out value="${bomwithdetaild.exVarchar2}" /></td>
+ --%>
+															<%-- <c:choose>
 																<c:when test="${billOfMaterialHeader.status!=0}">
 
 																	<td><c:out value="${bomwithdetaild.returnQty}" /></td>
@@ -215,7 +222,7 @@
 
 
 																</c:when>
-															</c:choose>
+															</c:choose> --%>
 													</c:forEach>
 
 
@@ -240,7 +247,7 @@
 												class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-5">
 
 												<a href="${pageContext.request.contextPath}/rejectiontoBmsByDeptWise?reqId=${billOfMaterialHeader.reqId}&fromDept=${fromDept}"> 
-													<input type="button" class="btn btn-primary" value="For Rejection And return"></a> 
+													<!-- <input type="button" class="btn btn-primary" value="For Rejection And return"> --></a> 
 
 											</div>
 										</div>
@@ -253,7 +260,7 @@
 									<div align="center" class="form-group">
 									<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-5">
 									<a href="${pageContext.request.contextPath}/rejectiontoBmsByDeptWise?reqId=${billOfMaterialHeader.reqId}&fromDept=${fromDept}" id="disableMe"> 
-													<input type="button" class="btn btn-primary" value="For Rejection And return" disabled></a> 
+													<!-- <input type="button" class="btn btn-primary" value="For Rejection And return" disabled> --></a> 
 													</div>
 													</div>
 									</c:when>
