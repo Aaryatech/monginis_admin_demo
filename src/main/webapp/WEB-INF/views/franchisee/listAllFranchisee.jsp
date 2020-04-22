@@ -96,7 +96,7 @@
 									</div>
 								</div>
 								<div class="box-content">
-									<form action="${pageContext.request.contextPath}/uploadFrByFile" class="form-horizontal"
+									<%-- <form action="${pageContext.request.contextPath}/uploadFrByFile" class="form-horizontal"
 							method="post" enctype="multipart/form-data">
 							<div class="form-group">
 						<div class="col-sm-9 col-sm-offset-3 col-lg-2 col-lg-offset-5">	<input type="button" id="expExcel1" class="btn btn-primary" value="Excel Import Format" onclick="exportToExcel1();">
@@ -106,11 +106,11 @@
 									<input type="file"  name="file" required/>
 								</div>&nbsp;&nbsp;&nbsp;
 								<div class="col-sm-2 col-lg-1">
-									<input type="submit" class="btn btn-primary" value="Save">
+									<input type="submit" class="btn btn-primary" value="Submit">
 								</div>
 								</div>
 							
-							</form>
+							</form> --%>
 									<div class="col-md-9"></div>
 									<label for="search" class="col-md-3" id="search"> <i
 										class="fa fa-search" style="font-size: 20px"></i> <input
@@ -123,20 +123,19 @@
 											<table id="table2" class="table table-advance" >
 												<thead>
 													<tr class="bgpink">
-														<th width="158" style="width: 18px" align="left">#</th>
-														<th class="col-md-2">Name</th>
-														<th class="col-md-2">Image</th>
-														<th class="col-md-2">Owner</th>
-														<th class="col-md-2">City</th>
-														<th class="col-md-2">Mobile No.</th>
-														<th class="col-md-2">Route</th>
-														<!--  <th width="70" align="left">Rate Type</th> -->
-														<!--  <th class="col-md-2">GST Type</th> -->
-														<!-- <th class="col-md-2">Stock Type</th> -->
-														<th class="col-md-2">Rating</th>
-														<!--                 <th class="col-md-2">Status</th>
- -->
-														<th class="col-md-2" width="90px">Action</th>
+														<th style="text-align: left;">#</th>
+														<th class="col-md-2" style="text-align: center;">Name</th>
+														<th class="col-md-2" style="text-align: center;">Image</th>
+														<th class="col-md-2" style="text-align: center;">Owner</th>
+														<th class="col-md-2" style="text-align: center;">City</th>
+														<th class="col-md-2" style="text-align: center;">Mobile No.</th>
+														<th class="col-md-2" style="text-align: center;">Route</th>
+														<!--<th width="70" align="left">Rate Type</th> -->
+														<!--<th class="col-md-2">GST Type</th> -->
+														<!--<th class="col-md-2">Stock Type</th> -->
+														<th class="col-md-2" style="text-align: center;">Rating</th>
+														<!--<th class="col-md-2">Status</th>-->
+														<th class="col-md-2" style="text-align: center;">Action</th>
 													</tr>
 												</thead>
 											</table>
@@ -148,18 +147,18 @@
 												<thead>
 													<tr class="bgpink">
 														<th width="138" style="width: 18px" align="left">#</th>
-														<th class="col-md-2">Name</th>
-														<th class="col-md-2">Image</th>
-														<th class="col-md-2">Owner</th>
-														<th class="col-md-2">City</th>
-														<th class="col-md-2">Mobile No.</th>
-														<th class="col-md-2">Route</th>
-														<!--    <th class="col-md-2">Rate Type</th>
-                                          <th class="col-md-2">GST Type</th> -->
-													<!-- 	<th class="col-md-2">Stock Type</th> -->
-														<th class="col-md-2">Rating</th>
-														<!--   <th class="col-md-2">Status</th> -->
-														<th class="col-md-2" width="90px">Action</th>
+														<th class="col-md-2" style="text-align: center;">Name</th>
+														<th class="col-md-2" style="text-align: center;">Image</th>
+														<th class="col-md-2" style="text-align: center;">Owner</th>
+														<th class="col-md-2" style="text-align: center;">City</th>
+														<th class="col-md-2" style="text-align: center;">Mobile No.</th>
+														<th class="col-md-2" style="text-align: center;">Route</th>
+														<!--<th class="col-md-2">Rate Type</th>
+                                         				<th class="col-md-2">GST Type</th> -->
+														<!--<th class="col-md-2">Stock Type</th> -->
+														<th class="col-md-2" style="text-align: center;">Rating</th>
+														<!--<th class="col-md-2">Status</th> -->
+														<th class="col-md-2" style="text-align: center;">Action</th>
 													</tr>
 												</thead>
 												<tbody style="padding-top: 100px">
@@ -169,22 +168,22 @@
 
 														<tr>
 															<td><c:out value="${count.index+1}"></c:out></td>
-															<td align="left"><c:out
+															<td style="text-align: left; padding-left: 5%;"><c:out
 																	value="${franchiseeList.frName}" /></td>
-															<td align="left"><img
+															<td  style="text-align: center;"><img
 																src="${url}${franchiseeList.frImage}" height="80"
 																width="80"
 																onerror="this.src='${pageContext.request.contextPath}/resources/img/No_Image_Available.jpg';" />
 
 
 															</td>
-															<td align="left"><c:out
+															<td style="text-align: left; padding-left: 5%;"><c:out
 																	value="${franchiseeList.frOwner}" /></td>
-															<td align="left"><c:out
+															<td style="text-align: left; padding-left: 4%;"><c:out
 																	value="${franchiseeList.frCity}" /></td>
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${franchiseeList.frMob}" /></td>
-															<td align="left"><c:forEach items="${routeList}"
+															<td style="text-align: center;"><c:forEach items="${routeList}"
 																	var="routeList">
 
 																	<c:choose>
@@ -250,7 +249,7 @@
 																	</c:when>
 																	<c:otherwise></c:otherwise>
 																</c:choose></td> --%>
-															<td align="left"><c:choose>
+															<td style="text-align: center;"><c:choose>
 																	<c:when test="${franchiseeList.frRate==0}">0.5</c:when>
 																	<c:when test="${franchiseeList.frRate==1}">1</c:when>
 																	<c:when test="${franchiseeList.frRate==2}">1.5</c:when>
@@ -283,7 +282,7 @@
 															<c:choose>
 																<c:when test="${isEdit==1 and isDelete==1}">
 
-																	<td align="left"><a
+																	<td  style="text-align: center;"><a
 																		href="updateFranchisee/${franchiseeList.frId}"><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp; <a
 																		href="deleteFranchisee/${franchiseeList.frId}"
@@ -293,7 +292,7 @@
 
 																<c:when test="${isEdit==1 and isDelete==0}">
 
-																	<td align="left"><a
+																	<td  style="text-align: center;"><a
 																		href="updateFranchisee/${franchiseeList.frId}"><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp; <a
 																		href="deleteFranchisee/${franchiseeList.frId}"
@@ -304,7 +303,7 @@
 
 																<c:when test="${isEdit==0 and isDelete==1}">
 
-																	<td align="left"><a
+																	<td  style="text-align: center;"><a
 																		href="updateFranchisee/${franchiseeList.frId}"
 																		class="disableClick"><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp; <a
@@ -316,7 +315,7 @@
 																<c:otherwise>
 
 
-																	<td align="left"><a
+																	<td  style="text-align: center;"><a
 																		href="updateFranchisee/${franchiseeList.frId}"
 																		class="disableClick"><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp; <a
@@ -354,7 +353,7 @@
 
 								<div class="col-sm-2  controls">
 									<input type="button" id="expExcel" class="btn btn-primary"
-										value="EXPORT TO Excel" onclick="exportToExcel();">
+										value="Export To Excel" onclick="exportToExcel();">
 								</div>
 								
 							</div>
@@ -365,9 +364,7 @@
 
 			<!-- END Main Content -->
 
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

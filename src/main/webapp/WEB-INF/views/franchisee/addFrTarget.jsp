@@ -75,7 +75,7 @@
 							  <div class="col2">
 									<div class="col-md-1">Franchisee</div>
 									<div class="col-md-3">
-									<select name="fr_id" id="fr_id" class="form-control" placeholder="Select Franchise" data-rule-required="true">
+									<select name="fr_id" id="fr_id" class="form-control chosen" placeholder="Select Franchise" data-rule-required="true">
 											<option value="-1">Select Franchise</option>
 										 <c:forEach items="${franchiseeList}" var="franchiseeList">
 											<c:choose>
@@ -144,7 +144,8 @@
 <div class="col-md-9" ></div> 
 					<label for="search" class="col-md-3" id="search">
     <i class="fa fa-search" style="font-size:20px"></i>
-									<input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search Month.." title="Type in a name">
+									<input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search Month.." title="Type in a name"
+									style="border-radius: 25px;">
 										</label>  
 										<div class="clearfix"></div>
 										
@@ -152,18 +153,18 @@
 								<div id="table-scroll" class="table-scroll">
 							 
 									<div id="faux-table" class="faux-table" aria="hidden">
-									<table id="table2" class="table table-advance" border="1">
+									<table id="table2" class="table table-advance" >
 											<thead>
 												<tr class="bgpink">
-												<th class="col-md-1">Sr.No</th>
-             											<th class="col-md-1" >#</th>
+												<th class="col-sm-2" style="text-align: left;">Sr.No</th>
+             											<th class="col-sm-1" style="text-align: left;">#</th>
 														
-														<th class="col-md-2" align="left">Month</th>
-														<th class="col-md-1" align="left">Target</th>
-														<th class="col-md-2" align="left">Achieved Target</th>
-														<th class="col-md-1" align="left">Award</th>
-														<th class="col-md-2" align="left">Remark</th>
-													    <th class="col-md-2" align="left">Status</th>
+														<th class="col-md-2" style="text-align: center;">Month</th>
+														<th class="col-md-1" style="text-align: center;">Target</th>
+														<th class="col-md-2" style="text-align: center;">Achieved Target</th>
+														<th class="col-md-1" style="text-align: center;">Award</th>
+														<th class="col-md-2" style="text-align: center;">Remark</th>
+													    <th class="col-md-2" style="text-align: center;">Status</th>
 												</tr>
 												</thead>
 												</table>
@@ -171,18 +172,18 @@
 									</div>
 									<div class="table-wrap">
 									
-										<table id="table1" class="table table-advance" border="1">
+										<table id="table1" class="table table-advance">
 											<thead>
 												<tr class="bgpink">
-												<th class="col-md-1">Sr.No</th>
-             											<th class="col-md-1" >#</th>
+												<th class="col-sm-1" style="text-align: left;">Sr.No</th>
+             											<th class="col-sm-1"style="text-align: left;" >#</th>
 														
-														<th class="col-md-2" align="left">Month</th>
-														<th class="col-md-1" align="left">Target</th>
-														<th class="col-md-2" align="left">Achieved Target</th>
-														<th class="col-md-1" align="left">Award</th>
-														<th class="col-md-2" align="left">Remark</th>
-													    <th class="col-md-2" align="left">Status</th>
+														<th class="col-md-2" style="text-align: center;">Month</th>
+														<th class="col-md-1" style="text-align: center;">Target</th>
+														<th class="col-md-2" style="text-align: center;">Achieved Target</th>
+														<th class="col-md-1" style="text-align: center;">Award</th>
+														<th class="col-md-2" style="text-align: center;">Remark</th>
+													    <th class="col-md-2" style="text-align: center;">Status</th>
 												</tr>
 												</thead>
 												<tbody>
@@ -236,9 +237,7 @@
 				</div>
 			</div></div></div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

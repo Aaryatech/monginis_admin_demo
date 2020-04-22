@@ -214,7 +214,7 @@
 										<div class="form-group">
 											<label class="col-sm-3 col-lg-2 control-label">Route</label>
 											<div class="col-sm-9 col-lg-10 controls">
-												<select class="form-control input-sm" name="fr_route_id"
+												<select class="form-control chosen" name="fr_route_id"
 													id="fr_route_id" data-rule-required="true">
 
 													<c:forEach items="${routeList}" var="routeList">
@@ -231,7 +231,7 @@
 											<label class="col-sm-3 col-lg-2 control-label">Rate
 												Type</label>
 											<div class="col-sm-9 col-lg-10 controls">
-												<select class="form-control input-sm" name="fr_rate_cat"
+												<select class="form-control chosen" name="fr_rate_cat"
 													id="fr_rate_cat" data-rule-required="true">
 
 													<option value="1">Local Rate</option>
@@ -246,7 +246,7 @@
 										<div class="form-group">
 											<label class="col-sm-3 col-lg-2 control-label">Rating</label>
 											<div class="col-sm-9 col-lg-10 controls">
-												<select class="form-control input-sm" name="fr_rate"
+												<select class="form-control chosen" name="fr_rate"
 													id="fr_rate" data-rule-required="true">
 													<option value="0">Rating 0.5</option>
 													<option value="1">Rating 1</option>
@@ -405,7 +405,7 @@
 											<label class="col-sm-3 col-lg-2 control-label">GST
 												Type</label>
 											<div class="col-sm-9 col-lg-4 controls">
-												<select class="form-control input-sm" name="fr_gst_type"
+												<select class="form-control chosen" name="fr_gst_type"
 													id="fr_gst_type" data-rule-required="true"
 													onChange="changetextbox();">
 													<option value="">Select GST Type</option>
@@ -493,11 +493,11 @@
 												<c:choose>
 													<c:when test="${isAdd==1}">
 														<input type="submit" class="btn btn-primary"
-															value="SAVE & NEXT">
+															value="Submit">
 													</c:when>
 													<c:otherwise>
 														<input type="submit" class="btn btn-primary"
-															disabled="disabled" value="SAVE & NEXT">
+															disabled="disabled" value="Submit">
 													</c:otherwise>
 												</c:choose>
 
@@ -516,9 +516,7 @@
 			</div>
 			<!-- END Main Content -->
 
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

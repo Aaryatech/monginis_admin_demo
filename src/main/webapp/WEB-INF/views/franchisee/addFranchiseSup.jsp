@@ -124,7 +124,7 @@
 								<div class="col2">
 									<label class="col-sm-3 col-lg-2 control-label">Franchisee</label>
 									<div class="col-sm-9 col-lg-3 controls">
-										<select name="fr_id" id="fr_id" class="form-control"
+										<select name="fr_id" id="fr_id" class="form-control chosen"
 											placeholder="Select Franchise" data-rule-required="true"
 											onchange="onFrIdChange(this.value)">
 											<option value="">Select Franchise</option>
@@ -301,7 +301,7 @@
 							<div class="box">
 								<div class="box-title">
 									<h3>
-										<i class="fa fa-table"></i>Franchisee List
+										<i class="fa fa-table"></i>Franchisee Supplement List
 									</h3>
 									<div class="box-tool">
 										<a data-action="collapse" href="#"><i
@@ -339,24 +339,23 @@
 											</table>
 
 										</div>
-										<div class="table-wrap">
+										<div class="table-wrap"  style="overflow: auto;">
 
-											<table id="table1" class="table table-advance" border="1">
+											<table id="table1" class="table table-advance">
 												<thead>
 													<tr class="bgpink">
-														<th width="45" style="width: 18px">Sr.No.</th>
-														<th width="100" align="left">Franchisee</th>
-														<th width="100" align="left">PAN No.</th>
-														<th width="100" align="left">State</th>
-														<th width="100" align="left">Country</th>
-														<th width="290" align="left">PestControl Date</th>
-														<th width="60" align="right">Frequency</th>
-														<th width="190" align="left">Remainder Date</th>
-														<th width="70" align="left">Pass1</th>
-														<th width="70" align="left">Pass2</th>
-														<th width="70" align="left">Pass3</th>
-
-														<th width="81" align="left">Action</th>
+														<th style="text-align: center;">Sr.No.</th>
+														<th style="text-align: center;">Franchisee</th>
+														<th style="text-align: center;">PAN No.</th>
+														<th style="text-align: center;">State</th>
+														<th style="text-align: center;">Country</th>
+														<th style="text-align: center;">PestControl Date</th>
+														<th style="text-align: center;">Frequency</th>
+														<th style="text-align: center;">Remainder Date</th>
+														<th style="text-align: center;">Pass1</th>
+														<th style="text-align: center;">Pass2</th>
+														<th style="text-align: center;">Pass3</th>
+														<th style="text-align: center;">Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -366,30 +365,30 @@
 														<tr>
 
 															<td><c:out value="${count.index+1}" /></td>
-															<td align="left"><c:out value="${frSupList.frName}"></c:out></td>
-															<td align="left"><c:out value="${frSupList.frPanNo}"></c:out></td>
+															<td  style="text-align: left; padding-left: 3%;"><c:out value="${frSupList.frName}"></c:out></td>
+															<td style="text-align: center;"><c:out value="${frSupList.frPanNo}"></c:out></td>
 															<td align="left"><c:out value="${frSupList.frState}"></c:out></td>
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${frSupList.frCountry}"></c:out></td>
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${frSupList.pestControlDate}"></c:out></td>
-															<td align="center"><c:out
+															<td  style="text-align: center; padding-left: 2%;"><c:out
 																	value="${frSupList.frequency}"></c:out></td>
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${frSupList.remainderDate}"></c:out></td>
-															<td align="left"><c:out value="${frSupList.pass1}"></c:out></td>
-															<td align="left"><c:out value="${frSupList.pass2}"></c:out></td>
-															<td align="left"><c:out value="${frSupList.pass3}"></c:out></td>
+															<td style="text-align: left; padding-left: 2%;"><c:out value="${frSupList.pass1}"></c:out></td>
+															<td style="text-align: left; padding-left: 2%;"><c:out value="${frSupList.pass2}"></c:out></td>
+															<td style="text-align: left; padding-left: 2%;"><c:out value="${frSupList.pass3}"></c:out></td>
 
 															<c:choose>
 																<c:when test="${isEdit==1}">
-																	<td align="left"><a
+																	<td style="text-align: center;"><a
 																		href="${pageContext.request.contextPath}/updateFranchiseSup/${frSupList.id}"><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
 																	</td>
 																</c:when>
 																<c:otherwise>
-																	<td align="left"><a
+																	<td style="text-align: center;"><a
 																		href="${pageContext.request.contextPath}/updateFranchiseSup/${frSupList.id}"
 																		class="disableClick"><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
@@ -481,9 +480,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

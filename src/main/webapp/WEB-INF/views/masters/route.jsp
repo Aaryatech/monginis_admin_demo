@@ -98,7 +98,7 @@
 								<div class="form-group">
 									<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
 										<button type="submit" class="btn btn-primary" style="width: 70px">
-										 Save
+										 Submit
 										</button>
 										<!--<button type="button" class="btn">Cancel</button>-->
 									</div>
@@ -128,11 +128,11 @@
 													<tr>
 									<th width="45" style="width: 18px">Select</th>
 										
-														<th width="45" style="width: 18px">#</th>
-														<th width="939" align="left">Name</th>
-														<th width="81" align="right">Sequence No</th>
-														<th width="81" align="right">ABC Type</th>
-														<th width="81" align="left">Action</th>
+														<th style="text-align: center;">#</th>
+														<th style="text-align: center;">Name</th>
+														<th style="text-align: center;">Sequence No</th>
+														<th style="text-align: center;">ABC Type</th>
+														<th style="text-align: center;">Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -140,10 +140,10 @@
 														<tr>
 									<td><input type="checkbox" class="chk" name="select_to_print" id="${routeList.routeId}"	value="${routeList.routeId}"/></td>
 														
-															<td><c:out value="${count.index+1}"/></td>
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out value="${count.index+1}"/></td>
+															<td style="text-align: center;"><c:out
 																	value="${routeList.routeName}"></c:out></td>
-															<td align="right"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${routeList.seqNo}"></c:out></td>
 																	<c:set value="-" var="type"> </c:set>
 															<c:choose>
@@ -158,9 +158,9 @@
 																</c:when>
 															</c:choose>
 															
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${type}"></c:out></td>
-															<td align="left"><a
+															<td style="text-align: center;"><a
 																href="${pageContext.request.contextPath}/updateRoute/${routeList.routeId}"><span
 																	class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -187,9 +187,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

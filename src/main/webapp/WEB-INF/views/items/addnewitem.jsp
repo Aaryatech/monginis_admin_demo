@@ -435,7 +435,7 @@
 											</c:otherwise>
 										</c:choose>
 
-										<button type="button" class="btn">Cancel</button>
+										<button type="button" class="btn btn-primary">Cancel</button>
 									</div>
 								</div>
 							</form>
