@@ -176,14 +176,14 @@
 											<thead>
 												<tr class="bgpink">
 												<th class="col-sm-1" style="text-align: left;">Sr.No</th>
-             											<th class="col-sm-1"style="text-align: left;" >#</th>
+             									<th class="col-sm-1"style="text-align: left;" >#</th>
 														
-														<th class="col-md-2" style="text-align: center;">Month</th>
-														<th class="col-md-1" style="text-align: center;">Target</th>
-														<th class="col-md-2" style="text-align: center;">Achieved Target</th>
-														<th class="col-md-1" style="text-align: center;">Award</th>
-														<th class="col-md-2" style="text-align: center;">Remark</th>
-													    <th class="col-md-2" style="text-align: center;">Status</th>
+												<th class="col-md-2" style="text-align: center;">Month</th>
+												<th class="col-md-1" style="text-align: center;">Target</th>
+												<th class="col-md-2" style="text-align: center;">Achieved Target</th>
+												<th class="col-md-1" style="text-align: center;">Award</th>
+												<th class="col-md-2" style="text-align: center;">Remark</th>
+												<th class="col-md-2" style="text-align: center;">Status</th>
 												</tr>
 												</thead>
 												<tbody>
