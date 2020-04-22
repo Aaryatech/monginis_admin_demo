@@ -114,7 +114,7 @@
 										Cake</label>
 									<div class="col-sm-9 col-lg-3 controls">
 										<select name="sp_id" id="sp_id" data-rule-required="true"
-											class="form-control" placeholder="Select Special Cake">
+											class="form-control chosen" placeholder="Select Special Cake">
 											<option value="">Select Special Cake</option>
 											<c:forEach items="${spList}" var="spCakeList"
 												varStatus="count">
@@ -144,7 +144,7 @@
 								<div class="col2">
 									<label class="col-sm-3 col-lg-2 control-label">UOM</label>
 									<div class="col-sm-9 col-lg-3 controls">
-										<select name="spck_uom" id="spck_uom" class="form-control"
+										<select name="spck_uom" id="spck_uom" class="form-control chosen"
 											placeholder="Special Cake UOM" data-rule-required="true"
 											onchange="uomChanged()">
 											<option value="">Select Special Cake UOM</option>
@@ -179,7 +179,7 @@
 										Section</label>
 									<div class="col-sm-9 col-lg-3 controls">
 										<select name="cut_section" id="cut_section"
-											class="form-control" data-rule-required="true">
+											class="form-control chosen" data-rule-required="true">
 											<option value="">Select Cut Section</option>
 
 											<c:choose>
@@ -247,12 +247,12 @@
 												<thead>
 													<tr class="bgpink">
 														<th width="45" style="width: 18px">Sr.No.</th>
-														<th class="col-md-2" align="left">SP Code</th>
-														<th class="col-md-2" align="left">Special Cake</th>
-														<th class="col-md-2" align="left">HSN Code</th>
-														<th class="col-md-2" align="left">CESS(%)</th>
-														<th class="col-md-2" align="left">UOM</th>
-														<th class="col-md-2" align="left">Action</th>
+														<th class="col-md-2" style="text-align: center;">SP Code</th>
+														<th class="col-md-2" style="text-align: center;">Special Cake</th>
+														<th class="col-md-2" style="text-align: center;">HSN Code</th>
+														<th class="col-md-2" style="text-align: center;">CESS(%)</th>
+														<th class="col-md-2" style="text-align: center;">UOM</th>
+														<th class="col-md-2" style="text-align: center;">Action</th>
 													</tr>
 												</thead>
 											</table>
@@ -264,13 +264,13 @@
 												<thead>
 													<tr class="bgpink">
 														<th width="45" style="width: 18px">Sr.No.</th>
-														<th class="col-md-2" align="left">SP Code</th>
+														<th class="col-md-2" style="text-align: center;">SP Code</th>
 
-														<th class="col-md-2" align="left">Special Cake</th>
-														<th class="col-md-2" align="left">HSN Code</th>
-														<th class="col-md-2" align="left">CESS(%)</th>
-														<th class="col-md-2" align="left">UOM</th>
-														<th class="col-md-2" align="left">Action</th>
+														<th class="col-md-2" style="text-align: center;">Special Cake</th>
+														<th class="col-md-2" style="text-align: center;">HSN Code</th>
+														<th class="col-md-2" style="text-align: center;">CESS(%)</th>
+														<th class="col-md-2" style="text-align: center;">UOM</th>
+														<th class="col-md-2" style="text-align: center;">Action</th>
 													</tr>
 												</thead>
 
@@ -281,24 +281,24 @@
 
 															<td><c:out value="${count.index+1}" /></td>
 
-															<td align="left"><c:out value="${spSuppList.spCode}"></c:out></td>
+															<td style="text-align: center;"><c:out value="${spSuppList.spCode}"></c:out></td>
 
-															<td align="left"><c:out value="${spSuppList.spName}"></c:out></td>
+															<td style="text-align: left;"><c:out value="${spSuppList.spName}"></c:out></td>
 
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${spSuppList.spHsncd}"></c:out></td>
-															<td align="left"><c:out value="${spSuppList.spCess}"></c:out></td>
-															<td align="left"><c:out value="${spSuppList.spUom}"></c:out></td>
+															<td style="text-align: right; padding-right: 5%;"><c:out value="${spSuppList.spCess}"></c:out></td>
+															<td style="text-align: center;"><c:out value="${spSuppList.spUom}"></c:out></td>
 
 
 															<c:choose>
 																<c:when test="${isEdit==1}">
-																	<td align="left"><a
+																	<td style="text-align: right; padding-right: 6%;"><a
 																		href="${pageContext.request.contextPath}/updateSpSupp/${spSuppList.id}"><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;</td>
 																</c:when>
 																<c:otherwise>
-																	<td align="left"><a
+																	<td style="text-align: right; padding-right: 6%;"><a
 																		href="${pageContext.request.contextPath}/updateSpSupp/${spSuppList.id}"
 																	><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;</td>
@@ -326,9 +326,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

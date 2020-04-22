@@ -40,7 +40,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i>Sub Category 
+								<i class="fa fa-bars"></i>Add Sub Category 
 							</h3>
 							<div class="box-tool">
 								<a href="${pageContext.request.contextPath}/showSubCatList"></a> <a data-action="collapse" href="#"><i
@@ -119,11 +119,11 @@
 									<div id="faux-table" class="faux-table" aria="hidden">
 									<table id="table2" class="table table-advance" >
 											<thead>
-												<tr class="bgpink">
-											<th class="col-md-1">#</th>
-									<th class="col-md-4">Name</th>
-									<th class="col-md-3">Category Name</th>
-									<th class="col-md-1">Action</th>
+												<tr class="bgpink">										
+													<th class="col-md-1">#</th>
+										            <th class="col-md-4" style="text-align: center;">Name</th>
+											        <th class="col-md-4" style="text-align: center;">Category Name</th>
+											        <th class="col-md-1" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -135,9 +135,9 @@
 											<thead>
 												<tr class="bgpink">
 											<th class="col-md-1">#</th>
-								            <th class="col-md-4" align="left">Name</th>
-									        <th class="col-md-3" align="left">Category Name</th>
-									        <th class="col-md-1" align="left">Action</th>
+								            <th class="col-md-4" style="text-align: center;">Name</th>
+									        <th class="col-md-4" style="text-align: center;">Category Name</th>
+									        <th class="col-md-1" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												<tbody>
@@ -150,12 +150,12 @@
 				              <c:when test="${subCatList.catId==catList.catId}">
 									<tr>
 										<td><c:out value="${cnt}" /></td>
-										<td align="left"><c:out value="${subCatList.subCatName}" /></td>
-										<td align="left"><c:out
+										<td style="text-align: left; padding-left: 15%;"><c:out value="${subCatList.subCatName}" /></td>
+										<td style="text-align: left; padding-left: 13%;"><c:out
 												value="${catList.catName}" /></td>
 
 
-										<td align="left"><a
+										<td style="text-align: center;"><a
 											href="updateSubCategory/${subCatList.subCatId}"><span
 												class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -177,9 +177,7 @@
          </div>
 			
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

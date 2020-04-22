@@ -94,14 +94,14 @@
 					<div class="box box-pink">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i> Item Ledger
+								<i class="fa fa-bars"></i> Product List
 							</h3>
 							<div class="box-tool">
 								<a data-action="collapse" href="#"><i
 									class="fa fa-chevron-up"></i></a>
 							</div>
 						</div>
-						<div class="box-content">
+						<%-- <div class="box-content">
 
 							<form name="${pageContext.request.contextPath}/searchItem" id="searchItem" class="form-horizontal"
 								method="post" action="searchItem">
@@ -142,7 +142,7 @@
 
 
 
-														<%-- <option value="${mCategoryList.catId}"><c:out value="${mCategoryList.catName}"></c:out></option> --%>
+														<option value="${mCategoryList.catId}"><c:out value="${mCategoryList.catName}"></c:out></option>
 													</c:forEach>
 
 
@@ -178,7 +178,7 @@
 								</div>
 								</div>
 							
-							</form></div>
+							</form></div> --%>
 					</div>
 				</div>
 			</div>
@@ -214,15 +214,15 @@
 											<thead>
 												<tr class="bgpink">
 											<th class="col-md-1">SELECT</th>
-                                            <th class="col-md-1">Sr No</th>
-											<th class="col-md-2">Item Id</th>
-											<th class="col-md-3">Item Name</th>
+                                            <th width="10" class="col-md-1" style="text-align: left;">Sr No</th>
+											<th width="10" class="col-md-1" style="text-align: center;">Item Id</th>
+											<th width="10" class="col-md-3" style="text-align: center;">Item Name</th>
 <!-- 										<th class="col-md-2">Image</th>
- -->										<th class="col-md-1">Rate</th>
-											<th class="col-md-1">MRP</th>
-											<th class="col-md-1">Status</th>
-											<th class="col-md-1">Station No</th>
-											<th class="col-md-1">Action</th>
+ -->										<th width="10" class="col-md-2" style="text-align: center;">Rate</th>
+											<th width="10" class="col-md-2" style="text-align: center;">MRP</th>
+											<th width="10" class="col-md-2" style="text-align: center;">Status</th>
+											<th width="10" class="col-md-2" style="text-align: center;">Station No</th>
+											<th width="10" class="col-md-3" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -235,27 +235,29 @@
 											
 											
 												<tr class="bgpink">
-												<th class="col-md-1">SELECT</th>
-													<th class="col-md-1">Sr No</th>
-											<th class="col-md-2">Item Id</th>
-											<th class="col-md-3">Item Name</th>
-<!-- 											<th class="col-md-2">Image</th>
- -->											<th class="col-md-1">Rate</th>
-											<th class="col-md-1">MRP</th>
-												<th class="col-md-1">Status</th>
-													<th class="col-md-1">Station No</th>
-											<th class="col-md-1">Action</th>
+													<th class="col-md-1">SELECT</th>
+		                                            <th width="10" class="col-md-1" style="text-align: left;">Sr No</th>
+													<th width="10" class="col-md-1" style="text-align: center;">Item Id</th>
+													<th width="20" class="col-md-3" style="text-align: center;">Item Name</th>
+		<!-- 										<th class="col-md-2">Image</th>
+		 -->										<th width="10" class="col-md-2" style="text-align: center;">Rate</th>
+													<th width="10" class="col-md-2" style="text-align: center;">MRP</th>
+													<th width="10" class="col-md-2" style="text-align: center;">Status</th>
+													<th width="10" class="col-md-2" style="text-align: center;">Station No</th>
+													<th width="10" class="col-md-3" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												<tbody>
 											
-	<c:forEach items="${itemsList}" var="itemsList" varStatus="count">
+								<c:forEach items="${itemsList}" var="itemsList" varStatus="count">
 											<tr>
 										<td><input type="checkbox" class="chk" name="select_to_print" id="${itemsList.id}"	value="${itemsList.id}"/></td>
 
-												<td><c:out value="${count.index+1}" /></td>
-												<td align="left"><c:out value="${itemsList.itemId}" /></td>
-												<td align="left"><c:out value="${itemsList.itemName}"/></td>
+												<td style="padding-left: 2%;"><c:out value="${count.index+1}" /></td>
+												<td style="text-align: left; padding-left: 5%;">
+													<c:out value="${itemsList.itemId}" /></td>
+												<td style="text-align: left; padding-left: 5%;">
+													<c:out value="${itemsList.itemName}"/></td>
 												
 											<%-- 	<td align="left">
 												<img
@@ -263,10 +265,12 @@
 													onerror="this.src='${pageContext.request.contextPath}/resources/img/No_Image_Available.jpg';"/>
 													
 												</td> --%>
-												<td align="left"><c:out value="${itemsList.itemRate1}" /></td>
-												<td align="left"><c:out value="${itemsList.itemMrp1}" /></td>
+												<td style="text-align: right; padding-right: 5%; ">
+													<c:out value="${itemsList.itemRate1}" /></td>
+												<td style="text-align: right; padding-right: 5%; ">
+												<c:out value="${itemsList.itemMrp1}" /></td>
 												
-												<td align="left">
+												<td style="text-align: center;">
 												<c:choose>
 												<c:when test="${itemsList.itemIsUsed==1}">
 													<c:out value="Active" />
@@ -278,12 +282,10 @@
 											
 												</td>
 												
-												<td align="left">${itemsList.itemMrp2}</td>
-												
-												
+												<td style="text-align: right; padding-right: 2%; ">${itemsList.itemMrp2}</td>
 												<c:choose>
-																	<c:when test="${isEdit==1 and isDelete==1}">
-																		<td align="left"><a href="updateItem/${itemsList.id}"><span
+														<c:when test="${isEdit==1 and isDelete==1}">
+													<td style="text-align: center;"><a href="updateItem/${itemsList.id}"><span
 														class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
                                              <a href="showItemDetail/${itemsList.id}"><span
 														class="glyphicon glyphicon-list"></span></a>
@@ -295,7 +297,7 @@
 																	</c:when>
 
 																	<c:when test="${isEdit==1 and isDelete==0}">
-																		<td align="left"><a href="updateItem/${itemsList.id}"><span
+																		<td style="text-align: center;"><a href="updateItem/${itemsList.id}"><span
 														class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
                                              <a href="showItemDetail/${itemsList.id}"><span
 														class="glyphicon glyphicon-list"></span></a>
@@ -307,7 +309,7 @@
 																	</c:when>
 
 																	<c:when test="${isEdit==0 and isDelete==1}">
-																		<td align="left"><a href="updateItem/${itemsList.id}" class="disableClick"><span
+																		<td style="text-align: center;"><a href="updateItem/${itemsList.id}" class="disableClick"><span
 														class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
                                              <a href="showItemDetail/${itemsList.id}"><span
 														class="glyphicon glyphicon-list"></span></a>
@@ -320,7 +322,7 @@
 
 																	<c:otherwise>
 
-																		<td align="left"><a href="updateItem/${itemsList.id}" class="disableClick"><span
+																		<td style="text-align: center;"><a href="updateItem/${itemsList.id}" class="disableClick"><span
 														class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
                                              <a href="${pageContext.request.contextPath}/showItemDetail/${itemsList.id}"><span
 														class="glyphicon glyphicon-list"></span></a>
@@ -363,7 +365,7 @@
 						
 						<div class="form-group"  id="range" style="background-color: white;">
 											
-								<input type="button" id="expExcel" class="btn btn-primary" value="EXPORT TO Excel" onclick="exportToExcel();">
+								<input type="button" id="expExcel" class="btn btn-primary" value="Export To Excel" onclick="exportToExcel();">
 											
 								<input type="button" margin-right: 5px;" id="btn_delete"
 											class="btn btn-primary" onclick="deleteById()" 
@@ -379,9 +381,7 @@
 
 
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

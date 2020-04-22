@@ -45,7 +45,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-table"></i>Item Supplement Ledger
+								<i class="fa fa-table"></i>Product Supplement List
 							</h3>
 							<div class="box-tool">
 								<a href="${pageContext.request.contextPath}/showAddItemSup">Add
@@ -71,28 +71,25 @@
 							<div id="table-scroll" class="table-scroll">
 
 								<div id="faux-table" class="faux-table" aria="hidden">
-									<table id="table2" class="table table-advance">
+									<!-- <table id="table2" class="table table-advance">
 										<thead>
 											<tr class="bgpink">
 												<th width="17" style="width: 18px">#</th>
 												<th width="160" align="left">Item Code</th>
-												<th width="300" align="left">Item Name</th>
-
-												<th width="240" align="center">HSN Code</th>
-											
-
+												<th width="300" style="text-align: center;">Item Name</th>
+												<th width="240" style="text-align: center;">HSN Code</th>	
 												<th width="200" align="left">Unit Of Measure</th>
 												<th width="193" align="left">Actual Weight</th>
 												<th width="167" align="left">Base Weight</th>
 												<th width="200" align="left">Input Per Unit</th>
-												<!--     <th width="200" align="left">Gate Sale Allowed?</th>
+												    <th width="200" align="left">Gate Sale Allowed?</th>
 							               <th width="200" align="left">Gate Sale Disc Allowed?</th>
-							               <th width="200" align="left">Allowed For Emp Birthday?</th> -->
+							               <th width="200" align="left">Allowed For Emp Birthday?</th>
 
 												<th width="150" align="left">Action</th>
 											</tr>
 										</thead>
-									</table>
+									</table> -->
 
 								</div>
 								<div class="table-wrap">
@@ -102,14 +99,12 @@
 											<tr class="bgpink">
 												<th width="17" style="width: 18px">#</th>
 												<th width="160" align="left">Item Code</th>
-												<th width="300" align="left">Item Name</th>
-
-												<th width="240" align="center">HSN Code</th>
-											
+												<th width="300" style="text-align: center;">Item Name</th>
+												<th width="240" style="text-align: center;">HSN Code</th>	
 												<th width="200" align="left">Unit Of Measure</th>
-												<th width="193" align="left">Weight</th>
-												<th width="167" align="left">Weight</th>
-												<th width="200" align="left">Unit</th>
+												<th width="193" align="left">Actual Weight</th>
+												<th width="167" align="left">Base Weight</th>
+												<th width="200" align="left">Input Per Unit</th>
 												<!--    <th width="200" align="left">Allowed?</th>
 							               <th width="200" align="left">Allowed?</th>
 							               <th width="200" align="left">Birthday?</th>
@@ -125,15 +120,15 @@
 													<td align="left"><c:out value="${itemsList.itemCode}" /></td>
 													<td align="left"><c:out value="${itemsList.itemName}" /></td>
 
-													<td align="left"><c:out value="${itemsList.itemHsncd}" /></td>
+													<td style="text-align: center; padding-right: 2%;"><c:out value="${itemsList.itemHsncd}" /></td>
 													
-													<td align="left"><c:out value="${itemsList.itemUom}" /></td>
+													<td style="padding-left: 5%;"><c:out value="${itemsList.itemUom}" /></td>
 
-													<td align="left"><c:out
+													<td style="padding-left: 6%;"><c:out
 															value="${itemsList.actualWeight}" /></td>
-													<td align="left"><c:out
+													<td style="padding-left: 6%;"><c:out
 															value="${itemsList.baseWeight}" /></td>
-													<td align="left"><c:out
+													<td style="padding-left: 6%;"><c:out
 															value="${itemsList.inputPerQty}" /></td>
 													<%-- 	<c:choose><c:when test="${itemsList.isGateSale==0}">
 												<td align="left"><c:out value="NO" /></td>
@@ -158,7 +153,7 @@
 												<td align="left"><c:out value="YES" /></td>
 												</c:when>
 												</c:choose> --%>
-													<td align="left"><a
+													<td style="text-align: center; padding-right: 5%;"><a
 														href="updateItemSup/${itemsList.id}"><span
 															class="glyphicon glyphicon-edit"></span></a></td>
 												</tr>
@@ -251,9 +246,7 @@
 			</div>
 
 			<!-- END Main Content -->
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

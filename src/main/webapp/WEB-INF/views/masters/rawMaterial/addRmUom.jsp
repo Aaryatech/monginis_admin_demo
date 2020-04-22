@@ -109,8 +109,8 @@
 											<thead>
 												<tr class="bgpink">
 												<th width="55" style="width: 18px">Sr.No.</th>
-														<th width="360" align="center">Unit Of Measure</th>
-														<th width="50" align="left">Action</th>
+														<th style="text-align: center;">Unit Of Measure</th>
+														<th style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -121,9 +121,9 @@
 										<table id="table1" class="table table-advance">
 											<thead>
 												<tr class="bgpink">
-										<th width="55" style="width: 18px">Sr.No.</th>
-														<th width="360" align="center">Unit Of Measure</th>
-														<th width="50" align="left">Action</th>
+										<th width="55" style="width: 18px" >Sr.No.</th>
+														<th style="text-align: center;">Unit Of Measure</th>
+														<th style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												<tbody>
@@ -131,10 +131,10 @@
 														<tr>
 														
 															<td><c:out value="${count.index+1}"/></td>
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${rmUomList.uom}"></c:out></td>
 															
-															<td align="left"><a href="updateRmUom/${rmUomList.uomId}"><span
+															<td style="text-align: center;"><a href="updateRmUom/${rmUomList.uomId}"><span
 														class="glyphicon glyphicon-edit"></span></a>&nbsp;
                                                         
                                                         <a href="deleteRmUom/${rmUomList.uomId}"
@@ -190,10 +190,7 @@
 		</div>
 	</div>
 	<!-- END Main Content -->
-	<footer>
-	<p>2018 © MONGINIS.</p>
-	</footer>
-
+	<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 	<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 		class="fa fa-chevron-up"></i></a>

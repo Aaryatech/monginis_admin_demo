@@ -104,7 +104,7 @@
 								<div class="form-group">
 									<div class="col-sm-9 col-sm-offset-4 col-lg-10 col-lg-offset-2">
 										<button type="submit" class="btn btn-primary" style="width: 70px">
-											 Save
+											 Submit
 										</button>
 										<!--<button type="button" class="btn">Cancel</button>-->
 									</div>
@@ -119,7 +119,7 @@
 			<div class="box">
 				<div class="box-title">
 					<h3>
-						<i class="fa fa-table"></i> Flavour Ledger
+						<i class="fa fa-table"></i> Flavour List
 					</h3>
 					<div class="box-tool">
 						<a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
@@ -144,10 +144,10 @@
 												<tr class="bgpink">
 									<th width="17" style="width: 18px">SELECT</th>
 									<th width="17" style="width: 18px">#</th>
-									<th width="348" align="left">Name</th>
-									<th width="322" align="left">Add on rate</th>
-									<th width="290" align="left">Type</th>
-									<th width="80" align="left">Action</th>
+									<th width="348" style="text-align: center;">Name</th>
+									<th width="322" style="text-align: center;">Add on rate</th>
+									<th width="290" style="text-align: center;">Type</th>
+									<th width="80" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -160,10 +160,10 @@
 												<tr class="bgpink">
 									<th width="17" style="width: 18px">SELECT</th>
 									<th width="17" style="width: 18px">#</th>
-									<th width="348" align="left">Name</th>
-									<th width="322" align="left">Add on rate</th>
-									<th width="290" align="left">Type</th>
-									<th width="80" align="left">Action</th>
+									<th width="348" style="text-align: center;">Name</th>
+									<th width="322" style="text-align: center;">Add on rate</th>
+									<th width="290" style="text-align: center;">Type</th>
+									<th width="150" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												<tbody>
@@ -172,23 +172,26 @@
 			<td><input type="checkbox" class="chk" name="select_to_print" id="${flavoursList.spfId}"	value="${flavoursList.spfId}"/></td>
 									
 										<td><c:out value="${count.index+1}" /></td>
-										<td align="left"><c:out value="${flavoursList.spfName}" /></td>
-										<td align="left"><c:out
+										<td style="text-align: left; padding-left: 10%;"><c:out value="${flavoursList.spfName}" /></td>
+										<td style="text-align: right; padding-right: 10%;"><c:out
 												value="${flavoursList.spfAdonRate}" /></td>
 
 										<c:set var="strSpType" value="${flavoursList.spType}"></c:set>
 										<c:choose>
 											<c:when test="${flavoursList.spType==1}">
-												<td align="left"><c:out value="Chocolate" /></td>
+												<td style="text-align: left; padding-left: 15%;">
+													<c:out value="Chocolate" /></td>
 											</c:when>
 											<c:when test="${flavoursList.spType==2}">
-												<td align="left"><c:out value="FC" /></td>
+												<td style="text-align: left; padding-left: 15%;">
+													<c:out value="FC" /></td>
                                            </c:when>
                                            <c:otherwise>
-                                           <td align="left"><c:out value=""/></td>
+                                           <td style="text-align: left; padding-left: 15%;">
+                                           	<c:out value=""/></td>
                                            </c:otherwise>
 										</c:choose>
-										<td align="left">
+										<td style="text-align: center;">
 										<select name="activeStatus" id="activeStatus" onchange="if (this.value) window.location.href=this.value" >
 										<c:choose>
 											<c:when test="${flavoursList.delStatus==0}">

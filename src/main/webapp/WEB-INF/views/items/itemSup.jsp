@@ -46,7 +46,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i> Add Item Sup
+								<i class="fa fa-bars"></i> Add Product Supplement
 							</h3>
 							<div class="box-tool">
 								<a href="${pageContext.request.contextPath}/showItemSupList">Back to List</a> <a data-action="collapse" href="#"><i
@@ -93,7 +93,7 @@
 								<div class="col2">
 									<label class="col-sm-3 col-lg-2 control-label">Category</label>
 									<div class="col-sm-9 col-lg-3 controls">
-									<select name="cat_id" id="cat_id" data-rule-required="true" class="form-control" placeholder="Select Category" onchange="onCatIdChange(this.value,0)">
+									<select name="cat_id" id="cat_id" data-rule-required="true" class="form-control chosen" placeholder="Select Category" onchange="onCatIdChange(this.value,0)">
 											<option value="-1">Select Category</option>
 										 <c:forEach items="${mCategoryList}" var="mCategoryList">
 										 <c:choose>
@@ -146,7 +146,7 @@
 							  <div class="form-group">
 									<label class="col-sm-3 col-lg-2 control-label">UOM</label>
 									<div class="col-sm-9 col-lg-3 controls">
-												<select name="item_uom" id="item_uom" class="form-control"placeholder="Item UOM"
+												<select name="item_uom" id="item_uom" class="form-control chosen" placeholder="Item UOM"
 												 data-rule-required="true" onchange="uomChanged()">
 											<option value="">Select Item UOM</option>
 											<c:forEach items="${rmUomList}" var="rmUomList"
@@ -199,7 +199,7 @@
 							    <div class="form-group">
 									<label class="col-sm-3 col-lg-2 control-label">Cut Section</label>
 									<div class="col-sm-9 col-lg-3 controls">
-										<select name="cut_section" id="cut_section" class="form-control"
+										<select name="cut_section" id="cut_section" class="form-control chosen"
 												 data-rule-required="true">
 											<option value="">Select Cut Section</option>
 											
@@ -231,7 +231,7 @@
 						    <div class="col2">
 									<label class="col-sm-3 col-lg-2 control-label">Type Of Tray</label>
 									<div class="col-sm-9 col-lg-3 controls">
-												<select name="tray_type" id="tray_type" class="form-control"placeholder="Type Of Tray"
+												<select name="tray_type" id="tray_type" class="form-control chosen" placeholder="Type Of Tray"
 												 data-rule-required="true">
 											<option value="">Select Type Of Tray</option>
 											<c:forEach items="${trayTypes}" var="trayTypes"
@@ -389,9 +389,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

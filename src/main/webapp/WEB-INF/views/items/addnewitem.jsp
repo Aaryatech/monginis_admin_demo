@@ -125,7 +125,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i> Add Items
+								<i class="fa fa-bars"></i> Add Products
 							</h3>
 							<div class="box-tool">
 
@@ -356,7 +356,7 @@
 								<div class="form-group">
 									<label class="col-sm-3 col-lg-2 control-label">Is Used?</label>
 									<div class="col-sm-9 col-lg-10 controls">
-										<select class="form-control input-sm" tabindex="1"
+										<select class="form-control chosen" tabindex="1"
 											name="is_used">
 											<option value="1">Active</option>
 										<!--<option value="2">Special Days</option>
@@ -424,13 +424,13 @@
 
 											<c:when test="${isAdd==1}">
 
-												<input type="submit" class="btn btn-primary" value="Save & Next">
+												<input type="submit" class="btn btn-primary" value="Submit">
 
 											</c:when>
 
 											<c:otherwise>
 												<input type="submit" disabled="disabled"
-													class="btn btn-primary" value="Save & Next">
+													class="btn btn-primary" value="Submit">
 
 											</c:otherwise>
 										</c:choose>
@@ -444,9 +444,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

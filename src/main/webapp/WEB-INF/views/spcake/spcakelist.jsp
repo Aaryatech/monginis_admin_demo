@@ -119,7 +119,7 @@
 											`
 											
 						<div class="box-content">
-						<form action="${pageContext.request.contextPath}/uploadSpByFile" class="form-horizontal"
+						<%-- <form action="${pageContext.request.contextPath}/uploadSpByFile" class="form-horizontal"
 							method="post" enctype="multipart/form-data">
 							<div class="form-group">
 						<div class="col-sm-9 col-sm-offset-3 col-lg-2 col-lg-offset-5">	<input type="button" id="expExcel1" class="btn btn-primary" value="Excel Import Format" onclick="exportToExcel1();">
@@ -133,7 +133,7 @@
 								</div>
 								</div>
 							
-							</form>
+							</form> --%>
 <div class="col-md-9" ></div> 
 					<label for="search" class="col-md-3" id="search">
     <i class="fa fa-search" style="font-size:20px"></i>
@@ -145,22 +145,22 @@
 								<div id="table-scroll" class="table-scroll">
 							 
 									<div id="faux-table" class="faux-table" aria="hidden" >
-									<table id="table2"class="table table-advance" border="1" >
+									<table id="table2"class="table table-advance">
 											<thead>
 												<tr class="bgpink">
 															<th  style="width: 38px" align="left">Select</th>
 												
 														<th style="width: 38px" align="left">No</th>
-																<th width="104" align="left">Image</th>
-																<th width="126" align="left">Code</th>
-																<th width="120" align="left">Name</th>
-																<th width="96" align="left">Type</th>
-																<th width="96" align="left">Min Weight</th>
-																<th width="96" align="left">Max Weight</th>
-																<th width="80" align="left">Rate</th>
+																<th width="104" style="text-align: center;">Image</th>
+																<th width="126" style="text-align: center;">Code</th>
+																<th width="120" style="text-align: center;">Name</th>
+																<th width="96" style="text-align: center;">Type</th>
+																<th width="96" style="text-align: center;">Min Weight</th>
+																<th width="96" style="text-align: center;">Max Weight</th>
+																<th width="80" style="text-align: center;">Rate</th>
 																
-																<th width="80" align="left">MRP</th>
-																<th width="90" align="left">Action</th>
+																<th width="80" style="text-align: center;">MRP</th>
+																<th width="90" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -168,21 +168,21 @@
 									</div>
 									<div class="table-wrap"  >
 									
-										<table id="table1" class="table table-advance" border="1">
+										<table id="table1" class="table table-advance">
 											<thead>
 												<tr class="bgpink">
 											<th  style="width:38px" align="left">Select</th>
 												
 													<th  style="width: 38px" align="left">No</th>
-																<th width="104" align="left">Image</th>
-																<th width="126" align="left">Code</th>
-																<th width="120" align="left">Name</th>
-																<th width="96" align="left">Type</th>
-																<th width="96" align="left">Weight</th>
-																<th width="96" align="left">Weight</th>
-																<th width="80" align="left">Rate</th>
-																<th width="80" align="left">MRP</th>
-																<th width="90" align="left">Action</th>
+																<th width="104" style="text-align: center;">Image</th>
+																<th width="126" style="text-align: center;">Code</th>
+																<th width="120" style="text-align: center;">Name</th>
+																<th width="96" style="text-align: center;">Type</th>
+																<th width="96" style="text-align: center;">Weight</th>
+																<th width="96" style="text-align: center;">Weight</th>
+																<th width="80" style="text-align: center;">Rate</th>
+																<th width="80" style="text-align: center;">MRP</th>
+																<th width="90" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												<tbody>
@@ -193,44 +193,44 @@
 																<td><input type="checkbox" class="chk" name="select_to_print" id="${specialCake.spId}"	value="${specialCake.spId}"/></td>
 																
 																	<td><c:out value="${count.index+1}"/></td>
-																	<td align="left">
+																	<td style="text-align: center;">
 																			 <img src="${url}${specialCake.spImage}" width="70" height="70" 	
 																			 onerror="this.src='resources/img/No_Image_Available.jpg';"/> 
 																	</td>
-																	<td align="left"><c:out
+																	<td style="text-align: center;"><c:out
 																			value="${specialCake.spCode}  "></c:out></td>
-																	<td align="left"><c:out
+																	<td style="text-align: left;"><c:out
 																			value="${specialCake.spName}  "></c:out></td>
 																	<c:choose>
 																			<c:when test="${specialCake.spType==1}">
-																			<td align="left"><c:out value="Chocolate"></c:out></td>
+																			<td style="text-align: left; padding-left: 3%;"><c:out value="Chocolate"></c:out></td>
 																				
 																			</c:when>
 																			<c:when test="${specialCake.spType==2}">
-																			<td align="left"><c:out value="FC"></c:out></td>
+																			<td style="text-align: left; padding-left: 3%;"><c:out value="FC"></c:out></td>
 																				
 																			</c:when>
 																			
 																			
 																			<c:otherwise>
-																				<td align="left"><c:out value="ALL"></c:out></td>
+																				<td style="text-align: left; padding-left: 3%;"><c:out value="ALL"></c:out></td>
 																				
 																			</c:otherwise>
 																		</c:choose>
-																			<td align="left"><c:out
+																			<td style="text-align: right; padding-right: 3%;"><c:out
 																			value="${specialCake.spMinwt}  "></c:out></td>
-																				<td align="left"><c:out
+																			<td  style="text-align: right; padding-right: 3%;"><c:out
 																			value="${specialCake.spMaxwt}  "></c:out></td>
-																		<td align="left"><c:out
+																			<td  style="text-align: right; padding-right: 1%;"><c:out
 																			value="${specialCake.spRate1}  "></c:out></td>
-																				<td align="left"><c:out
+																			<td  style="text-align: right; padding-right: 1%;"><c:out
 																			value="${specialCake.mrpRate1}  "></c:out></td>
 																			
 																			
 																			
 																			<c:choose>
 																	<c:when test="${isEdit==1 and isDelete==1}">
-																		<td align="left"><a
+																		<td  style="text-align: center;"><a
 																		href="updateSpCake/${specialCake.spId}"data-toggle="tooltip" title="Edit Special Cake">	<span
 																			class="glyphicon glyphicon-edit"></span></a>
 																			<a href="viewSpCakeDetailed/${specialCake.spId}" class="action_btn" data-toggle="tooltip" title="Sp Ingredients Details">
@@ -242,7 +242,7 @@
 																	</c:when>
 
 																	<c:when test="${isEdit==1 and isDelete==0}">
-																		<td align="left"><a
+																		<td  style="text-align: center;"><a
 																		href="updateSpCake/${specialCake.spId}"data-toggle="tooltip" title="Edit Special Cake"><span
 																			class="glyphicon glyphicon-edit"></span></a>
 																			<a href="viewSpCakeDetailed/${specialCake.spId}" class="action_btn"data-toggle="tooltip" title="Sp Ingredients Details" >
@@ -253,7 +253,7 @@
 																	</c:when>
 
 																	<c:when test="${isEdit==0 and isDelete==1}">
-																		<td align="left"><a
+																		<td  style="text-align: center;"><a
 																		href="updateSpCake/${specialCake.spId}"  class="disableClick"><span
 																			class="glyphicon glyphicon-edit"></span></a>
 																			<a href="viewSpCakeDetailed/${specialCake.spId}" class="action_btn" >
@@ -265,7 +265,7 @@
 
 																	<c:otherwise>
 
-																	<td align="left"><a
+																	<td  style="text-align: center;"><a
 																		href="updateSpCake/${specialCake.spId}"  class="disableClick"><span
 																			class="glyphicon glyphicon-edit"></span></a>
 																			<a href="viewSpCakeDetailed/${specialCake.spId}" class="action_btn"data-toggle="tooltip" title="Sp Ingredients Details" >
@@ -303,7 +303,7 @@
 						
 						<div class="form-group"  id="range" style="background-color: white;">
 								 
-						 <input type="button" id="expExcel" class="btn btn-primary" value="EXPORT TO Excel" onclick="exportToExcel();">
+						 <input type="button" id="expExcel" class="btn btn-primary" value="Export To Excel" onclick="exportToExcel();">
 						<input type="button" margin-right: 5px;" id="btn_delete" class="btn btn-primary" onclick="deleteBySpId()" 
 											value="Delete" />
 											</div>
@@ -395,9 +395,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

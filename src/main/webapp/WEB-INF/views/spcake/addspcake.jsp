@@ -173,7 +173,7 @@
 								<div class="form-group">
 									<label class="col-sm-3 col-lg-2 control-label">UOM</label>
 									<div class="col-sm-9 col-lg-10 controls">
-										<select name="spck_uom" id="spck_uom" class="form-control"
+										<select name="spck_uom" id="spck_uom" class="form-control chosen"
 											placeholder="Special Cake UOM" data-rule-required="true"
 											onchange="uomChanged()">
 											<option value="">Select Special Cake UOM</option>
@@ -203,7 +203,7 @@
 									Type</label>
 									<div class="col-sm-9 col-lg-10 controls">
 										<select name="cut_section" id="cut_section"
-											class="form-control" data-rule-required="true">
+											class="form-control chosen" data-rule-required="true">
 											<option value=""> Type</option>
 
 													<option value="0" selected>Alphabetical</option>
@@ -217,7 +217,7 @@
 											<label class="col-sm-3 col-lg-2 control-label">Flavour Type</label>
 
 											<div class="col-sm-9 col-lg-10 controls">
-												<select class="form-control input-sm" name="spc_type" id="spc_type">
+												<select class="form-control chosen" name="spc_type" id="spc_type">
 													<option value="">Select Type</option>
 													<!-- 	<option value="0">All</option> -->
 													<option value="1">Chocolate</option>
@@ -277,7 +277,7 @@
 											<label class="col-sm-3 col-lg-2 control-label">Weight Increment By
 											</label>
 											<div class="col-sm-9 col-lg-10 controls">
-										<select class="form-control input-sm" name="sp_rate2" id="sp_rate2" data-rule-required="true">
+										<select class="form-control chosen" name="sp_rate2" id="sp_rate2" data-rule-required="true">
 													<option value="">Select Weight Increment By</option>
 													<option value="0.5">0.5</option>
 													<option value="1">1</option>
@@ -554,10 +554,10 @@
 											<div
 												class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
 												<button type="submit" class="btn btn-primary" style="width: 70px" onclick="return validation()">
-														 Save
+														 Submit
 														</button>
 										
-												<button type="button" class="btn">Cancel</button>
+												<button type="button" class="btn btn-primary">Cancel</button>
 
 												<!--<button type="button" class="btn">Cancel</button>-->
 											</div>
@@ -572,9 +572,7 @@
 
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2019 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>
