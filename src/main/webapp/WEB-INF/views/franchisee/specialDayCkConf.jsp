@@ -174,13 +174,13 @@ select {
 		<!-- BEGIN Content -->
 		<div id="main-content">
 			<!-- BEGIN Page Title -->
-			<div class="page-title">
+			<!-- <div class="page-title">
 				<div>
 					<h1>
 						<i class="fa fa-file-o"></i> Configure Special Day Cake
 					</h1>
 				</div>
-			</div>
+			</div> -->
 			<!-- END Page Title -->
 
 
@@ -192,7 +192,7 @@ select {
 							<div class="box">
 								<div class="box-title">
 									<h3>
-										<i class="fa fa-bars"></i>Configure Special Day Cake
+										<i class="fa fa-bars"></i>Advance Order Menu Configuration
 									</h3>
 									<div class="box-tool">
 										<a href="${pageContext.request.contextPath}/configureSpecialDayCkList">Back to
@@ -421,9 +421,9 @@ select {
 											<div
 												class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
 												<input type="submit" class="btn btn-primary"
-													value="Configure">
+													value="Submit">
 												<a href="${pageContext.request.contextPath}/configureSpecialDayCkList">
-												<button type="button" class="btn">Cancel</button></a>
+												<button type="button" class="btn btn-primary">Cancel</button></a>
 											</div>
 										</div>
 
@@ -442,9 +442,7 @@ select {
 			</div>
 			<!-- END Main Content -->
 
-			<footer>
-				<p>2019 © MONGINIS.</p>
-			</footer>
+		<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 <script
 	src="${pageContext.request.contextPath}/resources/assets/bootstrap/js/bootstrap.min.js"></script> 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i

@@ -102,7 +102,7 @@
 										<div class="box">
 											<div class="box-title">
 												<h3>
-													<i class="fa fa-table"></i> Configured Special Day Cake List
+													<i class="fa fa-table"></i> Advance Order Menu Configuration List
 												</h3>
 												<div class="box-tool">
 													<a data-action="collapse" href="#"><i
@@ -119,16 +119,16 @@
 							<div id="table-scroll" class="table-scroll">
 							 
 									<div id="faux-table" class="faux-table" aria="hidden">
-									<table id="table2"class="table table-advance" border="1">
+									<table id="table2"class="table table-advance">
 											<thead>
 												<tr class="bgpink">
 										<th width="19" style="width: 19px">#</th>
-																<th class="col-md-2" align="left">Event Name</th>
-																<th class="col-md-2" align="left">From Order Date</th>
-																<th class="col-md-2" align="left">To Order Date</th>
-																<th class="col-md-2" align="left">From Delivery Date</th>
-																<th class="col-md-2" align="left">To Delivery Date</th>
-																<th class="col-md-1"  align="left">Action</th>
+																<th class="col-md-2" style="text-align: center;">Event Name</th>
+																<th class="col-md-2" style="text-align: center;">From Order Date</th>
+																<th class="col-md-2" style="text-align: center;">To Order Date</th>
+																<th class="col-md-2" style="text-align: center;">From Delivery Date</th>
+																<th class="col-md-2" style="text-align: center;">To Delivery Date</th>
+																<th class="col-md-1" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -136,38 +136,38 @@
 									</div>
 									<div class="table-wrap">
 									
-										<table id="table1" class="table table-advance" border="1">
+										<table id="table1" class="table table-advance">
 											<thead>
 												<tr class="bgpink">
 												<th width="19" style="width: 19px">#</th>
-																<th class="col-md-2" align="left">Event Name</th>
-																<th class="col-md-2"  align="left">From Order Date</th>
-																<th class="col-md-2"  align="left">To Order Date</th>
-																<th class="col-md-2"  align="left">From Delivery Date</th>
-																<th class="col-md-2"  align="left">To Delivery Date</th>
-																<th class="col-md-1"  align="left">Action</th>
+																<th class="col-md-2" style="text-align: center;">Event Name</th>
+																<th class="col-md-2" style="text-align: center;">From Order Date</th>
+																<th class="col-md-2" style="text-align: center;">To Order Date</th>
+																<th class="col-md-2" style="text-align: center;">From Delivery Date</th>
+																<th class="col-md-2" style="text-align: center;">To Delivery Date</th>
+																<th class="col-md-1" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												<tbody>
-		<c:forEach items="${configureSpDayFrList}"
+														<c:forEach items="${configureSpDayFrList}"
 																var="configureSpDayFrList" varStatus="count">
 
 
 																<tr>
 																	<td><c:out value="${count.index+1}"></c:out></td>
-																	<td align="left"><c:out
+																	<td style="text-align: lift;"><c:out
 																			value="${configureSpDayFrList.spdayName}"></c:out> <!-- <img src="http://monginisaurangabad.com/admin/uploads/cakes/0L6KEg55AhP18.jpg" alt="" width="150" height="100" /> -->
 																	</td>
-																	<td align="left"><c:out
+																	<td style="text-align: center;"><c:out
 																			value="${configureSpDayFrList.orderFromDate}  "></c:out></td>
-																	<td align="left"><c:out
+																	<td style="text-align: center;"><c:out
 																			value="${configureSpDayFrList.orderToDate}  "></c:out></td>
-																	<td align="left"><c:out
+																	<td style="text-align: center;"><c:out
 																			value="${configureSpDayFrList.deliveryFromDate}"></c:out></td>
-                                                                    <td align="left"><c:out
+                                                                    <td style="text-align: center;"><c:out
 																			value="${configureSpDayFrList.deliveryToDate}"></c:out></td>
 
-																	<td align="left"><a
+																	<td style="text-align: center;"><a
 																		href="${pageContext.request.contextPath}/updateConfSpDayCk/${configureSpDayFrList.spdayId}"><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -256,9 +256,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

@@ -181,10 +181,6 @@ select {
 									<form action="${pageContext.request.contextPath}/configureMenuToFr" class="form-horizontal"
 										id="validation-form" method="post">
 
-
-
-
-
 										<div class="form-group">
 											<label class="col-sm-3 col-lg-2 control-label">Franchisee</label>
 											<div class="col-sm-9 col-lg-10 controls">
@@ -232,8 +228,8 @@ select {
 											<div
 												class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
 												<input type="submit" class="btn btn-primary"
-													value="Configure">
-												<button type="button" class="btn">Cancel</button>
+													value="Submit">
+												<button type="button" class="btn btn-primary">Cancel</button>
 											</div>
 										</div>
 									</form>
@@ -246,9 +242,7 @@ select {
 			</div>
 			<!-- END Main Content -->
 
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

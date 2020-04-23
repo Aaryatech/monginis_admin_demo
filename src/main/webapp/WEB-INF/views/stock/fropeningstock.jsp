@@ -58,7 +58,7 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Franchise Opening Stock
+					<i class="fa fa-bars"></i>Franchisee Opening Stock
 				</h3>
 
 			</div>
@@ -138,13 +138,13 @@
 						<div class="row">
 							<div class="col-md-12 table-responsive">
 								<table class="table table-bordered table-striped fill-head "
-									style="width:50%" id="table_grid" align="left "  border="1">
+									style="width:50%" id="table_grid" align="left">
 									<thead style="background-color: #f3b5db; ">
 										<tr>
 											<th class="col-md-1">Sr.No.</th>
-											<th class="col-md-2">Item Id</th>
-											<th class="col-md-4">Item Name</th>
-											<th class="col-md-4">Opening Quantity</th>
+											<th class="col-md-2" style="text-align: center;">Item Id</th>
+											<th class="col-md-4" style="text-align: center;">Item Name</th>
+											<th class="col-md-4" style="text-align: center;">Opening Quantity</th>
 
 										</tr>
 									</thead>
@@ -157,19 +157,18 @@
 					
 						<div class="row">
 							<div class="col-md-offset-4 col-md-1">
-								<button  id="submitStock"  style="display:none;" class="btn btn-info pull-right"
+								<button  id="submitStock"  style="display:none;" class="btn btn-primary"
 									style="margin-right: 5px;" onclick="submitForm()">Submit</button>
 							</div>
 						</div>
 					</div>
 				</form>
 			</div>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 		</div>
 		<!-- END Main Content -->
 
-		<footer>
-		<p>2017 © Monginis.</p>
-		</footer>
+		
 
 		<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 			class="fa fa-chevron-up"></i></a>
@@ -260,13 +259,13 @@
 									+ item.itemCode
 									+ "</td>";
 
-							var itemName = "<td>&nbsp;&nbsp;&nbsp;"
+							var itemName = "<td style='text-align: left;'>&nbsp;&nbsp;&nbsp;"
 									+ item.itemName
 									+ "</td>";
 
 						
 
-							var itemStockQty = "<td align=center><input type=number min=0 max=500 class=form-control   id= stockQty"
+							var itemStockQty = "<td align=center><input type=number min=0 max=500 class=form-control style='text-align: right;' id= stockQty" 
 									+ item.itemId
 									+ " name=stockQty"
 									+ item.itemId

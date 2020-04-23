@@ -144,7 +144,7 @@ body{
 										<div class="box">
 											<div class="box-title">
 												<h3>
-													<i class="fa fa-table"></i> Configured Franchisee List
+													<i class="fa fa-table"></i> Configured Menu List
 												</h3>
 												<div class="box-tool">
 													<a data-action="collapse" href="#"><i
@@ -179,16 +179,16 @@ body{
 													</div> -->
 													<div class="table-wrap">
 
-														<table id="table1" class="table table-advance" border="1">
+														<table id="table1" class="table table-advance">
 															<thead>
 																<tr class="bgpink">
 																	<th width="27" style="width: 28px"id="sr">#</th>
 																<!-- 	<th width="124" align="left"id="fr">Franchisee Name</th> -->
-																	<th width="202" align="left"id="menu">Menu Title</th>
-																	<th width="106" align="left"id="cat">Category Name</th>
-																	<th width="126" align="left" id="time">Time</th>
-																	<th width="66" align="left"id="type">Type</th>
-																	<th width="66" align="left">Action</th>
+																	<th width="202" style="text-align: center;" id="menu">Menu Title</th>
+																	<th width="106" style="text-align: center;" id="cat">Category Name</th>
+																	<th width="126" style="text-align: center;" id="time">Time</th>
+																	<th width="66" style="text-align: center;" id="type">Type</th>
+																	<th width="66" style="text-align: center;">Action</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -201,26 +201,26 @@ body{
 																	<%-- 	<td align="left"><c:out
 																				value="${configureFrList.frName}"></c:out> <!-- <img src="http://monginisaurangabad.com/admin/uploads/cakes/0L6KEg55AhP18.jpg" alt="" width="150" height="100" /> -->
 																		</td>
-																	 --%>	<td align="left"><c:out
+																	 --%>	<td style="text-align: left; padding-left: 5%;"><c:out
 																				value="${configureFrList.menuTitle}  "></c:out></td>
-																		<td align="left"><c:out
+																		<td style="text-align: left; padding-left: 3%;"><c:out
 																				value="${configureFrList.catName}  "></c:out></td>
 																		<%-- 	<td align="left"><c:out
 																			value="${configureFrList.itemShow}"></c:out></td>
  --%>
 
-																		<td align="left"><c:out
+																		<td style="text-align: center;"><c:out
 																				value="${configureFrList.fromTime} To ${configureFrList.toTime}"></c:out></td>
 
 																		<c:choose>
 																			<c:when test="${configureFrList.settingType==1}">
-																				<td align="left"><c:out value="Daily"></c:out></td>
+																				<td style="text-align: left; padding-left: 4%;"><c:out value="Daily"></c:out></td>
 																			</c:when>
 																			<c:when test="${configureFrList.settingType==2}">
-																				<td align="left"><c:out value="Date"></c:out></td>
+																				<td style="text-align: left; padding-left: 4%;"><c:out value="Date"></c:out></td>
 																			</c:when>
 																			<c:when test="${configureFrList.settingType==3}">
-																				<td align="left"><c:out value="Day"></c:out></td>
+																				<td style="text-align: left; padding-left: 4%;"><c:out value="Day"></c:out></td>
 																			</c:when>
 																		</c:choose>
 
@@ -345,9 +345,7 @@ body{
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>
