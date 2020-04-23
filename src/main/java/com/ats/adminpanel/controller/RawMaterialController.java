@@ -1652,6 +1652,14 @@ public class RawMaterialController {
 
 		float rmQty = Float.parseFloat(request.getParameter("rmQty"));
 
+		
+		int int1 = Integer.parseInt(request.getParameter("isMultiFactor"));// isMultiFactor new
+
+		int int2 = Integer.parseInt(request.getParameter("applItemId"));// applItemId new
+
+		String varchar1 = request.getParameter("multiFactor");// multiFactor new
+		
+		
 		ItemDetail itemDetail = new ItemDetail();
 
 		itemDetail.setItemId(itemId);
@@ -1663,6 +1671,11 @@ public class RawMaterialController {
 		itemDetail.setRmType(rmType);
 		itemDetail.setNoOfPiecesPerItem(noOfPiecesPerItem);
 
+		
+		itemDetail.setInt1(int1);// new
+		itemDetail.setInt2(int2);// new
+		itemDetail.setVarchar1(varchar1);// new
+		
 		for (CommonConf commonConf : commonConfs) {
 			if (commonConf.getId() == itemDetail.getRmId()) {
 				itemDetail.setRmUomId(commonConf.getRmUomId());
@@ -1713,6 +1726,10 @@ public class RawMaterialController {
 				itemDetail.setRmUomId(itemDetailsList.getItemDetailList().get(i).getRmUomId());
 				itemDetail.setRmWeight(itemDetailsList.getItemDetailList().get(i).getRmWeight());
 				itemDetail.setDelStatus(itemDetailsList.getItemDetailList().get(i).getDelStatus());
+				
+				itemDetail.setInt1(itemDetailsList.getItemDetailList().get(i).getInt1());// new
+				itemDetail.setInt2(itemDetailsList.getItemDetailList().get(i).getInt2());// new
+				itemDetail.setVarchar1(itemDetailsList.getItemDetailList().get(i).getVarchar1());// new
 				itemDetailList.add(itemDetail);
 			}
 		} catch (Exception e) {
@@ -1750,6 +1767,16 @@ public class RawMaterialController {
 		int index = Integer.parseInt(request.getParameter("key"));
 		System.out.println("Key:" + index);
 
+		
+		
+		int int1 = Integer.parseInt(request.getParameter("isMultiFactor"));// isMultiFactor new
+
+		int int2 = Integer.parseInt(request.getParameter("applItemId"));// applItemId new
+
+		String varchar1 = request.getParameter("multiFactor");// multiFactor new
+
+		
+		
 		System.out.println("itemDetailList::" + itemDetailList.toString());
 		for (int i = 0; i < itemDetailList.size(); i++) {
 			if (i == index) {
@@ -1763,6 +1790,12 @@ public class RawMaterialController {
 				itemDetailList.get(index).setRmType(rmType);
 				itemDetailList.get(index).setNoOfPiecesPerItem(noOfPiecesPerItem);
 
+				
+				itemDetailList.get(index).setInt1(int1);// new
+				itemDetailList.get(index).setInt2(int2);// new
+				itemDetailList.get(index).setVarchar1(varchar1);// new
+
+				
 				for (CommonConf commonConf : commonConfs) {
 					if (commonConf.getId() == itemDetailList.get(index).getRmId()) {
 						itemDetailList.get(index).setRmUomId(commonConf.getRmUomId());
@@ -1814,5 +1847,26 @@ public class RawMaterialController {
 		System.out.println("Edit ItemDetail Ajax: " + getItemDetail.toString());
 		return getItemDetail;
 	}
+	//Sachin 23-04-2020
+	@RequestMapping(value = "/getItemsForItemDetail", method = RequestMethod.GET)
+	public @ResponseBody List<Item> getItemsForItemDetail(HttpServletRequest request, HttpServletResponse response) {
+
+		RestTemplate rest=new RestTemplate();
+		int rmId=Integer.parseInt(request.getParameter("rmId"));
+		int rmType=Integer.parseInt(request.getParameter("rmType"));
+		List<Item> itemList=new ArrayList<>();
+		try {
+			
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("rmId", rmId);
+			map.add("rmType",rmType);
+		AllItemsListResponse	allItemsListResponse = rest.postForObject(Constants.url + "getAllItemsForForItemDetail",map, AllItemsListResponse.class);
+		itemList=allItemsListResponse.getItems();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return itemList;
+	}
+	
 
 }

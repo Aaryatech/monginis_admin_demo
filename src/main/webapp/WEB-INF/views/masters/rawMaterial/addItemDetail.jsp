@@ -23,6 +23,8 @@
 	<c:url var="getRmCategory" value="/getRmCategory" />
 	<c:url var="getRmListByCatId" value="/getRmListByCatId" />
 
+<c:url var="getItemsForItemDetail" value="/getItemsForItemDetail" />
+
 
 	<div class="container" id="main-container">
 
@@ -178,15 +180,44 @@
 						     	    <input type="text" name="base_qty" id="base_qty" class="form-control"placeholder="No. Of Pieces Per Item" value="${item.minQty}"   data-rule-required="true"/>
 									
 									</div> 
-							<!-- 	</div>
+									
+									</div>
+									
+									
+									<div class="form-group">
+									<label class="col-sm-3 col-lg-2 control-label">is Multipl Factor Appl?</label>
+									<div class="col-sm-9 col-lg-2 controls">
+									 <label class="radio-inline"> <input type="radio"
+											name="isMultiFactor" id="optionsRadios1" value="0" checked/> No
+										</label>
+										<label class="radio-inline"> <input type="radio"
+											name="isMultiFactor" id="optionsRadios2" value="1"  />
+											Yes
+										</label>
+									</div>
+									<div style="display: none" id="itemDiv">
+									<label class="col-sm-3 col-lg-1 control-label">Item</label>
+								<div class="col-sm-6 col-lg-2 controls">
 								
-								
-					<div class="row">
-						<div class="col-md-12" style="text-align: center"> -->
+									<select name="ratio_item_id" id="ratio_item_id"class="form-control chosen"  tabindex="6"  placeholder="Raw Material"data-rule-required="true">
+										    <option value="" selected>Select Item</option>
+										    
+							     	</select> 	
+				                 </div>
+									  <label class="col-sm-3 col-lg-2 control-label">Multiplication Factor</label>
+								 	<div class="col-sm-6 col-lg-2 controls">
+						     	    <input type="text" name="multiFactor" id="multiFactor" class="form-control" placeholder="Multiplication Factor" value="1.0"   data-rule-required="true"/>
+									
+									</div> 
+									 </div>
+								</div>
+									
+								<div class="row">
+						<div class="col-md-12" style="text-align: center">
 							<input type="button" class="btn btn-info" value="ADD" name="add" id="add">
-                          <!--   <input type="button" class="btn btn-info" value="CANCEL" name="cancel" id="cancel"> -->
+                            <input type="button" class="btn btn-info" value="CANCEL" name="cancel" id="cancel">
 
-						<!-- </div> -->
+						</div>
 						<div align="center" id="loader" style="display: none">
 
 					<span>
@@ -524,6 +555,7 @@ $(document).ready(function() {
 	$("#add").click(function() {
 		
 	var isValid = validation();
+	//alert("akshay")
 	if (isValid) {
 		
  	var itemId = $("#item_id").val();
@@ -544,8 +576,21 @@ $(document).ready(function() {
 	
 	var rmName=$('#rm_id option:selected').text();
 
+	var isMultiFactor=$("input:radio:checked").val();
+	//alert("isMultiFactor"+isMultiFactor);
+	var multiFactor= $("#multiFactor").val();
+	var ratioItemId=0;
+	if(isMultiFactor!=0){
+	//alert("multiFactor"+multiFactor);
+	 ratioItemId= $("#ratio_item_id").val();
+	 if(ratioItemId==null || ratioItemId=="")
+		 ratioItemId=0;
+	}
+	
+	
 	if(editFlag==true)
 	{
+		//alert("In Method")
 		editFlag=false;
 
 		$.getJSON('${editItem}', {
@@ -558,10 +603,14 @@ $(document).ready(function() {
 			rmName:rmName,
 			rmQty:rmQty,
 			rmWeight:rmWeight,
+			isMultiFactor:isMultiFactor,
+			applItemId:ratioItemId,
+			multiFactor:multiFactor,
 			key:key1,
 			
 			ajax : 'true',
 		},  function(data) { 
+			alert(data)
 			 //$('#loader').hide();
 			var len = data.length;
 
@@ -626,6 +675,9 @@ $(document).ready(function() {
 		rmName:rmName,
 		rmQty:rmQty,
 		rmWeight:rmWeight,
+		isMultiFactor:isMultiFactor,
+		applItemId:ratioItemId,
+		multiFactor:multiFactor,
 		
 		ajax : 'true',
 	},  function(data) { 
@@ -914,5 +966,80 @@ function myFunction() {
   }
 }
 </script>
+
+<script>
+$(document).ready(function() {
+    $("input[name$='isMultiFactor']").click(function() {
+        var test = $(this).val();
+        if(test==1){
+        $("#itemDiv").show();
+        onRmIdChange();
+        }else
+        	{
+        	  $("#itemDiv").hide(); 	
+        	}
+       
+    });
+});
+
+</script>
+<script type="text/javascript">
+function onRmIdChange()
+{
+	var rmType = $("#rm_type").val();
+	var rmId = $("#rm_id").val();
+
+		$.getJSON('${getItemsForItemDetail}', {
+			rmType : rmType,
+			rmId:rmId,
+			ajax : 'true'
+		}, function(data) {
+			var html = '<option value="" disabled="disabled" selected >Select Item</option>';
+			
+			var len = data.length;
+			for ( var i = 0; i < len; i++) {
+				html += '<option value="' + data[i].id + '">'
+						+ data[i].itemName + '</option>';
+			}
+			html += '</option>';
+			$('#ratio_item_id').html(html);
+			$("#ratio_item_id").trigger("chosen:updated");
+
+		});
+	
+}
+
+function onRmIdChangeForEdit(rmId,rmType,id)
+{
+	
+		$.getJSON('${getItemsForItemDetail}', {
+			rmType : rmType,
+			rmId:rmId,
+			ajax : 'true'
+		}, function(data) {
+			var html = '<option value="" disabled="disabled" selected >Select Item</option>';
+			
+			var len = data.length;
+			for ( var i = 0; i < len; i++) {
+				if(id==data[i].id){
+				html += '<option value="' + data[i].id + '" selected>'
+						+ data[i].itemName + '</option>';
+				}
+				else
+					{
+					html += '<option value="' + data[i].id + '">'
+					+ data[i].itemName + '</option>';
+					}
+			}
+			html += '</option>';
+			$('#ratio_item_id').html(html);
+			$("#ratio_item_id").trigger("chosen:updated");
+
+		});
+	
+}
+</script>
+
+
 </html>
 

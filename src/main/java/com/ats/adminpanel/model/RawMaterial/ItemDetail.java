@@ -26,6 +26,12 @@ public class ItemDetail {
 	
 	private int delStatus;
 
+	private int int1;
+
+	private int int2;
+	
+	private String varchar1;
+	
 	
 	
 	public int getNoOfPiecesPerItem() {
@@ -114,6 +120,35 @@ public class ItemDetail {
 
 	public void setDelStatus(int delStatus) {
 		this.delStatus = delStatus;
+	}
+
+	
+	
+	
+	
+	
+	public int getInt1() {
+		return int1;
+	}
+
+	public void setInt1(int int1) {
+		this.int1 = int1;
+	}
+
+	public int getInt2() {
+		return int2;
+	}
+
+	public void setInt2(int int2) {
+		this.int2 = int2;
+	}
+
+	public String getVarchar1() {
+		return varchar1;
+	}
+
+	public void setVarchar1(String varchar1) {
+		this.varchar1 = varchar1;
 	}
 
 	@Override
