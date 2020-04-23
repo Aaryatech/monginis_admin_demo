@@ -142,12 +142,12 @@ td, th {
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i>Search Orders
+								<i class="fa fa-bars"></i>Orders List
 							</h3>
-							<div class="box-tool">
+							<!-- <div class="box-tool">
 								<a href="">Back to List</a> <a data-action="collapse" href="#"><i
 									class="fa fa-chevron-up"></i></a>
-							</div>
+							</div> -->
 							<!-- <div class="box-tool">
 								<a data-action="collapse" href="#"><i
 									class="fa fa-chevron-up"></i></a> <a data-action="close" href="#"><i
@@ -309,12 +309,12 @@ td, th {
 														<tr class="bgpink">
 														<th class="col-sm-1"><input type="checkbox" onClick="selectOrderIdNo(this)" id="all"/> All</th>
 															<th width="148" style="width: 18px" align="left">Sr</th>
-															<th width="198" align="left">Franchisee Name</th>
-															<th width="190" align="left">Item Name</th>
-															<th width="199" align="left">Category</th>
-															<th width="199" align="left">Quantity</th>
-															<th width="199" align="left">Del. Date</th>
-															<th width="100" align="right">Action</th>
+															<th width="198" style="text-align: center;">Franchisee Name</th>
+															<th width="190" style="text-align: center;">Item Name</th>
+															<th width="199" style="text-align: center;">Category</th>
+															<th width="199" style="text-align: center;">Quantity</th>
+															<th width="199" style="text-align: center;">Del. Date</th>
+															<th width="100" style="text-align: center;">Action</th>
 														</tr>
 													</thead>
 													<!-- 	<div class="table-responsive" style="border: 0">
@@ -408,11 +408,11 @@ td, th {
 										<div >
 										  <label class=" col-md-2">Production Date</label>
 										<div class="col-md-2">
-										<input class="form-control"	 name="production_date" id="production_date" type="date" />
+										<input class="form-control date-picker"	 name="production_date" id="production_date" type="text" />
 										  </div>
                                        <label class=" col-md-2">Delivery Date</label>
 										<div class="col-md-2">
-										<input class="form-control"	 name="delivery_date" id="delivery_date" type="date" />
+										<input class="form-control date-picker"	 name="delivery_date" id="delivery_date" type="text" />
 										  </div>
 										
 									  </div>
@@ -437,9 +437,7 @@ td, th {
 				</div>
 			</div></div>
 			<!-- END Main Content -->
-			<footer>
-				<p>2019 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
@@ -655,10 +653,10 @@ $.getJSON('${callSearchOrdersProcess}', {
   	tr.append($('<td></td>').html(orders.catName));
   	
 	if(isEdit==1){
-	 	tr.append($('<td></td>').html("<input type='number' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;' style='text-align: center;    height: 24px;' class='form-control' min='0' id=qty"+orders.orderId+" value="+orders.orderQty+" disabled='disabled' >"));
+	 	tr.append($('<td></td>').html("<input type='number' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;' style='text-align: right;    height: 24px;' class='form-control' min='0' id=qty"+orders.orderId+" value="+orders.orderQty+" disabled='disabled' >"));
   		
   	}else{
-	 	tr.append($('<td></td>').html("<input type='number' onkeypress='return IsNumeric(event);'  ondrop='return false;' onpaste='return false;' style='text-align: center;    height: 24px;' class='form-control' min='0' id=qty"+orders.orderId+" value="+orders.orderQty+"  disabled='disabled' >"));
+	 	tr.append($('<td></td>').html("<input type='number' onkeypress='return IsNumeric(event);'  ondrop='return false;' onpaste='return false;' style='text-align: right;    height: 24px;' class='form-control' min='0' id=qty"+orders.orderId+" value="+orders.orderQty+"  disabled='disabled' >"));
   		
   	}
 	tr.append($('<td></td>').html(orders.deliveryDate));
@@ -736,10 +734,10 @@ else
 	  	tr.append($('<td></td>').html(orders.catName));
 	  	
 		if(isEdit==1){
-		 	tr.append($('<td></td>').html("<input type='number' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;' style='text-align: center;    height: 24px;' class='form-control' min='0' id=qty"+orders.orderId+" value="+orders.orderQty+" disabled='disabled' >"));
+		 	tr.append($('<td></td>').html("<input type='number' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;' style='text-align: right;    height: 24px;' class='form-control' min='0' id=qty"+orders.orderId+" value="+orders.orderQty+" disabled='disabled' >"));
 	  		
 	  	}else{
-		 	tr.append($('<td></td>').html("<input type='number' onkeypress='return IsNumeric(event);'  ondrop='return false;' onpaste='return false;' style='text-align: center;    height: 24px;' class='form-control' min='0' id=qty"+orders.orderId+" value="+orders.orderQty+"  disabled='disabled' >"));
+		 	tr.append($('<td></td>').html("<input type='number' onkeypress='return IsNumeric(event);'  ondrop='return false;' onpaste='return false;' style='text-align: right;    height: 24px;' class='form-control' min='0' id=qty"+orders.orderId+" value="+orders.orderQty+"  disabled='disabled' >"));
 	  		
 	  	}
 		tr.append($('<td></td>').html(orders.deliveryDate));

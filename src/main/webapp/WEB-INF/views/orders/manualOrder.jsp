@@ -207,13 +207,13 @@ to {
 		<!-- BEGIN Content -->
 		<div id="main-content">
 			<!-- BEGIN Page Title -->
-			<div class="page-title">
+			<!-- <div class="page-title">
 				<div>
 					<h1>
 						<i class="fa fa-file-o"></i> Manual Order
 					</h1>
 				</div>
-			</div>
+			</div> -->
 			<!-- END Page Title -->
 
 
@@ -227,11 +227,11 @@ to {
 									<h3>
 										<i class="fa fa-bars"></i> Manual Order
 									</h3>
-									<div class="box-tool">
+									<%-- <div class="box-tool">
 										<a href="${pageContext.request.contextPath}/"></a> <a
 											data-action="collapse" href="#"><i
 											class="fa fa-chevron-up"></i></a>
-									</div>
+									</div> --%>
 								</div>
 
 								<form
@@ -488,14 +488,14 @@ to {
 
 													<div class="col-md-4" style="text-align: center">
 
-														<input type="button" class="btn btn-info"
+														<input type="button" class="btn btn-primary"
 															value="Preview Order" name="preview" id="preview"
 															style="display: none;"
 															onclick="showPreviewOrder();document.getElementById('id01').style.display='block'"
 															> <input type="submit"
-															class="btn btn-info" value="ORDER" name="submitorder"
+															class="btn btn-primary" value="ORDER" name="submitorder"
 															id="submitorder" disabled> <input type="submit"
-															class="btn btn-info" value="ORDER_&_BILL"
+															class="btn btn-primary" value="ORDER_&_BILL"
 															name="submitbill" id="submitbill" style="display: none;"
 															disabled>
 													</div>
@@ -555,7 +555,7 @@ to {
 									<div class="container1" style="background-color: #ffffff">
 										<button type="button"
 											onclick="document.getElementById('id01').style.display='none'"
-											class="btn btn-info">Cancel</button>
+											class="btn btn-primary">Cancel</button>
 									</div>
 								</div>
 
@@ -649,16 +649,16 @@ to {
 																				item.itemName));
 														tr
 																.append($(
-																		'<td></td>')
+																		'<td style="text-align: right;" ></td>')
 																		.html(
 																				item.minQty
-																						+ '<input type="hidden" value='+item.minQty+'	id=minqty'+item.itemId+""+item.frId+'  />'));
+																						+ '<input type="hidden" value='+item.minQty+'	id=minqty'+item.itemId+""+item.frId+'/>'));
 														if (ordertype == 1) {
 															tr
 																	.append($(
 																			'<td style="text-align:right;" class="col-md-1"></td>')
 																			.html(
-																					'<input type="number" class="form-control" onchange="onChangeBill('
+																					'<input type="number" class="form-control" style="text-align: right;" onchange="onChangeBill('
 																							+ item.orderRate
 																							+ ','
 																							+ item.itemId
@@ -679,7 +679,7 @@ to {
 																	.append($(
 																			'<td style="text-align:right;" class="col-md-1"></td>')
 																			.html(
-																					'<input type="number" class="form-control"  min="0"  width=20px; onchange="onChangeBill('
+																					'<input type="number" class="form-control"  min="0"  width=20px; style="text-align: right;" onchange="onChangeBill('
 																							+ item.orderRate
 																							+ ','
 																							+ item.itemId
@@ -701,7 +701,7 @@ to {
 																	.append($(
 																			'<td style="text-align:right;" class="col-md-1"></td>')
 																			.html(
-																					'<input type="number" class="form-control" onchange="onChange('
+																					'<input type="number" class="form-control" style="text-align: right;" onchange="onChange('
 																							+ item.orderRate
 																							+ ','
 																							+ item.itemId

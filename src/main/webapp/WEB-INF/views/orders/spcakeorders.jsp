@@ -121,12 +121,12 @@ table {
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i>Search Special Cake Orders
+								<i class="fa fa-bars"></i>Search Special Cake Orders List
 							</h3>
-							<div class="box-tool">
+							<!-- <div class="box-tool">
 								<a href="">Back to List</a> <a data-action="collapse" href="#"><i
 									class="fa fa-chevron-up"></i></a>
-							</div>
+							</div> -->
 							<!-- <div class="box-tool">
 								<a data-action="collapse" href="#"><i
 									class="fa fa-chevron-up"></i></a> <a data-action="close" href="#"><i
@@ -227,7 +227,7 @@ table {
 								<div align="center" class="form-group"> -->
 									<!-- 	<div
 										class="col-sm-25 col-sm-offset-3 col-lg-30 col-lg-offset-0"> -->
-									<input class="btn btn-primary" type="button" value="Submit"
+									<input class="btn btn-primary" type="button" value="Search"
 										id="callSubmit" onclick="callSearch()">
 
 
@@ -283,24 +283,24 @@ table {
 												border="1">
 												<thead style="background-color: #f3b5db;">
 													<tr>
-														<th class="col-sm-1"><input type="checkbox"
-															onClick="selectOrderIdNo(this)" id="all" /> All</th>
-														<th width="130" align="left">SlipNo</th>
-														<th width="208" align="left">Franchisee</th>
-														<th width="183" align="left">DeliveryOn</th>
-														<th width="159" align="left"><span
-															style="width: 130px;">Name</span></th>
-														<th width="159" align="left"><span
-															style="width: 50px;">Code</span></th>
-														<th width="105" align="left">Weight</th>
-														<th width="168" align="left">Flavour</th>
-														<th width="140" align="left">No.Of Boxes</th>
-														<th width="125" align="left">Is AddonAcc</th>
+														<th width="80"  style="text-align: center;"><!-- <input type="checkbox"
+															onClick="selectOrderIdNo(this)" id="all" /> -->Sr. No.</th>
+														<th width="130" style="text-align: center;">Slip No.</th>
+														<th width="208" style="text-align: center;">Franchisee</th>
+														<th width="183" style="text-align: center;">Delivery On</th>
+														<th width="159" style="text-align: center;"><span
+															style="width: 130px; text-align: center;">Name</span></th>
+														<th width="159" style="text-align: center;"><span
+															style="width: 50px; text-align: center;">Code</span></th>
+														<th width="105" style="text-align: center;">Weight</th>
+														<th width="168" style="text-align: center;">Flavour</th>
+														<th width="140" style="text-align: center;">No.Of Boxes</th>
+														<th width="125" style="text-align: center;">Is AddonAcc</th>
 														<!--	<th width="75" align="left">Add Rate</th> -->
-														<th width="91" align="left">Total</th>
-														<th width="47" align="left">View</th>
-														<th width="47" align="left">PDF</th>
-														<th width="150" align="left">Action</th>
+														<th width="91" style="text-align: center;">Total</th>
+														<th width="47" style="text-align: center;">View</th>
+														<th width="47" style="text-align: center;">PDF</th>
+														<th width="150" style="text-align: center;">Action</th>
 
 
 													</tr>
@@ -365,13 +365,13 @@ table {
 								</div>
 								<div class="form-group"
 									style="display: <c:out value="${dis}" />;" id="range">
-									<div class="col-sm-2  controls">
+									<div class="col-sm-1  controls">
 										<input type="text" class="form-control" id="from"
-											placeholder="to no">
+											placeholder="to">
 									</div>
-									<div class="col-sm-2  controls">
+									<div class="col-sm-1 controls">
 										<input type="text" class="form-control" id="to"
-											placeholder="from no">
+											placeholder="from">
 									</div>
 									<div class="col-sm-2  controls">
 										<input type="button" id="from" class="btn btn-primary"
@@ -383,17 +383,19 @@ table {
 											value="PDF IN RANGE DOT MATRIX"
 											onclick="inRangePdfForDotMatrix();">
 									</div>
+									
 									<div class="col-sm-2  controls">
-										<%-- <a onclick="exportToExcel()" id="expExcel" href="${pageContext.request.contextPath}/download" disabled="true" class="btn btn-primary">EXPORT TO Excel</a> --%>
-										<input type="button" id="expExcel" class="btn btn-primary"
-											value="EXPORT TO Excel" onclick="exportToExcel();"
-											disabled="disabled">
-									</div>
-									<div class="col-md-1">
+									&nbsp;&nbsp;
 										<input type="button" class="btn btn-primary"
 											value="Add To Production" disabled="disabled" id="addtoprod"
-											onclick="updateBillGenStatusToProd()">
-
+											onclick="updateBillGenStatusToProd()">											
+									</div>
+									<div class="col-md-2 controls">		
+									&nbsp;&nbsp;							
+										<%-- <a onclick="exportToExcel()" id="expExcel" href="${pageContext.request.contextPath}/download" disabled="true" class="btn btn-primary">EXPORT TO Excel</a> --%>
+										<input type="button" id="expExcel" class="btn btn-primary"
+											value="Export To Excel" onclick="exportToExcel();"
+											disabled="disabled">
 									</div>
 								</div>
 							</form>
@@ -402,9 +404,7 @@ table {
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2019 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>
@@ -477,6 +477,13 @@ table {
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/assets/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script type="text/javascript">
+	$('#from').on('input', function() {
+		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+		});
+	$('#to').on('input', function() {
+		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+		});
+	
 		function validate() {
 
 			var selectedFr = $("#fr_id").val();
@@ -566,7 +573,7 @@ table {
 
 														tr
 																.append($(
-																		'<td></td>')
+																		'<td style="text-align: center;"></td>')
 																		.html(
 																				spCakeOrder.slipNo));
 														tr
@@ -576,7 +583,7 @@ table {
 																				spCakeOrder.frName));
 														tr
 																.append($(
-																		'<td></td>')
+																		'<td style="text-align: center;"></td>')
 																		.html(
 																				spCakeOrder.spDeliveryDate));
 														tr
@@ -593,7 +600,7 @@ table {
 																				spCakeOrder.itemId));
 														tr
 																.append($(
-																		'<td></td>')
+																		'<td style="text-align: right;"></td>')
 																		.html(
 																				spCakeOrder.spSelectedWeight));
 														tr
@@ -605,36 +612,36 @@ table {
 																.append($(
 																		'<td></td>')
 																		.html(
-																				"<input type=number value="+spCakeOrder.spBookedForName+"  name=box"+spCakeOrder.spOrderNo+" id=box"+spCakeOrder.spOrderNo+" class=form-control />"));
+																				"<input type=number value="+spCakeOrder.spBookedForName+"  name=box"+spCakeOrder.spOrderNo+" id=box"+spCakeOrder.spOrderNo+" style='text-align: right;' class=form-control />"));
 														tr
 																.append($(
 																		'<td></td>')
 																		.html(
-																				"<select class=form-control name=addon"+spCakeOrder.spOrderNo+" id=addon"+spCakeOrder.spOrderNo+" data-rule-required=true > <option value=0>N</option><option value=1>Y</option>	</select>"));
+																				"<select class=form-control name=addon"+spCakeOrder.spOrderNo+" id=addon"+spCakeOrder.spOrderNo+" data-rule-required=true  style='text-align: right;'> <option value=0>N</option><option value=1>Y</option>	</select>"));
 
 														var totalValue = parseFloat(spCakeOrder.spTotalAddRate)
 																+ parseFloat(spCakeOrder.spPrice);
 														tr
 																.append($(
-																		'<td></td>')
+																		'<td style="text-align: right;"></td>')
 																		.html(
 																				totalValue));
 
 														tr
 																.append($(
-																		'<td></td>')
+																		'<td style="text-align: center;"></td>')
 																		.html(
-																				'<a href="${pageContext.request.contextPath}/showHtmlViewSpcakeOrder/'+spCakeOrder.spOrderNo+'" target="blank"><i class="fa fa-file-text-o" style="font-size:15px;"></i></a>'));
+																				'<a href="${pageContext.request.contextPath}/showHtmlViewSpcakeOrder/'+spCakeOrder.spOrderNo+'" target="blank"><i class="fa fa-file-text-o" style="font-size:15px;" title="Order Memo"></i></a>'));
 
 														tr
 																.append($(
-																		'<td></td>')
+																		'<td style="text-align: center;"></td>')
 																		.html(
 																				'<a href="${pageContext.request.contextPath}/showSpcakeOrderPdf/'
 																						+ spCakeOrder.spOrderNo
 																						+ '/'
 																						+ (key + 1)
-																						+ '" target="blank"><i class="fa fa-file-pdf-o" style="font-size:15px;"></i></a>'));
+																						+ '" target="blank"><i class="fa fa-file-pdf-o" style="font-size:15px;" title="Pdf"></i></a>'));
 
 														if(spCakeOrder.isBillGenerated==2){
 															tr
@@ -644,7 +651,7 @@ table {
 														}else{
 															tr
 															.append($(
-																	'<td></td>')
+																	'<td style="text-align: center;"></td>')
 																	.html(
 																			'<a href=# class=action_btn onclick=saveSpOrder('
 																					+ spCakeOrder.spOrderNo

@@ -148,7 +148,7 @@
 					<div class="col-md-12" style="text-align: center"> -->
 					
 					
-						<input type="button" id="searchFr" class="btn btn-info" value="Search"
+						<input type="button" id="searchFr" class="btn btn-primary" value="Search"
 							onclick="searchOrders()" />
 						
 					</div>
@@ -234,7 +234,7 @@
 									</div>
 						<div class="col-md-offset-0 col-md-1" align="center">
 
-							<button class="btn btn-info pull-left"
+							<button class="btn btn-primary"
 								style="margin-right: 5px;" onclick="submitOrder()" id="submitOrder" disabled>Submit</button>
 						</div>
 					</div>
@@ -242,11 +242,10 @@
 				</div>
 			
 		</div></form>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 	</div>
 	<!-- END Main Content -->
-			<footer>
-			<p>2019 © MONGINIS.</p>
-			</footer>
+			
 
 	<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 		class="fa fa-chevron-up"></i></a>
@@ -356,9 +355,9 @@
 
 													 
 														var tr = $('<tr></tr>');
-														tr.append($('<td></td>').html(""+index));
-													  	tr.append($('<td></td>').html(orderdata.itemName));
-														tr.append($('<td></td>').html("<input type='text' name=disc_per"+orderdata.itemId+" style='width:45px' class='form-control' id=disc_per"+orderdata.itemId+" value="+discPer+" > "));
+														tr.append($("<td></td>").html(""+index));
+													  	tr.append($("<td style='text-align: left; padding-left: 15%;'></td>").html(orderdata.itemName));
+														tr.append($("<td style='text-align: left; padding-left: 5%;'></td>").html("<input type='text' name=disc_per"+orderdata.itemId+" style='width:45px; text-align: right;' class='form-control' id=disc_per"+orderdata.itemId+" value="+discPer+" > "));
 													  
 													      $.each(frId, function(key, id){    
 													    	 	 var qty=0;
@@ -374,7 +373,7 @@
 													    	 		 }
 													    		 //var orderQty = "<td align=center><input onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;' type=number min=0 max=500 class=form-control   id=itemId"+orderdata.itemId+"orderQty"+ id+ " name=itemId"+orderdata.itemId+"orderQty"+id+" value = "+qty +"></td>"; 
 																
-													    		 tr.append($('<td></td>').html("<input onkeypress='return IsNumeric(event);' ondrop='return false;' style='  height: 24px;'  onpaste='return false;' type=number min=0 max=500 class=form-control   id=itemId"+orderdata.itemId+"orderQty"+ id+ " name=itemId"+orderdata.itemId+"orderQty"+id+" value = "+qty +">"));
+													    		 tr.append($('<td></td>').html("<input onkeypress='return IsNumeric(event);' ondrop='return false;' style='text-align: right;'  height: 24px;'  onpaste='return false;' type=number min=0 max=500 class=form-control   id=itemId"+orderdata.itemId+"orderQty"+ id+ " name=itemId"+orderdata.itemId+"orderQty"+id+" value = "+qty +">"));
 													      });
 													    
 														
@@ -438,8 +437,8 @@ function franchasee() {
         tr = document.getElementById('table_grid').tHead.children[0];
 
         tr.insertCell(0).outerHTML = "<th>Sr.</th>"
-        tr.insertCell(1).outerHTML = "<th>ItemName</th>"
-        tr.insertCell(2).outerHTML = "<th>Disc%</th>"
+        tr.insertCell(1).outerHTML = "<th style='text-align: center;'>Item Name</th>"
+        tr.insertCell(2).outerHTML = "<th style='text-align: center;'>Disc%</th>"
         $.each($("#selectFr option:selected"), function(){            
         	frName.push($(this).text());
         	i++;
@@ -447,7 +446,7 @@ function franchasee() {
         i=i-1;
         $.each(frName, function(){  
        
-            tr.insertCell(3).outerHTML = "<th>"+frName[i] +"</th>"
+            tr.insertCell(3).outerHTML = "<th style='text-align: center;'>"+frName[i] +"</th>"
             i--;
        });
         	
