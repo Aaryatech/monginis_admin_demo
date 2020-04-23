@@ -185,9 +185,7 @@
 														</c:when>
 														<c:otherwise>
 															<td align="left"><c:out value=""></c:out></td>
-
 														</c:otherwise>
-
 													</c:choose>
 
 
