@@ -30,14 +30,14 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<div class="page-title">
+		<!-- <div class="page-title">
 			<div>
 				<h1>
 					<i class="fa fa-file-o"></i>Flavor Configuration
 				</h1>
 				<h4></h4>
 			</div>
-		</div>
+		</div> -->
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
@@ -55,10 +55,10 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Flavor Configuration
+					<i class="fa fa-bars"></i>Special Flavour Configuration
 				</h3>
 	                 <div class="box-tool">
-								<a href="${pageContext.request.contextPath}/flConfList">Flavour Conf List</a>
+								<a href="${pageContext.request.contextPath}/flConfList">Special Flavour Configuration List</a>
 								<a data-action="collapse" href="#"><i
 									class="fa fa-chevron-up"></i></a>
 							</div>
@@ -132,7 +132,7 @@
 	<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-list-alt"></i>Flavour Conf List
+					<i class="fa fa-list-alt"></i>Special Flavour Configuration List
 				</h3>
 			</div>
 			<form id="saveFlavourConf" onsubmit="submitFl.disabled = true; return confirm('Do you want to Save ?');"
@@ -142,14 +142,14 @@
 				<div class=" box-content">
 					<div class="row">
 						<div class="col-md-12 table-responsive">
-							<table class="table table-bordered table-striped fill-head "
+							<table  class="table table-advance"
 								style="width: 100%" id="table_grid">
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										<th>Flavour Name</th>
-										<th>Mrp</th>
-										<th>Rate</th>
+										<th style="text-align: center;" width="100">Sr.No.</th>
+										<th style="text-align: center;">Flavour Name</th>
+										<th style="text-align: center;">Mrp</th>
+										<th style="text-align: center;">Rate</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -160,19 +160,18 @@
 					</div>
 					<div class="row">	<div class="col-md-5"></div>
 						<div class="col-md-1">
-						<input class="btn btn-primary"  value="SAVE" onclick="callSubmit()" disabled="disabled" type="submit" id="submitFl" name="submitFl" >
+						<input class="btn btn-primary"  value="Submit" onclick="callSubmit()" disabled="disabled" type="submit" id="submitFl" name="submitFl" >
                         </div>
                      </div>
 				</div>
 			</form>
 		</div>
+		<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
+		
 	</div>
 	<!-- END Main Content -->
 
-	<footer>
-		<p>2019 © Monginis.</p>
-	</footer>
-
+	
 	<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 		class="fa fa-chevron-up"></i></a>
 
@@ -219,12 +218,12 @@
 													tr
 													.append($(
 															'<td  style="text-align:right;"></td>')
-															.html("<input type=number oninput='return calcRate(this.value,"+report.spfId+")'  ondrop='return false;' onpaste='return false;' style='text-align: center;' class='form-control' min=0 id=mrp"+report.spfId+" name=mrp"+report.spfId+" Value=0  >"));
+															.html("<input type=number oninput='return calcRate(this.value,"+report.spfId+")'  ondrop='return false;' onpaste='return false;' style='text-align: right;' class='form-control' min=0 id=mrp"+report.spfId+" name=mrp"+report.spfId+" Value=0  >"));
 						
 													tr
 															.append($(
 																	'<td  style="text-align:right;"></td>')
-																	.html("<input type=number onkeypress='return IsNumeric(event);'  ondrop='return false;' onpaste='return false;' style='text-align: center;' class='form-control' min=0 id=rate"+report.spfId+" name=rate"+report.spfId+" Value=0  >"));
+																	.html("<input type=number onkeypress='return IsNumeric(event);'  ondrop='return false;' onpaste='return false;' style='text-align: right;' class='form-control' min=0 id=rate"+report.spfId+" name=rate"+report.spfId+" Value=0  >"));
 
 												
 

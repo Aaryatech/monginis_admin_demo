@@ -107,7 +107,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i> Update Items HSN And Tax%
+								<i class="fa fa-bars"></i> Update Product HSN Code And Tax
 							</h3>
 							<div class="box-tool">
 
@@ -129,7 +129,7 @@
                           <div class="form-group">
 									<label class="col-sm-3 col-lg-2 control-label">Category</label>
 									<div class="col-sm-9 col-lg-3 controls">
-									<select name="cat_id" id="cat_id" class="form-control" placeholder="Select Category" onchange="catChange(this.value)">
+									<select name="cat_id" id="cat_id" class="form-control chosen" placeholder="Select Category" onchange="catChange(this.value)">
 											<option value="">Select Category</option>
 										 <c:forEach items="${mCategoryList}" var="mCategoryList">
 										            	  <option value="${mCategoryList.catId}"><c:out value="${mCategoryList.catName}"></c:out></option>
@@ -144,7 +144,7 @@
                               <div class="form-group">
 									<label class="col-sm-3 col-lg-2 control-label">Item</label>
 									<div class="col-sm-9 col-lg-10 controls">
-									<select name="items[]" id="items" multiple="multiple"       data-rule-required="true" class="form-control chosen" multiplaceholder="Select Item">
+									<select name="items[]" id="items" multiple="multiple" data-rule-required="true" class="form-control chosen" multiplaceholder="Select Item">
 										<%-- <c:forEach items="${itemsList}" var="item">
 												<option value="${item.id}"><c:out value="${item.itemName}"></c:out></option>
 										</c:forEach> --%>
@@ -152,7 +152,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 col-lg-2 control-label" for="hsn_code">Hsn Code</label>
+									<label class="col-sm-3 col-lg-2 control-label" for="hsn_code">HSN Code</label>
 									<div class="col-sm-9 col-lg-10 controls">
 										<input type="text" name="hsn_code" id="hsn_code"
 											placeholder="Hsn Code" class="form-control"
@@ -215,7 +215,7 @@
 											</c:otherwise>
 										</c:choose>
 
-										<button type="button" class="btn">Cancel</button>
+										<button type="button" class="btn btn-primary">Cancel</button>
 									</div>
 								</div>
 							</form>
@@ -224,9 +224,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

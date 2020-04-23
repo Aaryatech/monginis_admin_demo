@@ -110,12 +110,12 @@
 												<thead>
 													<tr class="bgpink">
 													<th width="138" style="width: 18px" align="left">#SR</th>
-														<th class="col-md-2">Franchises</th>
-															<th class="col-md-2">Category</th>
-														<th class="col-md-2">Items</th>
-														<th class="col-md-2">Discount %</th>
-													    <th class="col-md-2">Status</th> 
-														<th class="col-md-2" width="90px">Action</th>
+														<th class="col-md-2" style="text-align: center;">Franchises</th>
+														<th class="col-md-2" style="text-align: center;">Category</th>
+														<th class="col-md-3" style="text-align: center;">Items</th>
+														<th class="col-md-2" style="text-align: center;">Discount %</th>
+													    <th class="col-md-2" style="text-align: center;">Status</th> 
+														<th class="col-md-2" width="90px" style="text-align: center;">Action</th>
 													</tr>
 												</thead>
 											</table>
@@ -127,12 +127,12 @@
 												<thead>
 													<tr class="bgpink">
 														<th width="138" style="width: 18px" align="left">#SR</th>
-														<th class="col-md-2">Franchises</th>
-														<th class="col-md-2">Category</th>
-														<th class="col-md-2">Items</th>
-														<th class="col-md-2">Discount %</th>
-													    <th class="col-md-2">Status</th> 
-														<th class="col-md-2" width="90px">Action</th>
+														<th class="col-md-2" style="text-align: center;">Franchises</th>
+														<th class="col-md-2" style="text-align: center;">Category</th>
+														<th class="col-md-3" style="text-align: center;">Items</th>
+														<th class="col-md-2" style="text-align: center;">Discount %</th>
+													    <th class="col-md-2" style="text-align: center;">Status</th> 
+														<th class="col-md-2" width="90px" style="text-align: center;">Action</th>
 													</tr>
 												</thead>
 												<tbody style="padding-top: 100px">
@@ -142,22 +142,22 @@
 
 														<tr>
 															<td><c:out value="${count.index+1}"></c:out></td>
-															<td align="left"><c:out
+															<td style="text-align: left; padding-left: 2%;"><c:out
 																	value="${discList.franchId}" /></td>
-														<td align="left"><c:out
+															<td style="text-align: left; padding-left: 2%;"><c:out
 																	value="${discList.var3}" /></td>
-															<td align="left"><c:out
+															<td style="text-align: left; padding-left: 2%;"><c:out
 																	value="${discList.itemId}" /></td>
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="${discList.discPer}" /></td>
 															
-															<td align="left"><c:choose><c:when test="${discList.isActive==1}">
+															<td style="text-align: center;"><c:choose><c:when test="${discList.isActive==1}">
 															Active
 															</c:when><c:otherwise>In-Active</c:otherwise> </c:choose> </td>
 															
 
 
-																	<td align="left"><a
+																	<td style="text-align: center;"><a
 																		href="updateDiscount/${discList.discId}"
 																		><span
 																			class="glyphicon glyphicon-edit"></span></a>&nbsp; <a
@@ -204,9 +204,7 @@
 
 			<!-- END Main Content -->
 
-			<footer>
-				<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

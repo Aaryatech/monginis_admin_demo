@@ -75,7 +75,7 @@
 								<div class="form-group">
 									<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
 										<button type="submit" class="btn btn-primary" style="width: 70px">
-											 Save
+											 Submit
 										</button>
 										<!--<button type="button" class="btn">Cancel</button>-->
 									</div>
@@ -114,8 +114,8 @@
 												<tr class="bgpink">
 													<th width="15" style="width: 18px">Select</th>
 										<th width="45" style="width: 18px">#</th>
-														<th width="939" align="left">Name</th>
-														<th width="81" align="left">Action</th>
+														<th width="900" style="text-align: center;">Name</th>
+														<th width="200" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -129,8 +129,8 @@
 							             	<th width="15" style="width: 18px">Select</th>
 												
 											<th width="45" style="width: 18px">#</th>
-														<th width="939" align="left">Name</th>
-														<th width="81" align="left">Action</th>
+													<th width="900" style="text-align: center;">Name</th>
+														<th width="200" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												<tbody>
@@ -139,9 +139,9 @@
 							<td><input type="checkbox" class="chk" name="select_to_print" id="${spMessageList.spMsgId}"	value="${spMessageList.spMsgId}"/></td>
 									
 															<td><c:out value="${count.index+1}"/></td>
-															<td align="left"><c:out
+															<td style="text-align: left; padding-left: 30%"><c:out
 																	value="${spMessageList.spMsgText}" /></td>
-															<td align="left"><a
+															<td style="text-align: center;"><a
 																href="${pageContext.request.contextPath}/updateSpMessage/${spMessageList.spMsgId}"><span
 																	class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -202,9 +202,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>
