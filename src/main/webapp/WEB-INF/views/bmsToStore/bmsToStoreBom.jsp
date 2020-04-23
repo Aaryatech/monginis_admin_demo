@@ -72,6 +72,8 @@
 				 <form action="submitBmstoStore" method="post" class="form-horizontal" id=
 									"validation-form"
 										enctype="multipart/form-data" method="post">
+											<c:choose>
+							<c:when test="${flag=='0'}">
 					<div class="row">
 						<div class="col-md-12 table-responsive">
 							<table class="table table-bordered table-striped fill-head "
@@ -111,72 +113,85 @@
 													<c:when test="${rmList.rmId==rmStockList.rmId}">
 													 
 													<tr>
-													<c:choose>
-													<c:when test="${rmStockList.closingQty < rmList.rmRolQty}">
-													 <td><input type="checkbox" name="select_to_approve"
-																id="select_to_approve" checked readonly
-																value="${rmList.rmId}"  
-																 ></td>
-																 <c:set var="orderQty" value="${rmList.rmMaxQty-rmStockList.closingQty}" />
-																  
-													</c:when>
-													 
-													 
-													
-													<c:otherwise>
-													  <td><input type="checkbox" name="select_to_approve"
-																id="select_to_approve"
-																value="${rmList.rmId}"  
-																onchange="selectCheck(${rmList.rmId})" ></td>
-																  <c:set var="orderQty" value="0" />
-																   
-													
-													</c:otherwise>
-													</c:choose>  
-													
-													
-													
-													
-														<td  ><c:out value="${count.index+1}" /></td>
+																	<c:choose>
+																		<c:when
+																			test="${rmStockList.closingQty < rmList.rmRolQty}">
+																			<td><input type="checkbox"
+																				name="select_to_approve" id="select_to_approve"
+																				checked readonly value="${rmList.rmId}"></td>
+																			<c:set var="orderQty"
+																				value="${rmList.rmMaxQty-rmStockList.closingQty}" />
 
-														<td align="left"  ><c:out
-																value="${rmList.rmName}" /></td>
-																
-																<td align="right"  ><c:out
-																value="${rmList.rmRolQty}" /></td>
-																
-																 
-													  
-												 	 <td align="right"  >${rmList.rmMaxQty}  
-																<input type="hidden" name='rmMaxQty${rmList.rmId }' class='form-control' readonly id='rmMaxQty${rmList.rmId }'   value="${rmList.rmMaxQty}">
-																</td>
-												 	
-													<td align="right"  >${rmStockList.closingQty}
-																<input type="hidden" name='closingQty${rmList.rmId }' class='form-control' readonly id='closingQty${rmList.rmId }'   value=<c:out value = "${rmStockList.closingQty}"/>>
-																</td>
-																
-																 <c:choose>
-													<c:when test="${rmStockList.closingQty < rmList.rmRolQty}">
-													<td align="right"><input type=text name='orderQty${rmList.rmId}' onkeyup="validation('${rmList.rmId}')" class='form-control'   id='orderQty${rmList.rmId }'   value=<c:out value = "${orderQty}"/>>
-																</td> 
-																  
-													</c:when>
-													 
-													 
-													
-													<c:otherwise>
-													  <td align="right"><input type=text name='orderQty${rmList.rmId}' onkeyup="validation('${rmList.rmId}')" class='form-control' readonly id='orderQty${rmList.rmId }'   value=<c:out value = "${orderQty}"/>>
-																</td>
-																   
-													
-													</c:otherwise>
-													</c:choose>
-													  <%-- <td align="right"><input type=text name='orderQty${rmList.rmId}' onkeyup="validation('${rmList.rmId}')" class='form-control' readonly id='orderQty${rmList.rmId }'   value=<c:out value = "${orderQty}"/>>
-																</td> --%>  	
-														
-												 
-												
-													 	</tr>
+																		</c:when>
+
+
+
+																		<c:otherwise>
+																			<td><input type="checkbox"
+																				name="select_to_approve" id="select_to_approve"
+																				value="${rmList.rmId}"
+																				onchange="selectCheck(${rmList.rmId})"></td>
+																			<c:set var="orderQty" value="0" />
+
+
+																		</c:otherwise>
+																	</c:choose>
+
+																	<td><c:out value="${count.index+1}" /></td>
+
+																	<td align="left"><c:out value="${rmList.rmName}" /></td>
+
+																	<td align="right"><c:out
+																			value="${rmList.rmRolQty}" /></td>
+
+
+
+																	<td align="right">${rmList.rmMaxQty}<input
+																		type="hidden" name='rmMaxQty${rmList.rmId }'
+																		class='form-control' readonly
+																		id='rmMaxQty${rmList.rmId }'
+																		value="${rmList.rmMaxQty}">
+																	</td>
+
+																	<td align="right"><fmt:formatNumber type="number"
+																			maxFractionDigits="2" minFractionDigits="2"
+																			value="${rmStockList.closingQty}"
+																			groupingUsed="false" /><input type="hidden"
+																		name='closingQty${rmList.rmId }' class='form-control'
+																		readonly id='closingQty${rmList.rmId }'
+																		value=<c:out value = "${rmStockList.closingQty}"/>>
+																	</td>
+
+																	<c:choose>
+																		<c:when
+																			test="${rmStockList.closingQty < rmList.rmRolQty}">
+																			<td align="right"><input type=text
+																				name='orderQty${rmList.rmId}'
+																				onkeyup="validation('${rmList.rmId}')"
+																				class='form-control' id='orderQty${rmList.rmId }'
+																				value=<c:out value = "${orderQty}"/>></td>
+
+																		</c:when>
+
+
+
+																		<c:otherwise>
+																			<td align="right"><input type=text
+																				name='orderQty${rmList.rmId}'
+																				onkeyup="validation('${rmList.rmId}')"
+																				class='form-control' readonly
+																				id='orderQty${rmList.rmId }'
+																				value=<c:out value = "${orderQty}"/>></td>
+
+
+																		</c:otherwise>
+																	</c:choose>
+																	<%-- <td align="right"><input type=text name='orderQty${rmList.rmId}' onkeyup="validation('${rmList.rmId}')" class='form-control' readonly id='orderQty${rmList.rmId }'   value=<c:out value = "${orderQty}"/>>
+																</td> --%>
+
+
+
+																</tr>
 															 </c:when>
 															 </c:choose>
 															</c:forEach>	
@@ -194,6 +209,16 @@
 
 						</div>
 					</div>
+					</c:when>
+							<c:otherwise>
+								<div class="alert">
+									<span class="closebtn"
+										onclick="this.parentElement.style.display='none';">&times;</span>
+									<strong>Please Day End First!!</strong>
+								</div>
+							</c:otherwise>
+
+						</c:choose>
 					</form>
 		</div>
 		

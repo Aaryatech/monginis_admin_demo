@@ -237,7 +237,7 @@
 												class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-5">
 
 												<a href="${pageContext.request.contextPath}/rejectiontoStore?reqId=${billOfMaterialHeader.reqId}&settingvalue=${settingvalue}"> 
-													<input type="button" class="btn btn-primary" value="For Rejection And return"></a> 
+													<!--  Sumit Sir 12-03-2020 <input type="button" class="btn btn-primary" value="For Rejection And return">  --></a>
 
 											</div>
 										</div>

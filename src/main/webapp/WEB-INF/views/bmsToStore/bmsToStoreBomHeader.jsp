@@ -151,7 +151,7 @@
 									<label class="col-sm-3 col-lg-2 control-label">From Date:</label>
 									<div class="col-sm-5 col-lg-3 controls">
 										<input class="form-control date-picker" id="from_date" size="16"
-											 type="text" name="from_date" required value="${date}"/>
+											 type="text" name="from_date" required />
 										<input class="form-control " id="settingvalue" size="16"
 											 type="hidden" name="settingvalue" value="${settingvalue}" readonly/>
 											 <input class="form-control " id="deptId" size="16"
@@ -162,7 +162,7 @@
 										<label class="col-sm-3 col-lg-2 control-label">To Date:</label>
 									<div class="col-sm-5 col-lg-3 controls">
 										<input class="form-control date-picker" id="to_date" size="16"
-											 type="text" name="to_date" required  value="${date}"/>
+											 type="text" name="to_date" required  />
 									
 										</div>
 										
