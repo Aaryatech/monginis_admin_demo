@@ -42,7 +42,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-table"></i> Messages List
+								<i class="fa fa-table"></i> Home Page Message List
 							</h3>
 							<div class="box-tool">
 								<a data-action="collapse" href="#"><i
@@ -67,13 +67,13 @@
 									<table id="table2"  class="table table-advance">
 											<thead>
 												<tr class="bgpink">
-						          <th width="17" style="width: 18px">SELECT</th>
-									<th width="17" style="width: 18px">#</th>
-											<th width="221" align="left">Date</th>
-											<th width="301" align="left">Image</th>
-											<th width="185" align="left">Header</th>
-											<th width="291" align="left">Message</th>
-											<th width="190" align="center">Action</th>
+						          			<th width="17" style="width: 18px">SELECT</th>
+											<th width="17" style="width: 18px">#</th>
+											<th width="221" style="text-align: center;">Date</th>
+											<th width="301" style="text-align: center;">Image</th>
+											<th width="185" style="text-align: center;">Header</th>
+											<th width="291" style="text-align: center;">Message</th>
+											<th width="190" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -85,33 +85,30 @@
 											<thead>
 												<tr class="bgpink">
 						                    <th width="17" style="width: 18px">SELECT</th>
-						                	<th width="17" style="width: 18px">#</th>
-											<th width="221" align="left">Date</th>
-											<th width="301" align="left">Image</th>
-											<th width="185" align="left">Header</th>
-											<th width="291" align="left">Message</th>
-											<th width="190" align="center">Action</th>
+											<th width="17" style="width: 18px">#</th>
+											<th width="221" style="text-align: center;">Date</th>
+											<th width="301" style="text-align: center;">Image</th>
+											<th width="185" style="text-align: center;">Header</th>
+											<th width="291" style="text-align: center;">Message</th>
+											<th width="190" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												<tbody>
-	 <c:forEach items="${message}" var="message" varStatus="count">
+						 <c:forEach items="${message}" var="message" varStatus="count">
 										<tr>
 			
 						<td><input type="checkbox" class="chk" name="select_to_print" id="${message.msgId}"	value="${message.msgId}"/></td>
 										
 											<td><c:out value="${count.index+1}"/></td>
-											<td align="left"><c:out value="${message.msgFrdt} ${message.msgTodt}" /></td>
+											<td style="text-align: center;"><c:out value="${message.msgFrdt} ${message.msgTodt}" /></td>
 											<%-- <td align="left"><c:out value="${message.msgImage}" /></td> --%>
-											<td align="left"><img src="${url}${message.msgImage}" width="120" height="100"  onerror="this.src='resources/img/No_Image_Available.jpg';" /></td>
-											
-											
-											<td align="left"><c:out value="${message.msgHeader}"/></td>
-											<td align="left"><c:out value="${message.msgDetails}" /></td>
-											<td align="center"><a
+											<td style="text-align: center;"><img src="${url}${message.msgImage}" width="120" height="100"  onerror="this.src='resources/img/No_Image_Available.jpg';" /></td>
+											<td style="text-align: left"><c:out value="${message.msgHeader}"/></td>
+											<td style="text-align: left"><c:out value="${message.msgDetails}" /></td>
+											<td style="text-align: center;"><a
 												href="updateMessage/${message.msgId}"><span
 													class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
-
-												<a
+											<a
 												href="deleteMessage/${message.msgId}"
 												onClick="return confirm('Are you sure want to delete this record');"><span
 													class="glyphicon glyphicon-remove"></span></a></td>
@@ -179,14 +176,12 @@
 						</div> --%>
 					</div>
 				</div>
+				<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 			</div>
 
 
 
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

@@ -76,7 +76,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i> Add Message
+								<i class="fa fa-bars"></i> Add Home Page Message
 							</h3>
 							<div class="box-tool">
 								<a href="${pageContext.request.contextPath}/showMessages">Back to List</a> <a data-action="collapse" href="#"><i
@@ -110,7 +110,7 @@
 										Date</label>
 									<div class="col-sm-5 col-lg-3 controls">
 										<input class="form-control date-picker" id="dp1" size="16"
-											type="text" name="msg_frdt"  data-rule-required="true"  />
+											type="text" name="msg_frdt" placeholder="From Date" data-rule-required="true"  />
 									</div>
 								</div>
 								
@@ -120,7 +120,7 @@
 									<label class="col-sm-3 col-lg-2 control-label">To Date</label>
 									<div class="col-sm-5 col-lg-3 controls">
 										<input class="form-control date-picker" id="dp2" size="16"
-											type="text" name="msg_todt"  data-rule-required="true"  />
+											type="text" name="msg_todt" placeholder="To Date" data-rule-required="true"  />
 									</div>
 								</div>
 
@@ -157,7 +157,7 @@
 										Header</label>
 									<div class="col-sm-9 col-lg-10 controls">
 										<input type="text" name="msg_header" id="transliterateTextarea"
-											placeholder="Msg Header" class="form-control" data-rule-required="true"  />
+											placeholder="Message Header" class="form-control" data-rule-required="true"  />
 									</div>
 								</div>
 
@@ -168,7 +168,7 @@
 										Details</label>
 									<div class="col-sm-9 col-lg-10 controls">
 										<textarea class="form-control" rows="3" name="msg_details"
-											id="transliterateTextarea1" data-rule-required="true" ></textarea>
+											id="transliterateTextarea1" data-rule-required="true"></textarea>
 									</div>
 								</div>
 
@@ -188,7 +188,7 @@
 								<div class="form-group">
 									<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
 										<button type="submit" class="btn btn-primary">
-											<i class="fa fa-check"></i> Save
+											<i class="fa fa-check"></i> Submit
 										</button>
 										<!--<button type="button" class="btn">Cancel</button>-->
 									</div>
@@ -229,9 +229,7 @@
 
 
 
-	<footer>
-	<p>2018 © MONGINIS.</p>
-	</footer>
+	<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 	<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 		class="fa fa-chevron-up"></i></a>

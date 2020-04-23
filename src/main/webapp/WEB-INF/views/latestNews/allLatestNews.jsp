@@ -57,9 +57,6 @@
 							<div class="clearfix"></div>
 							
 							
-							
-							
-							
 								<div id="table-scroll" class="table-scroll">
 							 
 									<div id="faux-table" class="faux-table" aria="hidden">
@@ -68,11 +65,11 @@
 												<tr class="bgpink">
 					                    <th width="17" style="width: 18px">SELECT</th>
 										    <th width="17" style="width: 18px">#</th>
-											<th width="163" align="left">Date</th>
-											<th width="358" align="left">Message</th>
-											<th width="194" align="left">Occasion Name</th>
-											<th width="102" align="left">Status</th>
-											<th width="88" align="left">Action</th>
+											<th width="163" style="text-align: center;">Date</th>
+											<th width="358" style="text-align: center;">Message</th>
+											<th width="194" style="text-align: center;">Occasion Name</th>
+											<th width="102" style="text-align: center;">Status</th>
+											<th width="88" style="text-align: center;">Action</th>
 												</tr>
 												</thead>
 												</table>
@@ -83,13 +80,13 @@
 										<table id="table1" class="table table-advance">
 											<thead>
 										<tr class="bgpink">
-								            <th width="17" style="width: 18px">SELECT</th>
-											<th width="17" style="width: 18px">#</th>
-											<th width="163" align="left">Date</th>
-											<th width="358" align="left">Message</th>
-											<th width="194" align="left">Occasion Name</th>
-											<th width="102" align="left">Status</th>
-											<th width="88" align="left">Action</th>
+								             <th width="17" style="width: 18px">SELECT</th>
+										    <th width="17" style="width: 18px">#</th>
+											<th width="163" style="text-align: center;">Date</th>
+											<th width="358" style="text-align: center;">Message</th>
+											<th width="194" style="text-align: center;">Occasion Name</th>
+											<th width="102" style="text-align: center;">Status</th>
+											<th width="88" style="text-align: center;">Action</th>
 										</tr>
 												</thead>
 												<tbody>
@@ -106,20 +103,20 @@
 											<c:out
 														value="${c}" /> 
 												</td>
-												<td align="left"><c:out
+												<td style="text-align: center;"><c:out
 														value="${schedulerList.schDate} - ${schedulerList.schTodate}" /></td>
-												<td align="left"><c:out
+												<td style="text-align: left;"><c:out
 														value="${schedulerList.schMessage}" /></td>
-												<td align="left"><c:out
+												<td style="text-align: left;"><c:out
 														value="${schedulerList.schOccasionname}" /></td>
 														
 														<c:choose>
 																			<c:when test="${schedulerList.isActive==1}">
-																			<td align="left"><c:out value="Active"></c:out></td>
+																			<td style="text-align: center;"><c:out value="Active"></c:out></td>
 																				
 																			</c:when>
 																			<c:otherwise>
-																			<td align="left"><c:out value="In Active"></c:out></td>
+																			<td style="text-align: center;"><c:out value="In Active"></c:out></td>
 																				
 																			</c:otherwise>
 																			
@@ -129,7 +126,7 @@
 														
 												<%-- <td align="left"><c:out
 														value="${schedulerList.isActive}" /></td> --%>
-												<td align="left"><a
+												<td style="text-align: center;"><a
 													href="updateNews/${schedulerList.schId}"><span
 														class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -223,9 +220,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

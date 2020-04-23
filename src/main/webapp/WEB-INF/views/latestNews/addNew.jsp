@@ -73,7 +73,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i> Add Latest News
+								<i class="fa fa-bars"></i> Add News
 							</h3>
 							<div class="box-tool">
 								<a href="${pageContext.request.contextPath}/showAllLatestNews">Back to List</a> <a data-action="collapse" href="#"><i
@@ -143,7 +143,7 @@
 								<div class="form-group">
 									<label class="col-sm-3 col-lg-2 control-label">Status</label>
 									<div class="col-sm-9 col-lg-10 controls">
-										<select class="form-control input-sm" name="is_active"
+										<select class="form-control chosen" name="is_active"
 											id="is_active">
 											<option selected  value="1">Active</option>
 											<option value="0">In-Active</option>
@@ -156,7 +156,7 @@
 								<div class="form-group">
 									<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
 										<button type="submit" class="btn btn-primary">
-											<i class="fa fa-check"></i> Save
+											<i class="fa fa-check"></i> Submit
 										</button>
 										</div>
 										</div>
