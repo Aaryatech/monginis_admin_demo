@@ -84,12 +84,12 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-bars"></i> Add Finished Good Stock
+								<i class="fa fa-bars"></i> Plan Production
 							</h3>
-							<div class="box-tool">
+							<!-- <div class="box-tool">
 								<a href="">Back to List</a> <a data-action="collapse" href="#"><i
 									class="fa fa-chevron-up"></i></a>
-							</div>
+							</div> -->
 							<!-- <div class="box-tool">
 								<a data-action="collapse" href="#"><i
 									class="fa fa-chevron-up"></i></a> <a data-action="close" href="#"><i
@@ -126,7 +126,7 @@
 								<div class="form-group">
 									<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2"> -->
 									
-                         <input type="button" class="btn btn-info" name="submit" value="submit" onclick="searchItemsByCategory()"/>
+                         <input type="button" class="btn btn-primary" name="submit" value="submit" onclick="searchItemsByCategory()"/>
 									</div>
 								</div>
 					<input type="hidden" id="selectedCatId" name="selectedCatId"/>			
@@ -162,14 +162,14 @@
 									</div> -->
 									<div class="table-wrap">
 									
-										<table id="table1" class="table table-advance" border="1" style="overflow: hidden;">
+										<table id="table1" class="table table-advance" style="overflow: hidden;">
 										<!-- //removed text -->
 									<!-- 	<div class="table-responsiv1e" style="border: 0">
 											<table width="100%" class="table table-advance" id="table1"> -->
 												<thead style="background-color: #f3b5db;">
 													<tr>
-														<th width="20" align="left">No</th>
-														<th width="180" align="left">Item Name</th>
+														<th width="20" style="text-align: center;">No.</th>
+														<th width="180" style="text-align: center;">Item Name</th>
 															<th width="100" align="left" >
 															<div>
 									                     	<input class="form-control date-picker" id="datepicker5" size="16" required type="text" name="datepicker5" value="" placeholder="Date5"  onblur=" return getProdQty(5,5)"/>
@@ -189,20 +189,20 @@
                                                        <th width="5" align="left"><i class="glyphicon glyphicon-circle-arrow-right  fa-2x" onclick=" return getProdQty(1,5)"></i>
 														 </th> --%>
 														 
-                                                      	<th width="100" align="left">
+                                                      	<th width="100" style="text-align: center;">
 															<div>
 									                     	<input class="form-control date-picker" id="datepicker2" size="16" type="text" name="datepicker2" value="" placeholder="Order Date"  onblur=" return getProdQty(2,2)" />
 								                     	     </div>
 														 </th>
-														<th width="5" align="left">  <i class="	glyphicon glyphicon-circle-arrow-left  fa-2x"onclick=" return getProdQty(2,5)"></i>
+														<th width="5" style="text-align: center;">  <i class="	glyphicon glyphicon-circle-arrow-left  fa-2x"onclick=" return getProdQty(2,5)"></i>
 														 </th>
 														 
-														<th width="100" align="left">
+														<th width="100" style="text-align: center;">
 															<div>
 									                     	<input class="form-control date-picker" id="datepicker3" size="16" type="text" name="datepicker3" value="" placeholder="Date3"  onblur=" return getProdQty(3,3)"/>
 								                        	</div>
 														</th>
-													 <th width="5" align="left"> <i class="	glyphicon glyphicon-circle-arrow-left  fa-2x" onclick=" return getProdQty(3,5)"></i>
+													 <th width="5" style="text-align: center;"> <i class="	glyphicon glyphicon-circle-arrow-left  fa-2x" onclick=" return getProdQty(3,5)"></i>
 														 </th>
 														 
 														<!-- <th width="100" align="left">
@@ -257,13 +257,12 @@
 						</form>		</div>
 					</div>
 				</div>
+				<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 			</div>
 
 
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>
@@ -413,15 +412,15 @@
 													/* var qty1 = "<td align=center colspan='2'><input type=text  class=form-control  id= qty1"+ item.id+ " name=qty1"+item.id+" value = "+item.qty+ " disabled></td>"; 
 													 */
 											
-													var qty2 = "<td align=center colspan='2' padding=0><input type=text  class=form-control  id= qty2"+ item.id+ " name=qty2"+item.id+" value = "+0+ " style='font-size:10pt; height: 20px; ' disabled></td>";
+													var qty2 = "<td align=center colspan='2' padding=0><input type=text  class=form-control  id= qty2"+ item.id+ " name=qty2"+item.id+" value = "+0+ " style='font-size:10pt; height: 20px; text-align: right; ' disabled></td>";
 
-													var qty3 = "<td align=center colspan='2' padding=0><input type=text  class=form-control  id= qty3"+ item.id+ " name=qty3"+item.id+" value = "+0+ " style='font-size:10pt; height: 20px; ' disabled></td>";
+													var qty3 = "<td align=center colspan='2' padding=0><input type=text  class=form-control  id= qty3"+ item.id+ " name=qty3"+item.id+" value = "+0+ " style='font-size:10pt; height: 20px; text-align: right; ' disabled></td>";
 
  													/*  var qty4 = "<td align=center colspan='2'><input type=text  class=form-control  id= qty4"+ item.id+ " name=qty4"+item.id+" value = "+0+ " disabled></td>";
  */
 /* 													var qty5 = "<td align=center><input type=text min=0 max=500 class=form-control  id= qty5"+ item.id+ " name=qty5"+item.id+" value = "+0+ " disabled></td>";
  */
-													var qty5 = "<td align=center colspan='1' padding=0><input type=number  class=form-control  id= qty5"+ item.id+ " name=qty5"+item.id+" value = "+0+ " style='font-size:10pt; height: 20px; ' required></td>";
+													var qty5 = "<td align=center colspan='1' padding=0><input type=number  class=form-control  id= qty5"+ item.id+ " name=qty5"+item.id+" value = "+0+ " style='font-size:10pt; height: 20px; text-align: right;' required></td>";
 
 													var trclosed = "</tr>";
 

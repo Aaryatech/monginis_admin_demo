@@ -62,13 +62,13 @@
 									<table id="table2" class="table table-advance" border="1">
 											<thead>
 												<tr class="bgpink">
-												<th class="col-md-1">Sr.No.</th>
+												<th class="col-md-1" style="text-align: center;">Sr.No.</th>
 										
-										<th class="col-md-2">Production Date</th>
-										<th class="col-md-6">Cat Name</th>
+										<th class="col-md-2" style="text-align: center;">Production Date</th>
+										<th class="col-md-6" style="text-align: center;">Cat Name</th>
 									<!-- 	<th class="col-md-2">Time Slot</th> -->
 										
-										<th class="col-md-2">Action</th>
+										<th class="col-md-2" style="text-align: center;">Action</th>
 										
 												</tr>
 												</thead>
@@ -80,13 +80,13 @@
 										<table id="table_grid1" class="table table-advance" border="1">
 											<thead>
 												<tr class="bgpink">
-												<th class="col-md-1">Sr.No.</th>
+												<th class="col-md-1" style="text-align: center;">Sr.No.</th>
 										
-										<th class="col-md-2">Plan Date</th>
-										<th class="col-md-6">Cat Name</th>
+										<th class="col-md-2" style="text-align: center;">Plan Date</th>
+										<th class="col-md-6" style="text-align: center;">Cat Name</th>
 									<!-- 	<th class="col-md-2">Time Slot</th> -->
 										
-										<th class="col-md-2">Action</th>
+										<th class="col-md-2" style="text-align: center;">Action</th>
 										
 												</tr>
 												</thead>
@@ -116,7 +116,7 @@
 
 														
 																
-																<td align="left"><c:out
+																<td style="text-align: center;"><c:out
 																value="${postProdPlanHeaderList.productionDate}" />
 																</td>
 																
@@ -124,7 +124,7 @@
 													varStatus="count">
 																<c:choose>
 													<c:when test="${postProdPlanHeaderList.itemGrp1==categoryList.catId}">
-													<td align="left"><c:out
+													<td style="text-align: left; padding-left: 15%;"><c:out
 																value="${categoryList.catName}" /></td>
 													</c:when>
 													 </c:choose>
@@ -268,9 +268,7 @@
 				</div>
 			</div></div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

@@ -260,13 +260,10 @@
 					</div> 
 				</div> 
 			</div>
-			
+				<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 		</div>
 		<!-- END Main Content -->
-		<footer>
-		<p>2017 © MONGINIS.</p>
-		</footer>
-
+		
 		<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 			class="fa fa-chevron-up"></i></a>
 

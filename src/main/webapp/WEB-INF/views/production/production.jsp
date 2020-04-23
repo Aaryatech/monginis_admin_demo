@@ -149,7 +149,7 @@
 								<div class="row" align="center">
 									<div
 										class="col-md-12"> -->
-										<input type="button" class="btn btn-info" value="Search" id="callsearch"
+										<input type="button" class="btn btn-primary" value="Search" id="callsearch"
 											onclick="searchOrder()">
 
 									<!-- </div> -->
@@ -202,14 +202,14 @@
 									</div> -->
 									<div class="table-wrap">
 									
-										<table id="table1" class="table table-advance" border="1">
+										<table id="table1" class="table table-advance">
 											<thead>
 												<tr class="bgpink">
-											<th width="60" style="width: 50px">Sr No</th>
-														<th width="100">Item Id</th>
-														<th width="170">Item Name</th> 
+											<th width="10" style="text-align: center;">Sr. No.</th>
+														<th width="100" style="text-align: center;">Item Id</th>
+														<th width="170" style="text-align: center;">Item Name</th> 
 													<!-- 	<th width="100">Current Opening Qty</th> -->
-														<th width="100">Order Quantity</th>
+														<th width="100" style="text-align: center;">Order Quantity</th>
 												</tr>
 												</thead>
 								
@@ -266,7 +266,7 @@
 										class="col-md-12">
 								<input type="submit" class="btn btn-primary"
 								  value="Submit" disabled id="callSubmit">
-								   <input type="button" id="expExcel" class="btn btn-primary" value="EXPORT TO Excel" onclick="exportToExcel();" disabled="disabled">
+								   <input type="button" id="expExcel" class="btn btn-primary" value="Export To Excel" onclick="exportToExcel();" disabled="disabled">
 						 </div>
 </div>
 
@@ -294,6 +294,7 @@
 
 									</div>--%>
 								</div> 
+								</div>
 						</form>		
 						</div>
 						 
@@ -301,9 +302,7 @@
 				 
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2019 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
@@ -314,12 +313,6 @@
 	<!-- END Container -->
 
 	<!--basic scripts-->
-
-
-
-
-
-
 
 
 	<script
@@ -503,12 +496,12 @@ $(document).ready(function() {
 													 document.getElementById("expExcel").disabled=false;		
 												var tr = $('<tr></tr>');
 
-							  	tr.append($('<td></td>').html(key+1));			  	
-							  	tr.append($('<td></td>').html(order.itemId));
-								tr.append($('<td></td>').html(order.itemName)); 
+							  	tr.append($('<td style="text-align: left;"></td>').html(key+1));			  	
+							  	tr.append($('<td style="text-align: left; padding-left: 10%;"></td>').html(order.itemId));
+								tr.append($('<td style="text-align: left; padding-left: 10%;"></td>').html(order.itemName)); 
 							/* 	tr.append($('<td style="text-align:right;"></td>').html(order.curOpeQty)); */
 								
-								tr.append($('<td style="text-align:right;"></td>').html(order.qty));
+								tr.append($('<td style="text-align:right; padding-right: 5%;"></td>').html(order.qty));
 								 
 								 
 								 
@@ -581,10 +574,10 @@ $(document).ready(function() {
 									
 									
 									var tr = $('<tr></tr>');
-									tr.append($('<td></td>').html(autoindex));
-									tr.append($('<td></td>').html(order.itemId));
-									tr.append($('<td></td>').html(order.itemName));
-									tr.append($('<td></td>').html(order.qty));
+									tr.append($('<td style="text-align: left;"></td>').html(autoindex));
+									tr.append($('<td style="text-align: left; padding-left: 10%;"></td>').html(order.itemId));
+									tr.append($('<td style="text-align: left; padding-left: 10%;"></td>').html(order.itemName));
+									tr.append($('<td style="text-align: right; padding-right: 5%;"></td>').html(order.qty));
 									
 									$('#table1 tbody').append(tr);
 									if (key == data.length- 1) {
