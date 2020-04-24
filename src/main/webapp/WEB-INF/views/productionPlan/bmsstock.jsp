@@ -59,20 +59,30 @@
 
 							<form id="completproduction" action="${pageContext.request.contextPath}/insertBmsStock" method="post">
 							<div class="box-content">
-							
+							<input type="hidden" id="deptId" name="deptId" value="${deptId}">
 							<div class="col-md-2">Item Type</div>
 							<div class="col-md-3">
 								<select data-placeholder="Select Item type" class="form-control" name="item_type" 
 										tabindex="-1" id="item_type"  >
 											<option selected value="-1">Select Item type</option>
-											<option  value="1">Raw Material</option>
-											<option  value="2">Semi Finished</option>
+										<c:choose>
+												<c:when test="${deptId==10}">
+													<option value="2">Semi Finished</option>
+												</c:when>
+												<c:when test="${deptId==11}">
+													<option value="1">Raw Material</option>
+													<option value="2">Semi Finished</option>
+												</c:when>
+											</c:choose>
 											
 											
 											</select>
 								
 							
 							</div>
+							<div class="col-md-4"> </div>
+									<div class="col-md-2"> <b>Date  : <fmt:formatDate pattern = "dd-MM-yyyy"   value = "${date}" /> </b></div>
+							
 							
 							</div><br><br><br>
 							
@@ -225,9 +235,11 @@
 				function() {
 					
 				 var itemType = $("#item_type").val();
+				 var deptId = $("#deptId").val();
 				 $('#loader').show();
 					$.getJSON('${getSfndRawItem}', {
 						itemType : itemType,
+						deptId : deptId,
 						ajax : 'true',
 					},
 							function(data) {
