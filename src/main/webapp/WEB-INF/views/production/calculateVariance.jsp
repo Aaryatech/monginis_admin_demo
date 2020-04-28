@@ -53,7 +53,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-table"></i>Variance Detailed
+								<i class="fa fa-bars"></i>Variance Detailed
 							</h3>
 
 
@@ -159,46 +159,33 @@
 									<div class="clearfix"></div> 
 									<div id="table-scroll" class="table-scroll"> 
 									<div id="faux-table" class="faux-table" aria="hidden">
-									<table id="table_grid" class="table table-advance" border="1">
+									<table id="table_grid" class="table table-advance">
 								 
 												<thead>
 													<tr class="bgpink">
-														<th>Sr.No.</th>
-														<th class="col-md-3">Item Name</th> 
-														<!-- <th >Opening Qty</th>  -->
-														<th>Current Stock</th> 
-														<th>plan Qty</th>
-														<!-- <th>production Qty</th> -->
-														 <th>Total</th>
-														<th>Order Qty</th>
-													<!-- 	<th>Rejected Qty</th> -->
-														<th>P2 Production</th>
-														
-
-
+														<th style="text-align:center;">Sr.No.</th>
+														<th style="text-align:center;" class="col-md-3">Item Name</th> 														
+														<th style="text-align:center;">Current Stock</th> 
+														<th style="text-align:center;">plan Qty.</th>
+														<th style="text-align:center;">Total</th>
+														<th style="text-align:center;">Order Qty.</th>
+														<th style="text-align:center;">P2 Production</th>
 													</tr>
 												</thead>
 												</table>
 									</div>
 									<div class="table-wrap">
-									<table id="table1" class="table table-advance" border="1">
+									<table id="table1" class="table table-advance">
 										 
 												<thead>
 													<tr class="bgpink">
-														<th>Sr.No.</th>
-														<th class="col-md-3">Item Name</th> 
-														<!-- <th >Opening Qty</th>  -->
-														<th>Current Stock</th> 
-														<th>plan Qty</th>
-														<!-- <th>production Qty</th> -->
-														 <th>Total</th>
-														<th>Order Qty</th>
-													<!-- 	<th>Rejected Qty</th> -->
-														<th>P2 Production</th>
-														
-														
-
-
+														<th style="text-align:center;">Sr.No.</th>
+														<th style="text-align:center;" class="col-md-3">Item Name</th> 														
+														<th style="text-align:center;">Current Stock</th> 
+														<th style="text-align:center;">plan Qty.</th>
+														<th style="text-align:center;">Total</th>
+														<th style="text-align:center;">Order Qty.</th>
+														<th style="text-align:center;">P2 Production</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -218,15 +205,15 @@
 																	 
 																</c:choose>
 															</c:forEach>
-															<td  style="text-align:right;"><c:out value="${postProdPlanHeaderDetailed.curClosingQty}" /></td> 
+															<td  style="text-align:right; padding-right: 5%;"><c:out value="${postProdPlanHeaderDetailed.curClosingQty}" /></td> 
 															
 															<%--  <td><c:out value="${postProdPlanHeaderDetailed.curClosingQty}" /></td> --%>
-															 <td  style="text-align:right;"><c:out value="${postProdPlanHeaderDetailed.productionQty}" /></td>
+															 <td  style="text-align:right; padding-right: 5%;"><c:out value="${postProdPlanHeaderDetailed.productionQty}" /></td>
 															  <td  style="text-align:right;"><c:out value="${postProdPlanHeaderDetailed.curClosingQty+postProdPlanHeaderDetailed.productionQty}" /></td>
 <%-- 															<td><c:out value="${postProdPlanHeaderDetailed.productionQty}" /></td>
- --%>															<td  style="text-align:right;"><c:out value="${postProdPlanHeaderDetailed.orderQty}" /></td>
+ --%>															<td  style="text-align:right; padding-right: 5%;"><c:out value="${postProdPlanHeaderDetailed.orderQty}" /></td>
 <%-- 															<td><c:out value="${postProdPlanHeaderDetailed.rejectedQty}" /></td>
- --%>															<td  style="text-align:right;"><c:out value="${postProdPlanHeaderDetailed.int4}" /></td>
+ --%>															<td  style="text-align:right; padding-right: 5%;"><c:out value="${postProdPlanHeaderDetailed.int4}" /></td>
 														</tr>
 													</c:forEach>
 													
@@ -242,13 +229,13 @@
 															<td><c:out value="${srNo+1}" /></td>
 															<c:set var="srNo" value="${srNo+1}" />
 															<td ><c:out value="${getVarianceorderlistforsort.itemName}" /></td>
-															<td style="text-align:right;"><c:out value="${getVarianceorderlistforsort.curClosingQty}" /></td> 
+															<td style="text-align:right; padding-right: 5%;"><c:out value="${getVarianceorderlistforsort.curClosingQty}" /></td> 
 <%-- 															<td><c:out value="${getVarianceorderlistforsort.curClosingQty}" /></td>
- --%>															<td  style="text-align:right;"><c:out value="${0}" /></td>
+ --%>															<td  style="text-align:right; padding-right: 5%;"><c:out value="${0}" /></td>
 															<td  style="text-align:right;"><c:out value="${getVarianceorderlistforsort.curClosingQty}" /></td>
-															<td  style="text-align:right;"><c:out value="${getVarianceorderlistforsort.orderQty}" /></td>
+															<td  style="text-align:right;padding-right: 5%;"><c:out value="${getVarianceorderlistforsort.orderQty}" /></td>
 															<%-- <td><c:out value="${0}" /></td> --%>
-															<td  style="text-align:right;">0<c:out value="${getVarianceorderlistforsort.remainingQty}" /></td>
+															<td  style="text-align:right; padding-right: 5%;">0<c:out value="${getVarianceorderlistforsort.remainingQty}" /></td>
 															
 															
 															
@@ -279,7 +266,7 @@
 													<input type="button" class="btn btn-primary" value="P 2 Production"></a>
 													<a href="${pageContext.request.contextPath}/showVariencePdf"
 													target="_blank"><input type="button" class="btn btn-primary" value="PDF"></a> 
-													 <input type="button" id="expExcel" class="btn btn-primary" value="EXPORT TO Excel" onclick="exportToExcel();" >
+													 <input type="button" id="expExcel" class="btn btn-primary" value="Export To Excel" onclick="exportToExcel();" >
 									</div>
 									</div>
 													
@@ -296,9 +283,7 @@
 			
 		
 		<!-- END Main Content -->
-		<footer>
-		<p>2018 © MONGINIS.</p>
-		</footer>
+		<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 		<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 			class="fa fa-chevron-up"></i></a>

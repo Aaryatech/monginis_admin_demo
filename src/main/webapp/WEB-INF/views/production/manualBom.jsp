@@ -54,14 +54,14 @@ table{
 		<!-- BEGIN Content -->
 		<div id="main-content">
 			<!-- BEGIN Page Title -->
-			<div class="page-title">
+			<!-- <div class="page-title">
 				<div>
 					<h1>
 						<i class="fa fa-file-o"></i>Manual BOM Request
 					</h1>
 
 				</div>
-			</div>
+			</div> -->
 			<!-- END Page Title -->
 
 
@@ -106,7 +106,7 @@ table{
 									<label class="col-sm-3 col-lg-1 control-label"> From
 										Dept</label>
 									<div class="col-sm-6 col-lg-2 controls">
-										<select name="from_dept" id="from_dept" class="form-control"
+										<select name="from_dept" id="from_dept" class="form-control chosen"
 											placeholder="Material Type" data-rule-required="true">
 											<option value="0">Select From Dept</option>
 
@@ -128,7 +128,7 @@ table{
 
 									<label class="col-sm-3 col-lg-1 control-label"> To Dept</label>
 									<div class="col-sm-6 col-lg-2 controls">
-										<select name="to_dept" id="to_dept" class="form-control"
+										<select name="to_dept" id="to_dept" class="form-control chosen"
 											placeholder="Material Type" data-rule-required="true">
 											<option value="0">Select To Dept</option>
 											<c:forEach items="${deptList}" var="dept">
@@ -207,7 +207,7 @@ table{
  -->
 								<div class="clearfix"></div>
 								<div class="table-responsive" style="border: 0">
-									<table width="100%" class="table table-advance" id="table1" border="1">
+									<table width="100%" class="table table-advance" id="table1">
 										<thead style="background-color: #f3b5db;">
 											<tr>
 
@@ -273,7 +273,7 @@ table{
 									</table>
 								</div>
                                  <center>
-								<input type="button" class="btn btn-info" value="Submit List"
+								<input type="button" class="btn btn-primary" value="Submit List"
 									onclick="insertItemDetail()"> <input type="hidden" name="prodHeaderId"
 									id="prodHeaderId" value="${prodHeaderId}"> <input
 									type="hidden" id="prodDate"  name="prodDate" value="${prodDate}"></center>
@@ -287,12 +287,11 @@ table{
 				</div>
 
 			</div>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
+			
 		</div>
 		<!-- END Main Content -->
-		<footer>
-		<p>2017 © MONGINIS.</p>
-		</footer>
-
+		
 		<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 			class="fa fa-chevron-up"></i></a>
 	</div>
@@ -401,7 +400,7 @@ table{
 
 		  	tr.append($('<td style="text-align:center;"></td>').html(""+rmTypeName));
 
-		  	tr.append($('<td style="text-align:center;"></td>').html("<input type=number  style='text-align: center;    height: 24px;' class='form-control' min=0 name=qty"+key+"   id=qty"+key+" Value=0 required>"));
+		  	tr.append($('<td style="text-align:center;"></td>').html("<input type=number  style='text-align: right;    height: 24px;' class='form-control' min=0 name=qty"+key+"   id=qty"+key+" Value=0 required>"));
 
 		  	tr.append($('<td style="text-align:center;"></td>').html(bomDetail.uom));
 		  

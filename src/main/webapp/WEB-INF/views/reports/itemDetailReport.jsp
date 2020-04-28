@@ -29,11 +29,11 @@
 		<div id="main-content">
 			<!-- BEGIN Page Title -->
 			<div class="page-title">
-				<div>
+				<!-- <div>
 					<h1>
 						<i class="fa fa-file-o"></i>Product Order Detail report
 					</h1>
-				</div>
+				</div> -->
 			</div>
 			<!-- END Page Title -->
 			<c:set var="isAdd" value="0">
@@ -62,7 +62,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-table"></i>Product Order Detail Report
+								<i class="fa fa-bars"></i>Product Order Detail Report
 							</h3>
 							<div class="box-tool"></div>
 						</div>
@@ -71,7 +71,7 @@
 							<div class="col-md-9"></div>
 							<label for="search" class="col-md-3" id="search"> <i
 								class="fa fa-search" style="font-size: 20px"></i> <input
-								type="text" id="myInput" onkeyup="myFunction()"
+								type="text" id="myInput" onkeyup="myFunction()" style="border-radius: 25px;"
 								placeholder="Search for supplier names.." title="Type in a name">
 							</label>
 							<div class="clearfix"></div>
@@ -80,13 +80,13 @@
 								<table width="100%" class="table table-advance" id="table1">
 									<thead style="background-color: #f3b5db;">
 										<tr>
-											<th width="170" style="width: 18px">Sr.No.</th>
-											<th width="190" align="left">Bill Date</th>
-											<th width="190" align="left">Bill No.</th>
-											<th width="190" align="left">Item Name</th>
+											<th width="170" style="text-align: center;">Sr.No.</th>
+											<th width="190" style="text-align: center;">Bill Date</th>
+											<th width="190" style="text-align: center;">Bill No.</th>
+											<th width="190" style="text-align: center;">Item Name</th>
 
-											<th width="200" align="left">Order Qty</th>
-											<th width="200" align="left">Bill Qty</th>
+											<th width="200" style="text-align: center;">Order Qty</th>
+											<th width="200" style="text-align: center;">Bill Qty</th>
 
 										</tr>
 									</thead>
@@ -99,10 +99,10 @@
 										<c:forEach items="${itemDetailList}" var="itemDetailList">
 											<tr>
 												<td><%=count++%> <c:out value="${count}" /></td>
-												<td align="left"><c:out
+												<td  style="text-align: center;"><c:out
 														value="${itemDetailList.billDate}" /></td>
 
-												<td align="left"><c:out
+												<td  style="text-align: center;"><c:out
 														value="${itemDetailList.invoiceNo}" /></td>
 
 												<td align="left"><c:out
@@ -113,10 +113,10 @@
 
 
 
-												<td align="right"><c:out
+												<td style="text-align: right; padding-right: 5%;"><c:out
 														value="${itemDetailList.orderQty}" /></td>
 
-												<td align="right"><c:out
+												<td style="text-align: right; padding-right: 5%;"><c:out
 														value="${itemDetailList.billQty}" /></td>
 
 												<c:set var="totalBillQty"
@@ -129,8 +129,8 @@
 											<td></td>
 											<td></td>
 											<td>Total</td>
-											<td align="right"><c:out value="${totalOrderQty}" /></td>
-											<td align="right"><c:out value="${totalBillQty}" /></td>
+											<td style="text-align: right; padding-right: 5%;"><c:out value="${totalOrderQty}" /></td>
+											<td style="text-align: right; padding-right: 5%;"><c:out value="${totalBillQty}" /></td>
 
 										</tr>
 
@@ -141,25 +141,26 @@
 					</div>
 					<div class="col-sm-3  controls">
 						<input type="button" id="expExcel" class="btn btn-primary"
-							value="EXPORT TO Excel" onclick="exportToExcel();">
+							value="Export To Excel" onclick="exportToExcel();">
+							&nbsp;&nbsp;
+								<button class="btn btn-primary" value="PDF" id="PDFButton"
+							onclick="genPdf()">PDF</button>
 					</div>
 					<div class="col-sm-3  controls">
-						<button class="btn btn-primary" value="PDF" id="PDFButton"
-							onclick="genPdf()">PDF</button>
+					
 					</div>
 
 
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-				<p>2017 © MONGINIS.</p>
-			</footer>
-
+		<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
+		
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>
 		</div>
 		<!-- END Content -->
+		
 	</div>
 	<!-- END Container -->
 

@@ -30,11 +30,11 @@
 		<div id="main-content">
 			<!-- BEGIN Page Title -->
 			<div class="page-title">
-				<div>
+				<!-- <div>
 					<h1>
 						<i class="fa fa-file-o"></i> Add to Bom 
 					</h1>
-				</div>
+				</div> -->
 			</div>
 			<!-- END Page Title -->
 			<c:choose>
@@ -54,7 +54,7 @@
 					<div class="box">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-table"></i>${title}
+								<i class="fa fa-bars"></i>${title}
 							</h3>
 							<div class="box-tool">
 								<a data-action="collapse" href="#"><i
@@ -76,15 +76,15 @@
 									<table class="table table-advance" id="table1">
 										<thead style="background-color: #f3b5db;">
 											<tr>
-												<th width="17" style="width: 18px">Sr No</th>
+												<th width="17" style="width: 18px; text-align: center;">Sr No</th>
 <!-- 												<th width="100" align="left">Rm Id</th>
- -->												<th width="120" align="left">Rm Name</th>
-												<th width="100" align="left">Rm Type</th>
-												<th width="100" align="left">Single Cut</th>
-												<th width="100" align="left">Double Cut</th>
-												<th width="120" align="left">Qty</th>
-												<th width="120" align="left">Edit Qty</th>
-												<th width="100" align="left">Unit</th>
+ -->												<th width="120" align="left" style="text-align: center;">Rm Name</th>
+												<th width="100" style="text-align: center;">Rm Type</th>
+												<th width="100" style="text-align: center;">Single Cut</th>
+												<th width="100" style="text-align: center;">Double Cut</th>
+												<th width="120" style="text-align: center;">Qty</th>
+												<th width="120" style="text-align: center;">Edit Qty</th>
+												<th width="100" style="text-align: center;">Unit</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -99,29 +99,29 @@
 															value="${planDetailForBom.rmName}" /></td>
 													<c:choose>
 														<c:when test="${planDetailForBom.rmType==1}">
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="RM" /></td>
 
 														</c:when>
 														<c:when test="${planDetailForBom.rmType==2}">
-															<td align="left"><c:out
+															<td style="text-align: center;"><c:out
 																	value="SF" /></td>
 
 														</c:when>
 
 													</c:choose>
-													<td  align="left">${planDetailForBom.singleCut}</td>
-													<td align="left">${planDetailForBom.doubleCut}</td>
+													<td style="text-align: right; padding-right: 3%;">${planDetailForBom.singleCut}</td>
+													<td style="text-align: right; padding-right: 3%;">${planDetailForBom.doubleCut}</td>
 													
 													<c:set var="total"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${planDetailForBom.total}" groupingUsed="false" /></c:set>
-													<td align="left"><c:out
+													<td style="text-align: right; padding-right: 3%;"><c:out
 															value="${total}" /></td>
 
-													<td align="left"><input type="text" id="editQty"
+													<td style="padding-left: 5%;"><input type="text" id="editQty"
 														size="2" class="form-control" name="editQty${count.index}"
-														value="${total}"></td>
+														value="${total}" style="text-align: right;"></td>
 
-													<td align="left"><c:out
+													<td style="text-align: center;"><c:out
 															value="${planDetailForBom.uom}"></c:out></td>
 
 												</tr>
@@ -145,9 +145,7 @@
 				</div>
 			</div>
 			<!-- END Main Content -->
-			<footer>
-			<p>2018 © MONGINIS.</p>
-			</footer>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 
 			<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 				class="fa fa-chevron-up"></i></a>

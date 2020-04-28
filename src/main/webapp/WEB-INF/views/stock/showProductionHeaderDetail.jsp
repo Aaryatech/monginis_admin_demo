@@ -66,7 +66,7 @@ table {
 								<div class="box">
 									<div class="box-title">
 										<h3>
-											<i class="fa fa-table"></i> Add Return And Rejection Qty
+											<i class="fa fa-bars"></i> Add Return And Rejection Qty
 
 										</h3>
 										<div class="box-tool">
@@ -152,13 +152,13 @@ table {
 										<div id="table-scroll" class="table-scroll">
 
 											<div id="faux-table" class="faux-table" aria="hidden">
-												<table id="table2" class="table table-advance" border="1">
+												<table id="table2" class="table table-advance">
 													<thead>
 														<tr class="bgpink">
-															<th class="col-md-1" align="left">Sr No</th>
-															<th class="col-md-2" align="left">Item Name</th>
-															<th class="col-md-2">Rejected Qty</th>
-															<th class="col-md-2">Return Qty</th>
+															<th class="col-md-1" style="text-align: center;">Sr No</th>
+															<th class="col-md-2" style="text-align: center;">Item Name</th>
+															<th class="col-md-2" style="text-align: center;">Rejected Qty</th>
+															<th class="col-md-2" style="text-align: center;">Return Qty</th>
 
 														</tr>
 													</thead>
@@ -167,13 +167,13 @@ table {
 											</div>
 											<div class="table-wrap">
 
-												<table id="table1" class="table table-advance" border="1">
+												<table id="table1" class="table table-advance">
 													<thead>
 														<tr class="bgpink">
-															<th class="col-md-1" align="left">Sr No</th>
-															<th class="col-md-2" align="left">Item Name</th>
-															<th class="col-md-2">Rejected Qty</th>
-															<th class="col-md-2">Return Qty</th>
+															<th class="col-md-1" style="text-align: center;">Sr No</th>
+															<th class="col-md-2" style="text-align: center;">Item Name</th>
+															<th class="col-md-2" style="text-align: center;">Rejected Qty</th>
+															<th class="col-md-2" style="text-align: center;">Return Qty</th>
 														</tr>
 													</thead>
 
@@ -183,11 +183,11 @@ table {
 															varStatus="count">
 															<tr>
 																<td><c:out value="${count.index+1}"></c:out></td>
-																<td><c:out value="${item.itemName}"></c:out></td>
+																<td style="padding-left: 5%;"><c:out value="${item.itemName}"></c:out></td>
 																<td><input type=text class=form-control
-																	id="qty1${item.id}" value="0" name="qty1${item.id}"></td>
+																	id="qty1${item.id}" value="0" name="qty1${item.id}" style="text-align: right;"></td>
 																<td><input type=text class=form-control
-																	id="qty2${item.id}" value="0" name="qty2${item.id}"></td>
+																	id="qty2${item.id}" value="0" name="qty2${item.id}"  style="text-align: right;"></td>
 
 															</tr>
 														</c:forEach>
@@ -220,13 +220,11 @@ table {
 				</div>
 
 			</div>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
+			
 		</div>
 
-
-		<!-- END Main Content -->
-		<footer>
-			<p>2018 © MONGINIS.</p>
-		</footer>
+		<!-- END Main Content -->		
 
 		<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 			class="fa fa-chevron-up"></i></a>
@@ -350,9 +348,9 @@ table {
 																	.html(
 																			item.itemName));
 													tr
-															.append($('<td align=center ><input type=number  class=form-control style=height:26px;  id= qty1'+ item.id+' value='+0+' name=qty1'+item.id+'  required></td>'));
+															.append($('<td align=center ><input type=number  class=form-control style="height:26px; text-align: right;"  id= qty1'+ item.id+' value='+0+' name=qty1'+item.id+'  required></td>'));
 													tr
-															.append($('<td align=center ><input type=number  class=form-control style=height:26px;  id= qty2'+ item.id+ ' value='+0+' name=qty2'+item.id+'  required></td>'));
+															.append($('<td align=center ><input type=number  class=form-control style="height:26px; text-align: right;"  id= qty2'+ item.id+ ' value='+0+' name=qty2'+item.id+'  required></td>'));
 
 													$('#table1 tbody').append(
 															tr);

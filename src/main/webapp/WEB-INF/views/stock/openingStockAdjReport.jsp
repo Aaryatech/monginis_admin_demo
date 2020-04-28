@@ -31,24 +31,24 @@
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
 		<div class="page-title">
-			<div>
+			<!-- <div>
 				<h1>
 					<i class="fa fa-file-o"></i>Opening Stock Adjustment Report
 				</h1>
 				<h4></h4>
-			</div>
+			</div> -->
 		</div>
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
-		<div id="breadcrumbs">
+		<%-- <div id="breadcrumbs">
 			<ul class="breadcrumb">
 				<li><i class="fa fa-home"></i> <a
 					href="${pageContext.request.contextPath}/home">Home</a> <span
 					class="divider"><i class="fa fa-angle-right"></i></span></li>
 				<li class="active">Bill Report</li>
 			</ul>
-		</div>
+		</div> --%>
 		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
@@ -99,9 +99,9 @@
 						</select>
 					</div>
 					<div class="col-md-6" style="text-align: center;">
-						<button class="btn btn-info" onclick="searchReport()">
+						<button class="btn btn-primary" onclick="searchReport()">
 							Search</button>
-						<button class="btn btn-info" value="PDF" id="PDFButton"
+						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button>
 					</div>
 				</div>
@@ -121,31 +121,31 @@
 
 
 		<div class="box">
-			<div class="box-title">
+			<!-- <div class="box-title">
 				<h3>
 					<i class="fa fa-list-alt"></i>Bill Report
 				</h3>
 
 			</div>
-
+ -->
 			<form id="submitBillForm"
 				action="${pageContext.request.contextPath}/submitNewBill"
 				method="post">
 				<div class=" box-content">
 					<div class="row">
 						<div class="col-md-12 table-responsive">
-							<table class="table table-bordered table-striped fill-head "
+							<table class="table table-advance"
 								style="width: 100%" id="table_grid">
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										<th>Date</th>
+										<th style="text-align: center;">Sr.No.</th>
+										<th style="text-align: center;">Date</th>
 
-										<th>Item Name</th>
+										<th style="text-align: center;">Item Name</th>
 
-										<th>New Qty</th>
-										<th>Old Qty</th>
-										<th>Reason</th>
+										<th style="text-align: center;">New Qty.</th>
+										<th style="text-align: center;">Old Qty.</th>
+										<th style="text-align: center;">Reason</th>
 
 
 									</tr>
@@ -161,7 +161,7 @@
 
 							<div class="col-sm-3  controls">
 								<input type="button" id="expExcel" class="btn btn-primary"
-									value="EXPORT TO Excel" onclick="exportToExcel();"
+									value="Export To Excel" onclick="exportToExcel();"
 									disabled="disabled">
 							</div>
 						</div>
@@ -170,12 +170,9 @@
 				</div>
 			</form>
 		</div>
+		<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
 	</div>
 	<!-- END Main Content -->
-
-	<footer>
-		<p>2017 © Monginis.</p>
-	</footer>
 
 	<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 		class="fa fa-chevron-up"></i></a>
@@ -257,9 +254,9 @@
 
 					tr.append($('<td></td>').html(key + 1));
 
-					tr.append($('<td></td>').html(report.date));
+					tr.append($('<td style="text-align: center;"></td>').html(report.date));
 
-					tr.append($('<td></td>').html(report.itemName));
+					tr.append($('<td style="padding-left:6%;"></td>').html(report.itemName));
 
 					tr.append($('<td style="text-align:right;"></td>').html(
 							report.newQty));
@@ -267,7 +264,7 @@
 					tr.append($('<td style="text-align:right;"></td>').html(
 							report.oldQty));
 
-					tr.append($('<td></td>').html(report.reason));
+					tr.append($('<td style="text-align: center;"></td>').html(report.reason));
 
 					$('#table_grid tbody').append(tr);
 

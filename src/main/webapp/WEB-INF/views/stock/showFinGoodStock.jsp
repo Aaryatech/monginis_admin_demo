@@ -129,7 +129,7 @@ table {
 									</div>
 									<div class="col-sm-2">
 
-										<input type="button" class="btn btn-info" name="submit"
+										<input type="button" class="btn btn-primary" name="submit"
 											value="Get Stock " onclick="searchItemsByCategory()" />
 
 
@@ -268,27 +268,27 @@ table {
 												</table>
 											</div>
 											<div class="table-wrap">
-												<table class="table table-advance" id="table1" border="1"
+												<table class="table table-advance" id="table1"
 													width="100%">
 													<thead>
 														<tr class="bgpink">
-															<th class="col-md-1" align="left">Sr</th>
-															<th class="col-md-3" align="left">Item</th>
-															<th class="col-md-1">T</th>
-															<th class="col-md-1">T-1</th>
-															<th class="col-md-1">T-2</th>
-															<th class="col-md-1">Op Tot</th>
+															<th class="col-md-1" style="text-align: center;">Sr</th>
+															<th class="col-md-2" style="text-align: center;">Item</th>
+															<th class="col-md-1" style="text-align: center;">T</th>
+															<th class="col-md-1" style="text-align: center;">T-1</th>
+															<th class="col-md-1" style="text-align: center;">T-2</th>
+															<th class="col-md-1" style="text-align: center;">Op Tot</th>
 
-															<th class="col-md-1">Prod Qty</th>
-															<th class="col-md-1">Rej Qty</th>
-															<th class="col-md-1">Return Qty</th>
-															<th class="col-md-1">Bill Qty</th>
+															<th class="col-md-1" style="text-align: center;">Prod Qty</th>
+															<th class="col-md-1" style="text-align: center;">Rej Qty</th>
+															<th class="col-md-1" style="text-align: center;">Return Qty</th>
+															<th class="col-md-" style="text-align: center;">Bill Qty</th>
 															<!-- <th class="col-md-1">Dumy Qty</th>
 														<th class="col-md-1">Curr Close</th>
 														<th class="col-md-1">Clos-T</th>
 														<th class="col-md-1">Clos-T1</th>
 														<th class="col-md-1">Clos-T2</th> -->
-															<th class="col-md-1">Total Clo</th>
+															<th class="col-md-1" style="text-align: center;">Total Clo</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -313,31 +313,34 @@ table {
 
 									</div>
 
-									<div align="center" class="form-group" style="background-color: #ffffff;">
+									 <div align="center" class="form-group" style="background-color: #ffffff; margin: 3% 0% 2% 0%;">
 
-										<div
+									<!--	<div
 											class="col-sm-25 col-sm-offset-3 col-lg-30 col-lg-offset-0">
-											<!-- 										<input type="submit" class="btn btn-primary" value="Submit">
- -->
+																					<input type="submit" class="btn btn-primary" value="Submit">
+
 											<input type="button" id="expExcel" class="btn btn-primary"
 												value="EXPORT TO Excel" onclick="exportToExcel();" disabled>
 
 
-										</div>
+										</div>-->
 
-									</div>
+									
+									<input type="button" id="expExcel" class="btn btn-primary"
+												value="Export To Excel" onclick="exportToExcel();" disabled>
                                  
 									<input type="button" class="btn btn-primary"
 										value="Closing Qty PDF" id="PDFButtonClosing"
 										onclick="genClosingQtyPdf()" disabled> <input
 										type="button" id="expExcelClosing" class="btn btn-primary"
-										value="EXPORT TO Excel For Closing Qty"
+										value="Export To Excel For Closing Qty"
 										onclick="exportToExcel2();" disabled> <input
 										type="button" class="btn btn-primary" value="Summery PDF"
 										id="PDFButtonSummery" onclick="genSummeryPdf()" disabled>
 									<input type="button" id="expExcelSummery"
-										class="btn btn-primary" value="EXPORT TO Excel Summery"
+										class="btn btn-primary" value="Export To Excel Summery"
 										onclick="exportToExcel1();" disabled>
+										</div> 
 										</div>
 										</div>
 							</form>
@@ -345,18 +348,16 @@ table {
 
 
 					</div>
-					</form>
+					
 				</div>
 			</div>
+			<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
+
 		</div>
 
 
 		<!-- END Main Content -->
-		<footer>
-			<center>
-				<p>2018 © MONGINIS.</p>
-			</center>
-		</footer>
+		
 
 		<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 			class="fa fa-chevron-up"></i></a>
@@ -523,7 +524,7 @@ table {
 
 													var rejQty = "<td align=center ><input type=text size='4' class=form-control1  style='font-size:8pt;height:20px;text-align:right;' value="+stock.rejQty+"  readonly></td>";
 
-													var gateSaleQty = "<td align=center ><input type=text size='4'  class=form-control1  style='font-size:8pt;' value="+stock.gateSaleQty+" readonly ></td>";
+													var gateSaleQty = "<td align=center ><input type=text size='4'  class=form-control1  style='font-size:8pt; text-align:right;' value="+stock.gateSaleQty+" readonly ></td>";
 
 													var billQty = "<td align=center ><input type=text size='4'  class=form-control1 style='font-size:8pt;height:20px;text-align:right;'  value="+stock.frSaleQty+"  readonly></td>";
 

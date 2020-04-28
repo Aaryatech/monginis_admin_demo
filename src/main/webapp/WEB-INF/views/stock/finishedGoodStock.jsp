@@ -87,7 +87,7 @@ table {
 								<div class="box">
 									<div class="box-title">
 										<h3>
-											<i class="fa fa-table"></i> Finished Good Stock Adjustment &
+											<i class="fa fa-bars"></i> Finished Good Stock Adjustment &
 											Overview
 										</h3>
 										<div class="box-tool">
@@ -138,14 +138,14 @@ table {
 										<div id="table-scroll" class="table-scroll">
 
 											<div id="faux-table" class="faux-table" aria="hidden">
-												<table id="table2" class="table table-advance" border="1">
+												<table id="table2" class="table table-advance">
 													<thead>
 														<tr class="bgpink">
-															<th class="col-md-1" align="left">Sr No</th>
-															<th class="col-md-2" align="left">Item Name</th>
-															<th class="col-md-2">T1</th>
-															<th class="col-md-2">T2</th>
-															<th class="col-md-2">T3</th>
+															<th class="col-md-1" style="text-align: center;">Sr No</th>
+															<th class="col-md-2" style="text-align: center;">Item Name</th>
+															<th class="col-md-2" style="text-align: center;">T1</th>
+															<th class="col-md-2" style="text-align: center;">T2</th>
+															<th class="col-md-2" style="text-align: center;">T3</th>
 														</tr>
 													</thead>
 												</table>
@@ -153,14 +153,14 @@ table {
 											</div>
 											<div class="table-wrap">
 
-												<table id="table1" class="table table-advance" border="1">
+												<table id="table1" class="table table-advance">
 													<thead>
 														<tr class="bgpink">
-															<th class="col-md-1" align="left">Sr No</th>
-															<th class="col-md-2" align="left">Item Name</th>
-															<th class="col-md-2">T1</th>
-															<th class="col-md-2">T2</th>
-															<th class="col-md-2">T3</th>
+															<th class="col-md-1" style="text-align: center;">Sr No</th>
+															<th class="col-md-2" style="text-align: center;">Item Name</th>
+															<th class="col-md-2" style="text-align: center;">T1</th>
+															<th class="col-md-2" style="text-align: center;">T2</th>
+															<th class="col-md-2" style="text-align: center;">T3</th>
 														</tr>
 													</thead>
 													<!-- 	<div class="table-responsive" style="border: 0">
@@ -184,13 +184,13 @@ table {
 																<td><c:out value="${item.itemName}"></c:out></td>
 																<td><input type=text class=form-control
 																	id="qty1${item.itemId}" value="${item.opT1}"
-																	name="qty1${item.itemId}"></td>
+																	name="qty1${item.itemId}" style="text-align: right;"></td>
 																<td><input type=text class=form-control
 																	id="qty2${item.itemId}" value="${item.opT2}"
-																	name="qty2${item.itemId}"></td>
+																	name="qty2${item.itemId}" style="text-align: right;"></td>
 																<td><input type=text class=form-control
 																	id="qty3${item.itemId}" value="${item.opT3}"
-																	name="qty3${item.itemId}"></td>
+																	name="qty3${item.itemId}" style="text-align: right;"></td>
 															</tr>
 														</c:forEach>
 
@@ -220,9 +220,9 @@ table {
 											<input type="submit" class="btn btn-primary" value="Submit"
 												id="submitBtn" disabled="disabled"> <input
 												type="button" id="expExcel" class="btn btn-primary"
-												value="EXPORT TO Excel" onclick="exportToExcel();"
+												value="Export To Excel" onclick="exportToExcel();"
 												disabled="disabled"> <input type="button"
-												class="btn btn-primary" value="Pdf" id="pdf"
+												class="btn btn-primary" value="PDF" id="pdf"
 												onclick="getPdf()" disabled="disabled">
 											<!-- <input type="button" class="btn btn-danger"
 											value="Day End Process" id="dayEndButton"> -->
@@ -245,9 +245,8 @@ table {
 
 
 		<!-- END Main Content -->
-		<footer>
-			<p>2018 © MONGINIS.</p>
-		</footer>
+		<jsp:include page="/WEB-INF/views/include/copyrightyear.jsp"></jsp:include>
+
 
 		<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
 			class="fa fa-chevron-up"></i></a>
@@ -374,11 +373,11 @@ table {
 																	.html(
 																			item.itemName));
 													tr
-															.append($('<td align=center ><input type=number  class=form-control style=height:26px;  id= qty1'+ item.itemId+' value='+item.opT1+' name=qty1'+item.itemId+'  required>	<input type=hidden  class=form-control style=height:26px;  id= prevQty1'+ item.itemId+' value='+item.opT1+' name=prevQty1'+item.itemId+'   ></td>'));
+															.append($('<td align=center ><input type=number  class=form-control style="height:26px; text-align: right;"  id= qty1'+ item.itemId+' value='+item.opT1+' name=qty1'+item.itemId+'  required>	<input type=hidden  class=form-control style=height:26px;  id= prevQty1'+ item.itemId+' value='+item.opT1+' name=prevQty1'+item.itemId+'   ></td>'));
 													tr
-															.append($('<td align=center ><input type=number  class=form-control style=height:26px;  id= qty2'+ item.itemId+ ' value='+item.opT2+' name=qty2'+item.itemId+'  required> 	<input type=hidden  class=form-control style=height:26px;  id= prevQty2'+ item.itemId+' value='+item.opT2+' name=prevQty2'+item.itemId+'   ></td>'));
+															.append($('<td align=center ><input type=number  class=form-control style="height:26px; text-align: right;"  id= qty2'+ item.itemId+ ' value='+item.opT2+' name=qty2'+item.itemId+'  required> 	<input type=hidden  class=form-control style=height:26px;  id= prevQty2'+ item.itemId+' value='+item.opT2+' name=prevQty2'+item.itemId+'   ></td>'));
 													tr
-															.append($('<td align=center ><input type=number  class=form-control style=height:26px;  id= qty3'+ item.itemId+' value='+item.opT3+' name=qty3'+item.itemId+'  required> <input type=hidden  class=form-control style=height:26px;  id= prevQty3'+ item.itemId+' value='+item.opT3+' name=prevQty3'+item.itemId+'   ></td>'));
+															.append($('<td align=center ><input type=number  class=form-control style="height:26px; text-align: right;"  id= qty3'+ item.itemId+' value='+item.opT3+' name=qty3'+item.itemId+'  required> <input type=hidden  class=form-control style=height:26px;  id= prevQty3'+ item.itemId+' value='+item.opT3+' name=prevQty3'+item.itemId+'   ></td>'));
 
 													$('#table1 tbody').append(
 															tr);

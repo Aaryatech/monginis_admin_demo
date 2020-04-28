@@ -29,7 +29,7 @@
 		<!-- BEGIN Content -->
 		<div id="main-content">
 			<!-- BEGIN Page Title -->
-			<div class="page-title">
+			<%-- <div class="page-title">
 				<div>
 					<h1>
 					 <c:choose> 
@@ -40,7 +40,7 @@
 						<i class="fa fa-file-o"></i> Search Bill Of Material For Mixing
 						</c:when>
 						<c:otherwise>
-						<i class="fa fa-file-o"></i> Search Bill Of Department Wise
+						<i class="fa fa-file-o"></i> Search Bill Of Material Department Wise
 						</c:otherwise>
 					</c:choose>
 						 
@@ -49,7 +49,7 @@
 					
 				</div>
 				
-			</div>
+			</div> --%>
 			<!-- END Page Title -->
 
 			<div class="row">
@@ -58,7 +58,18 @@
 					<div class="box" id="todayslist">
 						<div class="box-title">
 							<h3>
-								<i class="fa fa-table"></i> Search Bill Of Material Department Wise
+								<!-- <i class="fa fa-table"></i> Search Bill Of Material Department Wise -->
+								<c:choose> 
+					 	<c:when test="${fromDept==14}">
+						<i class="fa fa-bars"></i> Search Bill Of Material For Production
+						</c:when>
+						<c:when test="${fromDept==15}">
+						<i class="fa fa-bars"></i> Search Bill Of Material For Mixing
+						</c:when>
+						<c:otherwise>
+						<i class="fa fa-bars"></i> Search Bill Of Material Department Wise
+						</c:otherwise>
+					</c:choose>
 							</h3>
 							<div class="box-tool">
 								<a  onclick="showdatewisetable()">Show Datewise Record</a> <a data-action="collapse" href="#"><i
@@ -75,13 +86,11 @@
 								style="width: 100%" id="table_grid1" >
 								<thead style="background-color: #f3b5db;">
 									<tr>
-										<th>Sr.No.</th>
-										
-										<th>Department Name</th>
-										<th>Request Date</th>
-										
-										<th>Status</th>
-										<th>Action</th>
+										<th style="text-align: center;">Sr.No.</th>										
+										<th style="text-align: center;">Department Name</th>
+										<th style="text-align: center;">Request Date</th>										
+										<th style="text-align: center;">Status</th>
+										<th style="text-align: center;">Action</th>
 										
 									</tr>
 								</thead>
@@ -89,8 +98,6 @@
 								<tbody>
 									<c:forEach items="${getbomList}" var="getbomList"
 													varStatus="count">
-													
-													
 													<c:choose>
 													<c:when test="${getbomList.status==0}">
 													<c:set var = "status" value='Pending'/>
@@ -137,17 +144,19 @@
 															 	</c:when>
 															</c:choose>
 																
-																<td align="left"><c:out
+																<td style="text-align: left; padding-left: 5%;"><c:out
 																value="${depname}" /></td>
 																
-													  <td align="left"><fmt:formatDate pattern = "dd-MM-yyyy" value="${getbomList.reqDate}" />   </td>
+															  <td style="text-align: center;">
+															  	<fmt:formatDate pattern = "dd-MM-yyyy" value="${getbomList.reqDate}" />  
+															   </td>
 													 	
-																<td align="left"><c:out	
+																<td style="text-align: center;"><c:out	
 																value="${status}" />
 																</td>
 																
 																
-						<td><a href="${pageContext.request.contextPath}/bomDetailDepWise?reqId=${getbomList.reqId}&fromDept=${fromDept}" class="action_btn" >
+						<td style="text-align: center;"><a href="${pageContext.request.contextPath}/bomDetailDepWise?reqId=${getbomList.reqId}&fromDept=${fromDept}" class="action_btn" >
 						<abbr title="detailed"><i class="fa fa-list"></i></abbr></a></td>
 						
 																</tr>
