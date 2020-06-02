@@ -134,6 +134,7 @@ input[type="checkbox"] {
 										<tbody>
 
 											<c:forEach items="${planHeader}" var="planHeader">
+											<c:if test="${planHeader.catId==2}">
 <input type="hidden" name="prodStatus" id="prodStatus${planHeader.productionHeaderId}" value="${planHeader.productionStatus}"/>
 												<tr>
 
@@ -217,6 +218,7 @@ input[type="checkbox"] {
 														</c:choose>
 														</td>
 												</tr>
+												</c:if>
 											</c:forEach>
 
 										</tbody>
