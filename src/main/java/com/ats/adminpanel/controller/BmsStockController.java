@@ -324,7 +324,7 @@ public class BmsStockController {
 					System.out.println("SF: Prod Dept Id " + prodDeptId);
 
 					map = new LinkedMultiValueMap<String, Object>();
-					map.add("deptId", deptId);
+					map.add("prodDeptId", deptId);
 					map.add("stockDate", globalDate);
 
 
