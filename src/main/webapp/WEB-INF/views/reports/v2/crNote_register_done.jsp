@@ -27,26 +27,16 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- 	<div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Billwise Report by Fr
+					<i class="fa fa-file-o"></i>Credit Note-wise Tax Slab-wise Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
 
-		<!-- BEGIN Breadcrumb -->
-		<%-- 	<div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Bill Report</li>
-			</ul>
-		</div> --%>
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
@@ -66,27 +56,29 @@
 							<input class="form-control date-picker" id="fromDate"
 								name="fromDate" size="30" type="text" value="${todaysDate}" />
 						</div>
-				
+
 
 						<label class="col-sm-3 col-lg-2	 control-label">To Date</label>
 						<div class="col-sm-6 col-lg-4 controls date_select">
 							<input class="form-control date-picker" id="toDate" name="toDate"
 								size="30" type="text" value="${todaysDate}" />
-								
+
 						</div>
-							</div>
+					</div>
 				</div>
-					<br>
-					<div class="row">
+				<br>
+				<div class="row">
 					<div class="form-group">
-						
-						<label class="col-sm-3 col-lg-2	 control-label">Credit Note Type</label>
+
+						<label class="col-sm-3 col-lg-2	 control-label">Credit
+							Note Type</label>
 						<div class="col-sm-6 col-lg-4  controls">
 
 							<select data-placeholder="Select Type"
-								class="form-control chosen" id="Credittype" name="Credittype" required>
+								class="form-control chosen" id="Credittype" name="Credittype"
+								required>
 								<option value="">Select Credit Note Type</option>
-								
+
 								<option value="1">GRN</option>
 								<option value="0">GVN</option>
 							</select>
@@ -97,9 +89,9 @@
 				<br>
 				<div class="row"></div>
 				<div class="row">
-					<div class="form-group"> 					
+					<div class="form-group">
 
-						<div class="col-md-10" style="text-align: center;">
+						<div class="col-md-12" style="text-align: center;">
 							<button class="btn btn-primary" onclick="searchReport()">Search</button>
 							<input type="button" id="expExcel" class="btn btn-primary"
 								value="Export To Excel" onclick="exportToExcel();"
@@ -117,42 +109,33 @@
 					</div>
 
 				</div>
-			</div>
+
+				<div class="row">
+					<div class="col-md-12" style="text-align: center;"></div>
 
 
-			<div class="row" style="background-color: white;">
-				<div class="col-md-12" style="text-align: center;"></div>
+					<div align="center" id="loader" style="display: none">
 
+						<span>
+							<h4>
+								<font color="#343690">Loading</font>
+							</h4>
+						</span> <span class="l-1"></span> <span class="l-2"></span> <span
+							class="l-3"></span> <span class="l-4"></span> <span class="l-5"></span>
+						<span class="l-6"></span>
+					</div>
 
-				<div align="center" id="loader" style="display: none">
-
-					<span>
-						<h4>
-							<font color="#343690">Loading</font>
-						</h4>
-					</span> <span class="l-1"></span> <span class="l-2"></span> <span
-						class="l-3"></span> <span class="l-4"></span> <span class="l-5"></span>
-					<span class="l-6"></span>
 				</div>
 
 			</div>
+		</div>
 
+		<div class="box">
 
+			<div class=" box-content">
+				<div class="row">
+					<div class="col-md-12 table-responsive" style="overflow-x: auto;">
 
-			<div class="box">
-				<!-- <div class="box-title">
-					<h3>
-						<i class="fa fa-list-alt"></i>Credit Note Register
-					</h3>
-
-				</div> -->
-
-				<form id="submitBillForm"
-					action="${pageContext.request.contextPath}/submitNewBill"
-					method="post">
-
-					<div class="col-md-12 table-responsive"
-						style="background-color: white;">
 						<table class="table table-bordered table-striped fill-head "
 							style="width: 100%" id="table_grid">
 							<thead style="background-color: #f3b5db;">
@@ -176,29 +159,20 @@
 
 							</tbody>
 						</table>
-						<div class="form-group" style="display: none;" id="range">
-
-
-
-							<div class="col-sm-3  controls"></div>
-						</div>
+						<div class="form-group" style="display: none;" id="range"></div>
 						<div align="center" id="showchart" style="display: none"></div>
-					</div>
 
-					<div id="chart" style="background-color: white;">
-						<br> <br> <br>
-						<hr>
-
-
-						<div id="chart_div" style="width: 100%; height: 100%;"></div>
-
-
-						<div id="PieChart_div" style="width: 100%; height: 100%;"></div>
-
+						<div id="chart" style="background-color: white; display: none;">
+							<br> <br> <br>
+							<hr>
+							<div id="chart_div" style="width: 100%; height: 100%;"></div>
+							<div id="PieChart_div" style="width: 100%; height: 100%;"></div>
+						</div>
 
 					</div>
-				</form>
+				</div>
 			</div>
+
 		</div>
 	</div>
 	<!-- END Main Content -->
@@ -219,8 +193,6 @@
 			var from_date = $("#fromDate").val();
 			var to_date = $("#toDate").val();
 			var credit_note_type = $("#Credittype").val();
-			
-			
 
 			$('#loader').show();
 
@@ -272,49 +244,69 @@
 					cgstAmt = cgstAmt + report.cgstAmt;
 					sgstAmt = sgstAmt + report.sgstAmt;
 					crnAmt = crnAmt + report.crnAmt;
-					tr.append($('<td style="text-align:left;"></td>').html(
+					tr.append($('<td style="text-align:right;"></td>').html(
 							(report.cgstPer + report.sgstPer).toFixed(2)));
-					tr.append($('<td style="text-align:center;"></td>').html(
-							(report.crnQty)));
-					/* tr.append($('<td style="text-align:right;"></td>').html(
+					tr.append($('<td style="text-align:right;"></td>').html(
+							addCommas(report.crnQty)));
+					/* tr.append($('_$tag__________________________$tag').html(
 							report.crnTaxable.toFixed(2))); */
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.cgstAmt.toFixed(2)));
+							addCommas(report.cgstAmt.toFixed(2))));
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.sgstAmt.toFixed(2)));
+							addCommas(report.sgstAmt.toFixed(2))));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.crnAmt.toFixed(2)));
+							addCommas(report.crnAmt.toFixed(2))));
 
 					$('#table_grid tbody').append(tr);
 
-				})
+				});
+				
 				var tr = $('<tr></tr>');
-				tr.append($('<td></td>').html(""));
-				tr.append($('<td></td>').html(""));
-				tr.append($('<td></td>').html(""));
-				tr.append($('<td></td>').html(""));
-				tr.append($('<td></td>').html(""));
+				tr.append($('<td></td>').html(" "));
+				tr.append($('<td></td>').html(" "));
+				tr.append($('<td></td>').html(" "));
+				tr.append($('<td></td>').html(" "));
+				tr.append($('<td></td>').html(" "));
+				
+				 tr.append($('<td style="text-align:center;"></td>').html("Total"));
+				
+				 tr.append($('<td></td>').html(""));
+				
+				tr.append($('<td style="text-align:right;"></td>').html(
+						"" + addCommas(crnQty.toFixed(2))));
+				
+				tr.append($('<td style="text-align:right;"></td>').html(
+						"" + addCommas(cgstAmt.toFixed(2))));
 
-				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(""));
-				tr.append($('<td></td>').html("Total"));
-				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(
-						"" + crnQty.toFixed(2)));
-			/* 	tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + crnTaxable.toFixed(2))); */
-
-				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(
-						"" + cgstAmt.toFixed(2)));
-
-				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(
-						"" + sgstAmt.toFixed(2)));
-				tr.append($('<td style="font-weight:12px; text-align:right;"></td>').html(
-						"" + crnAmt.toFixed(0)));
+				tr.append($('<td style="text-align:right;"></td>').html(
+						"" + addCommas(sgstAmt.toFixed(2))));
+				tr.append($('<td style="text-align:right;"></td>').html(
+						"" + addCommas(crnAmt.toFixed(0)))); 
+						
 				$('#table_grid tbody').append(tr);
 
 			});
 
+		}
+	</script>
+
+	<script type="text/javascript">
+		function addCommas(x) {
+
+			x = String(x).toString();
+			var afterPoint = '';
+			if (x.indexOf('.') > 0)
+				afterPoint = x.substring(x.indexOf('.'), x.length);
+			x = Math.floor(x);
+			x = x.toString();
+			var lastThree = x.substring(x.length - 3);
+			var otherNumbers = x.substring(0, x.length - 3);
+			if (otherNumbers != '')
+				lastThree = ',' + lastThree;
+			return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",")
+					+ lastThree + afterPoint;
 		}
 	</script>
 

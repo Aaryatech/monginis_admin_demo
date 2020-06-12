@@ -10,7 +10,8 @@
 
 	<c:url var="getBillList" value="/getSaleBillwise"></c:url>
 	<c:url var="getAllCatByAjax" value="/getAllCatByAjax"></c:url>
-
+	<c:url var="getAllFrListForSalesReportAjax"
+		value="/getAllFrListForSalesReportAjax"></c:url>
 
 
 	<!-- BEGIN Sidebar -->
@@ -108,13 +109,24 @@
 
 						</div>
 
-						<label class="col-sm-3 col-lg-2 control-label"><b>OR</b>&nbsp;Select
+						<label class="col-sm-3 col-lg-2 control-label"><b>OR</b></label>
+
+					</div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="form-group">
+
+						<label class="col-sm-3 col-lg-2 control-label">Select
 							Franchise</label>
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-10">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr" onchange="disableRoute()">
+								id="selectFr" name="selectFr"
+								onchange="setAllFranchisee(this.value);"
+								onchange="disableRoute()">
 
 								<option value="-1"><c:out value="All" /></option>
 
@@ -128,10 +140,11 @@
 					</div>
 				</div>
 
+
 				<br>
 				<div class="row">
 					<div class="col-md-2">Select Category</div>
-					<div class="col-md-4" style="text-align: left;">
+					<div class="col-md-8" style="text-align: left;">
 						<select data-placeholder="Select Group"
 							class="form-control chosen" name="item_grp1" tabindex="-1"
 							id="item_grp1" data-rule-required="true"
@@ -146,7 +159,7 @@
 
 						</select>
 					</div>
-					<div class="col-md-6" style="text-align: center;">
+					<div class="col-md-2" style="text-align: center;">
 						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button>
@@ -258,6 +271,34 @@
 		}
 	</script>
 
+
+	<script type="text/javascript">
+		function setAllFranchisee(frId) {
+			if (frId == -1) {
+				$.getJSON('${getAllFrListForSalesReportAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					$('#selectFr').find('option').remove().end()
+
+					$("#selectFr").append(
+							$("<option ></option>").attr("value", -1).text(
+									"Select All"));
+
+					for (var i = 0; i < len; i++) {
+
+						$("#selectFr").append(
+								$("<option selected></option>").attr("value",
+										data[i].frId).text(data[i].frName));
+					}
+
+					$("#selectFr").trigger("chosen:updated");
+				});
+			}
+		}
+	</script>
+
+
 	<script type="text/javascript">
 		function searchReport() {
 			//	var isValid = validate();
@@ -318,7 +359,8 @@
 
 					tr.append($('<td></td>').html(report.invoiceNo));
 
-					tr.append($('<td style="text-align: center;"></td>').html(report.billDate));
+					tr.append($('<td style="text-align: center;"></td>').html(
+							report.billDate));
 
 					tr.append($('<td></td>').html(report.frName));
 
@@ -327,13 +369,13 @@
 					tr.append($('<td></td>').html(report.frGstNo));
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.taxableAmt.toFixed(2)));
+							addCommas(report.taxableAmt.toFixed(2))));
 
 					if (report.isSameState == 1) {
 						tr.append($('<td style="text-align:right;"></td>')
-								.html(report.cgstSum.toFixed(2)));
+								.html(addCommas(report.cgstSum.toFixed(2))));
 						tr.append($('<td style="text-align:right;"></td>')
-								.html(report.sgstSum.toFixed(2)));
+								.html(addCommas(report.sgstSum.toFixed(2))));
 						tr.append($('<td style="text-align:right;"></td>')
 								.html(0));
 					} else {
@@ -342,7 +384,7 @@
 						tr.append($('<td style="text-align:right;"></td>')
 								.html(0));
 						tr.append($('<td style="text-align:right;"></td>')
-								.html(report.igstSum.toFixed(2)));
+								.html(addCommas(report.igstSum.toFixed(2))));
 					}
 					//tr.append($('<td></td>').html(report.igstSum));
 					tr.append($('<td style="text-align:right;"></td>').html(
@@ -360,7 +402,7 @@
 					totalFinal = totalFinal + total;
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							total.toFixed(2)));
+							addCommas(total.toFixed(2))));
 
 					$('#table_grid tbody').append(tr);
 
@@ -376,17 +418,17 @@
 				tr.append($('<td style="font-weight:bold;"></td>')
 						.html("Total"));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalBasicValue.toFixed(2)));
+						addCommas(totalBasicValue.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalCgst.toFixed(2)));
+						addCommas(totalCgst.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalSgst.toFixed(2)));
+						addCommas(totalSgst.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalIgst.toFixed(2)));
+						addCommas(totalIgst.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
 						totalRoundOff.toFixed(2)));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalFinal.toFixed(2)));
+						addCommas(totalFinal.toFixed(2))));
 
 				$('#table_grid tbody').append(tr);
 
@@ -497,6 +539,24 @@
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>
+	
+	<script type="text/javascript">
+	 function addCommas(x){
+
+		 x=String(x).toString();
+		  var afterPoint = '';
+		  if(x.indexOf('.') > 0)
+		     afterPoint = x.substring(x.indexOf('.'),x.length);
+		  x = Math.floor(x);
+		  x=x.toString();
+		  var lastThree = x.substring(x.length-3);
+		  var otherNumbers = x.substring(0,x.length-3);
+		  if(otherNumbers != '')
+		      lastThree = ',' + lastThree;
+		  return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		 } 
+	</script>
+	
 
 	<!--basic scripts-->
 	<script

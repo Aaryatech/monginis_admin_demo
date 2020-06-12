@@ -30,14 +30,14 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- <div class="page-title">
+		 <div class="page-title">
 			<div>
 				<h1>
 					<i class="fa fa-file-o"></i>Monthly Sales Return Quantity Wise Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div> 
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
@@ -66,6 +66,7 @@
 								<select id="year" name="year" class="form-control">
 
 									<option value="2019-2020">2019-2020</option>
+									<option value="2020-2021">2020-2021</option>
 								</select>
 							</div>
 
@@ -219,10 +220,18 @@
 
 													<c:choose>
 														<c:when test="${rep.subCatId==subCatList.subCatId}">
-															<td style="text-align: right;">${rep.billQty}</td>
-															<td style="text-align: right;">${rep.gvnQty}</td>
-															<td style="text-align: right;">${rep.grnQty}</td>
-															<td style="text-align: right;">${rep.billQty-(rep.gvnQty+rep.grnQty)}</td>
+															<td style="text-align: right;"><fmt:formatNumber
+																	type="number" maxFractionDigits="2"
+																	value="${rep.billQty}" /></td>
+															<td style="text-align: right;"><fmt:formatNumber
+																	type="number" maxFractionDigits="2"
+																	value="${rep.gvnQty}" /></td>
+															<td style="text-align: right;"><fmt:formatNumber
+																	type="number" maxFractionDigits="2"
+																	value="${rep.grnQty}" /></td>
+															<td style="text-align: right;"><fmt:formatNumber
+																	type="number" maxFractionDigits="2"
+																	value="${rep.billQty-(rep.gvnQty+rep.grnQty)}" /></td>
 															<c:set var="billQty" value="${billQty+rep.billQty}" />
 															<c:set var="grnQty" value="${rep.grnQty+grnQty}" />
 															<c:set var="gvnQty" value="${rep.gvnQty+gvnQty}" />
@@ -234,9 +243,13 @@
 
 												</c:forEach>
 											</c:forEach>
-											<td style="text-align: right;">${billQty}</td>
-											<td style="text-align: right;">${grnQty}</td>
-											<td style="text-align: right;">${gvnQty}</td>
+											<td style="text-align: right;"><fmt:formatNumber
+													type="number" maxFractionDigits="2" value="${billQty}" />
+											</td>
+											<td style="text-align: right;"><fmt:formatNumber
+													type="number" maxFractionDigits="2" value="${grnQty}" /></td>
+											<td style="text-align: right;"><fmt:formatNumber
+													type="number" maxFractionDigits="2" value="${gvnQty}" /></td>
 											<c:set var="finalBillQty" value="${finalBillQty+billQty}" />
 											<c:set var="finalGrnQty" value="${grnQty+finalGrnQty}" />
 											<c:set var="finalGvnQty" value="${gvnQty+finalGvnQty}" />
@@ -247,16 +260,31 @@
 										<th rowspan="2">Total</th>
 										<c:forEach var="report" items="${salesReturnQtyReport}"
 											varStatus="cnt">
-											<th style="text-align: right;">${report.value.totBillQty}</th>
+											<th style="text-align: right;"><fmt:formatNumber
+													type="number" maxFractionDigits="2"
+													value="${report.value.totBillQty}" /></th>
 
-											<th style="text-align: right;">${report.value.totGvnQty}</th>
-											<th style="text-align: right;">${report.value.totGrnQty}</th>
-											<th style="text-align: right;">${report.value.totBillQty-(report.value.totGrnQty+report.value.totGvnQty)}</th>
+											<th style="text-align: right;"><fmt:formatNumber
+													type="number" maxFractionDigits="2"
+													value="${report.value.totGvnQty}" /></th>
+											<th style="text-align: right;"><fmt:formatNumber
+													type="number" maxFractionDigits="2"
+													value="${report.value.totGrnQty}" /></th>
+											<th style="text-align: right;"><fmt:formatNumber
+													type="number" maxFractionDigits="2"
+													value="${report.value.totBillQty-(report.value.totGrnQty+report.value.totGvnQty)}" />
+											</th>
 
 										</c:forEach>
-										<th style="text-align: right;">${finalBillQty}</th>
-										<th style="text-align: right;">${finalGrnQty}</th>
-										<th style="text-align: right;">${finalGvnQty}</th>
+										<th style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" value="${finalBillQty}" />
+										</th>
+										<th style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" value="${finalGrnQty}" />
+										</th>
+										<th style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" value="${finalGvnQty}" />
+										</th>
 									</tr>
 								</tbody>
 							</table>
@@ -433,6 +461,9 @@
 		}
 	</script>
 
+
+
+
 	<script type="text/javascript">
 		function validate() {
 
@@ -510,7 +541,7 @@
 	<script type="text/javascript">
 		function exportToExcel() {
 
-			window.open("${pageContext.request.contextPath}/exportToExcel");
+			window.open("${pageContext.request.contextPath}/exportToExcelNew");
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>

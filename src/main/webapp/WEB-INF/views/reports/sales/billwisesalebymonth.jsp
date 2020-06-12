@@ -32,26 +32,16 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- 	<div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Billwise Report Grp By Date
+					<i class="fa fa-file-o"></i>Month-wise Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
 
-		<!-- BEGIN Breadcrumb -->
-		<%-- 	<div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Bill Report</li>
-			</ul>
-		</div> --%>
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
@@ -110,44 +100,54 @@
 
 						</div>
 
-						<label class="col-sm-3 col-lg-2 control-label">Select</label>
-					<div class="col-sm-6 col-lg-4 controls">
-						<select data-placeholder="Select Route"
-							class="form-control chosen" name="selectStatus" id="selectStatus">
-							<option value="-1">All</option>
-							<option value="1">Taxable</option>
-							<option value="2">Grnad Total</option>
-						</select>
-
-					</div>
+						<label class="col-sm-3 col-lg-2 control-label"><b>OR</b></label>
+						
 					</div>
 				</div>
 
 				<br>
 				<div class="row">
-				<label class="col-sm-3 col-lg-2 control-label">Select
-							Franchise</label>
-						<div class="col-md-8">
+					<label class="col-sm-3 col-lg-2 control-label">Select
+						Franchise</label>
+					<div class="col-md-10">
 
-							<select data-placeholder="Choose Franchisee"
-								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr"
-								onchange="setAllFrSelected(this.value)"
-								onchange="disableRoute()">
+						<select data-placeholder="Choose Franchisee"
+							class="form-control chosen" multiple="multiple" tabindex="6"
+							id="selectFr" name="selectFr"
+							onchange="setAllFrSelected(this.value)" onchange="disableRoute()">
 
-								<option value="-1"><c:out value="All" /></option>
+							<option value="-1"><c:out value="All" /></option>
 
-								<c:forEach items="${unSelectedFrList}" var="fr"
-									varStatus="count">
-									<option value="${fr.frId}"><c:out value="${fr.frName}" /></option>
-								</c:forEach>
+							<c:forEach items="${unSelectedFrList}" var="fr" varStatus="count">
+								<option value="${fr.frId}"><c:out value="${fr.frName}" /></option>
+							</c:forEach>
+						</select>
+
+					</div>
+
+
+
+					
+				</div>
+				
+				<br>
+				
+				<div class="row">
+					<div class="form-group">
+
+						<label class="col-sm-3 col-lg-2 control-label">Select Type</label>
+						<div class="col-sm-6 col-lg-4 controls">
+							<select data-placeholder="Select Route"
+								class="form-control chosen" name="selectStatus"
+								id="selectStatus">
+								<option value="-1">All</option>
+								<option value="1">Taxable</option>
+								<option value="2">Grnad Total</option>
 							</select>
 
 						</div>
-
-					
-
-					<div class="col-md-2" style="text-align: right;">
+						
+						<div class="col-md-6" >
 						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 
 						<!-- <button class="btn search_btn" onclick="showChart()">Graph</button> -->
@@ -159,12 +159,11 @@
 								target="_blank">PDF</a> --%>
 
 					</div>
+					
+					</div>
 				</div>
-				<div class="row">
-				<label class="col-md-12 control-label" style="color: red; font-size: 12px;">*Select Route or Franchise
-				</label></div>
-
-
+				
+				
 				<div align="center" id="loader" style="display: none">
 
 					<span>
@@ -235,7 +234,7 @@
 							<thead style="background-color: #f3b5db;">
 								<tr>
 									<th style="text-align: center;">Sr.No.</th>
-									 <th style="text-align: center;">Month</th>
+									<th style="text-align: center;">Month</th>
 									<!-- <th style="text-align: center;">Taxable Value</th> 
 									<th style="text-align: center;">Tax Value</th> -->
 
@@ -445,13 +444,13 @@
 																		.html(
 																				report.totalTax
 																						.toFixed(2)));
- */
+														 */
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.grandTotal
-																						.toFixed(2)));
+																				addCommas(report.grandTotal
+																						.toFixed(2))));
 
 														/* tr
 																.append($(
@@ -471,48 +470,48 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.grnGrandTotal
-																						.toFixed(2)));
-/* 
-														tr
-																.append($(
-																		'<td style="text-align:right;"></td>')
-																		.html(
-																				report.gvnTaxableAmt
-																						.toFixed(2)));
+																				addCommas(report.grnGrandTotal
+																						.toFixed(2))));
+														/* 
+														 tr
+														 .append($(
+														 '<td style="text-align:right;"></td>')
+														 .html(
+														 report.gvnTaxableAmt
+														 .toFixed(2)));
+
+														 tr
+														 .append($(
+														 '<td style="text-align:right;"></td>')
+														 .html(
+														 report.gvnTotalTax
+														 .toFixed(2))); */
 
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.gvnTotalTax
-																						.toFixed(2))); */
+																				addCommas(report.gvnGrandTotal
+																						.toFixed(2))));
 
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.gvnGrandTotal
-																						.toFixed(2)));
-
+																				addCommas(report.netTaxableAmt
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.netTaxableAmt
-																						.toFixed(2)));
+																				addCommas(report.netTotalTax
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.netTotalTax
-																						.toFixed(2)));
-														tr
-																.append($(
-																		'<td style="text-align:right;"></td>')
-																		.html(
-																				report.netGrandTotal
-																						.toFixed(2)));
+																				addCommas(report.netGrandTotal
+																						.toFixed(2))));
 
 														$('#table_grid tbody')
 																.append(tr);
@@ -541,28 +540,28 @@
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalGrandTotal
-																	.toFixed(2)));
-/* 
-									tr
-											.append($(
-													'<td style="text-align:right;"></td>')
-													.html(
-															totalGrnTaxableAmt
-																	.toFixed(2)));
+															addCommas(totalGrandTotal
+																	.toFixed(2))));
+									/* 
+									 tr
+									 .append($(
+									 '<td style="text-align:right;"></td>')
+									 .html(
+									 totalGrnTaxableAmt
+									 .toFixed(2)));
 
+									 tr
+									 .append($(
+									 '<td style="text-align:right;"></td>')
+									 .html(
+									 totalGrnTax
+									 .toFixed(2))); */
 									tr
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalGrnTax
-																	.toFixed(2))); */
-									tr
-											.append($(
-													'<td style="text-align:right;"></td>')
-													.html(
-															totalGrnGrandTotal
-																	.toFixed(2)));
+															addCommas(totalGrnGrandTotal
+																	.toFixed(2))));
 
 									/* tr
 											.append($(
@@ -582,27 +581,27 @@
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalGvnGrandTotal
-																	.toFixed(2)));
+															addCommas(totalGvnGrandTotal
+																	.toFixed(2))));
 
 									tr
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalNetTaxableAmt
-																	.toFixed(2)));
+															addCommas(totalNetTaxableAmt
+																	.toFixed(2))));
 									tr
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalNetTax
-																	.toFixed(2)));
+															addCommas(totalNetTax
+																	.toFixed(2))));
 									tr
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalNetGrandTotal
-																	.toFixed(2)));
+															addCommas(totalNetGrandTotal
+																	.toFixed(2))));
 
 									$('#table_grid tbody').append(tr);
 
@@ -722,19 +721,19 @@
 																		.html(
 																				report.gvnTotalTax
 																						.toFixed(2)));
- */
+														 */
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.netTaxableAmt
-																						.toFixed(2)));
+																				addCommas(report.netTaxableAmt
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.netTotalTax
-																						.toFixed(2)));
+																				addCommas(report.netTotalTax
+																						.toFixed(2))));
 
 														$('#table_grid1 tbody')
 																.append(tr);
@@ -792,14 +791,14 @@
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalNetGrandTotal
-																	.toFixed(2)));
+															addCommas(totalNetGrandTotal
+																	.toFixed(2))));
 									tr
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalNetTax
-																	.toFixed(2)));
+															addCommas(totalNetTax
+																	.toFixed(2))));
 
 									$('#table_grid1 tbody').append(tr);
 
@@ -885,29 +884,29 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.grandTotal
-																						.toFixed(2)));
+																				addCommas(report.grandTotal
+																						.toFixed(2))));
 
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.grnGrandTotal
-																						.toFixed(2)));
+																				addCommas(report.grnGrandTotal
+																						.toFixed(2))));
 
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.gvnGrandTotal
-																						.toFixed(2)));
+																				addCommas(report.gvnGrandTotal
+																						.toFixed(2))));
 
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.netGrandTotal
-																						.toFixed(2)));
+																				addCommas(report.netGrandTotal
+																						.toFixed(2))));
 
 														$('#table_grid2 tbody')
 																.append(tr);
@@ -927,29 +926,29 @@
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalGrandTotal
-																	.toFixed(2)));
+															addCommas(totalGrandTotal
+																	.toFixed(2))));
 
 									tr
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalGrnGrandTotal
-																	.toFixed(2)));
+															addCommas(totalGrnGrandTotal
+																	.toFixed(2))));
 
 									tr
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalGvnGrandTotal
-																	.toFixed(2)));
+															addCommas(totalGvnGrandTotal
+																	.toFixed(2))));
 
 									tr
 											.append($(
 													'<td style="text-align:right;"></td>')
 													.html(
-															totalNetGrandTotal
-																	.toFixed(2)));
+															addCommas(totalNetGrandTotal
+																	.toFixed(2))));
 
 									$('#table_grid2 tbody').append(tr);
 
@@ -1235,6 +1234,24 @@
 			window.open("${pageContext.request.contextPath}/exportToExcelNew");
 			document.getElementById("expExcel").disabled = true;
 		}
+	</script>
+	
+	
+	<script type="text/javascript">
+	 function addCommas(x){
+
+		 x=String(x).toString();
+		  var afterPoint = '';
+		  if(x.indexOf('.') > 0)
+		     afterPoint = x.substring(x.indexOf('.'),x.length);
+		  x = Math.floor(x);
+		  x=x.toString();
+		  var lastThree = x.substring(x.length-3);
+		  var otherNumbers = x.substring(0,x.length-3);
+		  if(otherNumbers != '')
+		      lastThree = ',' + lastThree;
+		  return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		 } 
 	</script>
 
 	<!--basic scripts-->

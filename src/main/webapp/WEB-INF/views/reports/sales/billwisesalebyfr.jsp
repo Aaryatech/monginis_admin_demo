@@ -12,6 +12,8 @@
 	<jsp:include page="/WEB-INF/views/include/logout.jsp"></jsp:include>
 	<c:url var="getBillList" value="/getSaleBillwiseByFr"></c:url>
 	<c:url var="getAllCatByAjax" value="/getAllCatByAjax"></c:url>
+	<c:url var="getAllFrListForSalesReportAjax"
+		value="/getAllFrListForSalesReportAjax"></c:url>
 
 	<!-- BEGIN Sidebar -->
 	<div id="sidebar" class="navbar-collapse collapse">
@@ -30,14 +32,14 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- 	<div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Billwise Report by Fr
+					<i class="fa fa-file-o"></i>Franchise-wise Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
@@ -108,13 +110,26 @@
 
 						</div>
 
-						<label class="col-sm-3 col-lg-2 control-label"><b>OR</b>Select
+						<label class="col-sm-3 col-lg-2 control-label"><b>OR</b></label>
+
+					</div>
+				</div>
+
+				<br>
+
+				<div class="row">
+					<div class="form-group">
+
+
+						<label class="col-sm-3 col-lg-2 control-label">Select
 							Franchise</label>
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-10">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr" onchange="disableRoute()">
+								id="selectFr" name="selectFr"
+								onchange="setAllFranchisee(this.value);"
+								onchange="disableRoute()">
 
 								<option value="-1"><c:out value="All" /></option>
 
@@ -128,11 +143,12 @@
 					</div>
 				</div>
 
+
 				<br>
 				<div class="row">
 
 					<div class="col-md-2">Select Category</div>
-					<div class="col-md-4" style="text-align: left;">
+					<div class="col-md-7" style="text-align: left;">
 						<select data-placeholder="Select Group"
 							class="form-control chosen" name="item_grp1" tabindex="-1"
 							id="item_grp1" data-rule-required="true"
@@ -147,10 +163,9 @@
 
 						</select>
 					</div>
-					<div class="col-md-6" style="text-align: center;">
-						<button class="btn btn-info" onclick="searchReport()">Search
-							Billwise Report</button>
-						<button class="btn search_btn" onclick="showChart()">Graph</button>
+					<div class="col-md-3" style="text-align: center;">
+						<button class="btn btn-primary" onclick="searchReport()">Search</button>
+						<button class="btn btn-primary" onclick="showChart()">Graph</button>
 
 
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
@@ -178,17 +193,16 @@
 
 
 
-			<div class="box" style="background-color: white;">
-				<div class="box-title">
-					<h3>
-						<i class="fa fa-list-alt"></i>Bill Report
-					</h3>
 
-				</div>
+		</div>
 
-				<form id="submitBillForm"
-					action="${pageContext.request.contextPath}/submitNewBill"
-					method="post">
+		<div class="box">
+
+			<form id="submitBillForm"
+				action="${pageContext.request.contextPath}/submitNewBill"
+				method="post">
+
+				<div class=" box-content">
 
 					<div class="col-md-12 table-responsive"
 						style="background-color: white;">
@@ -196,16 +210,16 @@
 							style="width: 100%" id="table_grid">
 							<thead style="background-color: #f3b5db;">
 								<tr>
-									<th>Sr.No.</th>
-									<th>Party Name</th>
-									<th>City</th>
-									<th>GSTIN</th>
-									<th>Basic Value</th>
-									<th>CGST</th>
-									<th>SGST</th>
-									<th>IGST</th>
+									<th style="text-align: center;">Sr.No.</th>
+									<th style="text-align: center;">Party Name</th>
+									<th style="text-align: center;">City</th>
+									<th style="text-align: center;">GSTIN</th>
+									<th style="text-align: center;">Basic Value</th>
+									<th style="text-align: center;">CGST</th>
+									<th style="text-align: center;">SGST</th>
+									<th style="text-align: center;">IGST</th>
 
-									<th>Total</th>
+									<th style="text-align: center;">Total</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -225,30 +239,10 @@
 						<div align="center" id="showchart" style="display: none"></div>
 					</div>
 
-					<!-- 				</div>
-				
-				<div id="chart" style="display: none"><br><br><br>
-	<hr><div  >
-	 
-			<div  id="chart_div" style="width:60%; height:300; float:left;" ></div> 
-		 
-			<div   id="PieChart_div" style="width:40%%; height:300; float: right;" ></div> 
-			</div>
-			
-				 
-				</div> -->
-
 
 					<div id="chart" style="background-color: white;">
 						<br> <br> <br>
 						<hr>
-
-						<!-- <table class="columns">
-      <tr>
-        <td><div id="chart_div" style="width: 50%" ></div></td>
-        <td><div id="PieChart_div" style="width: 50%"></div></td>
-      </tr>
-    </table> -->
 
 						<div id="chart_div" style="width: 100%; height: 100%;"></div>
 
@@ -257,9 +251,11 @@
 
 
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
+
+
 	</div>
 	<!-- END Main Content -->
 
@@ -293,6 +289,32 @@
 					}
 
 					$("#item_grp1").trigger("chosen:updated");
+				});
+			}
+		}
+	</script>
+
+	<script type="text/javascript">
+		function setAllFranchisee(frId) {
+			if (frId == -1) {
+				$.getJSON('${getAllFrListForSalesReportAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					$('#selectFr').find('option').remove().end()
+
+					$("#selectFr").append(
+							$("<option ></option>").attr("value", -1).text(
+									"Select All"));
+
+					for (var i = 0; i < len; i++) {
+
+						$("#selectFr").append(
+								$("<option selected></option>").attr("value",
+										data[i].frId).text(data[i].frName));
+					}
+
+					$("#selectFr").trigger("chosen:updated");
 				});
 			}
 		}
@@ -348,10 +370,14 @@
 
 				$.each(data, function(key, report) {
 
-					totalIgst = totalIgst + report.igstSum;
-					totalSgst = totalSgst + report.sgstSum;
-					totalCgst = totalCgst + report.cgstSum;
-					totalBasicValue = totalBasicValue + report.taxableAmt;
+					totalIgst = totalIgst
+							+ parseFloat(report.igstSum.toFixed(2));
+					totalSgst = totalSgst
+							+ parseFloat(report.sgstSum.toFixed(2));
+					totalCgst = totalCgst
+							+ parseFloat(report.cgstSum.toFixed(2));
+					totalBasicValue = totalBasicValue
+							+ parseFloat(report.taxableAmt.toFixed(2));
 					totalRoundOff = totalRoundOff + report.roundOff;
 
 					document.getElementById("expExcel").disabled = false;
@@ -365,13 +391,13 @@
 					tr.append($('<td></td>').html(report.frCity));
 					tr.append($('<td></td>').html(report.frGstNo));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.taxableAmt.toFixed(2)));
+							addCommas(report.taxableAmt.toFixed(2))));
 
 					if (report.isSameState == 1) {
 						tr.append($('<td style="text-align:right;"></td>')
-								.html(report.cgstSum.toFixed(2)));
+								.html(addCommas(report.cgstSum.toFixed(2))));
 						tr.append($('<td style="text-align:right;"></td>')
-								.html(report.sgstSum.toFixed(2)));
+								.html(addCommas(report.sgstSum.toFixed(2))));
 						tr.append($('<td style="text-align:right;"></td>')
 								.html(0));
 					} else {
@@ -380,23 +406,25 @@
 						tr.append($('<td style="text-align:right;"></td>')
 								.html(0));
 						tr.append($('<td style="text-align:right;"></td>')
-								.html(report.igstSum.toFixed(2)));
+								.html(addCommas(report.igstSum.toFixed(2))));
 					}
 					//tr.append($('<td></td>').html(report.igstSum));
-				 
+
 					var total;
 
 					if (report.isSameState == 1) {
-						total = parseFloat(report.taxableAmt)
-								+ parseFloat(report.cgstSum + report.sgstSum);
+						total = parseFloat(report.taxableAmt.toFixed(2))
+								+ parseFloat(report.cgstSum.toFixed(2))
+								+ parseFloat(report.sgstSum.toFixed(2));
 					} else {
 
-						total = report.taxableAmt + report.igstSum;
+						total = parseFloat(report.taxableAmt.toFixed(2))
+								+ parseFloat(report.igstSum.toFixed(2));
 					}
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							total.toFixed(2)));
-					totalFinal = totalFinal + total;
+							addCommas(total.toFixed(2))));
+					totalFinal = totalFinal + parseFloat(total.toFixed(2));
 
 					$('#table_grid tbody').append(tr);
 
@@ -410,16 +438,16 @@
 				tr.append($('<td style="font-weight:bold;"></td>')
 						.html("Total"));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalBasicValue.toFixed(2)));
+						addCommas(totalBasicValue.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalCgst.toFixed(2)));
+						addCommas(totalCgst.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalSgst.toFixed(2)));
+						addCommas(totalSgst.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalIgst.toFixed(2)));
-			 
+						addCommas(totalIgst.toFixed(2))));
+
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalFinal.toFixed(2)));
+						addCommas(totalFinal.toFixed(2))));
 
 				$('#table_grid tbody').append(tr);
 
@@ -678,6 +706,8 @@
 
 			var selectedFr = $("#selectFr").val();
 			var routeId = $("#selectRoute").val();
+			var selectedCat = $("#item_grp1").val();
+
 			window
 					.open('${pageContext.request.contextPath}/pdfForReport?url=pdf/showSaleBillwiseByFrPdf/'
 							+ from_date
@@ -685,7 +715,7 @@
 							+ to_date
 							+ '/'
 							+ selectedFr
-							+ '/' + routeId + '/');
+							+ '/' + routeId + '/' + selectedCat);
 
 		}
 		function exportToExcel() {
@@ -694,6 +724,25 @@
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>
+
+	<script type="text/javascript">
+		function addCommas(x) {
+
+			x = String(x).toString();
+			var afterPoint = '';
+			if (x.indexOf('.') > 0)
+				afterPoint = x.substring(x.indexOf('.'), x.length);
+			x = Math.floor(x);
+			x = x.toString();
+			var lastThree = x.substring(x.length - 3);
+			var otherNumbers = x.substring(0, x.length - 3);
+			if (otherNumbers != '')
+				lastThree = ',' + lastThree;
+			return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",")
+					+ lastThree + afterPoint;
+		}
+	</script>
+
 
 	<!--basic scripts-->
 	<script

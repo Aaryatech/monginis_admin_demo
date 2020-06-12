@@ -27,10 +27,14 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-
+		<div>
+			<h1>
+				<i class="fa fa-file-o"></i>Tax2 Report
+			</h1>
+			<h4></h4>
+		</div>
 		<!-- END Page Title -->
 
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
@@ -150,16 +154,26 @@
 										<td><c:out value="${taxList.billDate}" /></td>
 										<td><c:out value="${taxList.frName}" /></td>
 										<td><c:out value="${taxList.frGstNo}" /></td>
-										<td style="text-align: right;"><c:out
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" minFractionDigits="2" maxFractionDigits="2"
 												value="${taxList.taxableAmtTwentyEight}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" minFractionDigits="2" maxFractionDigits="2"
 												value="${taxList.taxableAmtEighteen}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" minFractionDigits="2" maxFractionDigits="2"
 												value="${taxList.taxableAmtTwelve}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" minFractionDigits="2" maxFractionDigits="2"
 												value="${taxList.taxableAmtFive}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" minFractionDigits="2" maxFractionDigits="2"
 												value="${taxList.taxableAmtZero}" /></td>
+
 										<c:set var="taxableAmt">
 											<fmt:formatNumber type="number" minFractionDigits="2"
 												maxFractionDigits="2"

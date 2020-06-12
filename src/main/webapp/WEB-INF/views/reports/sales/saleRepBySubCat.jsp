@@ -32,32 +32,21 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- <div class="page-title">
+		 <div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Franchisee wise SubCategory-wise Summary Report
+					<i class="fa fa-file-o"></i>Franchise wise Sub Category wise Summary Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div> 
 		<!-- END Page Title -->
-
-		<!-- BEGIN Breadcrumb -->
-		<%-- <div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Bill Report</li>
-			</ul>
-		</div> --%>
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i> Franchisee wise SubCategory-wise Summary Report
+					<i class="fa fa-bars"></i>Franchise wise Sub Category wise Summary Report
 				</h3>
 
 			</div>
@@ -111,7 +100,7 @@
 				</div>
 				<br>
 				<div class="row">
-					<label class="col-sm-2 col-lg-2 control-label">Sub Category</label>
+					<label class="col-sm-2 col-lg-2 control-label">Select Sub Category</label>
 					<div class="col-md-10">
 						<select data-placeholder="Select Sub Category" multiple="multiple"
 							class="form-control chosen " name="item_grp2" id="item_grp2"
@@ -140,7 +129,7 @@
 				<div class="row">
 					<div class="form-group">
 
-						<label class="col-sm-3 col-lg-2 control-label"> Select
+						<label class="col-sm-3 col-lg-2 control-label">Select
 							Franchise</label>
 						<div class="col-sm-6 col-lg-10">
 
@@ -163,7 +152,7 @@
 				</div>
 				<br>
 				<div class="row">
-					<div class="col-md-6" style="text-align: center;">
+					<div class="col-md-12" style="text-align: center;">
 						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button>
@@ -379,55 +368,55 @@
 																					.append($(
 																							'<td style="text-align:right;"></td>')
 																							.html(
-																									report.soldQty
-																											.toFixed(2)));
+																									addCommas(report.soldQty
+																											.toFixed(2))));
 
 																			tr
 																					.append($(
 																							'<td style="text-align:right;"></td>')
 																							.html(
-																									report.soldAmt
-																											.toFixed(2)));
+																									addCommas(report.soldAmt
+																											.toFixed(2))));
 
 																			tr
 																					.append($(
 																							'<td style="text-align:right;"></td>')
 																							.html(
-																									report.varQty
-																											.toFixed(2)));
+																									addCommas(report.varQty
+																											.toFixed(2))));
 
 																			tr
 																					.append($(
 																							'<td style="text-align:right;"></td>')
 																							.html(
-																									report.varAmt
-																											.toFixed(2)));
+																									addCommas(report.varAmt
+																											.toFixed(2))));
 
 																			tr
 																					.append($(
 																							'<td style="text-align:right;"></td>')
 																							.html(
-																									report.retQty
-																											.toFixed(2)));
+																									addCommas(report.retQty
+																											.toFixed(2))));
 																			tr
 																					.append($(
 																							'<td style="text-align:right;"></td>')
 																							.html(
-																									report.retAmt
-																											.toFixed(2)));
+																									addCommas(report.retAmt
+																											.toFixed(2))));
 
 																			tr
 																					.append($(
 																							'<td style="text-align:right;"></td>')
 																							.html(
-																									report.netQty
-																											.toFixed(2)));
+																									addCommas(report.netQty
+																											.toFixed(2))));
 																			tr
 																					.append($(
 																							'<td style="text-align:right;"></td>')
 																							.html(
-																									report.netAmt
-																											.toFixed(2)));
+																									addCommas(report.netAmt
+																											.toFixed(2))));
 																			tr
 																					.append($(
 																							'<td style="text-align:right;"></td>')
@@ -458,51 +447,51 @@
 															.append($(
 																	'<td style="text-align:right;font-weight:bold;"></td>')
 																	.html(
-																			totalSoldQty
-																					.toFixed(2)));
+																			addCommas(totalSoldQty
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;font-weight:bold;"></td>')
 																	.html(
-																			totalSoldAmt
-																					.toFixed(2)));
+																			addCommas(totalSoldAmt
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;font-weight:bold;"></td>')
 																	.html(
-																			totalVarQty
-																					.toFixed(2)));
+																			addCommas(totalVarQty
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;font-weight:bold;"></td>')
 																	.html(
-																			totalVarAmt
-																					.toFixed(2)));
+																			addCommas(totalVarAmt
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;font-weight:bold;"></td>')
 																	.html(
-																			totalRetQty
-																					.toFixed(2)));
+																			addCommas(totalRetQty
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;font-weight:bold;"></td>')
 																	.html(
-																			totalRetAmt
-																					.toFixed(2)));
+																			addCommas(totalRetAmt
+																					.toFixed(2))));
 
 													tr
 															.append($(
 																	'<td style="text-align:right;font-weight:bold;"></td>')
 																	.html(
-																			totalNetQty
-																					.toFixed(2)));
+																			addCommas(totalNetQty
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;font-weight:bold;"></td>')
 																	.html(
-																			totalNetAmt
-																					.toFixed(2)));
+																			addCommas(totalNetAmt
+																					.toFixed(2))));
 
 													tr
 															.append($(
@@ -688,7 +677,22 @@
 		}
 	</script>
 
+<script type="text/javascript">
+	 function addCommas(x){
 
+		 x=String(x).toString();
+		  var afterPoint = '';
+		  if(x.indexOf('.') > 0)
+		     afterPoint = x.substring(x.indexOf('.'),x.length);
+		  x = Math.floor(x);
+		  x=x.toString();
+		  var lastThree = x.substring(x.length-3);
+		  var otherNumbers = x.substring(0,x.length-3);
+		  if(otherNumbers != '')
+		      lastThree = ',' + lastThree;
+		  return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		 } 
+	</script>
 
 
 	<!--basic scripts-->

@@ -29,27 +29,19 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- <div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>NET SALES HSN CODE WISE SUMMERY Report
+					<i class="fa fa-file-o"></i>HSN wise Summary Report
 				</h1>
 				<h4></h4>
 			</div>
 
-		</div> -->
-		<!-- END Page Title -->
+		</div>
+		-->
+		<!-- END Page Title 
 
-		<!-- BEGIN Breadcrumb -->
-		<%-- <div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">HSN Report</li>
-			</ul>
-		</div> --%>
-		<!-- END Breadcrumb -->
+		
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
@@ -245,7 +237,6 @@
 
 								$('#table_grid tbody').html('');
 
-
 								$('#loader').hide();
 
 								if (data == "") {
@@ -297,19 +288,20 @@
 														tr
 																.append($(
 																		'<td  style="text-align:right;"></td>')
-																		.html(report.billQty));
+																		.html(
+																				addCommas(report.billQty)));
 
 														tr
 																.append($(
 																		'<td  style="text-align:right;"></td>')
 																		.html(
-																				report.grnGvnQty));
+																				addCommas(report.grnGvnQty)));
 														tr
 																.append($(
 																		'<td  style="text-align:right;"></td>')
 																		.html(
-																				report.billQty
-																						- report.grnGvnQty));
+																				addCommas(report.billQty
+																						- report.grnGvnQty)));
 
 														totalTaxableAmt = totalTaxableAmt
 																+ report.taxableAmt;
@@ -318,18 +310,20 @@
 																+ report.sgstRs;
 														totalCgst = totalCgst
 																+ report.cgstRs;
-														totalCess=totalCess+report.cessRs;
+														totalCess = totalCess
+																+ report.cessRs;
 														totalFinal = totalFinal
 																+ report.cgstRs
-																+ report.sgstRs+ report.cessRs
+																+ report.sgstRs
+																+ report.cessRs
 																+ report.taxableAmt;
 
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.taxableAmt
-																						.toFixed(2)));
+																				addCommas(report.taxableAmt
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
@@ -339,8 +333,8 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.cgstRs
-																						.toFixed(2)));
+																				addCommas(report.cgstRs
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
@@ -350,26 +344,27 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.sgstRs
-																						.toFixed(2)));
-														tr
-														.append($(
-																'<td style="text-align:right;"></td>')
-																.html(
-																		report.cessPer));
-												tr
-														.append($(
-																'<td style="text-align:right;"></td>')
-																.html(
-																		report.cessRs
-																				.toFixed(2)));
+																				addCommas(report.sgstRs
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				(report.cgstRs
-																						+ report.sgstRs+ report.cessRs + report.taxableAmt)
-																						.toFixed(2)));
+																				report.cessPer));
+														tr
+																.append($(
+																		'<td style="text-align:right;"></td>')
+																		.html(
+																				addCommas(report.cessRs
+																						.toFixed(2))));
+														tr
+																.append($(
+																		'<td style="text-align:right;"></td>')
+																		.html(
+																				addCommas((report.cgstRs
+																						+ report.sgstRs
+																						+ report.cessRs + report.taxableAmt)
+																						.toFixed(2))));
 
 														$('#table_grid tbody')
 																.append(tr);
@@ -420,13 +415,13 @@
 																.append($(
 																		'<td  style="text-align:right;"></td>')
 																		.html(
-																				report.billQty));
+																				addCommas(report.billQty)));
 														tr
 																.append($(
 																		'<td  style="text-align:right;"></td>')
 																		.html(
-																				report.billQty
-																						- report.grnGvnQty));
+																				addCommas(report.billQty
+																						- report.grnGvnQty)));
 
 														totalTaxableAmt = totalTaxableAmt
 																+ report.taxableAmt;
@@ -435,18 +430,20 @@
 																+ report.sgstRs;
 														totalCgst = totalCgst
 																+ report.cgstRs;
-														totalCess=totalCess+report.cessRs;
+														totalCess = totalCess
+																+ report.cessRs;
 														totalFinal = totalFinal
 																+ report.cgstRs
-																+ report.sgstRs+ report.cessRs
+																+ report.sgstRs
+																+ report.cessRs
 																+ report.taxableAmt;
 
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.taxableAmt
-																						.toFixed(2)));
+																				addCommas(report.taxableAmt
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
@@ -456,8 +453,8 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.cgstRs
-																						.toFixed(2)));
+																				addCommas(report.cgstRs
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
@@ -467,33 +464,34 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.sgstRs
-																						.toFixed(2)));
-														tr
-														.append($(
-																'<td style="text-align:right;"></td>')
-																.html(
-																		report.cessPer));
-												tr
-														.append($(
-																'<td style="text-align:right;"></td>')
-																.html(
-																		report.cessRs
-																				.toFixed(2)));
+																				addCommas(report.sgstRs
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				(report.cgstRs
-																						+ report.sgstRs+ report.cessRs + report.taxableAmt)
-																						.toFixed(2)));
+																				report.cessPer));
+														tr
+																.append($(
+																		'<td style="text-align:right;"></td>')
+																		.html(
+																				addCommas(report.cessRs
+																						.toFixed(2))));
+														tr
+																.append($(
+																		'<td style="text-align:right;"></td>')
+																		.html(
+																				addCommas((report.cgstRs
+																						+ report.sgstRs
+																						+ report.cessRs + report.taxableAmt)
+																						.toFixed(2))));
 
 														$('#table_grid tbody')
 																.append(tr);
 
 													})
 
-								}else if (type == 3) {
+								} else if (type == 3) {
 
 									$
 											.each(
@@ -531,19 +529,20 @@
 														tr
 																.append($(
 																		'<td  style="text-align:right;"></td>')
-																		.html(report.billQty));
+																		.html(
+																				addCommas(report.billQty)));
 
 														tr
 																.append($(
 																		'<td  style="text-align:right;"></td>')
 																		.html(
-																				report.grnGvnQty));
+																				addCommas(report.grnGvnQty)));
 														tr
 																.append($(
 																		'<td  style="text-align:right;"></td>')
 																		.html(
-																				report.billQty
-																						- report.grnGvnQty));
+																				addCommas(report.billQty
+																						- report.grnGvnQty)));
 
 														totalTaxableAmt = totalTaxableAmt
 																+ report.taxableAmt;
@@ -552,18 +551,20 @@
 																+ report.sgstRs;
 														totalCgst = totalCgst
 																+ report.cgstRs;
-														totalCess=totalCess+report.cessRs;
+														totalCess = totalCess
+																+ report.cessRs;
 														totalFinal = totalFinal
 																+ report.cgstRs
-																+ report.sgstRs+report.cessRs
+																+ report.sgstRs
+																+ report.cessRs
 																+ report.taxableAmt;
 
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.taxableAmt
-																						.toFixed(2)));
+																				addCommas(report.taxableAmt
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
@@ -573,8 +574,8 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.cgstRs
-																						.toFixed(2)));
+																				addCommas(report.cgstRs
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
@@ -584,26 +585,27 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.sgstRs
-																						.toFixed(2)));
-														tr
-														.append($(
-																'<td style="text-align:right;"></td>')
-																.html(
-																		report.cessPer));
-												tr
-														.append($(
-																'<td style="text-align:right;"></td>')
-																.html(
-																		report.cessRs
-																				.toFixed(2)));
+																				addCommas(report.sgstRs
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				(report.cgstRs
-																						+ report.sgstRs+report.cessRs + report.taxableAmt)
-																						.toFixed(2)));
+																				report.cessPer));
+														tr
+																.append($(
+																		'<td style="text-align:right;"></td>')
+																		.html(
+																				addCommas(report.cessRs
+																						.toFixed(2))));
+														tr
+																.append($(
+																		'<td style="text-align:right;"></td>')
+																		.html(
+																				addCommas((report.cgstRs
+																						+ report.sgstRs
+																						+ report.cessRs + report.taxableAmt)
+																						.toFixed(2))));
 
 														$('#table_grid tbody')
 																.append(tr);
@@ -624,22 +626,23 @@
 										.html("Total"));
 								tr.append($(
 										'<td style="text-align:right;"></td>')
-										.html(totalTaxableAmt.toFixed(2)));
+										.html(addCommas(totalTaxableAmt.toFixed(2))));
 								tr.append($('<td></td>').html(""));
 								tr.append($(
 										'<td style="text-align:right;"></td>')
-										.html(totalCgst.toFixed(2)));
+										.html(addCommas(totalCgst.toFixed(2))));
 								tr.append($('<td></td>').html(""));
 								tr.append($(
 										'<td style="text-align:right;"></td>')
-										.html(totalSgst.toFixed(2)));	tr.append($('<td></td>').html(""));
+										.html(addCommas(totalSgst.toFixed(2))));
+								tr.append($('<td></td>').html(""));
 								tr.append($(
-								'<td style="text-align:right;"></td>')
-								.html(totalCess.toFixed(2)));
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(totalCess.toFixed(2))));
 
 								tr.append($(
 										'<td style="text-align:right;"></td>')
-										.html(totalFinal.toFixed(2)));
+										.html(addCommas(totalFinal.toFixed(2))));
 
 								$('#table_grid tbody').append(tr);
 
@@ -647,6 +650,26 @@
 
 		}
 	</script>
+
+	<script type="text/javascript">
+		function addCommas(x) {
+
+			x = String(x).toString();
+			var afterPoint = '';
+			if (x.indexOf('.') > 0)
+				afterPoint = x.substring(x.indexOf('.'), x.length);
+			x = Math.floor(x);
+			x = x.toString();
+			var lastThree = x.substring(x.length - 3);
+			var otherNumbers = x.substring(0, x.length - 3);
+			if (otherNumbers != '')
+				lastThree = ',' + lastThree;
+			return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",")
+					+ lastThree + afterPoint;
+		}
+	</script>
+
+
 
 	<script type="text/javascript">
 		function validate() {
@@ -706,13 +729,13 @@
 			var to_date = $("#toDate").val();
 			var type = $("#type").val();
 			var grngvn = $("#grngvn").val();
-			
+
 			/* 	window
 						.open('${pageContext.request.contextPath}/pdfForReport?url=pdf/showSaleReportByDatePdf/'
 								+ from_date + '/' + to_date);
 			 */
 			window.open("${pageContext.request.contextPath}/getHsnWisePdf/"
-					+ from_date + "/" + to_date+"/"+type+"/"+grngvn);
+					+ from_date + "/" + to_date + "/" + type + "/" + grngvn);
 
 		}
 	</script>

@@ -30,14 +30,14 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- <div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Monthly Sales Return Quantity Wise Report
+					<i class="fa fa-file-o"></i>Sub Category wise Contribution Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
@@ -163,19 +163,19 @@
 											varStatus="cnt">
 											<th style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
-													groupingUsed="false" value="${report.value.totBillAmt}" /></th>
+													value="${report.value.totBillAmt}" /></th>
 
 
 											<c:choose>
 												<c:when test="${report.value.totBillAmt==0}">
 													<th style="text-align: right;"><fmt:formatNumber
 															type="number" maxFractionDigits="2" minFractionDigits="2"
-															groupingUsed="false" value="0.00" /></th>
+															value="0.00" /></th>
 												</c:when>
 												<c:otherwise>
 													<th style="text-align: right;"><fmt:formatNumber
 															type="number" maxFractionDigits="2" minFractionDigits="2"
-															groupingUsed="false" value="100.00" /></th>
+															value="100.00" /></th>
 												</c:otherwise>
 
 											</c:choose>
@@ -251,7 +251,7 @@
 	<script type="text/javascript">
 		function exportToExcel() {
 
-			window.open("${pageContext.request.contextPath}/exportToExcel");
+			window.open("${pageContext.request.contextPath}/exportToExcelNew");
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>

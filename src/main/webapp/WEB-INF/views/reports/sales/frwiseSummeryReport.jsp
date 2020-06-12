@@ -34,29 +34,18 @@
 		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Franchisee Summery Report
+					<i class="fa fa-file-o"></i>Franchise Summary Report
 				</h1>
 				<h4></h4>
 			</div>
 		</div>
 		<!-- END Page Title -->
 
-		<!-- BEGIN Breadcrumb -->
-		<div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Franchisee Report</li>
-			</ul>
-		</div>
-		<!-- END Breadcrumb -->
-
 		<!-- BEGIN Main Content -->
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Franchisee Summery Report
+					<i class="fa fa-bars"></i>Franchise Summary Report
 				</h3>
 
 			</div>
@@ -95,7 +84,7 @@
 
 						<label class="col-sm-3 col-lg-2 control-label"> Select
 							Franchise</label>
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-10">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
@@ -111,17 +100,22 @@
 							</select>
 
 						</div>
-						<div class="col-md-6" style="text-align: center;">
-							<button class="btn btn-info" onclick="searchReport()">Search
+						
+					</div>
+				</div>
+
+				<br>
+
+				<div class="row">
+					<div class="form-group">
+					<div class="col-md-12" style="text-align: center;">
+							<button class="btn btn-primary" onclick="searchReport()">Search
 								Report</button>
 							<button class="btn btn-primary" value="PDF" id="PDFButton"
 								onclick="genPdf()">PDF</button>
 						</div>
 					</div>
 				</div>
-
-				<br>
-
 
 				<div align="center" id="loader" style="display: none">
 
@@ -239,8 +233,11 @@
 
 													var tr = $('<tr></tr>');
 
-													tr.append($('<td style="text-align:center;"></td>')
-															.html(fr.frName));
+													tr
+															.append($(
+																	'<td style="text-align:center;"></td>')
+																	.html(
+																			fr.frName));
 													tr.append($('<td></td>')
 															.html(""));
 													tr.append($('<td></td>')

@@ -49,7 +49,7 @@ public class SaleItemReportController {
 
 		model = new ModelAndView("reports/sales/monthwisesalesitemvalue");
 		RestTemplate restTemplate = new RestTemplate();
-
+		String[] yrs;
 		try {
 
 			CategoryListResponse categoryListResponse = restTemplate.getForObject(Constants.url + "showAllCategory",
@@ -71,7 +71,7 @@ public class SaleItemReportController {
 
 				map1.add("catId", catId);
 				subCatList = restTemplate.postForObject(Constants.url + "getSubCateListByCatId", map1, List.class);
-				String[] yrs = year.split("-"); // returns an array with the 2 parts
+				yrs = year.split("-"); // returns an array with the 2 parts
 
 				MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
 
@@ -211,8 +211,16 @@ public class SaleItemReportController {
 				exportToExcelList.add(expoExcel);
 				System.err.println("exportToExcelList" + exportToExcelList.toString());
 				HttpSession session = request.getSession();
-				session.setAttribute("exportExcelList", exportToExcelList);
-				session.setAttribute("excelName", "MonthlyItemWiseReport");
+				//session.setAttribute("exportExcelList", exportToExcelList);
+				//session.setAttribute("excelName", "MonthlyItemWiseReport");
+				
+				session.setAttribute("exportExcelListNew", exportToExcelList);
+				session.setAttribute("excelNameNew", "Monthly_Item_Wise_Report");
+				session.setAttribute("reportNameNew", "Monthly Item Wise Report"); 
+				session.setAttribute("searchByNew", "From " + yrs[0] + " To " + yrs[1] + " ");
+				session.setAttribute("mergeUpto1", "$A$1:$BA$1");
+				session.setAttribute("mergeUpto2", "$A$2:$BA$2");
+				
 
 			}
 

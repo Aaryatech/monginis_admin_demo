@@ -799,7 +799,7 @@
 				//alert(11);
 
 				var materialOptions = {
-					width : 1000,
+					width : 1150,
 					height : 500,
 					//isStacked: 'percent',
 					bar: { groupWidth: '45%' },

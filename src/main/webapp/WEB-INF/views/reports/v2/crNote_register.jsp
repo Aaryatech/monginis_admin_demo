@@ -27,26 +27,16 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- 	<div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Billwise Report by Fr
+					<i class="fa fa-file-o"></i>Credit Note-Wise HSN wise Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
 
-		<!-- BEGIN Breadcrumb -->
-		<%-- 	<div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Bill Report</li>
-			</ul>
-		</div> --%>
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
@@ -77,31 +67,8 @@
 							<input class="form-control date-picker" id="toDate" name="toDate"
 								size="30" type="text" value="${todaysDate}" />
 						</div>
-						<!-- 	</div>
-
-				</div>
 
 
-				<br>
-<div class="row">
-					<div class="form-group"> -->
-						<%-- <label class="col-sm-3 col-lg-2 control-label"><b></b>Select
-							Franchisee</label>
-						<div class="col-sm-6 col-lg-4">
-
-							<select data-placeholder="Choose Franchisee"
-								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr">
-
-								<option value="-1"><c:out value="All"/></option>
-
-								<c:forEach items="${allFrIdNameList}" var="fr"
-									varStatus="count">
-									<option value="${fr.frId}"><c:out value="${fr.frName}"/></option>
-								</c:forEach>
-							</select>
-
-						</div> --%>
 
 						<div class="col-sm-6 col-lg-4">
 							<button class="btn btn-primary" onclick="searchReport()">Search</button>
@@ -119,42 +86,32 @@
 					</div>
 
 				</div>
-			</div>
 
+				<div class="row">
+					<div class="col-md-12" style="text-align: center;">
+						<div align="center" id="loader" style="display: none">
 
-			<div class="row" style="background-color: white;">
-				<div class="col-md-12" style="text-align: center;"></div>
-
-
-				<div align="center" id="loader" style="display: none">
-
-					<span>
-						<h4>
-							<font color="#343690">Loading</font>
-						</h4>
-					</span> <span class="l-1"></span> <span class="l-2"></span> <span
-						class="l-3"></span> <span class="l-4"></span> <span class="l-5"></span>
-					<span class="l-6"></span>
+							<span>
+								<h4>
+									<font color="#343690">Loading</font>
+								</h4>
+							</span> <span class="l-1"></span> <span class="l-2"></span> <span
+								class="l-3"></span> <span class="l-4"></span> <span class="l-5"></span>
+							<span class="l-6"></span>
+						</div>
+					</div>
 				</div>
 
 			</div>
 
 
+		</div>
 
-			<div class="box">
-				<!-- <div class="box-title">
-					<h3>
-						<i class="fa fa-list-alt"></i>Credit Note Register
-					</h3>
+		<div class="box">
+			<div class=" box-content">
+				<div class="row">
+					<div class="col-md-12 table-responsive" style="overflow-x: auto;">
 
-				</div> -->
-
-				<form id="submitBillForm"
-					action="${pageContext.request.contextPath}/submitNewBill"
-					method="post">
-
-					<div class="col-md-12 table-responsive"
-						style="background-color: white;">
 						<table class="table table-bordered table-striped fill-head "
 							style="width: 100%" id="table_grid">
 							<thead style="background-color: #f3b5db;">
@@ -173,7 +130,7 @@
 									<th style="text-align: center;">CGST Amt</th>
 									<th style="text-align: center;">SGST %</th>
 									<th style="text-align: center;">SGST Amt</th>
-									<th style="text-align: center;">CRN Amt</th>									
+									<th style="text-align: center;">CRN Amt</th>
 									<th style="text-align: center;">Tax Amt</th>
 									<th style="text-align: center;">Total Amt</th>
 								</tr>
@@ -189,24 +146,24 @@
 							<div class="col-sm-3  controls"></div>
 						</div>
 						<div align="center" id="showchart" style="display: none"></div>
+
+						<div id="chart" style="background-color: white; display: none;">
+							<br> <br> <br>
+							<hr>
+
+
+							<div id="chart_div" style="width: 100%; height: 100%;"></div>
+
+
+							<div id="PieChart_div" style="width: 100%; height: 100%;"></div>
+
+
+						</div>
 					</div>
-
-					<div id="chart" style="background-color: white;">
-						<br>
-						<br> <br>
-						<hr>
-
-
-						<div id="chart_div" style="width: 100%; height: 100%;"></div>
-
-
-						<div id="PieChart_div" style="width: 100%; height: 100%;"></div>
-
-
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
+
 	</div>
 	<!-- END Main Content -->
 
@@ -253,7 +210,7 @@
 				var crnAmt = 0;
 				var taxAmtFinal = 0;
 				var totAmtFinal = 0;
-				
+
 				$.each(data, function(key, report) {
 
 					document.getElementById("expExcel").disabled = false;
@@ -273,40 +230,45 @@
 							report.frName));
 					tr.append($('<td style="text-align:left;"></td>').html(
 							report.frGstNo));
+
 					crnQty = crnQty + report.crnQty;
 					crnTaxable = crnTaxable + report.crnTaxable;
 					cgstAmt = cgstAmt + report.cgstAmt;
 					sgstAmt = sgstAmt + report.sgstAmt;
 					crnAmt = crnAmt + report.crnAmt;
+
 					tr.append($('<td style="text-align:left;"></td>').html(
 							report.hsnCode));
+
 					tr.append($('<td style="text-align:center;"></td>').html(
-							(report.crnQty)));
+							addCommas(report.crnQty)));
+
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.crnTaxable.toFixed(2)));
+							addCommas(report.crnTaxable.toFixed(2))));
 					tr.append($('<td style="text-align:right;"></td>').html(
 							report.cgstPer.toFixed(2)));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.cgstAmt.toFixed(2)));
+							addCommas(report.cgstAmt.toFixed(2))));
 
 					tr.append($('<td style="text-align:right;"></td>').html(
 							report.sgstPer.toFixed(2)));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.sgstAmt.toFixed(2)));
+							addCommas(report.sgstAmt.toFixed(2))));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.crnAmt.toFixed(2)));
-					
-					var tax_amt=report.cgstAmt+report.sgstAmt;
-					var tot_amt=report.crnTaxable+report.cgstAmt+report.sgstAmt;
-					
+							addCommas(report.crnAmt.toFixed(2))));
+
+					var tax_amt = report.cgstAmt + report.sgstAmt;
+					var tot_amt = report.crnTaxable + report.cgstAmt
+							+ report.sgstAmt;
+
 					tr.append($('<td style="text-align:right;"></td>').html(
-							tax_amt.toFixed(2)));
-					
+							addCommas(tax_amt.toFixed(2))));
+
 					tr.append($('<td style="text-align:right;"></td>').html(
-							tot_amt.toFixed(2)));
-					
-					taxAmtFinal=taxAmtFinal+tax_amt;
-					totAmtFinal=totAmtFinal+tot_amt;
+							addCommas(tot_amt.toFixed(2))));
+
+					taxAmtFinal = taxAmtFinal + tax_amt;
+					totAmtFinal = totAmtFinal + tot_amt;
 
 					$('#table_grid tbody').append(tr);
 
@@ -321,24 +283,24 @@
 				tr.append($('<td style="font-weight:12px;"></td>').html(""));
 				tr.append($('<td></td>').html("Total"));
 				tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + crnQty.toFixed(2)));
+						"" + addCommas(crnQty.toFixed(2))));
 				tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + crnTaxable.toFixed(2)));
+						"" + addCommas(crnTaxable.toFixed(2))));
 				tr.append($('<td></td>').html(""));
 				tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + cgstAmt.toFixed(2)));
+						"" + addCommas(cgstAmt.toFixed(2))));
 				tr.append($('<td></td>').html(""));
 				tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + sgstAmt.toFixed(2)));
+						"" + addCommas(sgstAmt.toFixed(2))));
 				tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + crnAmt.toFixed(0)));
-				
+						"" + addCommas(crnAmt.toFixed(0))));
+
 				tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + taxAmtFinal.toFixed(0)));
-				
+						"" + addCommas(taxAmtFinal.toFixed(0))));
+
 				tr.append($('<td style="font-weight:12px;"></td>').html(
-						"" + totAmtFinal.toFixed(0)));
-				
+						"" + addCommas(totAmtFinal.toFixed(0))));
+
 				$('#table_grid tbody').append(tr);
 
 			});
@@ -603,6 +565,25 @@
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>
+
+	<script type="text/javascript">
+		function addCommas(x) {
+
+			x = String(x).toString();
+			var afterPoint = '';
+			if (x.indexOf('.') > 0)
+				afterPoint = x.substring(x.indexOf('.'), x.length);
+			x = Math.floor(x);
+			x = x.toString();
+			var lastThree = x.substring(x.length - 3);
+			var otherNumbers = x.substring(0, x.length - 3);
+			if (otherNumbers != '')
+				lastThree = ',' + lastThree;
+			return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",")
+					+ lastThree + afterPoint;
+		}
+	</script>
+
 
 	<!--basic scripts-->
 	<script

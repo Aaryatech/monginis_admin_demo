@@ -8,7 +8,12 @@
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <body>
 	<jsp:include page="/WEB-INF/views/include/logout.jsp"></jsp:include>
+
 	<c:url var="getGstRegister" value="/getGstRegister"></c:url>
+	<c:url var="getAllFrListForGstReportAjax"
+		value="/getAllFrListForGstReportAjax"></c:url>
+
+
 
 	<!-- BEGIN Sidebar -->
 	<div id="sidebar" class="navbar-collapse collapse">
@@ -27,26 +32,16 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- 	<div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Billwise Report by Fr
+					<i class="fa fa-file-o"></i>GST Register Report By Franchise
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
 
-		<!-- BEGIN Breadcrumb -->
-		<%-- 	<div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Bill Report</li>
-			</ul>
-		</div> --%>
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
@@ -90,11 +85,12 @@
 					<div class="form-group">
 						<label class="col-sm-3 col-lg-2 control-label"><b></b>Select
 							Franchise</label>
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-10">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr">
+								id="selectFr" name="selectFr"
+								onchange="setAllFranchisee(this.value)">
 
 								<option value="-1"><c:out value="All" /></option>
 
@@ -105,7 +101,18 @@
 
 						</div>
 
-						<div class="col-sm-6 col-lg-4">
+
+					</div>
+
+				</div>
+
+				<br>
+
+				<div class="row">
+					<div class="form-group">
+
+
+						<div class="col-sm-6 col-lg-12" style="text-align: center;">
 							<button class="btn btn-primary" onclick="searchReport()">Search</button>
 							<input type="button" id="expExcel" class="btn btn-primary"
 								value="Export To Excel" onclick="exportToExcel();"
@@ -247,6 +254,12 @@
 
 									}
 
+									var taxableTotal = 0;
+									var taxTotal = 0;
+									var cgstTotal = 0;
+									var sgstTotal = 0;
+									var grandTotal = 0;
+
 									$
 											.each(
 													data,
@@ -292,13 +305,13 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				(report.billQty)));
+																				addCommas(report.billQty)));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.taxableAmt
-																						.toFixed(2)));
+																				addCommas(report.taxableAmt
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
@@ -308,8 +321,8 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.cgstAmt
-																						.toFixed(2)));
+																				addCommas(report.cgstAmt
+																						.toFixed(2))));
 
 														tr
 																.append($(
@@ -320,19 +333,84 @@
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.sgstAmt
-																						.toFixed(2)));
+																				addCommas(report.sgstAmt
+																						.toFixed(2))));
 														tr
 																.append($(
 																		'<td style="text-align:right;"></td>')
 																		.html(
-																				report.grandTotal
-																						.toFixed(2)));
+																				addCommas(report.grandTotal
+																						.toFixed(2))));
 
 														$('#table_grid tbody')
 																.append(tr);
 
+														taxableTotal = taxableTotal
+																+ parseFloat(report.taxableAmt
+																		.toFixed(2));
+														cgstTotal = cgstTotal
+																+ parseFloat(report.cgstAmt
+																		.toFixed(2));
+														sgstTotal = sgstTotal
+																+ parseFloat(report.sgstAmt
+																		.toFixed(2));
+														taxTotal = taxTotal
+																+ cgstTotal
+																+ sgstTotal;
+														grandTotal = grandTotal
+																+ parseFloat(report.grandTotal
+																		.toFixed(2));
+
 													})
+
+									var tr = $('<tr></tr>');
+
+									tr.append($('<td></td>').html("TOTAL"));
+
+									 tr.append($('<td></td>').html(""));
+									tr
+											.append($(
+													'<td style="text-align:left;"></td>')
+													.html(""));
+									tr
+											.append($(
+													'<td style="text-align:left;"></td>')
+													.html(""));
+									tr
+											.append($(
+													'<td style="text-align:left;"></td>')
+													.html(""));
+									tr
+											.append($(
+													'<td style="text-align:right;"></td>')
+													.html(""));
+										tr
+											.append($(
+													'<td style="text-align:right;"></td>')
+													.html(addCommas(taxableTotal.toFixed(2))));
+									tr
+											.append($(
+													'<td style="text-align:right;"></td>')
+													.html(""));
+									tr
+											.append($(
+													'<td style="text-align:right;"></td>')
+													.html(addCommas(cgstTotal.toFixed(2))));
+
+									tr
+											.append($(
+													'<td style="text-align:right;"></td>')
+													.html(""));
+									tr
+											.append($(
+													'<td style="text-align:right;"></td>')
+													.html(addCommas(sgstTotal.toFixed(2))));
+									tr
+											.append($(
+													'<td style="text-align:right;"></td>')
+													.html(addCommas(grandTotal.toFixed(2)))); 
+
+									$('#table_grid tbody').append(tr);
 
 								});
 			}
@@ -596,6 +674,50 @@
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>
+
+	<script type="text/javascript">
+		function setAllFranchisee(frId) {
+			if (frId == -1) {
+				$.getJSON('${getAllFrListForGstReportAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					$('#selectFr').find('option').remove().end()
+
+					$("#selectFr").append(
+							$("<option ></option>").attr("value", -1).text(
+									"Select All"));
+
+					for (var i = 0; i < len; i++) {
+
+						$("#selectFr").append(
+								$("<option selected></option>").attr("value",
+										data[i].frId).text(data[i].frName));
+					}
+
+					$("#selectFr").trigger("chosen:updated");
+				});
+			}
+		}
+	</script>
+	
+	<script type="text/javascript">
+	 function addCommas(x){
+
+		 x=String(x).toString();
+		  var afterPoint = '';
+		  if(x.indexOf('.') > 0)
+		     afterPoint = x.substring(x.indexOf('.'),x.length);
+		  x = Math.floor(x);
+		  x=x.toString();
+		  var lastThree = x.substring(x.length-3);
+		  var otherNumbers = x.substring(0,x.length-3);
+		  if(otherNumbers != '')
+		      lastThree = ',' + lastThree;
+		  return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		 } 
+	</script>
+
 
 	<!--basic scripts-->
 	<script

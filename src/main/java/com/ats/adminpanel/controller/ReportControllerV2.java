@@ -25,6 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.LinkedMultiValueMap;
@@ -38,8 +42,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.adminpanel.commons.Constants;
 import com.ats.adminpanel.commons.DateConvertor;
+import com.ats.adminpanel.model.AllFrIdName;
 import com.ats.adminpanel.model.AllFrIdNameList;
 import com.ats.adminpanel.model.ExportToExcel;
+import com.ats.adminpanel.model.Tax1Report;
+import com.ats.adminpanel.model.Tax2Report;
 import com.ats.adminpanel.model.reportv2.CrNoteRegItem;
 import com.ats.adminpanel.model.reportv2.CrNoteRegSp;
 import com.ats.adminpanel.model.reportv2.CrNoteRegisterList;
@@ -106,6 +113,14 @@ public class ReportControllerV2 {
 		}
 
 		return model;
+
+	}
+
+	@RequestMapping(value = "/getAllFrListForFrSalesReportAjax", method = RequestMethod.GET)
+	public @ResponseBody List<AllFrIdName> getAllFrListForSalesReportAjax(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		return allFrIdNameList.getFrIdNamesList();
 
 	}
 
@@ -207,8 +222,8 @@ public class ReportControllerV2 {
 				grn = grn + saleReportList.get(i).getGrnValue();
 				grnNetValue = grnNetValue + netVal2;
 				inLaskTotal = inLaskTotal + inLac;
-				
-				//returnTotal = returnTotal + retPer;
+
+				// returnTotal = returnTotal + retPer;
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
@@ -228,8 +243,8 @@ public class ReportControllerV2 {
 			rowData.add("" + roundUp(grn));
 			rowData.add("" + roundUp(grnNetValue));
 			rowData.add("" + roundUp(inLaskTotal));
-			
-			returnTotal=(grn*100)/salesValue;
+
+			returnTotal = (grn * 100) / salesValue;
 			rowData.add("" + roundUp(returnTotal));
 
 			expoExcel.setRowData(rowData);
@@ -237,11 +252,11 @@ public class ReportControllerV2 {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("exportExcelListNew", exportToExcelList);
-			session.setAttribute("excelNameNew", "SalesReport");
-			session.setAttribute("reportNameNew", "Sales Report By Franchise");
+			session.setAttribute("excelNameNew", "Franchise_Sales_Report");
+			session.setAttribute("reportNameNew", "Franchise Sales Report");
 			session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
-			session.setAttribute("mergeUpto1", "$A$1:$L$1");
-			session.setAttribute("mergeUpto2", "$A$2:$L$2");
+			session.setAttribute("mergeUpto1", "$A$1:$J$1");
+			session.setAttribute("mergeUpto2", "$A$2:$J$2");
 
 		} catch (Exception e) {
 
@@ -366,7 +381,7 @@ public class ReportControllerV2 {
 				totalGrnValue = totalGrnValue + saleReportList.get(j).getGrnValue();
 				totalNetVal2 = totalNetVal2 + netVal2;
 				totalInLac = totalInLac + inLac;
-				//totalRetPer = totalRetPer + retPer;
+				// totalRetPer = totalRetPer + retPer;
 
 				cell = new PdfPCell(new Phrase(String.valueOf(saleReportList.get(j).getFrName()), headFont));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -477,8 +492,8 @@ public class ReportControllerV2 {
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			table.addCell(cell);
-			
-			totalRetPer=(totalGrnValue*100)/totalSaleValue;
+
+			totalRetPer = (totalGrnValue * 100) / totalSaleValue;
 
 			double d6 = Double.parseDouble("" + totalRetPer);
 			String strTotalRetPer = String.format("%.2f", d6);
@@ -572,6 +587,14 @@ public class ReportControllerV2 {
 		return model;
 	}
 
+	@RequestMapping(value = "/getAllFrListForGstReportAjax", method = RequestMethod.GET)
+	public @ResponseBody List<AllFrIdName> getAllFrListForGstReportAjax(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		return allFrIdNameList.getFrIdNamesList();
+
+	}
+
 	List<GstRegisterItem> gstRegItemList = new ArrayList<>();
 	// getGstRegister Ajax
 
@@ -597,80 +620,18 @@ public class ReportControllerV2 {
 
 			frIdString = frIdString.substring(1, frIdString.length() - 1);
 			frIdString = frIdString.replaceAll("\"", "");
-
-			List<String> franchIds = new ArrayList();
-
-			franchIds = Arrays.asList(frIdString);
-			if (franchIds.contains("-1")) {
-				map.add("frIdList", -1);
-
-			} else {
-
-				map.add("frIdList", frIdString);
-			}
 			System.err.println("frId string " + frIdString);
-			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
 
+			map.add("frIdList", frIdString);
+			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
 			map.add("toDate", DateConvertor.convertToYMD(toDate));
 
-			GstRegisterList gstArray = restTemplate.postForObject(Constants.url + "getGstRegister", map,
-					GstRegisterList.class);
+			ParameterizedTypeReference<List<GstRegisterItem>> typeRef = new ParameterizedTypeReference<List<GstRegisterItem>>() {
+			};
+			ResponseEntity<List<GstRegisterItem>> responseEntity = restTemplate
+					.exchange(Constants.url + "getGstRegisterNew", HttpMethod.POST, new HttpEntity<>(map), typeRef);
 
-			List<GstRegisterSp> gstRegSpList = new ArrayList<>();
-
-			gstRegItemList = gstArray.getGstRegItemList();
-			gstRegSpList = gstArray.getGstRegSpList();
-			for (int j = 0; j < gstRegSpList.size(); j++) {
-				int flag = 0;
-
-				for (int i = 0; i < gstRegItemList.size(); i++) {
-
-					if (gstRegItemList.get(i).getBillNo() == gstRegSpList.get(j).getBillNo()
-							&& gstRegItemList.get(i).getHsnCode().equals(gstRegSpList.get(j).getHsnCode())) {
-						flag = 1;
-						gstRegItemList.get(i)
-								.setBillQty(gstRegItemList.get(i).getBillQty() + gstRegSpList.get(j).getBillQty());
-
-						gstRegItemList.get(i).setTaxableAmt(
-								(gstRegItemList.get(i).getTaxableAmt() + gstRegSpList.get(j).getTaxableAmt()));
-
-						gstRegItemList.get(i)
-								.setCgstAmt((gstRegItemList.get(i).getCgstAmt() + gstRegSpList.get(j).getCgstAmt()));
-						gstRegItemList.get(i)
-								.setSgstAmt((gstRegItemList.get(i).getSgstAmt() + gstRegSpList.get(j).getSgstAmt()));
-						gstRegItemList.get(i).setGrandTotal(
-								(gstRegItemList.get(i).getGrandTotal() + gstRegSpList.get(j).getGrandTotal()));
-
-					}
-
-				}
-
-				if (flag == 0) {
-
-					System.err.println("New hsn code item found ");
-
-					GstRegisterItem regItem = new GstRegisterItem();
-
-					regItem.setBillDate(gstRegSpList.get(j).getBillDate());
-					regItem.setBillDetailNo(gstRegSpList.get(j).getBillDetailNo());
-					regItem.setBillNo(gstRegSpList.get(j).getBillNo());
-					regItem.setBillQty(gstRegSpList.get(j).getBillQty());
-					regItem.setCgstAmt(gstRegSpList.get(j).getCgstAmt());
-					regItem.setCgstPer(gstRegSpList.get(j).getCgstPer());
-					regItem.setFrGstNo(gstRegSpList.get(j).getFrGstNo());
-					regItem.setFrName(gstRegSpList.get(j).getFrName());
-					regItem.setGrandTotal(gstRegSpList.get(j).getGrandTotal());
-					regItem.setHsnCode(gstRegSpList.get(j).getHsnCode());
-					regItem.setInvoiceNo(gstRegSpList.get(j).getInvoiceNo());
-					regItem.setSgstAmt(gstRegSpList.get(j).getSgstAmt());
-					regItem.setSgstPer(gstRegSpList.get(j).getSgstPer());
-					regItem.setTaxableAmt(gstRegSpList.get(j).getTaxableAmt());
-					regItem.setTaxPer(gstRegSpList.get(j).getTaxPer());
-					regItem.setTotalTax(gstRegSpList.get(j).getTotalTax());
-
-					gstRegItemList.add(regItem);
-				}
-			}
+			gstRegItemList = responseEntity.getBody();
 
 			System.err.println("gstRegItemList combined  " + gstRegItemList.toString());
 
@@ -722,7 +683,7 @@ public class ReportControllerV2 {
 
 				rowData.add("" + gstRegItemList.get(i).getHsnCode());
 				rowData.add("" + roundUp(gstRegItemList.get(i).getBillQty()));
-				rowData.add("" + roundUp(gstRegItemList.get(i).getTaxableAmt()));
+				rowData.add("" + roundUp(gstRegItemList.get(i).getTaxableAmt())); 
 				rowData.add("" + gstRegItemList.get(i).getCgstPer());
 				rowData.add("" + roundUp(gstRegItemList.get(i).getCgstAmt()));
 				rowData.add("" + gstRegItemList.get(i).getSgstPer());
@@ -732,9 +693,12 @@ public class ReportControllerV2 {
 				rowData.add("" + roundUp(totalAmt));
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
+				
+				System.out.println("TAXABLE  - "+gstRegItemList.get(i).getTaxableAmt());
+				System.out.println("TAXABLE  ROUND - "+roundUp(gstRegItemList.get(i).getTaxableAmt()));
 
 				billQty = billQty + gstRegItemList.get(i).getBillQty();
-				taxableAmt = taxableAmt + gstRegItemList.get(i).getTaxableAmt();
+				taxableAmt = taxableAmt + roundUp(gstRegItemList.get(i).getTaxableAmt());
 				cgstSum = cgstSum + gstRegItemList.get(i).getCgstAmt();
 				sgstSum = sgstSum + gstRegItemList.get(i).getSgstAmt();
 				grandTotal = grandTotal + gstRegItemList.get(i).getGrandTotal();
@@ -746,21 +710,21 @@ public class ReportControllerV2 {
 			 * expoExcel = new ExportToExcel(); rowData = new ArrayList<String>();
 			 * 
 			 * rowData.add(""); rowData.add("Total"); rowData.add(""); rowData.add("");
-			 * rowData.add(""); rowData.add(""); rowData.add("" + roundUp(billQty));
-			 * rowData.add("" + roundUp(taxableAmt)); rowData.add("" + roundUp(cgstSum));
-			 * rowData.add("" + roundUp(sgstSum)); rowData.add("" + roundUp(grandTotal));
-			 * rowData.add("" + roundUp(totalFinal));
+			 * rowData.add(""); rowData.add(""); rowData.add(""); rowData.add("" +
+			 * roundUp(taxableAmt)); rowData.add(""); rowData.add("" + roundUp(cgstSum));
+			 * rowData.add(""); rowData.add("" + roundUp(sgstSum)); rowData.add("" +
+			 * roundUp(grandTotal)); rowData.add("");
 			 * 
 			 * expoExcel.setRowData(rowData); exportToExcelList.add(expoExcel);
 			 */
 
 			HttpSession session = request.getSession();
 			session.setAttribute("exportExcelListNew", exportToExcelList);
-			session.setAttribute("excelNameNew", "GST Register Report");
+			session.setAttribute("excelNameNew", "GST_Register_Report");
 			session.setAttribute("reportNameNew", "GST Register Report By Franchise");
 			session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
-			session.setAttribute("mergeUpto1", "$A$1:$L$1");
-			session.setAttribute("mergeUpto2", "$A$2:$L$2");
+			session.setAttribute("mergeUpto1", "$A$1:$N$1");
+			session.setAttribute("mergeUpto2", "$A$2:$N$2"); 
 
 		} catch (Exception e) {
 
@@ -1060,90 +1024,22 @@ public class ReportControllerV2 {
 
 		String fromDate = request.getParameter("fromDate");
 		String toDate = request.getParameter("toDate");
-		
+
 		try {
 
-			/*
-			 * frIdString = frIdString.substring(1, frIdString.length() - 1); frIdString =
-			 * frIdString.replaceAll("\"", "");
-			 * 
-			 * List<String> franchIds = new ArrayList();
-			 * 
-			 * franchIds = Arrays.asList(frIdString); if (franchIds.contains("-1")) {
-			 * map.add("frIdList", -1);
-			 * 
-			 * } else {
-			 * 
-			 * map.add("frIdList", frIdString); } System.err.println("frId string " +
-			 * frIdString);
-			 */
+			
 			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
-
 			map.add("toDate", DateConvertor.convertToYMD(toDate));
+
+//			CrNoteRegisterList crnArray = restTemplate.postForObject(Constants.url + "getCrNoteRegister", map,
+//					CrNoteRegisterList.class);
 			
+			ParameterizedTypeReference<List<CrNoteRegItem>> typeRef = new ParameterizedTypeReference<List<CrNoteRegItem>>() {
+			};
+			ResponseEntity<List<CrNoteRegItem>> responseEntity = restTemplate.exchange(Constants.url + "getCrNoteRegisterNew",
+					HttpMethod.POST, new HttpEntity<>(map), typeRef);
 			
-
-			CrNoteRegisterList crnArray = restTemplate.postForObject(Constants.url + "getCrNoteRegister", map,
-					CrNoteRegisterList.class);
-
-			List<CrNoteRegSp> crnRegSpList = new ArrayList<>();
-
-			crNoteRegItemList = crnArray.getCrNoteRegItemList();
-			crnRegSpList = crnArray.getCrNoteRegSpList();
-
-			for (int j = 0; j < crnRegSpList.size(); j++) {
-				int flag = 0;
-
-				for (int i = 0; i < crNoteRegItemList.size(); i++) {
-
-					if (crNoteRegItemList.get(i).getCrnId() == crnRegSpList.get(j).getCrnId()
-							&& crNoteRegItemList.get(i).getHsnCode().equals(crnRegSpList.get(j).getHsnCode())) {
-						flag = 1;
-						crNoteRegItemList.get(i)
-								.setCrnQty(crNoteRegItemList.get(i).getCrnQty() + crnRegSpList.get(j).getCrnQty());
-
-						crNoteRegItemList.get(i).setCrnTaxable(
-								(crNoteRegItemList.get(i).getCrnTaxable() + crnRegSpList.get(j).getCrnTaxable()));
-
-						crNoteRegItemList.get(i)
-								.setCgstAmt((crNoteRegItemList.get(i).getCgstAmt() + crnRegSpList.get(j).getCgstAmt()));
-						crNoteRegItemList.get(i)
-								.setSgstAmt((crNoteRegItemList.get(i).getSgstAmt() + crnRegSpList.get(j).getSgstAmt()));
-						crNoteRegItemList.get(i)
-								.setCrnAmt((crNoteRegItemList.get(i).getCrnAmt() + crnRegSpList.get(j).getCrnAmt()));
-
-					}
-
-				}
-
-				if (flag == 0) {
-
-					System.err.println("New hsn code item found ");
-
-					CrNoteRegItem regItem = new CrNoteRegItem();
-
-					regItem.setCrnDate(crnRegSpList.get(j).getCrnDate());
-
-					regItem.setBillDate(crnRegSpList.get(j).getBillDate());
-					regItem.setCrndId(crnRegSpList.get(j).getCrndId());
-					regItem.setCrnId(crnRegSpList.get(j).getCrnId());
-					regItem.setCrnQty(crnRegSpList.get(j).getCrnQty());
-					regItem.setCgstAmt(crnRegSpList.get(j).getCgstAmt());
-					regItem.setCgstPer(crnRegSpList.get(j).getCgstPer());
-					regItem.setFrGstNo(crnRegSpList.get(j).getFrGstNo());
-					regItem.setFrName(crnRegSpList.get(j).getFrName());
-					regItem.setCrnAmt(crnRegSpList.get(j).getCrnAmt());
-					regItem.setHsnCode(crnRegSpList.get(j).getHsnCode());
-					regItem.setInvoiceNo(crnRegSpList.get(j).getInvoiceNo());
-					regItem.setSgstAmt(crnRegSpList.get(j).getSgstAmt());
-					regItem.setSgstPer(crnRegSpList.get(j).getSgstPer());
-					regItem.setCrnTaxable(crnRegSpList.get(j).getCrnTaxable());
-
-					regItem.setFrCode(crnRegSpList.get(j).getFrCode());
-
-					crNoteRegItemList.add(regItem);
-				}
-			}
+			crNoteRegItemList = responseEntity.getBody();
 
 			System.err.println("crNoteRegItemList combined  " + crNoteRegItemList.toString());
 
@@ -1220,27 +1116,27 @@ public class ReportControllerV2 {
 
 			}
 
-			expoExcel = new ExportToExcel();
-			rowData = new ArrayList<String>();
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("Total");
-			rowData.add("" + roundUp(crnQty));
-			rowData.add("" + roundUp(crnTaxable));
-			rowData.add("");
-			rowData.add("" + roundUp(cgstAmt));
-			rowData.add("");
-			rowData.add("" + roundUp(sgstAmt));
-			rowData.add("" + Math.round(crnAmt));
-			rowData.add("");
-
-			expoExcel.setRowData(rowData);
-			exportToExcelList.add(expoExcel);
+//			expoExcel = new ExportToExcel();
+//			rowData = new ArrayList<String>();
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("Total");
+//			rowData.add("" + roundUp(crnQty));
+//			rowData.add("" + roundUp(crnTaxable));
+//			rowData.add("");
+//			rowData.add("" + roundUp(cgstAmt));
+//			rowData.add("");
+//			rowData.add("" + roundUp(sgstAmt));
+//			rowData.add("" + Math.round(crnAmt));
+//			rowData.add("");
+//
+//			expoExcel.setRowData(rowData);
+//			exportToExcelList.add(expoExcel);
 
 			HttpSession session = request.getSession();
 			session.setAttribute("exportExcelListNew", exportToExcelList);
@@ -1377,10 +1273,8 @@ public class ReportControllerV2 {
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
-			
-			
-			
-			float totTaxableAmt=0,totBillQty=0,totCgstAmt=0,totSgstAmt=0,totCrnAmt=0,totAmt=0;
+
+			float totTaxableAmt = 0, totBillQty = 0, totCgstAmt = 0, totSgstAmt = 0, totCrnAmt = 0, totAmt = 0;
 
 			int index = 0;
 			for (int j = 0; j < crNoteRegItemList.size(); j++) {
@@ -1496,118 +1390,114 @@ public class ReportControllerV2 {
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 				cell.setPaddingRight(8);
 				table.addCell(cell);
-				
-				
-				 totTaxableAmt=totTaxableAmt+crNoteRegItemList.get(j).getCrnTaxable();
-				 totBillQty=totBillQty+crNoteRegItemList.get(j).getCrnQty();
-				 totCgstAmt=totCgstAmt+crNoteRegItemList.get(j).getCgstAmt();
-				 totSgstAmt=totSgstAmt+crNoteRegItemList.get(j).getSgstAmt();
-				 totCrnAmt=totCrnAmt+crNoteRegItemList.get(j).getCrnAmt();
-				 totAmt=totAmt+crnTotalAmt;
+
+				totTaxableAmt = totTaxableAmt + crNoteRegItemList.get(j).getCrnTaxable();
+				totBillQty = totBillQty + crNoteRegItemList.get(j).getCrnQty();
+				totCgstAmt = totCgstAmt + crNoteRegItemList.get(j).getCgstAmt();
+				totSgstAmt = totSgstAmt + crNoteRegItemList.get(j).getSgstAmt();
+				totCrnAmt = totCrnAmt + crNoteRegItemList.get(j).getCrnAmt();
+				totAmt = totAmt + crnTotalAmt;
 
 			}
-			
+
 			PdfPCell cell;
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase("TOTAL", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(String.valueOf(roundUp(totBillQty)), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(String.valueOf(roundUp(totTaxableAmt)), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(String.valueOf(roundUp(totCgstAmt)), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(" ", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(String.valueOf(roundUp(totSgstAmt)), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(String.valueOf(roundUp(totAmt)), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(String.valueOf(roundUp(totCrnAmt)), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(8);
 			table.addCell(cell);
-			
-			
-			
-			
+
 			document.open();
 
 			Paragraph heading = new Paragraph(

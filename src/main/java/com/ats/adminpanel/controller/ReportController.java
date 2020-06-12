@@ -286,28 +286,28 @@ public class ReportController {
 				exportToExcelList.add(expoExcel);
 
 			}
-			expoExcel = new ExportToExcel();
-			rowData = new ArrayList<String>();
-			rowData.add("Total");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-			rowData.add("");
-
-			rowData.add("" + Math.round(crnAmt));
-			rowData.add("");
-			rowData.add("");
-
-			rowData.add("" + roundUp(crnTaxable));
-
-			rowData.add("");
-
-			expoExcel.setRowData(rowData);
-			exportToExcelList.add(expoExcel);
+//			expoExcel = new ExportToExcel();
+//			rowData = new ArrayList<String>();
+//			rowData.add("Total");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//			rowData.add("");
+//
+//			rowData.add("" + Math.round(crnAmt));
+//			rowData.add("");
+//			rowData.add("");
+//
+//			rowData.add("" + roundUp(crnTaxable));
+//
+//			rowData.add("");
+//
+//			expoExcel.setRowData(rowData);
+//			exportToExcelList.add(expoExcel);
 
 			HttpSession session = request.getSession();
 			session.setAttribute("exportExcelListNew", exportToExcelList);
@@ -913,30 +913,30 @@ public class ReportController {
 
 		}
 
-	expoExcel=new ExportToExcel();rowData=new ArrayList<String>();
-
-	rowData.add("");rowData.add("");rowData.add("");rowData.add("Total");rowData.add("");rowData.add(""+Long.toString((long)(grandTotal)));rowData.add(""+Long.toString((long)(taxableAmt)));rowData.add(""+
-
-	roundUp(igstSum));
-		rowData.add("" + roundUp(cgstSum));
-		rowData.add("" + roundUp(sgstSum));
-		rowData.add("" + roundUp(igstSum));
-		/* rowData.add("" + roundUp(totalTax)); */
-
-		rowData.add("");
-
-		rowData.add("");
-
-		expoExcel.setRowData(rowData);
-		exportToExcelList.add(expoExcel);
+//	expoExcel=new ExportToExcel();rowData=new ArrayList<String>();
+//
+//	rowData.add("");rowData.add("");rowData.add("");rowData.add("Total");rowData.add("");rowData.add(""+Long.toString((long)(grandTotal)));rowData.add(""+Long.toString((long)(taxableAmt)));rowData.add(""+
+//
+//	roundUp(igstSum));
+//		rowData.add("" + roundUp(cgstSum));
+//		rowData.add("" + roundUp(sgstSum));
+//		rowData.add("" + roundUp(igstSum));
+//		/* rowData.add("" + roundUp(totalTax)); */
+//
+//		rowData.add("");
+//
+//		rowData.add("");
+//
+//		expoExcel.setRowData(rowData);
+//		exportToExcelList.add(expoExcel);
 
 		HttpSession session = request.getSession();
 		session.setAttribute("exportExcelListNew", exportToExcelList);
 		session.setAttribute("excelNameNew", "HSNWiseReport");
 		session.setAttribute("reportNameNew", "HSN wise Summary Report");
 		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
-		session.setAttribute("mergeUpto1", "$A$1:$L$1");
-		session.setAttribute("mergeUpto2", "$A$2:$L$2");
+		session.setAttribute("mergeUpto1", "$A$1:$K$1");
+		session.setAttribute("mergeUpto2", "$A$2:$K$2");
 
 		session.setAttribute("exportExcelList", exportToExcelList);
 		session.setAttribute("excelName", "HSNWiseReport");

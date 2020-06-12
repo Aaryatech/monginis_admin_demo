@@ -12,6 +12,8 @@
 	<jsp:include page="/WEB-INF/views/include/logout.jsp"></jsp:include>
 
 	<c:url var="getSpKgWiseList" value="/getSpKgWiseList"></c:url>
+	<c:url var="getAllFrListForSalesReportAjax"
+		value="/getAllFrListForSalesReportAjax"></c:url>
 
 	<!-- BEGIN Sidebar -->
 	<div id="sidebar" class="navbar-collapse collapse">
@@ -29,6 +31,16 @@
 
 	<!-- BEGIN Content -->
 	<div id="main-content">
+		<!-- BEGIN Page Title -->
+		<div class="page-title">
+			<div>
+				<h1>
+					<i class="fa fa-file-o"></i>Special Cake Kg-wise Report
+				</h1>
+				<h4></h4>
+			</div>
+		</div>
+		<!-- END Page Title -->
 
 		<div class="box">
 			<div class="box-title">
@@ -68,13 +80,14 @@
 				<div class="row">
 					<div class="form-group">
 						<label class="col-sm-3 col-lg-2 control-label">Franchisee</label>
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-10">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr">
+								id="selectFr" name="selectFr"
+								onchange="setAllFranchisee(this.value);">
 
-								<option value="${frId}"><c:out value="All" /></option>
+								<option value="-1"><c:out value="All" /></option>
 
 								<c:forEach items="${unSelectedFrList}" var="fr"
 									varStatus="count">
@@ -113,18 +126,12 @@
 
 
 		<div class="box">
-		<!-- 	<div class="box-title">
-				<h3>
-					<i class="fa fa-list-alt"></i>Special Cake Kg-wise Report
-				</h3>
 
-			</div> -->
 			<input type="button" class="btn btn-primary"
-				onclick="tableToExcel('table_grid', 'name', 'SpecialCakeKgWiseSpReport.xls')"
+				onclick="tableToExcel('table_grid', 'name', 'Special_Cake_KgWise_Report.xls')"
 				value="Export to Excel">
 
 			<div class=" box-content">
-
 
 				<div class="row">
 					<div class="col-md-12 table-responsive">
@@ -143,7 +150,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								 
+
 							</tbody>
 						</table>
 					</div>
@@ -270,7 +277,7 @@
 																					.append($(
 																							'<td  style="text-align:right;"></td>')
 																							.html(
-																									report.spQty));
+																									addCommas(report.spQty)));
 
 																			var netQty = report.spQty
 																					- report.crnQty;
@@ -295,8 +302,8 @@
 																					.append($(
 																							'<td  style="text-align:right;"></td>')
 																							.html(
-																									(report.spValue)
-																											.toFixed(2)));
+																									addCommas(report.spValue
+																											.toFixed(2))));
 
 																			spValue = spValue
 																					+ report.spValue;
@@ -306,7 +313,7 @@
 																					.append($(
 																							'<td  style="text-align:right;"></td>')
 																							.html(
-																									(report.crnQty)));
+																									addCommas(report.crnQty)));
 
 																			crnQty = crnQty
 																					+ report.crnQty;
@@ -316,8 +323,8 @@
 																					.append($(
 																							'<td  style="text-align:right;"></td>')
 																							.html(
-																									(report.grnGvnAmt)
-																											.toFixed(2)));
+																									addCommas(report.grnGvnAmt
+																											.toFixed(2))));
 
 																			grnGvnAmt = grnGvnAmt
 																					+ report.grnGvnAmt;
@@ -327,14 +334,14 @@
 																					.append($(
 																							'<td  style="text-align:right;"></td>')
 																							.html(
-																									netQty
-																											.toFixed(2)));
+																									addCommas(netQty
+																											.toFixed(2))));
 																			tr
 																					.append($(
 																							'<td  style="text-align:right;"></td>')
 																							.html(
-																									netValue
-																											.toFixed(2)));
+																									addCommas(netValue
+																											.toFixed(2))));
 																			$(
 																					'#table_grid tbody')
 																					.append(
@@ -358,43 +365,43 @@
 																	'<td  style="text-align:right;font-weight:bold;"></td>')
 																	.html(
 																			""
-																					+ spQty
-																							.toFixed(2)));
+																					+ addCommas(spQty
+																							.toFixed(2))));
 													tr
 															.append($(
 																	'<td  style="text-align:right;font-weight:bold;"></td>')
 																	.html(
 																			""
-																					+ spValue
-																							.toFixed(2)));
+																					+ addCommas(spValue
+																							.toFixed(2))));
 													tr
 															.append($(
 																	'<td  style="text-align:right;font-weight:bold;"></td>')
 																	.html(
 																			""
-																					+ crnQty
-																							.toFixed(2)));
+																					+ addCommas(crnQty
+																							.toFixed(2))));
 													tr
 															.append($(
 																	'<td  style="text-align:right;font-weight:bold;"></td>')
 																	.html(
 																			""
-																					+ grnGvnAmt
-																							.toFixed(2)));
+																					+ addCommas(grnGvnAmt
+																							.toFixed(2))));
 													tr
 															.append($(
 																	'<td  style="text-align:right;font-weight:bold;"></td>')
 																	.html(
 																			""
-																					+ netQtyTotal
-																							.toFixed(2)));
+																					+ addCommas(netQtyTotal
+																							.toFixed(2))));
 													tr
 															.append($(
 																	'<td  style="text-align:right;font-weight:bold;"></td>')
 																	.html(
 																			""
-																					+ netValueTotal
-																							.toFixed(2)));
+																					+ addCommas(netValueTotal
+																							.toFixed(2))));
 													$('#table_grid tbody')
 															.append(tr);
 												});
@@ -411,49 +418,69 @@
 												'<td  style="text-align:right;font-weight:bold;"></td>')
 												.html(
 														""
-																+ spQtyTotal
-																		.toFixed(2)));
+																+ addCommas(spQtyTotal
+																		.toFixed(2))));
 								tr
 										.append($(
 												'<td  style="text-align:right;font-weight:bold;"></td>')
 												.html(
 														""
-																+ spValueTotal
-																		.toFixed(2)));
+																+ addCommas(spValueTotal
+																		.toFixed(2))));
 								tr
 										.append($(
 												'<td  style="text-align:right;font-weight:bold;"></td>')
 												.html(
 														""
-																+ crnQtyTotal
-																		.toFixed(2)));
+																+ addCommas(crnQtyTotal
+																		.toFixed(2))));
 								tr
 										.append($(
 												'<td  style="text-align:right;font-weight:bold;"></td>')
 												.html(
 														""
-																+ grnGvnAmtTotal
-																		.toFixed(2)));
+																+ addCommas(grnGvnAmtTotal
+																		.toFixed(2))));
 								tr
 										.append($(
 												'<td  style="text-align:right;font-weight:bold;"></td>')
 												.html(
 														""
-																+ netQtyGrandTotal
-																		.toFixed(2)));
+																+ addCommas(netQtyGrandTotal
+																		.toFixed(2))));
 								tr
 										.append($(
 												'<td  style="text-align:right;font-weight:bold;"></td>')
 												.html(
 														""
-																+ netValueGrandTotal
-																		.toFixed(2)));
+																+ addCommas(netValueGrandTotal
+																		.toFixed(2))));
 								$('#table_grid tbody').append(tr);
 
 							});
 
 		}
 	</script>
+
+
+	<script type="text/javascript">
+		function addCommas(x) {
+
+			x = String(x).toString();
+			var afterPoint = '';
+			if (x.indexOf('.') > 0)
+				afterPoint = x.substring(x.indexOf('.'), x.length);
+			x = Math.floor(x);
+			x = x.toString();
+			var lastThree = x.substring(x.length - 3);
+			var otherNumbers = x.substring(0, x.length - 3);
+			if (otherNumbers != '')
+				lastThree = ',' + lastThree;
+			return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",")
+					+ lastThree + afterPoint;
+		}
+	</script>
+
 	<script type="text/javascript">
 		function validate() {
 
@@ -473,6 +500,34 @@
 
 		}
 	</script>
+
+
+	<script type="text/javascript">
+		function setAllFranchisee(frId) {
+			if (frId == -1) {
+				$.getJSON('${getAllFrListForSalesReportAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					$('#selectFr').find('option').remove().end()
+
+					$("#selectFr").append(
+							$("<option ></option>").attr("value", -1).text(
+									"Select All"));
+
+					for (var i = 0; i < len; i++) {
+
+						$("#selectFr").append(
+								$("<option selected></option>").attr("value",
+										data[i].frId).text(data[i].frName));
+					}
+
+					$("#selectFr").trigger("chosen:updated");
+				});
+			}
+		}
+	</script>
+
 
 	<!--basic scripts-->
 	<script

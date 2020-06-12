@@ -30,14 +30,14 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- <div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Monthly Sales Return Quantity Wise Report
+					<i class="fa fa-file-o"></i>Monthly Sales Return Value Wise Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
@@ -254,29 +254,28 @@
 											varStatus="cnt">
 											<th style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
-													groupingUsed="false" value="${report.value.totBillAmt}" /></th>
+													value="${report.value.totBillAmt}" /></th>
 
 											<th style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
-													groupingUsed="false" value="${report.value.totGvnQty}" /></th>
+													value="${report.value.totGvnQty}" /></th>
 											<th style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
-													groupingUsed="false" value="${report.value.totGrnQty}" /></th>
+													value="${report.value.totGrnQty}" /></th>
 											<th style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
-													groupingUsed="false"
 													value="${report.value.totBillAmt-(report.value.totGrnQty+report.value.totGvnQty)}" /></th>
 
 										</c:forEach>
 										<th style="text-align: right;"><fmt:formatNumber
 												type="number" maxFractionDigits="2" minFractionDigits="2"
-												groupingUsed="false" value="${finalBillAmt}" /></th>
+												value="${finalBillAmt}" /></th>
 										<th style="text-align: right;"><fmt:formatNumber
 												type="number" maxFractionDigits="2" minFractionDigits="2"
-												groupingUsed="false" value="${finalGrnValue}" /></th>
+												value="${finalGrnValue}" /></th>
 										<th style="text-align: right;"><fmt:formatNumber
 												type="number" maxFractionDigits="2" minFractionDigits="2"
-												groupingUsed="false" value="${finalGvnValue}" /></th>
+												value="${finalGvnValue}" /></th>
 									</tr>
 								</tbody>
 							</table>
@@ -345,7 +344,7 @@
 	<script type="text/javascript">
 		function exportToExcel() {
 
-			window.open("${pageContext.request.contextPath}/exportToExcel");
+			window.open("${pageContext.request.contextPath}/exportToExcelNew");
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>

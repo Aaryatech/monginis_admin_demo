@@ -28,10 +28,16 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-
+		<div class="page-title">
+			<div>
+				<h1>
+					<i class="fa fa-file-o"></i>Tax Report
+				</h1>
+				<h4></h4>
+			</div>
+		</div>
 		<!-- END Page Title -->
 
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
@@ -117,23 +123,31 @@
 									<th>Grand Total</th>
 
 								</tr>
+								
 							</thead>
+							
 							<tbody>
+							
 								<c:set var="totalCgstAmt" value="0" />
 								<c:set var="totalIgstAmt" value="0" />
 								<c:set var="totalTaxableAmt" value="0" />
 								<c:set var="totalTax" value="0" />
 								<c:set var="totalGrandTotal" value="0" />
+								
 								<c:forEach items="${taxReportList}" var="taxList"
 									varStatus="count">
 									<tr>
 										<c:set var="totalCgstAmt"
 											value="${totalCgstAmt+taxList.cgstAmt}" />
+
 										<c:set var="totalIgstAmt"
 											value="${totalIgstAmt+taxList.sgstAmt}" />
+
 										<c:set var="totalTaxableAmt"
 											value="${totalTaxableAmt+taxList.taxableAmt}" />
+
 										<c:set var="totalTax" value="${totalTax+taxList.totalTax}" />
+
 										<c:set var="totalGrandTotal"
 											value="${totalGrandTotal+taxList.grandTotal}" />
 
@@ -149,15 +163,25 @@
 												value="${taxList.cgstPer}" /></td>
 										<td style="text-align: right;"><c:out
 												value="${taxList.sgstPer}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" minFractionDigits="2"
 												value="${taxList.cgstAmt}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" minFractionDigits="2"
 												value="${taxList.sgstAmt}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" minFractionDigits="2"
 												value="${taxList.taxableAmt}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" minFractionDigits="2"
 												value="${taxList.totalTax}" /></td>
-										<td style="text-align: right;"><c:out
+
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" minFractionDigits="2"
 												value="${taxList.grandTotal}" /></td>
 
 									</tr>
@@ -233,145 +257,11 @@
 		class="fa fa-chevron-up"></i></a>
 
 
-	<!-- 	<script type="text/javascript">
-		function searchReport() {
-		//	var isValid = validate();
-
-				var selectedFr = $("#selectFr").val();
-				var routeId=$("#selectRoute").val();
-				
-				var from_date = $("#fromDate").val();
-				var to_date = $("#toDate").val();
-
-				$('#loader').show();
-
-				$
-						.getJSON(
-								'${getBillList}',
-
-								{
-									fr_id_list : JSON.stringify(selectedFr),
-									fromDate : from_date,
-									toDate : to_date,
-									route_id:routeId,
-									ajax : 'true'
-
-								},
-								function(data) {
-									
-								
-									$('#table_grid td').remove();
-									$('#loader').hide();
-
-									if (data == "") {
-										alert("No records found !!");
-										  document.getElementById("expExcel").disabled=true;
-									}
-
-									$
-											.each(
-													data,
-													function(key, report) {
-														
-														  document.getElementById("expExcel").disabled=false;
-															document.getElementById('range').style.display = 'block';
-														var index = key + 1;
-														//var tr = "<tr>";
-														
-														
-														var tr = $('<tr></tr>');
-
-													  	tr.append($('<td></td>').html(key+1));
-
-													  	tr.append($('<td></td>').html(report.invoiceNo));
-
-													  	tr.append($('<td></td>').html(report.billDate));
-
-													  	tr.append($('<td></td>').html(report.frName));
-													  	
-													  	
-													  	tr.append($('<td></td>').html(report.frCity));
-
-													  	tr.append($('<td></td>').html(report.frGstNo));
-
-													  	tr.append($('<td></td>').html(report.taxableAmt));
-													  	
-													  	if(report.isSameState==1){
-														  	tr.append($('<td></td>').html(report.cgstSum));
-														  	tr.append($('<td></td>').html(report.sgstSum));
-														  	tr.append($('<td></td>').html(0));
-														}
-														else{
-															tr.append($('<td></td>').html(0));
-														  	tr.append($('<td></td>').html(0));
-														  	tr.append($('<td></td>').html(report.igstSum));
-														}
-														tr.append($('<td></td>').html(report.roundOff));
-														var total;
-														
-														if(report.isSameState==1){
-															 total=parseFloat(report.taxableAmt)+parseFloat(report.cgstSum+report.sgstSum);
-														}
-														else{
-															
-															 total=report.taxableAmt+report.igstSum;
-														}
-
-													  	tr.append($('<td></td>').html(total));
-
-														$('#table_grid tbody')
-																.append(
-																		tr);
-														
-
-													})
-
-								});
-
-			
-		}
-	</script> -->
-
-	<!-- 	<script type="text/javascript">
-		function validate() {
-
-			var selectedFr = $("#selectFr").val();
-			var selectedMenu = $("#selectMenu").val();
-			var selectedRoute = $("#selectRoute").val();
 
 
-			var isValid = true;
-
-			if (selectedFr == "" || selectedFr == null  ) {
- 
-				if(selectedRoute=="" || selectedRoute ==null ) {
-					alert("Please Select atleast one ");
-					isValid = false;
-				}
-				//alert("Please select Franchise/Route");
- 
-			} else if (selectedMenu == "" || selectedMenu == null) {
-
-				isValid = false;
-				alert("Please select Menu");
-
-			}
-			return isValid;
-
-		}
-	</script> -->
-
-	<!-- <script type="text/javascript">
-		function updateTotal(orderId, rate) {
-			
-			var newQty = $("#billQty" + orderId).val();
-
-			var total = parseFloat(newQty) * parseFloat(rate);
 
 
-			 $('#billTotal'+orderId).html(total);
-		}
-	</script> -->
+
 
 	<script>
 		$('.datepicker').datepicker({
@@ -386,44 +276,9 @@
 				startDate : '-3d'
 			}
 		});
-
-		/* function genPdf()
-		 {
-		 var from_date = $("#fromDate").val();
-		 var to_date = $("#toDate").val();
-		 var selectedFr = $("#selectFr").val();
-		 var routeId=$("#selectRoute").val();
-
-		 window.open('${pageContext.request.contextPath}/pdfForReport?url=pdf/showSaleReportByDatePdf/'+from_date+'/'+to_date+'/'+selectedFr+'/'+routeId+'/');
-
-		 //window.open("${pageContext.request.contextPath}/pdfForReport?url=showSaleReportByDatePdf/"+from_date+"/"+to_date);
-		
-		 } */
 	</script>
 
 	<script type="text/javascript">
-		/* 
-		 function disableFr(){
-
-		 //alert("Inside Disable Fr ");
-		 document.getElementById("selectFr").disabled = true;
-
-		 }
-
-		 function disableRoute(){
-
-		 //alert("Inside Disable route ");
-		 var x=document.getElementById("selectRoute")
-		 //alert(x.options.length);
-		 var i;
-		 for(i=0;i<x;i++){
-		 document.getElementById("selectRoute").options[i].disabled;
-		 //document.getElementById("pets").options[2].disabled = true;
-		 }
-		 //document.getElementById("selectRoute").disabled = true;
-
-		 } */
-
 		function exportToExcel() {
 
 			window.open("${pageContext.request.contextPath}/exportToExcelNew");
@@ -431,10 +286,14 @@
 		}
 		function exportToExcelTally() {
 
-			window.open("${pageContext.request.contextPath}/exportToExcelTally");
+			window
+					.open("${pageContext.request.contextPath}/exportToExcelTally");
 			document.getElementById("expExcelTally").disabled = true;
 		}
 	</script>
+
+
+
 
 	<!--basic scripts-->
 	<script

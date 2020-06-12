@@ -26,14 +26,14 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- <div class="page-title">
+		 <div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Itemwise Sale Report
+					<i class="fa fa-file-o"></i>Item-wise Sale Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div> 
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
@@ -292,7 +292,7 @@
 					tr.append($('<td style="text-align:right;"></td>').html(
 							report.itemTax1 + report.itemTax2));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.billQtySum));
+							addCommas(report.billQtySum)));
 
 					/* if(report.isSameState==1){
 					  	tr.append($('<td></td>').html(report.cgstSum));
@@ -306,13 +306,13 @@
 					} */
 					//tr.append($('<td></td>').html(report.igstSum));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.taxableAmtSum.toFixed(2)));
+							addCommas(report.taxableAmtSum.toFixed(2))));
 					tr.append($('<td style="text-align:right;"> </td>').html(
-							report.cgstRsSum.toFixed(2)));
+							addCommas(report.cgstRsSum.toFixed(2))));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.sgstRsSum.toFixed(2)));
+							addCommas(report.sgstRsSum.toFixed(2))));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.igstRsSum.toFixed(2)));
+							addCommas(report.igstRsSum.toFixed(2))));
 
 					var total = report.sgstRsSum + report.cgstRsSum;
 					total = total.toFixed(2);
@@ -320,7 +320,7 @@
 					totalGst = totalGst + parseFloat(total);
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							total));
+							addCommas(total)));
 
 					$('#table_grid tbody').append(tr);
 
@@ -336,18 +336,18 @@
 						.html("Total"));
 
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalQty.toFixed(2)));
+						addCommas(totalQty.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalBasicValue.toFixed(2)));
+						addCommas(totalBasicValue.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalCgst.toFixed(2)));
+						addCommas(totalCgst.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalSgst.toFixed(2)));
+						addCommas(totalSgst.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalIgst.toFixed(2)));
+						addCommas(totalIgst.toFixed(2))));
 
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalGst.toFixed(2)));
+						addCommas(totalGst.toFixed(2))));
 
 				$('#table_grid tbody').append(tr);
 
@@ -459,6 +459,24 @@
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>
+	
+	<script type="text/javascript">
+	 function addCommas(x){
+
+		 x=String(x).toString();
+		  var afterPoint = '';
+		  if(x.indexOf('.') > 0)
+		     afterPoint = x.substring(x.indexOf('.'),x.length);
+		  x = Math.floor(x);
+		  x=x.toString();
+		  var lastThree = x.substring(x.length-3);
+		  var otherNumbers = x.substring(0,x.length-3);
+		  if(otherNumbers != '')
+		      lastThree = ',' + lastThree;
+		  return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		 } 
+	</script>
+	
 
 	<!--basic scripts-->
 	<script

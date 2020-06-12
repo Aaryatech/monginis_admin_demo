@@ -14,6 +14,9 @@
 
 	<c:url var="getBillList" value="/getSaleRoyaltyByFr"></c:url>
 
+	<c:url var="getAllFrListForSalesReportAjax"
+		value="/getAllFrListForSalesReportAjax"></c:url>
+
 	<!-- BEGIN Sidebar -->
 	<div id="sidebar" class="navbar-collapse collapse">
 
@@ -107,13 +110,25 @@
 
 						</div>
 
-						<label class="col-sm-3 col-lg-2 control-label"><b>OR</b> &nbsp;Select
-							Franchisee</label>
-						<div class="col-sm-6 col-lg-4">
+						<label class="col-sm-3 col-lg-2 control-label"><b>OR</b></label>
+
+					</div>
+				</div>
+
+				<br>
+
+				<div class="row">
+					<div class="form-group">
+
+						<label class="col-sm-3 col-lg-2 control-label">
+							&nbsp;Select Franchisee</label>
+						<div class="col-sm-6 col-lg-10">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr" onchange="disableRoute()">
+								id="selectFr" name="selectFr"
+								onchange="setAllFranchisee(this.value);"
+								onchange="disableRoute()">
 
 								<option value="-1"><c:out value="All" /></option>
 
@@ -205,7 +220,7 @@
 				<div id="chart_div"
 					style="width: 100%; height: 100%; background-color: white;"></div>
 				<div id="PieChart_div"
-					style="width: 100%; height: 100%; background-color: white;"></div>
+					style="width: 100%; height: 100%; background-color: white; display: none;"></div>
 			</form>
 		</div>
 	</div>
@@ -277,21 +292,21 @@
 					tr.append($('<td></td>').html(report.frName));
 					tr.append($('<td></td>').html(report.frCity));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.tBillTaxableAmt.toFixed(2)));
+							addCommas(report.tBillTaxableAmt.toFixed(2))));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.tGrnTaxableAmt.toFixed(2)));
+							addCommas(report.tGrnTaxableAmt.toFixed(2))));
 
 					tr.append($('<td style="text-align:right;"></td>').html(
 							royPer));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.tGvnTaxableAmt.toFixed(2)));
+							addCommas(report.tGvnTaxableAmt.toFixed(2))));
 
 					var netValue = report.tBillTaxableAmt
 							- (report.tGrnTaxableAmt + report.tGvnTaxableAmt);
 					netValue = netValue.toFixed(2);
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							netValue));
+							addCommas(netValue)));
 					//alert("netVAlue"+netValue);
 					//alert("Per"+royPer);
 					rAmt = parseFloat(netValue) * parseFloat(royPer) / 100;
@@ -299,7 +314,7 @@
 					rAmt = rAmt.toFixed(2);
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							rAmt));
+							addCommas(rAmt)));
 
 					totalNetValue = totalNetValue + parseFloat(netValue);
 					totalRoyAmt = totalRoyAmt + parseFloat(rAmt);
@@ -317,21 +332,21 @@
 						.html("Total"));
 
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalSaleValue.toFixed(2)));
+						addCommas(totalSaleValue.toFixed(2))));
 
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalGrnValue.toFixed(2)));
+						addCommas(totalGrnValue.toFixed(2))));
 
 				tr.append($('<td></td>').html(""));
 
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalGvnValue.toFixed(2)));
+						addCommas(totalGvnValue.toFixed(2))));
 
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalNetValue.toFixed(2)));
+						addCommas(totalNetValue.toFixed(2))));
 
 				tr.append($('<td style="text-align:right;"></td>').html(
-						totalRoyAmt.toFixed(2)));
+						addCommas(totalRoyAmt.toFixed(2))));
 
 				$('#table_grid tbody').append(tr);
 
@@ -410,7 +425,7 @@
 			$("#PieChart_div").empty();
 			$("#chart_div").empty();
 			document.getElementById('chart_div').style.display = "block";
-			document.getElementById('PieChart_div').style.display = "block";
+			//document.getElementById('PieChart_div').style.display = "block";
 
 			document.getElementById("table_grid").style = "display:none";
 
@@ -439,7 +454,11 @@
 
 								}
 								var i = 0;
-								var royPer = ${royPer};
+								var royPer = $
+								{
+									royPer
+								}
+								;
 								//alert(royPer);
 								google.charts.load('current', {
 									'packages' : [ 'corechart', 'bar' ]
@@ -597,6 +616,51 @@
 			document.getElementById("expExcel").disabled = true;
 		}
 	</script>
+
+	<script type="text/javascript">
+		function setAllFranchisee(frId) {
+			if (frId == -1) {
+				$.getJSON('${getAllFrListForSalesReportAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					$('#selectFr').find('option').remove().end()
+
+					$("#selectFr").append(
+							$("<option ></option>").attr("value", -1).text(
+									"Select All"));
+
+					for (var i = 0; i < len; i++) {
+
+						$("#selectFr").append(
+								$("<option selected></option>").attr("value",
+										data[i].frId).text(data[i].frName));
+					}
+
+					$("#selectFr").trigger("chosen:updated");
+				});
+			}
+		}
+	</script>
+	
+	<script type="text/javascript">
+	 function addCommas(x){
+
+		 x=String(x).toString();
+		  var afterPoint = '';
+		  if(x.indexOf('.') > 0)
+		     afterPoint = x.substring(x.indexOf('.'),x.length);
+		  x = Math.floor(x);
+		  x=x.toString();
+		  var lastThree = x.substring(x.length-3);
+		  var otherNumbers = x.substring(0,x.length-3);
+		  if(otherNumbers != '')
+		      lastThree = ',' + lastThree;
+		  return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		 } 
+	</script>
+
+
 
 	<!--basic scripts-->
 	<script

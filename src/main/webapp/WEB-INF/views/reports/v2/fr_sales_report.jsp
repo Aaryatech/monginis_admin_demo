@@ -2,13 +2,17 @@
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-	
-	 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	
-	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-	<body>
+
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+<body>
 	<jsp:include page="/WEB-INF/views/include/logout.jsp"></jsp:include>
+
 	<c:url var="getSalesReport" value="/getSalesReport"></c:url>
+
+	<c:url var="getAllFrListForFrSalesReportAjax"
+		value="/getAllFrListForFrSalesReportAjax"></c:url>
 
 	<!-- BEGIN Sidebar -->
 	<div id="sidebar" class="navbar-collapse collapse">
@@ -27,32 +31,21 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-	<!-- 	<div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Billwise Report by Fr
+					<i class="fa fa-file-o"></i>Franchise Sales Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
-
-		<!-- BEGIN Breadcrumb -->
-	<%-- 	<div id="breadcrumbs">
-			<ul class="breadcrumb">
-				<li><i class="fa fa-home"></i> <a
-					href="${pageContext.request.contextPath}/home">Home</a> <span
-					class="divider"><i class="fa fa-angle-right"></i></span></li>
-				<li class="active">Bill Report</li>
-			</ul>
-		</div> --%>
-		<!-- END Breadcrumb -->
 
 		<!-- BEGIN Main Content -->
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i>Franchise Sales Report 
+					<i class="fa fa-bars"></i>Franchise Sales Report
 				</h3>
 
 			</div>
@@ -88,122 +81,133 @@
  -->
 				<div class="row">
 					<div class="form-group">
-					<label class="col-sm-3 col-lg-2 control-label"><b></b>Select
+						<label class="col-sm-3 col-lg-2 control-label"><b></b>Select
 							Franchisee</label>
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-10">
 
 							<select data-placeholder="Choose Franchisee"
 								class="form-control chosen" multiple="multiple" tabindex="6"
-								id="selectFr" name="selectFr">
+								id="selectFr" name="selectFr"
+								onchange="setAllFranchisee(this.value);">
 
-								<option value="-1"><c:out value="All"/></option>
+								<option value="-1"><c:out value="All" /></option>
 
-								<c:forEach items="${allFrIdNameList}" var="fr"
-									varStatus="count">
-									<option value="${fr.frId}"><c:out value="${fr.frName}"/></option>
+								<c:forEach items="${allFrIdNameList}" var="fr" varStatus="count">
+									<option value="${fr.frId}"><c:out value="${fr.frName}" /></option>
 								</c:forEach>
 							</select>
 
 						</div>
-					
-					<div class="col-sm-6 col-lg-4">
-						<button class="btn btn-primary" onclick="searchReport()">Search</button>
-											 <input type="button" id="expExcel" class="btn btn-primary" value="Export To Excel" onclick="exportToExcel();" disabled="disabled">
-								
-							
-							<button class="btn btn-primary" value="PDF" id="PDFButton" onclick="genPdf()" disabled="disabled">PDF</button>
-							
-							<%-- <a href="${pageContext.request.contextPath}/pdfForReport?url=showSaleBillwiseByFrPdf"
-								target="_blank">PDF</a> --%>
-</div>
+
 					</div>
-						
-					</div>
-				
-				
+
+				</div>
+
+				<br>
+
 				<div class="row">
-					<div class="col-md-12" style="text-align: center;">
-						
-				</div>
+					<div class="form-group">
+
+						<div class="col-sm-12" style="text-align: center;">
+							<button class="btn btn-primary" onclick="searchReport()">Search</button>
+							<input type="button" id="expExcel" class="btn btn-primary"
+								value="Export To Excel" onclick="exportToExcel();"
+								disabled="disabled">
 
 
-				<div align="center" id="loader" style="display: none">
+							<button class="btn btn-primary" value="PDF" id="PDFButton"
+								onclick="genPdf()" disabled="disabled">PDF</button>
 
-					<span>
-						<h4>
-							<font color="#343690">Loading</font>
-						</h4>
-					</span> <span class="l-1"></span> <span class="l-2"></span> <span
-						class="l-3"></span> <span class="l-4"></span> <span class="l-5"></span>
-					<span class="l-6"></span>
-				</div>
-
-			</div>
-	</div>
-	
-
-
-		<div class="box" >
-			<!-- <div class="box-title">
-				<h3>
-					<i class="fa fa-list-alt"></i>Sales Report
-				</h3>
-
-			</div> -->
-
-			<form id="submitBillForm"
-				action="${pageContext.request.contextPath}/submitNewBill"
-				method="post">
-				
-						<div class="col-md-12 table-responsive" style="background-color: white;">
-							<table class="table table-bordered table-striped fill-head "
-								style="width: 100%" id="table_grid" >
-								<thead style="background-color: #f3b5db;">
-									<tr>
-										<th style="text-align: center;">Party Code</th>
-										<th style="text-align: center;">Party Name</th>
-										<th style="text-align: center;">Sales</th>
-										<th style="text-align: center;">GVN</th>
-										<th style="text-align: center;">NET Value</th>
-										<th style="text-align: center;">GRN</th>
-										<th style="text-align: center;">NET Value</th>
-										<th style="text-align: center;">In Lakh</th>
-										<th style="text-align: center;">Return %</th>
-									</tr>
-								</thead>
-								<tbody>
-
-								</tbody>
-							</table>
-							<div class="form-group" style="display: none;" id="range">
-								 
-											 
-											 
-											<div class="col-sm-3  controls">
-											</div>
-											</div>
-								<div align="center" id="showchart" style="display: none; background-color:white;">
 						</div>
 					</div>
-					
-				<div id="chart" style="background-color: white;"> <br><br> <br>
-	<hr>
-        
-      
-    <div id="chart_div" style="width: 100%; height: 100%;"></div>
-    
-    
-     <div id="PieChart_div" style="width: 100%; height: 100%;"></div>
-			 
-				 
+
 				</div>
-			</form>
-		</div>	</div>
+
+
+				<div class="row">
+					<div class="col-md-12" style="text-align: center;"></div>
+
+
+					<div align="center" id="loader" style="display: none">
+
+						<span>
+							<h4>
+								<font color="#343690">Loading</font>
+							</h4>
+						</span> <span class="l-1"></span> <span class="l-2"></span> <span
+							class="l-3"></span> <span class="l-4"></span> <span class="l-5"></span>
+						<span class="l-6"></span>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="box">
+			<div class="box-content">
+
+				<form id="submitBillForm"
+					action="${pageContext.request.contextPath}/submitNewBill"
+					method="post">
+
+					<div class="col-md-12 table-responsive"
+						style="background-color: white;">
+						<table class="table table-bordered table-striped fill-head "
+							style="width: 100%" id="table_grid">
+							<thead style="background-color: #f3b5db;">
+								<tr>
+									<th style="text-align: center;">Party Code</th>
+									<th style="text-align: center;">Party Name</th>
+									<th style="text-align: center;">Sales</th>
+									<th style="text-align: center;">GVN</th>
+									<th style="text-align: center;">NET Value</th>
+									<th style="text-align: center;">GRN</th>
+									<th style="text-align: center;">NET Value</th>
+									<th style="text-align: center;">In Lakh</th>
+									<th style="text-align: center;">Return %</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+						<div class="form-group" style="display: none;" id="range">
+
+
+
+							<div class="col-sm-3  controls"></div>
+						</div>
+						<div align="center" id="showchart"
+							style="display: none; background-color: white;"></div>
+					</div>
+
+					<div id="chart" style="background-color: white; display: none;">
+						<br> <br> <br>
+						<hr>
+
+
+						<div id="chart_div"
+							style="width: 100%; height: 100%; display: none;"></div>
+
+
+						<div id="PieChart_div"
+							style="width: 100%; height: 100%; display: none;"></div>
+
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+
 	</div>
 	<!-- END Main Content -->
-	
+
 	<footer>
-	<p>2019 © Monginis.</p>
+		<p>2019 © Monginis.</p>
 	</footer>
 
 	<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i
@@ -274,13 +278,13 @@
 													  	totalInLac=totalInLac+inLac;
 													  	//totalRetPer=totalRetPer+retPer;
 													  	
-													  	tr.append($('<td style="text-align:right;"></td>').html(report.saleValue.toFixed(2)));
-													  	tr.append($('<td style="text-align:right;"></td>').html(report.gvnValue.toFixed(2)));
+													  	tr.append($('<td style="text-align:right;"></td>').html(addCommas(report.saleValue.toFixed(2))));
+													  	tr.append($('<td style="text-align:right;"></td>').html(addCommas(report.gvnValue.toFixed(2))));
 													  	
-													  	tr.append($('<td style="text-align:right;"></td>').html(netVal1.toFixed(2)));
+													  	tr.append($('<td style="text-align:right;"></td>').html(addCommas(netVal1.toFixed(2))));
 													 
-														tr.append($('<td style="text-align:right;"></td>').html((report.grnValue).toFixed(2)));
-														tr.append($('<td style="text-align:right;"></td>').html(netVal2.toFixed(2)));
+														tr.append($('<td style="text-align:right;"></td>').html(addCommas(report.grnValue.toFixed(2))));
+														tr.append($('<td style="text-align:right;"></td>').html(addCommas(netVal2.toFixed(2))));
 														
 //alert("In Lac  " +inLac)
 														tr.append($('<td style="text-align:right;"></td>').html(inLac.toFixed(2)));
@@ -309,12 +313,12 @@
 
 									tr.append($('<td></td>').html("Total"));
 									tr.append($('<td></td>').html(""));
-									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+totalSaleValue.toFixed(2)));
-									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+totalGvnValue.toFixed(2)));
-									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+totalNetVal1.toFixed(2)));
-									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+totalGrnValue.toFixed(2)));
-									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+totalNetVal2.toFixed(2)));
-									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+totalInLac.toFixed(2)));
+									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+addCommas(totalSaleValue.toFixed(2))));
+									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+addCommas(totalGvnValue.toFixed(2))));
+									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+addCommas(totalNetVal1.toFixed(2))));
+									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+addCommas(totalGrnValue.toFixed(2))));
+									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+addCommas(totalNetVal2.toFixed(2))));
+									tr.append($('<td style="text-align:right;font-weight:bold;"></td>').html(""+addCommas(totalInLac.toFixed(2))));
 									
 									totalRetPer=(totalGrnValue)/(totalSaleValue/100);
 									
@@ -331,7 +335,7 @@
 		}
 	</script>
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 	function validate() {
 
 		var selectedFr = $("#selectFr").val();
@@ -350,7 +354,7 @@
 
 	}
 	</script>
-	
+
 
 	<script>
 $('.datepicker').datepicker({
@@ -367,6 +371,34 @@ $('.datepicker').datepicker({
 });
 
 </script>
+
+
+	<script type="text/javascript">
+		function setAllFranchisee(frId) {
+			if (frId == -1) {
+				$.getJSON('${getAllFrListForFrSalesReportAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					$('#selectFr').find('option').remove().end()
+
+					$("#selectFr").append(
+							$("<option ></option>").attr("value", -1).text(
+									"Select All"));
+
+					for (var i = 0; i < len; i++) {
+
+						$("#selectFr").append(
+								$("<option selected></option>").attr("value",
+										data[i].frId).text(data[i].frName));
+					}
+
+					$("#selectFr").trigger("chosen:updated");
+				});
+			}
+		}
+	</script>
+
 
 	<script type="text/javascript">
 
@@ -392,8 +424,8 @@ function disableRoute(){
 }
 
 </script>
-	
-<script type="text/javascript">
+
+	<script type="text/javascript">
 function showChart(){
 	
 	
@@ -571,6 +603,25 @@ function exportToExcel()
 			document.getElementById("expExcel").disabled=true;
 }
 </script>
+
+
+	<script type="text/javascript">
+	 function addCommas(x){
+
+		 x=String(x).toString();
+		  var afterPoint = '';
+		  if(x.indexOf('.') > 0)
+		     afterPoint = x.substring(x.indexOf('.'),x.length);
+		  x = Math.floor(x);
+		  x=x.toString();
+		  var lastThree = x.substring(x.length-3);
+		  var otherNumbers = x.substring(0,x.length-3);
+		  if(otherNumbers != '')
+		      lastThree = ',' + lastThree;
+		  return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		 } 
+	</script>
+
 
 	<!--basic scripts-->
 	<script

@@ -32,14 +32,15 @@
 	<!-- BEGIN Content -->
 	<div id="main-content">
 		<!-- BEGIN Page Title -->
-		<!-- <div class="page-title">
+		<div class="page-title">
 			<div>
 				<h1>
-					<i class="fa fa-file-o"></i>Franchisee SubCategory Item-wise Report
+					<i class="fa fa-file-o"></i>Franchise wise Sub Category wise Item
+					wise Report
 				</h1>
 				<h4></h4>
 			</div>
-		</div> -->
+		</div>
 		<!-- END Page Title -->
 
 		<!-- BEGIN Breadcrumb -->
@@ -57,7 +58,8 @@
 		<div class="box">
 			<div class="box-title">
 				<h3>
-					<i class="fa fa-bars"></i> Franchisee SubCategory Item-wise Report
+					<i class="fa fa-bars"></i>Franchise wise Sub Category wise Item
+					wise Report
 				</h3>
 
 			</div>
@@ -167,7 +169,7 @@
 
 				<br>
 				<div class="row">
-					<div class="col-md-6" style="text-align: center;">
+					<div class="col-md-12" style="text-align: center;">
 						<button class="btn btn-primary" onclick="searchReport()">Search</button>
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button>
@@ -250,9 +252,6 @@
 
 
 
-
-
-
 	<script type="text/javascript">
 		function searchReport() {
 			//	var isValid = validate();
@@ -278,6 +277,8 @@
 
 							},
 							function(data) {
+
+								//alert(JSON.stringify(data));
 
 								$('#table_grid td').remove();
 								$('#loader').hide();
@@ -496,61 +497,61 @@
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.soldQty
-																																	.toFixed(2)));
+																															addCommas(report.soldQty
+																																	.toFixed(2))));
 
 																									tr
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.soldAmt
-																																	.toFixed(2)));
+																															addCommas(report.soldAmt
+																																	.toFixed(2))));
 
 																									tr
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.varQty
-																																	.toFixed(2)));
+																															addCommas(report.varQty
+																																	.toFixed(2))));
 
 																									tr
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.varAmt
-																																	.toFixed(2)));
+																															addCommas(report.varAmt
+																																	.toFixed(2))));
 
 																									tr
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.retQty
-																																	.toFixed(2)));
+																															addCommas(report.retQty
+																																	.toFixed(2))));
 																									tr
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.retAmt
-																																	.toFixed(2)));
+																															addCommas(report.retAmt
+																																	.toFixed(2))));
 
 																									tr
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.netQty
-																																	.toFixed(2)));
+																															addCommas(report.netQty
+																																	.toFixed(2))));
 																									tr
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.netAmt
-																																	.toFixed(2)));
+																															addCommas(report.netAmt
+																																	.toFixed(2))));
 																									tr
 																											.append($(
 																													'<td style="text-align:right;"></td>')
 																													.html(
-																															report.retAmtPer
-																																	.toFixed(2)));
+																															addCommas(report.retAmtPer
+																																	.toFixed(2))));
 
 																									$(
 																											'#table_grid tbody')
@@ -579,58 +580,58 @@
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								SoldQty
-																										.toFixed(2)));
+																								addCommas(SoldQty
+																										.toFixed(2))));
 																		tr
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								SoldAmt
-																										.toFixed(2)));
+																								addCommas(SoldAmt
+																										.toFixed(2))));
 																		tr
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								VarQty
-																										.toFixed(2)));
+																								addCommas(VarQty
+																										.toFixed(2))));
 																		tr
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								VarAmt
-																										.toFixed(2)));
+																								addCommas(VarAmt
+																										.toFixed(2))));
 																		tr
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								RetQty
-																										.toFixed(2)));
+																								addCommas(RetQty
+																										.toFixed(2))));
 																		tr
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								RetAmt
-																										.toFixed(2)));
+																								addCommas(RetAmt
+																										.toFixed(2))));
 
 																		tr
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								NetQty
-																										.toFixed(2)));
+																								addCommas(NetQty
+																										.toFixed(2))));
 																		tr
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								NetAmt
-																										.toFixed(2)));
+																								addCommas(NetAmt
+																										.toFixed(2))));
 
 																		tr
 																				.append($(
 																						'<td style="text-align:right;"></td>')
 																						.html(
-																								AmtPer
-																										.toFixed(2)));
+																								addCommas(AmtPer
+																										.toFixed(2))));
 
 																		$(
 																				'#table_grid tbody')
@@ -672,58 +673,58 @@
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			totalSoldQty
-																					.toFixed(2)));
+																			addCommas(totalSoldQty
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			totalSoldAmt
-																					.toFixed(2)));
+																			addCommas(totalSoldAmt
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			totalVarQty
-																					.toFixed(2)));
+																			addCommas(totalVarQty
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			totalVarAmt
-																					.toFixed(2)));
+																			addCommas(totalVarAmt
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			totalRetQty
-																					.toFixed(2)));
+																			addCommas(totalRetQty
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			totalRetAmt
-																					.toFixed(2)));
+																			addCommas(totalRetAmt
+																					.toFixed(2))));
 
 													tr
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			totalNetQty
-																					.toFixed(2)));
+																			addCommas(totalNetQty
+																					.toFixed(2))));
 													tr
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			totalNetAmt
-																					.toFixed(2)));
+																			addCommas(totalNetAmt
+																					.toFixed(2))));
 
 													tr
 															.append($(
 																	'<td style="text-align:right;"></td>')
 																	.html(
-																			retAmtPer
-																					.toFixed(2)));
+																			addCommas(retAmtPer
+																					.toFixed(2))));
 
 													$('#table_grid tbody')
 															.append(tr);
@@ -739,39 +740,589 @@
 										.html("Final Total"));
 								tr.append($(
 										'<td style="text-align:right;"></td>')
-										.html(finalSoldQty.toFixed(2)));
+										.html(
+												addCommas(finalSoldQty
+														.toFixed(2))));
 								tr.append($(
 										'<td style="text-align:right;"></td>')
-										.html(finalSoldAmt.toFixed(2)));
-								tr.append($(
-										'<td style="text-align:right;"></td>')
-										.html(finalVarQty.toFixed(2)));
-								tr.append($(
-										'<td style="text-align:right;"></td>')
-										.html(finalVarAmt.toFixed(2)));
-								tr.append($(
-										'<td style="text-align:right;"></td>')
-										.html(finalRetQty.toFixed(2)));
-								tr.append($(
-										'<td style="text-align:right;"></td>')
-										.html(finalRetAmt.toFixed(2)));
+										.html(
+												addCommas(finalSoldAmt
+														.toFixed(2))));
+								tr
+										.append($(
+												'<td style="text-align:right;"></td>')
+												.html(
+														addCommas(finalVarQty
+																.toFixed(2))));
+								tr
+										.append($(
+												'<td style="text-align:right;"></td>')
+												.html(
+														addCommas(finalVarAmt
+																.toFixed(2))));
+								tr
+										.append($(
+												'<td style="text-align:right;"></td>')
+												.html(
+														addCommas(finalRetQty
+																.toFixed(2))));
+								tr
+										.append($(
+												'<td style="text-align:right;"></td>')
+												.html(
+														addCommas(finalRetAmt
+																.toFixed(2))));
+
+								tr
+										.append($(
+												'<td style="text-align:right;"></td>')
+												.html(
+														addCommas(finalNetQty
+																.toFixed(2))));
+								tr
+										.append($(
+												'<td style="text-align:right;"></td>')
+												.html(
+														addCommas(finalNetAmt
+																.toFixed(2))));
 
 								tr.append($(
 										'<td style="text-align:right;"></td>')
-										.html(finalNetQty.toFixed(2)));
-								tr.append($(
-										'<td style="text-align:right;"></td>')
-										.html(finalNetAmt.toFixed(2)));
-
-								tr.append($(
-										'<td style="text-align:right;"></td>')
-										.html(finalretAmtPer.toFixed(2)));
+										.html(
+												addCommas(finalretAmtPer
+														.toFixed(2))));
 
 								$('#table_grid tbody').append(tr);
 
 							});
 		}
 	</script>
+
+
+
+
+
+	<!-- <script type="text/javascript">
+		function searchReport() {
+			//	var isValid = validate();
+
+			var selectedFr = $("#selectFr").val();
+			var selectedSubCat = $("#item_grp2").val();
+
+			var from_date = $("#fromDate").val();
+			var to_date = $("#toDate").val();
+
+			$('#loader').show();
+
+			$
+					.getJSON(
+							'${getBillList}',
+
+							{
+								fr_id_list : JSON.stringify(selectedFr),
+								subCat_id_list : JSON.stringify(selectedSubCat),
+								fromDate : from_date,
+								toDate : to_date,
+								ajax : 'true'
+
+							},
+							function(data) {
+								
+								alert(JSON.stringify(data));
+
+								$('#table_grid td').remove();
+								$('#loader').hide();
+
+								if (data == "") {
+									alert("No records found !!");
+									document.getElementById("expExcel").disabled = true;
+								}
+
+								var finalSoldQty = 0;
+								var finalSoldAmt = 0;
+								var finalVarQty = 0;
+								var finalVarAmt = 0;
+								var finalRetQty = 0;
+								var finalRetAmt = 0;
+								var finalNetQty = 0;
+								var finalNetAmt = 0;
+								var finalretAmtPer = 0;
+
+								$
+										.each(
+												data.frList,
+												function(key, fr) {
+
+													var index = 0;
+													var tr = $('<tr></tr>');
+
+													tr.append($('<td></td>')
+															.html(fr.frName));
+													tr.append($('<td></td>')
+															.html(""));
+													tr.append($('<td></td>')
+															.html(""));
+													tr.append($('<td></td>')
+															.html(""));
+													tr.append($('<td></td>')
+															.html(""));
+													tr.append($('<td></td>')
+															.html(""));
+													tr.append($('<td></td>')
+															.html(""));
+
+													tr.append($('<td></td>')
+															.html(""));
+													tr.append($('<td></td>')
+															.html(""));
+													tr.append($('<td></td>')
+															.html(""));
+													tr.append($('<td></td>')
+															.html(""));
+
+													$('#table_grid tbody')
+															.append(tr);
+
+													var totalSoldQty = 0;
+													var totalSoldAmt = 0;
+													var totalVarQty = 0;
+													var totalVarAmt = 0;
+													var totalRetQty = 0;
+													var totalRetAmt = 0;
+													var totalNetQty = 0;
+													var totalNetAmt = 0;
+													var retAmtPer = 0;
+
+													$
+															.each(
+																	data.subCatList,
+																	function(
+																			key,
+																			subCat) {
+
+																		var SoldQty = 0;
+																		var SoldAmt = 0;
+																		var VarQty = 0;
+																		var VarAmt = 0;
+																		var RetQty = 0;
+																		var RetAmt = 0;
+																		var NetQty = 0;
+																		var NetAmt = 0;
+																		var AmtPer = 0;
+
+																		var tr = $('<tr></tr>');
+
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								subCat.subCatName));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+																		tr
+																				.append($(
+																						'<td></td>')
+																						.html(
+																								""));
+
+																		$(
+																				'#table_grid tbody')
+																				.append(
+																						tr);
+
+																		$
+																				.each(
+																						data.subCatItemReport,
+																						function(
+																								key1,
+																								report) {
+																							if (subCat.subCatId == report.subCatId) {
+
+																								if (fr.frId == report.frId) {
+
+																									SoldQty = SoldQty
+																											+ report.soldQty;
+																									SoldAmt = SoldAmt
+																											+ report.soldAmt;
+																									VarQty = VarQty
+																											+ report.varQty;
+																									VarAmt = VarAmt
+																											+ report.varAmt;
+																									RetQty = RetQty
+																											+ report.retQty;
+																									RetAmt = RetAmt
+																											+ report.retAmt;
+																									NetQty = NetQty
+																											+ report.netQty;
+																									NetAmt = NetAmt
+																											+ report.netAmt;
+																									AmtPer = AmtPer
+																											+ report.retAmtPer;
+
+																									totalSoldQty = totalSoldQty
+																											+ report.soldQty;
+																									totalSoldAmt = totalSoldAmt
+																											+ report.soldAmt;
+																									totalVarQty = totalVarQty
+																											+ report.varQty;
+																									totalVarAmt = totalVarAmt
+																											+ report.varAmt;
+																									totalRetQty = totalRetQty
+																											+ report.retQty;
+																									totalRetAmt = totalRetAmt
+																											+ report.retAmt;
+																									totalNetQty = totalNetQty
+																											+ report.netQty;
+																									totalNetAmt = totalNetAmt
+																											+ report.netAmt;
+																									retAmtPer = retAmtPer
+																											+ report.retAmtPer;
+
+																									document
+																											.getElementById("expExcel").disabled = false;
+																									document
+																											.getElementById('range').style.display = 'block';
+																									index = index + 1;
+																									//var tr = "<tr>";
+
+																									var tr = $('<tr></tr>');
+
+																									tr
+																											.append($(
+																													'<td></td>')
+																													.html(
+																															index));
+
+																									tr
+																											.append($(
+																													'<td></td>')
+																													.html(
+																															report.itemName));
+
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.soldQty
+																																	.toFixed(2))));
+
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.soldAmt
+																																	.toFixed(2))));
+
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.varQty
+																																	.toFixed(2))));
+
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.varAmt
+																																	.toFixed(2))));
+
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.retQty
+																																	.toFixed(2))));
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.retAmt
+																																	.toFixed(2))));
+
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.netQty
+																																	.toFixed(2))));
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.netAmt
+																																	.toFixed(2))));
+																									tr
+																											.append($(
+																													'<td style="text-align:right;"></td>')
+																													.html(
+																															addCommas(report.retAmtPer
+																																	.toFixed(2))));
+
+																									$(
+																											'#table_grid tbody')
+																											.append(
+																													tr);
+
+																								}
+																							}
+
+																						});
+
+																		var tr = $('<tr></tr>');
+
+																		tr
+																				.append($(
+																						'<td  ></td>')
+																						.html(
+																								" "));
+
+																		tr
+																				.append($(
+																						'<td style="font-weight:bold;"></td>')
+																						.html(
+																								"Total"));
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(SoldQty
+																										.toFixed(2))));
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(SoldAmt
+																										.toFixed(2))));
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(VarQty
+																										.toFixed(2))));
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(VarAmt
+																										.toFixed(2))));
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(RetQty
+																										.toFixed(2))));
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(RetAmt
+																										.toFixed(2))));
+
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(NetQty
+																										.toFixed(2))));
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(NetAmt
+																										.toFixed(2))));
+
+																		tr
+																				.append($(
+																						'<td style="text-align:right;"></td>')
+																						.html(
+																								addCommas(AmtPer
+																										.toFixed(2))));
+
+																		$(
+																				'#table_grid tbody')
+																				.append(
+																						tr);
+
+																	});
+
+													finalSoldQty = finalSoldQty
+															+ totalSoldQty;
+													finalSoldAmt = finalSoldAmt
+															+ totalSoldAmt;
+													finalVarQty = finalVarQty
+															+ totalVarQty;
+													finalVarAmt = finalVarAmt
+															+ totalVarAmt;
+													finalRetQty = finalRetQty
+															+ totalRetQty;
+													finalRetAmt = finalRetAmt
+															+ totalRetAmt;
+													finalNetQty = finalNetQty
+															+ totalNetQty;
+													finalNetAmt = finalNetAmt
+															+ totalNetAmt;
+													finalretAmtPer = finalretAmtPer
+															+ retAmtPer;
+
+													var tr = $('<tr></tr>');
+
+													tr.append($('<td  ></td>')
+															.html(" "));
+
+													tr
+															.append($(
+																	'<td style="font-weight:bold;"></td>')
+																	.html(
+																			"Franchisee Total"));
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(totalSoldQty
+																					.toFixed(2))));
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(totalSoldAmt
+																					.toFixed(2))));
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(totalVarQty
+																					.toFixed(2))));
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(totalVarAmt
+																					.toFixed(2))));
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(totalRetQty
+																					.toFixed(2))));
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(totalRetAmt
+																					.toFixed(2))));
+
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(totalNetQty
+																					.toFixed(2))));
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(totalNetAmt
+																					.toFixed(2))));
+
+													tr
+															.append($(
+																	'<td style="text-align:right;"></td>')
+																	.html(
+																			addCommas(retAmtPer
+																					.toFixed(2))));
+
+													$('#table_grid tbody')
+															.append(tr);
+
+												})
+
+								var tr = $('<tr></tr>');
+
+								tr.append($('<td  ></td>').html(" "));
+
+								tr.append($(
+										'<td style="font-weight:bold;"></td>')
+										.html("Final Total"));
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalSoldQty.toFixed(2))));
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalSoldAmt.toFixed(2))));
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalVarQty.toFixed(2))));
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalVarAmt.toFixed(2))));
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalRetQty.toFixed(2))));
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalRetAmt.toFixed(2))));
+
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalNetQty.toFixed(2))));
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalNetAmt.toFixed(2))));
+
+								tr.append($(
+										'<td style="text-align:right;"></td>')
+										.html(addCommas(finalretAmtPer.toFixed(2))));
+
+								$('#table_grid tbody').append(tr);
+
+							});
+		}
+	</script> -->
 
 
 
@@ -941,6 +1492,24 @@
 		}
 	</script>
 
+
+	<script type="text/javascript">
+		function addCommas(x) {
+
+			x = String(x).toString();
+			var afterPoint = '';
+			if (x.indexOf('.') > 0)
+				afterPoint = x.substring(x.indexOf('.'), x.length);
+			x = Math.floor(x);
+			x = x.toString();
+			var lastThree = x.substring(x.length - 3);
+			var otherNumbers = x.substring(0, x.length - 3);
+			if (otherNumbers != '')
+				lastThree = ',' + lastThree;
+			return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",")
+					+ lastThree + afterPoint;
+		}
+	</script>
 
 
 
