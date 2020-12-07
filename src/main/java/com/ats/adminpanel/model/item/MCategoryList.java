@@ -3,59 +3,79 @@ package com.ats.adminpanel.model.item;
 
 import java.util.List;
 
+
 public class MCategoryList {
 
-    private Integer catId;
-    private String catName;
-    private Integer isSameDay;
-    private Integer delStatus;
-    private List<SubCategory> subCategoryList = null;
+	  private Integer catId;
+	    private String catName;
+	    private Integer isSameDay;
+	    private Integer delStatus;
+		private String itemImage;
+		private int seqNo;
+	    private List<SubCategory> subCategoryList = null;
 
-    public Integer getCatId() {
-        return catId;
-    }
+	    
+	    public int getSeqNo() {
+			return seqNo;
+		}
 
-    public void setCatId(Integer catId) {
-        this.catId = catId;
-    }
+		public void setSeqNo(int seqNo) {
+			this.seqNo = seqNo;
+		}
 
-    public String getCatName() {
-        return catName;
-    }
+		public Integer getCatId() {
+	        return catId;
+	    }
 
-    public void setCatName(String catName) {
-        this.catName = catName;
-    }
+	    public void setCatId(Integer catId) {
+	        this.catId = catId;
+	    }
 
-    public Integer getIsSameDay() {
-        return isSameDay;
-    }
+	    public String getCatName() {
+	        return catName;
+	    }
 
-    public void setIsSameDay(Integer isSameDay) {
-        this.isSameDay = isSameDay;
-    }
+	    public void setCatName(String catName) {
+	        this.catName = catName;
+	    }
 
-    public Integer getDelStatus() {
-        return delStatus;
-    }
+	    public Integer getIsSameDay() {
+	        return isSameDay;
+	    }
 
-    public void setDelStatus(Integer delStatus) {
-        this.delStatus = delStatus;
-    }
+	    public void setIsSameDay(Integer isSameDay) {
+	        this.isSameDay = isSameDay;
+	    }
 
-	public List<SubCategory> getSubCategoryList() {
-		return subCategoryList;
-	}
+	    public Integer getDelStatus() {
+	        return delStatus;
+	    }
 
-	public void setSubCategoryList(List<SubCategory> subCategoryList) {
-		this.subCategoryList = subCategoryList;
-	}
+	    public void setDelStatus(Integer delStatus) {
+	        this.delStatus = delStatus;
+	    }
 
-	@Override
-	public String toString() {
-		return "MCategoryList [catId=" + catId + ", catName=" + catName + ", isSameDay=" + isSameDay + ", delStatus="
-				+ delStatus + ", subCategoryList=" + subCategoryList + "]";
-	}
+		public List<SubCategory> getSubCategoryList() {
+			return subCategoryList;
+		}
 
+		public void setSubCategoryList(List<SubCategory> subCategoryList) {
+			this.subCategoryList = subCategoryList;
+		}
+
+		public String getItemImage() {
+			return itemImage;
+		}
+
+		public void setItemImage(String itemImage) {
+			this.itemImage = itemImage;
+		}
+
+		@Override
+		public String toString() {
+			return "MCategoryList [catId=" + catId + ", catName=" + catName + ", isSameDay=" + isSameDay + ", delStatus="
+					+ delStatus + ", itemImage=" + itemImage + ", seqNo=" + seqNo + ", subCategoryList=" + subCategoryList
+					+ "]";
+		}
   
 }

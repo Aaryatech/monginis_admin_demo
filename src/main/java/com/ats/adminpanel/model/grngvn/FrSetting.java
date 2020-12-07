@@ -1,20 +1,23 @@
 package com.ats.adminpanel.model.grngvn;
 
 public class FrSetting {
-	
+
 	private int frSettingId;
 
 	private int frId;
-	
+
 	private String frCode;
 
 	private int sellBillNo;
-	
+
 	private int grnGvnNo;
 
 	private int spNo;
-	
-	
+
+	private int count;
+	private int posCr;
+	private String exVarchar;
+
 	public int getSpNo() {
 		return spNo;
 	}
@@ -63,12 +66,35 @@ public class FrSetting {
 		this.grnGvnNo = grnGvnNo;
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getExVarchar() {
+		return exVarchar;
+	}
+
+	public void setExVarchar(String exVarchar) {
+		this.exVarchar = exVarchar;
+	}
+
+	public int getPosCr() {
+		return posCr;
+	}
+
+	public void setPosCr(int posCr) {
+		this.posCr = posCr;
+	}
+
 	@Override
 	public String toString() {
 		return "FrSetting [frSettingId=" + frSettingId + ", frId=" + frId + ", frCode=" + frCode + ", sellBillNo="
-				+ sellBillNo + ", grnGvnNo=" + grnGvnNo + ", spNo=" + spNo + "]";
+				+ sellBillNo + ", grnGvnNo=" + grnGvnNo + ", spNo=" + spNo + ", count=" + count + ", posCr=" + posCr
+				+ ", exVarchar=" + exVarchar + "]";
 	}
-
-	
 
 }

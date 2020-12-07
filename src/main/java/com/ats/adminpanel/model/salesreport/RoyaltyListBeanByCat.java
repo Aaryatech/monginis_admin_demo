@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ats.adminpanel.model.item.MCategoryList;
 
-public class RoyaltyListBeanByCat {
+public class RoyaltyListBeanByCat { 
 	 List<MCategoryList> categoryList;
 		
 	 List<SalesRoyaltyConsByCat> salesReportRoyalty;

@@ -1,7 +1,7 @@
 package com.ats.adminpanel.model.salesreport;
 
 public class SalesRoyaltyConsByCat {
-
+ 
 private String uid;
 	
 	private int id;
