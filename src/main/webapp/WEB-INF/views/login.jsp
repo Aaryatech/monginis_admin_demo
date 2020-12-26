@@ -5,10 +5,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Monginis-Admin</title>
+	<title>ATS</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/img/monginislogo.png"/>
+	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/img/ats-logo.png"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
@@ -42,6 +42,14 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="login_left">
+						<img src="${pageContext.request.contextPath}/resources/img/ats-logo.png" style="margin: 40% 0px 0px 20%;"> 
+						<!-- <h2 class="welcome">Welcome to ATS</h2>
+						<p class="welcome_txt">	Lets make ATS a part of everybody’s celebration!!</p>  -->
+							
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="login_right">
 							<form class="login100-form validate-form" id="form-login" action="loginProcess" method="post">
 				
 			     
@@ -126,14 +134,7 @@
 				</form>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="login_right">
-						<img src="${pageContext.request.contextPath}/resources/img/monginislogo.png">
-						<h2 class="welcome">Welcome to Monginis</h2>
-						<p class="welcome_txt">	Lets make Monginis a part of everybody’s celebration!!</p>
-							
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>

@@ -124,7 +124,7 @@
 										<div class="clearfix"></div>
 										<div class="table-responsive" style="border: 0">
 											<table width="100%" class="table table-advance" id="table1">
-												<thead style="background-color: #f3b5db;">
+												<thead style="background-color: #2196F3;">
 													<tr>
 									<th width="45" style="width: 18px">Select</th>
 										

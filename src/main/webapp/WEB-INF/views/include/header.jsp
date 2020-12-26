@@ -45,7 +45,7 @@
 	href="${pageContext.request.contextPath}/resources/assets/bootstrap-daterangepicker/daterangepicker.css" />
 	
 	  <link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/img/monginislogo.png">
+	href="${pageContext.request.contextPath}/resources/img/atsfav.png">
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script>
